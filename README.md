@@ -257,7 +257,25 @@ python3 -m http.server 8000
 3. 用真实学生答题数据校准诊断题与先修强度。
 
 
-## 部署（Cloudflare Pages）
+## 部署
+
+### 本 fork 的 GitHub Pages
+
+站点：[kai987.github.io/cn-math-taxonomy-QD](https://kai987.github.io/cn-math-taxonomy-QD/)。
+向 `main` 推送后，`.github/workflows/pages.yml` 会先校验数据、运行引擎与发布测试，再构建、发布 GitHub Pages。仓库 Settings → Pages 的 Source 使用 **GitHub Actions**。
+
+构建脚本 `scripts/build_site.py` 仅打包页面所需文件，把完整提交 SHA 写入页面和 `version.json`，并为 CSS、JavaScript、数据请求加上版本参数。页面打开时会绕过缓存检查线上版本，发现旧 HTML 会保留路径、URL 参数和锚点重新加载；用户已经开始操作时改为提示更新。诊断存档不会被清除。离线或检查失败时页面继续使用已有内容。首次从旧版升级时，可直接打开 `?v=提交SHA` 的页面，以避开旧版 HTML 缓存。
+
+本地仍可直接运行 `python3 -m http.server 8000`；开发页面不检查线上版本。测试发布包可以运行：
+
+```bash
+python3 scripts/build_site.py --version "$(git rev-parse HEAD)" --output /tmp/cnm-site-preview
+python3 -m http.server 8001 --directory /tmp/cnm-site-preview
+```
+
+输出目录须为空；无需安装依赖。GitHub Pages 的 CDN 缓存与部署传播仍由 GitHub 控制，版本检查无法使断网的旧页面获得新文件。
+
+### 上游原有的 Cloudflare 部署方式
 
 生产站点：https://math.pansgo.com/ （Pages 项目 `cn-math-taxonomy`，备用 https://cn-math-taxonomy.pages.dev/）。
 

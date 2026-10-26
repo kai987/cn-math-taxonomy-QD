@@ -27,6 +27,9 @@
   let startQuery = '';
   let startStage = '';
   let seedParam = null;    // URL 参数 seed：固定选题的随机种子
+  const touchInput = window.matchMedia('(pointer: coarse)');
+  const dataVersion = document.querySelector('meta[name="app-version"]').content;
+  function fetchData(path) { return fetch(path + '?v=' + encodeURIComponent(dataVersion)); }
 
   /* ------------------------------------------------------------ 小工具 */
   function h(tag, attrs) {
@@ -81,13 +84,13 @@
   /* ------------------------------------------------------------ 数据 */
   async function loadData() {
     const urls = ['../data/topics.json', '../data/dependencies.json', '../data/cn-curriculum-standards.json', '../data/id-aliases.json'];
-    const rs = await Promise.all(urls.map(function (u) { return fetch(u); }));
+    const rs = await Promise.all(urls.map(fetchData));
     rs.forEach(function (r, i) { if (!r.ok) throw new Error(urls[i] + ' → HTTP ' + r.status); });
     const js = await Promise.all(rs.map(function (r) { return r.json(); }));
     // 题库可选：缺失（404）或损坏时回退到 topics.json 的 diagnostic_question
     let questions = null;
     try {
-      const qr = await fetch('../data/questions.json');
+      const qr = await fetchData('../data/questions.json');
       if (qr.ok) questions = await qr.json();
     } catch (e) { questions = null; }
     const stdById = {};
@@ -226,17 +229,19 @@
     });
     page.append(h('div', { class: 'card' },
       h('h2', { text: '1. 选择诊断目标' }),
-      h('p', { class: 'muted' }, '选一个你想学会（或想检查）的知识点，或者选整章。工具会从目标开始提问：第一题答对就算掌握；答错会再出一道同级或更容易的题——第二题也错才算薄弱，并回溯到它的先修知识点，找到真正薄弱的根因；第二题答对则标为「不稳」。'),
-      h('div', { class: 'row' },
+      h('p', { class: 'muted' }, '选择一个知识点或整章，检查掌握情况，找到需要巩固的先修知识。'),
+      h('details', { class: 'how-it-works' }, h('summary', null, '诊断如何进行？'),
+        h('p', { class: 'muted small' }, '工具会从目标开始提问：第一题答对就算掌握；答错会再出一道同级或更容易的题——第二题也错才算薄弱，并回溯到它的先修知识点，找到真正薄弱的根因；第二题答对则标为「不稳」。')),
+      h('div', { class: 'row limit-settings' },
         h('label', null, '题量上限（' + LIMIT_MIN + '–' + LIMIT_MAX + '）：', limitInput),
         h('span', { class: 'muted small' }, '每个知识点最多问 2 题；达到上限时，没测到的知识点会标为「未测」。')),
-      h('div', { class: 'row', style: 'margin-top:8px' },
-        h('select', { id: 'stage', onchange: function (e) { startStage = e.target.value; fillList(listBox); } },
+      h('div', { class: 'target-filters' },
+        h('select', { id: 'stage', 'aria-label': '按学段筛选', onchange: function (e) { startStage = e.target.value; fillList(listBox); } },
           h('option', { value: '', selected: startStage === '', text: '全部学段' }),
           h('option', { value: 'p', selected: startStage === 'p', text: '小学 1–6 年级' }),
           h('option', { value: 'j', selected: startStage === 'j', text: '初中 7–9 年级' })),
         h('input', {
-          type: 'search', class: 'grow', id: 'search', placeholder: '搜索知识点（名称、描述、章节），如：20 以内加法、配方法、一次函数',
+          type: 'search', class: 'grow', id: 'search', 'aria-label': '搜索诊断目标', placeholder: '搜索知识点或章节，如：配方法',
           value: startQuery, oninput: function (e) { startQuery = e.target.value; fillList(listBox); }
         }))));
     const listBox = h('div', { id: 'target-list' });
@@ -245,7 +250,7 @@
       '数据来自本项目的 data/*.json（AI 生成的草稿，先修关系与题库未经教师审核）。进度和「出过的题」只保存在本机浏览器里（localStorage）。'));
     show(page);
     fillList(listBox);
-    if (startQuery) { const el = document.getElementById('search'); if (el) el.focus(); }
+    if (startQuery && !touchInput.matches) { const el = document.getElementById('search'); if (el) el.focus(); }
   }
 
   function fillList(box) {
@@ -283,9 +288,9 @@
             }, '以整章为目标')),
           c.rows.map(function (x) {
             return h('div', { class: 'topic-row', title: x.t.description },
-              h('span', { class: 'nm', text: x.t.name }),
-              h('span', { class: 'sec', text: x.section }),
-              h('button', { onclick: function () { startSession([x.t.id], x.t.name); } }, '选为目标'));
+              h('div', { class: 'topic-copy' }, h('span', { class: 'nm', text: x.t.name }),
+                x.section ? h('span', { class: 'sec', text: x.section }) : null),
+              h('button', { 'aria-label': '诊断：' + x.t.name, onclick: function () { startSession([x.t.id], x.t.name); } }, '选为目标'));
           })));
       });
       box.append(det);
@@ -338,13 +343,13 @@
     const key = id + '#' + item.attempt;
     if (ui.key !== key) ui = { key: key, phase: 'ask', answer: '', verdict: null, picked: null };
     const n = session.answers.length;
-    const card = h('div', { class: 'card' });
+    const card = h('div', { class: 'card question-card' });
     card.append(
-      h('div', { class: 'row' },
+      h('div', { class: 'question-meta' },
         h('span', { class: 'muted' }, '目标：' + sessionMeta.label),
         h('span', { class: 'grow' }),
         h('span', { class: 'muted' }, '第 ' + (n + 1) + ' 题 / 上限 ' + session.limit)),
-      h('div', { class: 'progress' }, h('i', { style: 'width:' + Math.round(n / session.limit * 100) + '%' })),
+      h('div', { class: 'progress', role: 'progressbar', 'aria-label': '诊断进度', 'aria-valuenow': n, 'aria-valuemin': 0, 'aria-valuemax': session.limit }, h('i', { style: 'width:' + Math.round(n / session.limit * 100) + '%' })),
       h('h2', { class: 'q-title' }, t.name, ' ', h('span', { class: 'tag', text: t.chapter })),
       h('div', { class: 'row small', style: 'margin:2px 0' },
         h('span', { class: 'tag diff-' + q.difficulty, text: DIFF_LABEL[q.difficulty] || q.difficulty }),
@@ -357,24 +362,32 @@
       if (q.type === 'choice') {
         card.append(h('div', { class: 'choices', id: 'choices' }, (q.choices || []).map(function (c) {
           return h('button', {
-            class: 'choice' + (ui.picked === c.key ? ' picked' : ''), id: 'choice-' + c.key, 'data-key': c.key,
-            onclick: function () { ui.picked = c.key; ui.answer = c.key; renderQuestion(item); }
+            class: 'choice' + (ui.picked === c.key ? ' picked' : ''), id: 'choice-' + c.key, 'data-key': c.key, 'aria-pressed': String(ui.picked === c.key),
+            onclick: function () {
+              ui.picked = c.key; ui.answer = c.key;
+              card.querySelectorAll('.choice').forEach(function (button) {
+                const picked = button.dataset.key === c.key;
+                button.classList.toggle('picked', picked);
+                button.setAttribute('aria-pressed', String(picked));
+              });
+              document.getElementById('btn-submit').disabled = false;
+            }
           }, h('b', { text: c.key + '.' }), ' ', c.text);
         })));
       } else if (q.type === 'self') {
         card.append(h('textarea', {
-          class: 'ans-input', id: 'ans', rows: 3, placeholder: '开放题：可以写下自己的思路（不会自动判分），再点「看参考答案并自评」', value: ui.answer,
+          class: 'ans-input', id: 'ans', 'aria-label': '你的解题思路', rows: 3, placeholder: '写下自己的思路，再查看参考答案并自评', value: ui.answer,
           oninput: function (e) { ui.answer = e.target.value; }
         }));
       } else {
         card.append(h('input', {
-          type: 'text', class: 'ans-input', id: 'ans', autocomplete: 'off', placeholder: '在这里输入答案（数字、分数、多个答案用逗号或“和”分开）', value: ui.answer,
+          type: 'text', class: 'ans-input', id: 'ans', 'aria-label': '你的答案', enterkeyhint: 'done', autocomplete: 'off', placeholder: '输入答案，多个答案用逗号分开', value: ui.answer,
           oninput: function (e) { ui.answer = e.target.value; },
           onkeydown: function (e) { if (e.key === 'Enter' && !e.isComposing) judgeAndGo(item); }
         }));
       }
-      card.append(h('div', { class: 'row', style: 'margin-top:10px' },
-        q.type === 'self' ? null : h('button', { class: 'primary', id: 'btn-submit', onclick: function () { judgeAndGo(item); } }, '提交答案'),
+      card.append(h('div', { class: 'row answer-actions', style: 'margin-top:10px' },
+        q.type === 'self' ? null : h('button', { class: 'primary', id: 'btn-submit', disabled: q.type === 'choice' && !ui.answer, onclick: function () { judgeAndGo(item); } }, '提交答案'),
         q.type === 'choice' ? null : h('button', { id: 'btn-peek', onclick: function () { ui.phase = 'self'; ui.verdict = null; renderQuestion(item); } }, '看参考答案并自评'),
         h('button', { id: 'btn-skip', onclick: function () { ui.phase = 'skip'; renderQuestion(item); } }, '不会')));
     } else if (ui.phase === 'auto') {
@@ -383,7 +396,7 @@
         h('div', { class: 'muted' }, '你的答案：' + (q.type === 'choice' ? answerOfKey(q, ui.answer) : ui.answer)),
         h('div', { class: 'verdict ' + (ok ? 'ok' : 'no') }, ok ? '自动判定：正确' : '自动判定：不正确'),
         feedbackBlock(q),
-        h('div', { class: 'row' },
+        h('div', { class: 'row answer-actions' },
           h('button', { class: 'primary', id: 'btn-next', onclick: function () { commit(ok ? 'correct' : 'wrong'); } }, '下一题'),
           h('button', { id: 'btn-flip', onclick: function () { commit(ok ? 'wrong' : 'correct'); } }, ok ? '判错了，我其实没做对' : '判错了，我其实做对了'),
           h('button', { onclick: function () { ui.phase = 'ask'; renderQuestion(item); } }, '重新作答')));
@@ -391,14 +404,14 @@
       card.append(
         h('div', { class: 'muted' }, '你选择了「不会」。看一下答案和解析再继续：'),
         feedbackBlock(q),
-        h('div', { class: 'row' }, h('button', { class: 'primary', id: 'btn-next', onclick: function () { commit('skip'); } }, '下一题')));
+        h('div', { class: 'row answer-actions' }, h('button', { class: 'primary', id: 'btn-next', onclick: function () { commit('skip'); } }, '下一题')));
     } else {
       card.append(
         ui.answer ? h('div', { class: 'muted' }, '你的答案：' + ui.answer) : null,
         q.type === 'self' ? h('div', { class: 'muted' }, '开放题：请对照参考答案自己判断。')
           : (ui.verdict ? h('div', { class: 'muted' }, '这道题的答案无法被自动可靠地判定，请对照参考答案自己判断。') : null),
         feedbackBlock(q),
-        h('div', { class: 'row' },
+        h('div', { class: 'row answer-actions' },
           h('button', { class: 'good', id: 'btn-right', onclick: function () { commit('correct'); } }, '对（我做对了）'),
           h('button', { class: 'bad', id: 'btn-wrong', onclick: function () { commit('wrong'); } }, '不对'),
           h('button', { id: 'btn-skip2', onclick: function () { commit('skip'); } }, '不会')));
@@ -413,8 +426,11 @@
     page.append(card);
     show(page);
     const inp = document.getElementById('ans');
-    if (inp && inp.setSelectionRange && inp.tagName === 'INPUT') { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
-    else if (inp) inp.focus();
+    // Let touch users read the prompt before choosing to open the keyboard.
+    if (inp && !touchInput.matches) {
+      inp.focus();
+      if (inp.setSelectionRange && inp.tagName === 'INPUT') inp.setSelectionRange(inp.value.length, inp.value.length);
+    }
   }
 
   function answerOfKey(q, key) {
@@ -499,7 +515,7 @@
       sum.limitReached ? h('p', { class: 'notice' }, '已达到题量上限（' + sum.limit + '），剩余没测到的知识点标为「未测」。薄弱根因的先修里若有未测点，真正的根因可能更靠前。',
         h('button', { class: 'no-print', style: 'margin-left:8px', onclick: function () { rebuild(session.answers, Math.min(session.limit + 4, 60)); } }, '再多答 4 题')) : null,
       h('p', { class: 'muted small' }, '自动判题只是近似的，答题记录里可以更正任何一题。生成时间：' + new Date().toLocaleString('zh-CN')),
-      h('div', { class: 'row no-print' },
+      h('div', { class: 'row result-actions no-print' },
         h('button', { class: 'primary', id: 'btn-export', onclick: exportJson }, '导出 JSON'),
         h('button', { id: 'btn-print', onclick: printPage }, '打印 / 另存为 PDF'),
         h('button', { onclick: function () { if (confirm('重新开始会清除当前进度，确定吗？')) restart(); } }, '重新开始'),
@@ -534,7 +550,8 @@
         h('span', null, h('i', { class: 'm' }), '已掌握'), h('span', null, h('i', { class: 's' }), '不稳'), h('span', null, h('i', { class: 'w' }), '薄弱'),
         h('span', null, h('i', { class: 'u' }), '未测'), h('span', null, h('i', { class: 't' }), '目标（蓝色粗框）'),
         h('span', { class: 'muted' }, '箭头：先修 → 后续；虚线表示中间省略了未画出的知识点；浅色为软先修')),
-      h('div', { class: 'svgwrap' }, renderGraph(sum))));
+      h('p', { class: 'muted small no-print graph-hint' }, '图较宽时，可在图内左右滑动查看。'),
+      h('div', { class: 'svgwrap', tabindex: '0', role: 'region', 'aria-label': '先修路径图，可左右滚动' }, renderGraph(sum))));
 
     page.append(h('details', { class: 'card', id: 'mastered' },
       h('summary', null, h('b', null, '已掌握的知识点（' + sum.mastered.length + '）')),
@@ -578,20 +595,21 @@
     const rows = session.answers.map(function (a, i) {
       const q = E.questionById(D.graph, a.qid) || { prompt: '', answer: '' };
       const sel = h('select', {
+        'aria-label': '更正第 ' + (i + 1) + ' 题的结果',
         onchange: function (e) {
           const next = session.answers.map(function (x, j) { return j === i ? Object.assign({}, x, { result: e.target.value }) : x; });
           rebuild(next);
         }
       }, ['correct', 'wrong', 'skip'].map(function (r) { return h('option', { value: r, selected: r === a.result }, RESULT_LABEL[r]); }));
-      return h('tr', null, h('td', { text: String(i + 1) }),
-        h('td', null, nameOf(a.id), h('div', { class: 'muted small', text: q.prompt.length > 60 ? q.prompt.slice(0, 59) + '…' : q.prompt })),
-        h('td', { class: 'muted', text: a.text || '' }),
-        h('td', null, sel), h('td', { class: 'muted', text: q.answer }));
+      return h('tr', null, h('td', { 'data-label': '题号', text: String(i + 1) }),
+        h('td', { 'data-label': '知识点 / 题目' }, nameOf(a.id), h('div', { class: 'muted small', text: q.prompt.length > 60 ? q.prompt.slice(0, 59) + '…' : q.prompt })),
+        h('td', { 'data-label': '你的答案', class: 'muted', text: a.text || '未填写' }),
+        h('td', { 'data-label': '结果' }, sel), h('td', { 'data-label': '参考答案', class: 'muted', text: q.answer }));
     });
     return h('div', { class: 'card', id: 'log' },
       h('h2', { text: '答题记录（可更正）' }),
       h('p', { class: 'muted small' }, '自动判题可能判错。在这里改某一题的结果会重新计算整份诊断（后续是否还需要追问也会随之变化）。'),
-      session.answers.length ? h('table', { class: 'log' },
+      session.answers.length ? h('table', { class: 'log', role: 'table', 'aria-label': '答题记录' },
         h('thead', null, h('tr', null, h('th', { text: '#' }), h('th', { text: '知识点 / 题目' }), h('th', { text: '你的答案' }), h('th', { text: '结果' }), h('th', { text: '参考答案' }))),
         h('tbody', null, rows)) : h('p', { class: 'muted', text: '还没有答题。' }));
   }

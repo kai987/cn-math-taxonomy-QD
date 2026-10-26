@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="app-version" content="development">
 <title>中小学数学知识图谱（一—九年级）· 草稿</title>
 <link rel="icon" href="data:,">
+<script defer src="update-check.js"></script>
 <style>
   :root { --bg:#f6f7f9; --panel:#fff; --line:#e1e4e8; --text:#1f2933; --muted:#6b7785; --accent:#2563eb;
           --hard:#c2410c; --soft:#6b7785; --ext:#7c3aed; }
@@ -63,23 +65,101 @@
   #err code { background:#fee2e2; padding:1px 4px; border-radius:4px; }
   .empty { color:var(--muted); padding:40px 0; }
   .muted { color:var(--muted); }
-  @media (max-width:760px){ #app{flex-direction:column;} #side{width:100%;height:42%;} }
+  /* Keep the catalogue and the reader independent on larger touch screens. */
+  body { height:100vh; height:100dvh; overflow:hidden; }
+  header { align-items:center; padding:max(12px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left)); }
+  header h1 { font-size:17px; text-wrap:balance; }
+  header .note { flex:1; min-width:180px; }
+  header .note summary { cursor:pointer; min-height:44px; display:flex; align-items:center; gap:8px; }
+  header .note summary::before { content:"＋"; }
+  header .note[open] summary::before { content:"−"; }
+  header .note p { margin:0 0 8px; max-width:65ch; }
+  header .tool-link { display:flex; align-items:center; min-height:44px; border-radius:8px; white-space:nowrap; }
+  #side { width:clamp(280px, 33vw, 360px); min-width:0; flex-shrink:0; }
+  #filters { gap:10px; padding:14px; }
+  .search-row { display:flex; gap:8px; min-width:0; }
+  #filters input, #filters select { min-height:44px; min-width:0; font-size:16px; color:var(--text); }
+  #filters select { height:44px; appearance:none; padding-right:30px; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23596778' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 10px center; }
+  #filter-fields { display:grid; gap:8px; }
+  #filters .row { grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:8px; }
+  button { font:inherit; color:inherit; cursor:pointer; }
+  #filter-toggle, #reset-filters { background:#fff; border:1px solid var(--line); border-radius:6px; min-height:44px; padding:6px 12px; white-space:nowrap; }
+  #filter-toggle { display:none; }
+  #count { font-size:13px; font-variant-numeric:tabular-nums; }
+  #list { overscroll-behavior:contain; scrollbar-gutter:stable; }
+  #list .grp { padding:7px 14px; z-index:1; }
+  #list li.item { padding:0; border-left:3px solid transparent; cursor:default; -webkit-tap-highlight-color:transparent; }
+  #list li.item.sel { padding:0; }
+  .topic-pick { display:block; width:100%; min-height:68px; padding:10px 14px 10px 11px; border:0; background:transparent; text-align:left; line-height:1.5; }
+  #list .nm { font-size:15px; font-weight:500; }
+  #list .meta { display:block; margin-top:4px; font-size:12px; }
+  #list .empty { padding:24px 14px; }
+  #main { min-width:0; overscroll-behavior:contain; scrollbar-gutter:stable; padding:24px clamp(16px, 3vw, 40px) 48px; }
+  #main:focus, #side:focus { outline:none; }
+  .card { padding:20px; border-radius:12px; overflow-wrap:anywhere; }
+  .card h2 { font-size:16px; }
+  h1.title { font-size:24px; line-height:1.4; }
+  .tag { border-radius:6px; padding:3px 8px; }
+  .toolbar button, .chip { min-height:44px; padding:8px 12px; }
+  .chip { display:inline-flex; align-items:center; flex-wrap:wrap; text-align:left; font-family:inherit; }
+  .toolbar .muted { flex-basis:100%; font-size:13px; }
+  details.ans > summary { min-height:44px; padding:10px 0; }
+  a.node { display:inline-flex; align-items:center; min-height:44px; padding:4px 2px; max-width:100%; }
+  .tree li { padding:4px 0; }
+  .tree ul { padding-left:12px; margin-left:3px; }
+  .tree-scroll { overflow:auto; }
+  .tree-scroll > .tree { min-width:280px; }
+  .mobile-nav { display:none; }
+  :where(button, input, select, summary, a):focus-visible { outline:3px solid #60a5fa; outline-offset:3px; }
+  :where(button, a, summary, select) { touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+  button:active, .tool-link:active { transform:translateY(1px); }
+  @media (hover:hover) { .topic-pick:hover { background:#f1f5f9; } }
+  @media (pointer:coarse) { body { font-size:16px; } .card { line-height:1.75; } }
+  @media (min-width:768px) and (max-width:1100px) { header .note { order:3; flex-basis:100%; } header { gap:0 12px; } }
+  @media (max-width:767px), (max-width:1000px) and (max-height:500px) and (pointer:coarse) {
+    header { gap:0 8px; padding:max(8px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 4px max(14px, env(safe-area-inset-left)); }
+    header h1 { flex:1; min-width:0; font-size:16px; }
+    header .tool-link { font-size:13px; padding:6px 10px; }
+    header .note { order:3; flex-basis:100%; min-width:0; }
+    header .note summary { min-height:44px; }
+    header .note[open] { max-height:28dvh; overflow:auto; }
+    #app { min-height:0; }
+    #side { width:100%; border:0; }
+    #main { padding:16px 14px 24px; }
+    body[data-panel="list"] #main, body[data-panel="detail"] #side { display:none; }
+    #filters { padding:12px 14px 10px; gap:8px; }
+    #filter-toggle { display:block; }
+    #filter-toggle[aria-expanded="true"] { border-color:var(--accent); color:var(--accent); background:#eff6ff; }
+    #filter-fields:not(.expanded) { display:none; }
+    #filters { max-height:65%; overflow:auto; flex-shrink:0; }
+    #list .nm { font-size:16px; }
+    .card { padding:18px 16px; margin-bottom:12px; }
+    .mobile-nav { display:flex; gap:8px; padding:8px max(14px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); background:#fff; border-top:1px solid var(--line); flex-shrink:0; }
+    .mobile-nav button { flex:1; min-height:48px; border:0; background:#f1f5f9; border-radius:8px; font-size:15px; font-weight:600; }
+    .mobile-nav button[aria-pressed="true"] { background:#e8f0fe; color:#1d4ed8; }
+    .mobile-nav button:disabled { color:#94a3b8; cursor:default; }
+  }
+  @media (max-height:500px) { #filters { max-height:58%; } }
 </style>
 </head>
-<body>
+<body data-panel="list">
 <header>
   <h1>中小学数学知识图谱（一—九年级）</h1>
-  <span class="note">AI 生成的初稿，未经教师审核；先修关系尤其需要一线教师审核。小学与初中都按人教版章节；部分小学册次目录非官方、待核。</span>
+  <details class="note"><summary>AI 草稿 · 未经教师审核</summary><p>AI 生成的初稿，未经教师审核；先修关系尤其需要一线教师审核。小学与初中都按人教版章节；部分小学册次目录非官方、待核。</p></details>
   <a class="tool-link" href="diagnose/">诊断小工具 →</a>
 </header>
 <div id="app">
-  <aside id="side">
+  <aside id="side" tabindex="-1" aria-label="知识点列表与筛选">
     <div id="filters">
-      <input id="q" type="search" placeholder="搜索知识点名称、描述、章节…" autocomplete="off">
+      <div class="search-row">
+        <input id="q" type="search" aria-label="搜索知识点" placeholder="搜索知识点、章节…" autocomplete="off">
+        <button id="filter-toggle" type="button" aria-controls="filter-fields" aria-expanded="false">筛选</button>
+      </div>
+      <div id="filter-fields">
       <div class="row">
-        <select id="fDomain"><option value="">全部学科</option></select>
-        <select id="fGrade">
-          <option value="">全部</option>
+        <select id="fDomain" aria-label="按学科筛选"><option value="">全部学科</option></select>
+        <select id="fGrade" aria-label="按年级或学段筛选">
+          <option value="">全部年级</option>
           <optgroup label="学段">
             <option value="p">小学（1–6 年级）</option>
             <option value="j">初中（7–9 年级）</option>
@@ -103,20 +183,28 @@
         </select>
       </div>
       <div class="row">
-        <select id="fType"><option value="">全部类型</option></select>
+        <select id="fType" aria-label="按知识点类型筛选"><option value="">全部类型</option></select>
+        <button id="reset-filters" type="button">重置筛选</button>
       </div>
-      <div id="count"></div>
+      </div>
+      <div id="count" role="status"></div>
     </div>
     <ul id="list"></ul>
   </aside>
-  <main id="main"><div class="empty">加载中…</div></main>
+  <main id="main" tabindex="-1" aria-label="知识点详情"><div class="empty">加载中…</div></main>
 </div>
+<nav class="mobile-nav" aria-label="浏览视图">
+  <button id="show-list" type="button" aria-controls="side" aria-pressed="true">知识点列表</button>
+  <button id="show-detail" type="button" aria-controls="main" aria-pressed="false" disabled>知识详情</button>
+</nav>
 
 <script>
 "use strict";
 const TYPE_ZH = {conceptual:"概念理解", procedural:"程序性技能", reasoning:"推理证明", application:"应用", modeling:"建模"};
 const GRADE_ZH = {1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 6:"六", 7:"七", 8:"八", 9:"九"};
 const $ = s => document.querySelector(s);
+const dataVersion = document.querySelector('meta[name="app-version"]').content;
+const fetchData = path => fetch(path + "?v=" + encodeURIComponent(dataVersion));
 const el = (tag, attrs, ...kids) => {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -128,12 +216,35 @@ const el = (tag, attrs, ...kids) => {
 };
 
 let topics = [], deps = [], aliases = {}, byId = new Map(), pre = new Map(), post = new Map(), selected = null;
+const compact = window.matchMedia("(max-width:767px), (max-width:1000px) and (max-height:500px) and (pointer:coarse)");
+
+function showPanel(panel, focus) {
+  document.body.dataset.panel = panel;
+  $("#show-list").setAttribute("aria-pressed", String(panel === "list"));
+  $("#show-detail").setAttribute("aria-pressed", String(panel === "detail"));
+  if (focus && compact.matches) {
+    const target = panel === "detail" ? $("#main") : document.querySelector(".topic-pick[aria-current='true']") || $("#side");
+    if (panel === "list") target.scrollIntoView({block:"nearest"});
+    target.focus({preventScroll:true});
+  }
+}
+$("#show-list").addEventListener("click", () => showPanel("list", true));
+$("#show-detail").addEventListener("click", () => showPanel("detail", true));
+$("#filter-toggle").addEventListener("click", () => {
+  const expanded = $("#filter-toggle").getAttribute("aria-expanded") !== "true";
+  $("#filter-toggle").setAttribute("aria-expanded", String(expanded));
+  $("#filter-fields").classList.toggle("expanded", expanded);
+});
+$("#reset-filters").addEventListener("click", () => {
+  for (const id of ["q", "fDomain", "fGrade", "fType"]) $("#" + id).value = "";
+  renderList();
+});
 
 function gradeKey(t) { return t.external ? "小学" : GRADE_ZH[t.grade] + t.semester; }
 
 async function load() {
   try {
-    const [a, b, c] = await Promise.all([fetch("data/topics.json"), fetch("data/dependencies.json"), fetch("data/id-aliases.json")]);
+    const [a, b, c] = await Promise.all([fetchData("data/topics.json"), fetchData("data/dependencies.json"), fetchData("data/id-aliases.json")]);
     if (!a.ok || !b.ok || !c.ok) throw new Error("HTTP " + a.status + "/" + b.status + "/" + c.status);
     topics = await a.json(); deps = await b.json(); aliases = (await c.json()).aliases || {};
   } catch (e) {
@@ -143,6 +254,8 @@ async function load() {
       el("code", {text:"python3 -m http.server 8000"}), " 然后访问 ", el("code", {text:"http://localhost:8000/"}),
       el("br"), el("span", {class:"muted", text:"（" + e.message + "）"})));
     $("#count").textContent = "";
+    $("#show-detail").disabled = false;
+    showPanel("detail", true);
     return;
   }
   for (const t of topics) { byId.set(t.id, t); pre.set(t.id, []); post.set(t.id, []); }
@@ -161,7 +274,7 @@ async function load() {
   renderList();
   const nPri = topics.filter(t => t.grade <= 6).length, nJun = topics.filter(t => t.grade >= 7).length;
   if (location.hash.slice(1)) select(location.hash.slice(1), true);
-  else $("#main").replaceChildren(el("div", {class:"empty", text:"← 请从左侧选择一个知识点。小学 " + nPri + "、初中 " + nJun + "，共 " + topics.length + " 个知识点、" + deps.length + " 条先修边。"}));
+  else $("#main").replaceChildren(el("div", {class:"empty", text:"选择一个知识点，查看掌握标准、诊断题和先修关系。小学 " + nPri + "、初中 " + nJun + "，共 " + topics.length + " 个知识点、" + deps.length + " 条先修边。"}));
 }
 
 function filtered() {
@@ -190,12 +303,16 @@ function renderList() {
       last = key;
       ul.append(el("li", {class:"grp", text: t.external ? "小学先修（外部节点）" : GRADE_ZH[t.grade] + "年级" + t.semester + "册"}));
     }
-    const li = el("li", {class:"item" + (t.id === selected ? " sel" : ""), "data-id":t.id, onclick:() => select(t.id, true)},
+    const li = el("li", {class:"item" + (t.id === selected ? " sel" : ""), "data-id":t.id},
+      el("button", {type:"button", class:"topic-pick", "aria-current":String(t.id === selected), onclick:() => select(t.id, true)},
       el("span", {class:"nm", text:t.name}),
-      el("span", {class:"meta", text: t.external ? t.domain : t.domain + " · " + (t.chapter || "").replace(/^.. /, "")}));
+      el("span", {class:"meta", text: t.external ? t.domain : t.domain + " · " + (t.chapter || "").replace(/^.. /, "")})));
     ul.append(li);
   }
-  $("#count").textContent = "显示 " + items.length + " / " + topics.length;
+  if (!items.length) ul.append(el("li", {class:"empty", text:"没有找到匹配的知识点，试试其他关键词或重置筛选。"}));
+  $("#count").textContent = "显示 " + items.length + " / " + topics.length + " 个知识点";
+  const activeFilters = ["fDomain", "fGrade", "fType"].filter(id => $("#" + id).value).length;
+  $("#filter-toggle").textContent = "筛选" + (activeFilters ? " · " + activeFilters : "");
 }
 
 function select(id, push) {
@@ -208,13 +325,18 @@ function select(id, push) {
   if (push && decodeURIComponent(location.hash.slice(1)) !== id) {
     history.replaceState(null, "", location.pathname + location.search + "#" + id);
   }
-  for (const li of document.querySelectorAll("#list li.item")) li.classList.toggle("sel", li.dataset.id === id);
+  for (const li of document.querySelectorAll("#list li.item")) {
+    li.classList.toggle("sel", li.dataset.id === id);
+    li.querySelector("button").setAttribute("aria-current", String(li.dataset.id === id));
+  }
   const cur = document.querySelector("#list li.sel"); if (cur) cur.scrollIntoView({block:"nearest"});
   renderDetail(byId.get(id));
+  $("#show-detail").disabled = false;
+  showPanel("detail", true);
   $("#main").scrollTop = 0;
 }
 
-const link = id => el("a", {class:"node", onclick:() => select(id, true), text:byId.get(id).name});
+const link = id => el("a", {class:"node", href:"#" + id, onclick:e => { e.preventDefault(); select(id, true); }, text:byId.get(id).name});
 const badge = s => el("span", {class:"badge " + s, text: s === "hard" ? "硬先修" : "软先修"});
 
 function renderDetail(t) {
@@ -241,9 +363,9 @@ function renderDetail(t) {
   m.replaceChildren(...parts);
 }
 
-let viewMode = "tree";
+let viewMode = compact.matches ? "layer" : "tree";
 function prereqCard(t) {
-  const card = el("div", {class:"card"}), body = el("div");
+  const card = el("div", {class:"card"}), body = el("div", {class:"tree-scroll"});
   const direct = pre.get(t.id);
   const all = ancestors(t.id);
   card.append(el("h2", {text:"先修链（向上递归）"}));
@@ -299,7 +421,7 @@ function layers(rootId) {
     box.append(el("div", {class:"layer"},
       el("h3", {text: d === 1 ? "第 1 层：直接先修" : "第 " + d + " 层：先修的先修"}),
       el("div", {class:"chips"}, ids.map(id => {
-        const c = el("span", {class:"chip" + (byId.get(id).external ? " ext" : ""), onclick:() => select(id, true)},
+        const c = el("button", {type:"button", class:"chip" + (byId.get(id).external ? " ext" : ""), onclick:() => select(id, true)},
           direct.has(id) ? badge(direct.get(id)) : null, byId.get(id).name,
           el("span", {class:"seen", text:" " + (byId.get(id).external ? "小学" : gradeKey(byId.get(id)))}));
         return c;
