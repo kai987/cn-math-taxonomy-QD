@@ -1341,5 +1341,21 @@ test('超长输入与超量答案项安全交给自评，不参与大整数或�
   assert.strictEqual(E.judgeQuestion({ type: 'short', answer: '略' }, '略'.repeat(5000)).verdict, 'manual');
 });
 
+test('所有Unicode上标保留幂语义，不把指数变成普通数字或多个幂', () => {
+  const byId = new Map(JSON.parse(fs.readFileSync(path.join(__dirname, '../data/questions.json'), 'utf8')).map(q => [q.id, q]));
+  for (const [id, right, unsafe] of [
+    ['cnm_142_q1', 'x^7', 'x7'],
+    ['cnm_143_q1', 'a^6 与 8b^3', 'a6 与 8b^3'],
+    ['cnm_144_q1', '-6a^3b^4', '-6a^3b4'],
+    ['cnm_163_q1', 'x^5', 'x5'],
+    ['cnm_164_q1', '1/8；3.2×10^-4', '1/8；3.2×10-4'],
+  ]) {
+    assert.strictEqual(E.judgeQuestion(byId.get(id), right).verdict, 'correct', id);
+    assert.notStrictEqual(E.judgeQuestion(byId.get(id), unsafe).verdict, 'correct', id);
+  }
+  assert.strictEqual(E.normalizeText('x¹²'), 'x^12');
+  assert.strictEqual(E.normalizeText('x²⁴'), 'x^24');
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed ? 1 : 0);

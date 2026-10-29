@@ -13,12 +13,15 @@
   mean median pvariance variance mode
   solve2(a1,b1,c1,a2,b2,c2) -> (x, y)    解 a1x+b1y=c1, a2x+b2y=c2（精确 Fraction）
   roots2(a,b,c) -> 升序实根列表          判别式是完全平方（有理）时为 Fraction，否则为 float
+  poly(expression[, dependent]) -> 精确多项式，用于 choice / short 的展开式、因式分解、函数式核验
 
 比较规则：
   numeric：表达式结果（数，或多个答案时为列表/元组）与 answer 比较。结果是 int/Fraction 时精确比较；
            结果是 float 时容差 1e-9（相对/绝对取大者）。answer 多个值时按 unordered 决定是否顺序无关。
   choice ：表达式结果与「正确选项的内容」比较：选项文字可解析为数时按数值比较（同上规则），否则要求
            str(结果) 与选项文字完全相同。另外检查没有第二个选项与它数值相同（避免双解）。
+  choice / short：poly(...) 返回的精确多项式与选项或参考式比较系数；choice 要求唯一等价选项，
+           short 的 answer 和每个 accept 都须等价。它不验证“是否已因式分解彻底”等形式要求。
 没有 verify 的题计入 unverifiable（由第二遍独立复核覆盖）。
 """
 import argparse
@@ -36,6 +39,7 @@ from fractions import Fraction
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import validate as V  # noqa: E402
+from exact_polynomial import Polynomial, poly  # noqa: E402
 
 QUESTIONS_PATH = os.path.join(ROOT, "data", "questions.json")
 REPORT_PATH = os.path.join(ROOT, "data", "verification_report.json")
@@ -89,7 +93,7 @@ NAMES = {
     "abs": abs, "round": round, "sum": sum, "min": min, "max": max, "len": len, "sorted": sorted,
     "range": range, "floor": math.floor, "ceil": math.ceil, "isqrt": math.isqrt, "int": int, "float": float,
     "mean": statistics.mean, "median": statistics.median, "pvariance": statistics.pvariance,
-    "variance": statistics.variance, "mode": _mode, "solve2": solve2, "roots2": roots2,
+    "variance": statistics.variance, "mode": _mode, "solve2": solve2, "roots2": roots2, "poly": poly,
 }
 
 ALLOWED_NODES = (
@@ -211,6 +215,9 @@ def choice_text_value(text):
 def compare_choice(q, res):
     texts = {c["key"]: c["text"].strip() for c in q["choices"]}
     right = texts[q["answer"]]
+    if isinstance(res, Polynomial):
+        matches = [key for key, text in texts.items() if res.matches(text)]
+        return (True, "") if matches == [q["answer"]] else (False, "多项式等价选项应唯一，实际为 %r" % matches)
     rv = choice_text_value(right)
     if rv is not None and len(rv) == 1 and isinstance(res, (int, float, Fraction)) and not isinstance(res, bool):
         if not num_equal(rv[0], res):
@@ -226,6 +233,15 @@ def compare_choice(q, res):
     return False, "verify 得 %r，但正确选项 %s 的文字是 %r" % (res, q["answer"], right)
 
 
+def compare_short(q, res):
+    if not isinstance(res, Polynomial):
+        return False, "short 的 verify 必须返回精确 Polynomial，不能用答案字符串代替计算"
+    for text in [q["answer"]] + q.get("accept", []):
+        if not res.matches(text):
+            return False, "短答参考值 %r 与独立多项式推导不等价" % text
+    return True, ""
+
+
 # ------------------------------------------------------------ 主流程
 
 def verify_all(questions):
@@ -233,7 +249,7 @@ def verify_all(questions):
     for q in questions:
         typ = q.get("type")
         expr = q.get("verify")
-        if typ not in ("numeric", "choice") or not expr:
+        if typ not in ("numeric", "choice", "short") or not expr:
             r["unverifiable"].append(q["id"])
             continue
         try:
@@ -243,7 +259,8 @@ def verify_all(questions):
             r["mismatch"].append({"id": q["id"], "type": typ, "answer": q["answer"], "verify": expr,
                                   "detail": "verify 表达式无法求值：%s: %s" % (type(ex).__name__, ex)})
             continue
-        ok, detail = compare_numeric(q, res) if typ == "numeric" else compare_choice(q, res)
+        compare = {"numeric": compare_numeric, "choice": compare_choice, "short": compare_short}[typ]
+        ok, detail = compare(q, res)
         if ok:
             r["auto_verified"].append(q["id"])
         else:
@@ -263,6 +280,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", help="只核验这个题库/批次文件")
     ap.add_argument("--report", help="报告输出路径（默认 data/verification_report.json；--file 时默认不写）")
+    ap.add_argument("--check", action="store_true", help="只核验，不改写报告（用于 CI）")
     args = ap.parse_args()
 
     path = args.file or QUESTIONS_PATH
@@ -292,6 +310,8 @@ def main():
 
     n_eligible = sum(1 for q in questions_ok if q["type"] in ("numeric", "choice"))
     unver_by_type = Counter(q["type"] for q in questions_ok if q["id"] in set(res["unverifiable"]))
+    auto_ids = set(res["auto_verified"])
+    auto_by_type = Counter(q["type"] for q in questions_ok if q["id"] in auto_ids)
     report = {
         "generated_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
         "source": os.path.relpath(path, ROOT),
@@ -299,11 +319,12 @@ def main():
         "by_type": dict(Counter(q.get("type") for q in questions)),
         "format_errors": errs,
         "auto_verified": len(res["auto_verified"]),
+        "auto_verified_by_type": dict(auto_by_type),
         "mismatch": len(res["mismatch"]),
         "unverifiable": len(res["unverifiable"]),
         "unverifiable_by_type": dict(unver_by_type),
         "numeric_choice_total": n_eligible,
-        "numeric_choice_auto_verified_share": round(len(res["auto_verified"]) / float(n_eligible), 4) if n_eligible else None,
+        "numeric_choice_auto_verified_share": round(sum(auto_by_type[t] for t in ("numeric", "choice")) / float(n_eligible), 4) if n_eligible else None,
         "mismatches": res["mismatch"],
         "unverifiable_ids": sorted(res["unverifiable"]),
     }
@@ -311,7 +332,22 @@ def main():
     if sp is not None:
         report["second_pass"] = dict(sp)
         report["second_pass"].setdefault("second_pass_mismatch", [])
-    out = args.report or (None if args.file else REPORT_PATH)
+    if not args.file:
+        from check_answer_review import REVIEW_PATH, review_errors
+        if REVIEW_PATH.exists():
+            review = json.loads(REVIEW_PATH.read_text(encoding='utf-8'))
+            review_issues = review_errors(questions, review, list(topics.values()))
+            report["current_review"] = {
+                "source": str(REVIEW_PATH.relative_to(ROOT)),
+                "scope": 532,
+                "reviewed": len(review["entries"]),
+                "new_expression_verified": sum(entry["id"] in auto_ids for entry in review["entries"]),
+                "review_errors": review_issues,
+                "note": "逐题独立复核及固定判题回归不等于独立计算证明；无表达式的概念/开放题仍保留此边界。",
+            }
+            if review_issues:
+                errs.extend(review_issues)
+    out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=2)

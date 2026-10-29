@@ -535,7 +535,13 @@
 
   function normalizeText(input) {
     let s = String(input == null ? '' : input);
-    s = s.replace(/²/g, '^2').replace(/³/g, '^3').replace(/[º˚∘゜]/g, '°');
+    // Preserve the whole exponent before NFKC folds superscripts into digits.
+    // In particular x¹² is x^12, and x⁷ must never become the plain text x7.
+    const superscripts = '⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻';
+    const exponents = '0123456789+-';
+    s = s.replace(/[⁺⁻]?[⁰¹²³⁴⁵⁶⁷⁸⁹]+/g, function (power) {
+      return '^' + Array.from(power, function (ch) { return exponents[superscripts.indexOf(ch)]; }).join('');
+    }).replace(/[º˚∘゜]/g, '°');
     s = s.normalize('NFKC'); // 全角 -> 半角（数字、字母、，；：（）＝－ 等）
     s = s.replace(/[−‐-―﹣]/g, '-')
       .replace(/[、]/g, ',')

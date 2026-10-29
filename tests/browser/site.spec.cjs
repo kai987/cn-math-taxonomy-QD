@@ -27,6 +27,7 @@ const shortAnswer = seedFor('cnm_025', question => question.type === 'short');
 const openAnswer = seedFor('cnm_003', question => question.type === 'self');
 const orderedAnswers = seedFor('cnm_059', question => question.id === 'cnm_059_q1');
 const variableAnswers = seedFor('cnm_089', question => question.id === 'cnm_089_q2');
+const simplifiedFormula = seedFor('cnm_209', question => question.id === 'cnm_209_q1');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -498,4 +499,24 @@ test('ordered answers and named variables cannot be accepted after separators or
     await activate(page, page.locator('#btn-submit'));
     await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
   }
+});
+
+test('a required simplified formula keeps unfinished algebra in manual review after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+  await page.goto(targetURL('cnm_209', simplifiedFormula.seed));
+  await expect(page.locator('#q-text')).toHaveText(simplifiedFormula.question.prompt);
+  await page.locator('#ans').fill('y=10+2(x-3)');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await activate(page, page.locator('#btn-wrong'));
+  await activate(page, page.getByRole('button', { name: '撤销上一题', exact: true }));
+  await expect(page.locator('#q-text')).toHaveText(simplifiedFormula.question.prompt);
+  await page.locator('#ans').fill('y=10+2(x-3)=2x+4');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await page.reload();
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await noHorizontalOverflow(page);
 });

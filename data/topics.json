@@ -6347,7 +6347,7 @@
       "能用代数式预测第 n 项的值"
     ],
     "diagnostic_question": {
-      "question": "数列 3，5，7，9，… 的第 n 项是多少？",
+      "question": "数列 3，5，7，9，… 的第 n 项是多少？（按等差数列，n 从 1 开始）",
       "answer": "2n+1"
     },
     "external": false,
@@ -6860,7 +6860,7 @@
       "能区分立体图形与平面图形"
     ],
     "diagnostic_question": {
-      "question": "圆柱的侧面展开后是什么平面图形？",
+      "question": "圆柱的侧面展开后是什么平面图形？（沿一条母线剪开并展开）",
       "answer": "长方形"
     },
     "external": false,
@@ -8711,7 +8711,7 @@
       "能说明三角形重心是三条中线的交点"
     ],
     "diagnostic_question": {
-      "question": "三角形薄板的重心在哪里？",
+      "question": "匀质三角形薄板的重心在哪里？",
       "answer": "三条中线的交点"
     },
     "external": false,
@@ -8818,7 +8818,7 @@
     ],
     "diagnostic_question": {
       "question": "两边相等且一角相等，一定全等吗？",
-      "answer": "不一定，必须是夹角"
+      "answer": "不一定；若相等角是这两边的夹角，则可用 SAS 判定全等"
     },
     "external": false,
     "standards": [
@@ -9051,7 +9051,7 @@
       "能由对称点求对称轴"
     ],
     "diagnostic_question": {
-      "question": "A、A′ 关于直线 l 对称，l 与 AA′ 的关系？",
+      "question": "点 A 不在直线 l 上，A、A′ 关于直线 l 对称，l 与 AA′ 的关系是什么？",
       "answer": "l 垂直平分 AA′"
     },
     "external": false,
@@ -9126,7 +9126,7 @@
       "能画出多边形的轴对称图"
     ],
     "diagnostic_question": {
-      "question": "如何作点 A 关于直线 l 的对称点？",
+      "question": "点 A 不在直线 l 上，如何作点 A 关于直线 l 的对称点？",
       "answer": "过 A 作 l 的垂线，在另一侧截取等距点"
     },
     "external": false,
@@ -9612,7 +9612,7 @@
       "分解彻底"
     ],
     "diagnostic_question": {
-      "question": "分解 2x³-8x。",
+      "question": "分解因式 2x³−8x（要求分解彻底）。",
       "answer": "2x(x+2)(x-2)"
     },
     "external": false,
@@ -9848,7 +9848,7 @@
       "能计算同底数幂的商"
     ],
     "diagnostic_question": {
-      "question": "计算 x⁸÷x³。",
+      "question": "计算 x⁸÷x³。（x≠0）",
       "answer": "x⁵"
     },
     "external": false,
@@ -11156,7 +11156,7 @@
       "能结合情境作出选择"
     ],
     "diagnostic_question": {
-      "question": "一组工资数据中有极大值，用平均数还是中位数更合适？",
+      "question": "某组工资数据含个别极端高工资。若要表示一般员工的工资水平，下列哪一种统计量更合适？",
       "answer": "中位数，平均数受极端值影响大"
     },
     "external": false,
@@ -11945,7 +11945,7 @@
       "能找出对应点"
     ],
     "diagnostic_question": {
-      "question": "点 A 绕 O 顺时针旋转 90° 得 A′，OA 与 OA′ 有何关系？",
+      "question": "点 A（A≠O）绕 O 顺时针旋转 90° 得 A′，OA 与 OA′ 有何关系？",
       "answer": "OA=OA′，∠AOA′=90°"
     },
     "external": false,
@@ -12938,7 +12938,7 @@
       "能画出线段、平面图形的正投影"
     ],
     "diagnostic_question": {
-      "question": "投影线垂直于投影面的投影叫什么？",
+      "question": "在平行投影中，投影线垂直于投影面的投影，专门称为什么？请选择。",
       "answer": "正投影"
     },
     "external": false,
@@ -12964,7 +12964,7 @@
       "能由三视图还原几何体"
     ],
     "diagnostic_question": {
-      "question": "圆柱的三视图各是什么形状？",
+      "question": "圆柱竖直放置，轴线垂直于水平投影面，它的主视图、左视图和俯视图各是什么形状？请选择。",
       "answer": "主视图、左视图为矩形，俯视图为圆"
     },
     "external": false,
@@ -13605,7 +13605,7 @@
       "能把若干事件按可能性大小排序"
     ],
     "diagnostic_question": {
-      "question": "袋中有 5 个红球、3 个白球、2 个黄球（形状相同），随机摸一个，摸到红、白、黄球的可能性由大到小怎样排列？",
+      "question": "袋中有 5 个红球、3 个白球、2 个黄球，除颜色外完全相同。充分搅匀后随机摸一个，摸到红、白、黄球的可能性由大到小怎样排列？（用“＞”连接）",
       "answer": "红球＞白球＞黄球"
     },
     "external": false,
@@ -13657,8 +13657,8 @@
       "能说明不等可能时不能直接套用公式"
     ],
     "diagnostic_question": {
-      "question": "抛一枚不均匀的骰子，能否用 1/6 作为出现 6 点的概率？为什么？",
-      "answer": "不能，各点数出现的可能性不相等，不满足等可能"
+      "question": "只知道一枚骰子不均匀，能否仅因为它有 6 个面，就直接断定出现 6 点的概率为 1/6？为什么？",
+      "answer": "不能直接断定，因为没有各点数出现等可能的条件"
     },
     "external": false,
     "standards": [
@@ -13823,7 +13823,7 @@
     ],
     "diagnostic_question": {
       "question": "设计一个转盘游戏使两人获胜的概率相等，并说明如何用试验检验。",
-      "answer": "转盘 8 等分，4 份甲得分、4 份乙得分，双方概率均为 1/2；转 100 次，若两人获胜频率都接近 0.5 则基本公平"
+      "answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。"
     },
     "external": false,
     "standards": [

@@ -2,7 +2,7 @@
   "name": "cn-math-taxonomy-qd",
   "private": true,
   "scripts": {
-    "test": "node tests/test_engine.js && node tests/test_update_check.js",
+    "test": "node tests/test_engine.js && node tests/test_update_check.js && node tests/test_answer_review.js",
     "test:browser": "playwright test",
     "test:browser:report": "playwright show-report"
   },
