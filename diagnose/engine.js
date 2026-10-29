@@ -245,7 +245,7 @@
    * extra.qid 用于重放实际答过的题目，不能把旧作答重新分配给另一道题。
    */
   function applyAnswer(graph, session, id, result, extra) {
-    if (!RESULTS[result]) throw new Error('作答结果必须是 correct / wrong / skip');
+    if (!Object.prototype.hasOwnProperty.call(RESULTS, result)) throw new Error('作答结果必须是 correct / wrong / skip');
     if (!graph.byId[id]) throw new Error('未知知识点：' + id);
     const s = cloneSession(session);
     if (s.status[id]) { delete s.status[id]; s.attempts[id] = []; } // 对已有结论的点重新作答 = 重新开始
@@ -311,7 +311,7 @@
       let reason = '';
       const item = nextItem(graph, s);
       if (broken) reason = 'after-invalid-record';
-      else if (!a || !RESULTS[a.result] || !graph.byId[a.id]) { reason = 'invalid-record'; broken = true; }
+      else if (!a || !Object.prototype.hasOwnProperty.call(RESULTS, a.result) || !graph.byId[a.id]) { reason = 'invalid-record'; broken = true; }
       else if (!item) reason = 'complete-or-limit';
       else if (a.id !== item.topicId) reason = 'out-of-path';
       else if (a.qid) {
@@ -544,14 +544,15 @@
       .replace(/[×·⋅∙]/g, '*')
       .replace(/÷/g, '/')
       .replace(/[≦⩽]/g, '≤').replace(/[≧⩾]/g, '≥')
-      .replace(/<=/g, '≤').replace(/>=/g, '≥')
-      .replace(/[\[\]{}]/g, function (c) { return c === '[' || c === '{' ? '(' : ')'; });
+      .replace(/<=/g, '≤').replace(/>=/g, '≥');
     s = s.replace(/(\d)\s*度/g, '$1°');
     s = s.replace(/(\d)\s+(\d+\s*\/\s*\d+)/g, '$1又$2'); // 带分数 "1 1/2"
-    s = s.replace(/\s+/g, '').toLowerCase();
+    s = s.replace(/\s+/g, function (space, index) {
+      return /\d/.test(s[index - 1] || '') && /\d/.test(s[index + space.length] || '') ? ' ' : '';
+    }).toLowerCase();
     s = s.replace(/^(答案|答)[:=]/, '').replace(/或者/g, '或');
-    s = s.replace(/[.!]+$/, '');
-    if (/^[+-]?\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, ''); // 千分位
+    // One sentence-final dot is harmless; factorials and repeated dots are not punctuation to discard.
+    if (s.endsWith('.') && !s.endsWith('..')) s = s.slice(0, -1);
     return s;
   }
 
@@ -566,7 +567,7 @@
       if (depth === 0 && seps.indexOf(c) >= 0) { parts.push(cur); cur = ''; } else cur += c;
     }
     parts.push(cur);
-    return parts.filter(function (p) { return p !== ''; });
+    return parts;
   }
 
   function gcd(a, b) { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
@@ -605,13 +606,14 @@
 
   function canonUnit(u) {
     if (!u) return { name: '', known: true };
-    if (UNIT_ALIASES[u]) return { name: UNIT_ALIASES[u], known: true };
+    if (Object.prototype.hasOwnProperty.call(UNIT_ALIASES, u)) return { name: UNIT_ALIASES[u], known: true };
     if (/^[一-龥]{1,4}$/.test(u)) return { name: u, known: false };
     return null; // 不像单位，说明这不是“数+单位”
   }
 
   /** 解析数值：整数、小数、分数 a/b、带分数、百分数、带符号/括号；末尾可带单位。失败返回 null。 */
   function parseNumeric(str) {
+    if (str.length > 512) return null;
     let t = str;
     let neg = false;
     for (let guard = 0; guard < 4; guard++) {
@@ -649,7 +651,7 @@
       if (rest) return null;
     } else if (mark === '°') {
       unit = { name: '°', known: true };
-      if (!/^[一-龥]{0,2}$/.test(rest)) return null;
+      if (rest) return null;
     } else if (rest) {
       unit = canonUnit(rest);
       if (!unit) return null;
@@ -675,10 +677,21 @@
     return { raw: p, variable: variable, kind: 'text', key: body, unit: { name: '', known: true } };
   }
 
-  function parseAnswer(input) {
+  function parseAnswer(input, allowThousands) {
+    if (String(input == null ? '' : input).length > 4096) return { norm: '', parts: [], invalid: true };
     const norm = normalizeText(input);
-    const parts = splitTop(norm.replace(/[和或与及]/g, ','), ',;').map(analyzePart);
-    return { norm: norm, parts: parts };
+    if (!norm) return { norm: norm, parts: [], invalid: false };
+    let body = norm;
+    if (allowThousands) {
+      const grouped = /^([a-z](?:\([a-z]\))?=)?([+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?)(.*)$/.exec(body);
+      if (grouped && parseNumeric(grouped[2].replace(/,/g, '') + grouped[3])) {
+        body = (grouped[1] || '') + grouped[2].replace(/,/g, '') + grouped[3];
+      }
+    }
+    const explicit = splitTop(body, ',;');
+    const values = splitTop(body.replace(/[和或与及]/g, ','), ',;');
+    const invalid = values.length > 64 || explicit.some(function (value) { return value === ''; });
+    return { norm: norm, parts: invalid ? [] : values.map(analyzePart), invalid: invalid };
   }
 
   // 'eq' | 'ne' | 'unsure'
@@ -714,44 +727,54 @@
 
   function sameMultiset(as, bs, ignoreVar) {
     if (as.length !== bs.length) return null;
-    const left = bs.slice();
-    let fuzzy = false;
-    for (let i = 0; i < as.length; i++) {
-      let hit = -1;
-      for (let j = 0; j < left.length; j++) {
-        if (!ignoreVar && as[i].variable !== left[j].variable) continue;
-        const c = partCompare(as[i], left[j]);
-        if (c === 'ne') continue;
-        if (c === 'unsure') fuzzy = true;
-        hit = j;
-        break;
+    const comparisons = as.map(function (a) {
+      return bs.map(function (b) { return !ignoreVar && a.variable !== b.variable ? 'ne' : partCompare(a, b); });
+    });
+    // Prefer a complete certain matching. Greedy matching can consume the only compatible unit/variable.
+    function canMatch(allowUnsure) {
+      const matched = [];
+      function visit(i, seen) {
+        for (let j = 0; j < bs.length; j++) {
+          if (seen.has(j) || comparisons[i][j] === 'ne' || (!allowUnsure && comparisons[i][j] !== 'eq')) continue;
+          seen.add(j);
+          if (matched[j] == null || visit(matched[j], seen)) { matched[j] = i; return true; }
+        }
+        return false;
       }
-      if (hit < 0) return null;
-      left.splice(hit, 1);
+      return as.every(function (_, i) { return visit(i, new Set()); });
     }
-    return fuzzy ? 'unsure' : 'eq';
+    return canMatch(false) ? 'eq' : canMatch(true) ? 'unsure' : null;
   }
 
-  function allNumeric(parts) { return parts.every(function (p) { return p.kind === 'num' || p.kind === 'tuple'; }); }
+  function allNumeric(parts) { return parts.length > 0 && parts.every(function (p) { return p.kind === 'num' || p.kind === 'tuple'; }); }
 
-  function compareParsed(u, r) {
+  function compareSequence(as, bs, compareVariables) {
+    let result = 'eq';
+    for (let i = 0; i < as.length; i++) {
+      if (compareVariables && as[i].variable !== bs[i].variable) return null;
+      const compared = partCompare(as[i], bs[i]);
+      if (compared === 'ne') return null;
+      if (compared === 'unsure') result = 'unsure';
+    }
+    return result;
+  }
+
+  function compareParsed(u, r, ordered) {
+    if (u.parts.some(function (part) { return part.kind === 'tuple'; }) !== r.parts.some(function (part) { return part.kind === 'tuple'; })) {
+      return { relation: 'unsure' };
+    }
+    if (u.parts.length > 1 && !(allNumeric(u.parts) && allNumeric(r.parts))) return { relation: 'unsure' };
     let res = null;
     if (u.parts.length === r.parts.length) {
       const refVars = r.parts.map(function (p) { return p.variable; });
+      const userVars = u.parts.map(function (p) { return p.variable; });
       const refVarsDistinct = r.parts.length > 1 && refVars.every(Boolean) && new Set(refVars).size === refVars.length;
-      if (refVarsDistinct) {
-        if (u.parts.every(function (p) { return p.variable; })) res = sameMultiset(u.parts, r.parts, false);
-        else if (u.parts.every(function (p) { return !p.variable; })) {
-          // 未写变量名时按参考答案的出现顺序对应（x 在前 y 在后）
-          res = 'eq';
-          for (let i = 0; i < u.parts.length; i++) {
-            const c = partCompare(u.parts[i], r.parts[i]);
-            if (c === 'ne') { res = null; break; }
-            if (c === 'unsure') res = 'unsure';
-          }
-        } else return { relation: 'unsure' };
+      if (userVars.some(Boolean)) {
+        if (!userVars.every(Boolean) || !refVars.every(Boolean)) return { relation: 'unsure' };
+        res = ordered && !refVarsDistinct ? compareSequence(u.parts, r.parts, true) : sameMultiset(u.parts, r.parts, false);
       } else {
-        res = sameMultiset(u.parts, r.parts, true);
+        if (refVars.some(Boolean) && !refVars.every(Boolean)) return { relation: 'unsure' };
+        res = ordered || refVarsDistinct ? compareSequence(u.parts, r.parts, false) : sameMultiset(u.parts, r.parts, true);
       }
     }
     if (res === 'eq') return { relation: 'equal' };
@@ -766,16 +789,17 @@
    *  - 其余（代数式、文字、多种写法）-> manual
    */
   function judgeAnswer(user, reference) {
-    const u = parseAnswer(user);
     const r = parseAnswer(reference);
+    const u = parseAnswer(user, r.parts.length === 1 && r.parts[0].kind === 'num');
     return judgeParsed(u, r);
   }
 
-  function judgeParsed(u, r) {
+  function judgeParsed(u, r, ordered) {
+    if (u.invalid || r.invalid) return { verdict: 'manual', reason: 'invalid-format' };
     if (!u.norm) return { verdict: 'manual', reason: 'empty' };
     if (u.norm === r.norm) return { verdict: 'correct', reason: 'identical' };
     if (!r.parts.length) return { verdict: 'manual', reason: 'no-reference' };
-    const c = compareParsed(u, r);
+    const c = compareParsed(u, r, ordered);
     if (c.relation === 'equal') return { verdict: 'correct', reason: 'equivalent' };
     if (c.relation === 'different') return { verdict: 'wrong', reason: 'numeric-mismatch' };
     return { verdict: 'manual', reason: 'unsure' };
@@ -786,25 +810,23 @@
   const MANUAL_EMPTY = { verdict: 'manual', reason: 'empty' };
 
   function judgeChoice(user, q) {
-    const raw = String(user == null ? '' : user).trim();
+    const raw = normalizeText(user);
     if (!raw) return MANUAL_EMPTY;
+    if (raw.length > 4096) return { verdict: 'manual', reason: 'invalid-format' };
     const choices = q.choices || [];
     const keys = choices.map(function (c) { return c.key; });
     let letter = null;
     const m = /^[(（]?([A-Za-z])[)）.．、:：]?$/.exec(raw);
-    if (m) letter = m[1].toUpperCase();
+    if (m && keys.indexOf(m[1].toUpperCase()) >= 0) letter = m[1].toUpperCase();
     else {
-      const n = normalizeText(raw);
-      const hit = choices.find(function (c) { return normalizeText(c.text) === n; });
-      if (hit) letter = hit.key;
+      const hits = choices.filter(function (c) { return normalizeText(c.text) === raw; });
+      if (hits.length === 1) letter = hits[0].key;
     }
     if (!letter || keys.indexOf(letter) < 0) return { verdict: 'manual', reason: 'unrecognized' };
     return letter === q.answer ? { verdict: 'correct', reason: 'choice' } : { verdict: 'wrong', reason: 'choice' };
   }
 
   function judgeNumeric(user, q) {
-    const u = parseAnswer(user);
-    if (!u.norm) return MANUAL_EMPTY;
     const refs = [q.answer].concat(q.accept || []);
     const parsedRefs = refs.map(function (reference) {
       const parsed = parseAnswer(reference);
@@ -815,34 +837,29 @@
       });
       return parsed;
     });
-    for (let i = 0; i < refs.length; i++) {
-      if (parsedRefs[i].norm === u.norm) return { verdict: 'correct', reason: 'identical' };
-    }
     const main = parsedRefs[0];
-    if (!q.unordered && main.parts.length > 1) {
-      // 多个答案且顺序有关：逐项按顺序比较（变量名忽略）
-      if (u.parts.length !== main.parts.length) {
-        return allNumeric(u.parts) ? { verdict: 'wrong', reason: 'count-mismatch' } : { verdict: 'manual', reason: 'unsure' };
-      }
-      let res = 'eq';
-      for (let i = 0; i < u.parts.length; i++) {
-        const c = partCompare(u.parts[i], main.parts[i]);
-        if (c === 'ne') { res = 'ne'; break; }
-        if (c === 'unsure') res = 'unsure';
-      }
-      if (res === 'eq') return { verdict: 'correct', reason: 'equivalent' };
-      if (res === 'ne' && allNumeric(u.parts) && allNumeric(main.parts)) return { verdict: 'wrong', reason: 'numeric-mismatch' };
-      return { verdict: 'manual', reason: 'unsure' };
+    if (Object.prototype.hasOwnProperty.call(q, 'variables')) {
+      if (!Array.isArray(q.variables) || !q.variables.length || q.unordered || q.variables.length !== main.parts.length ||
+          new Set(q.variables.map(function (name) { return normalizeText(name); })).size !== q.variables.length || !q.variables.every(function (name) {
+        return typeof name === 'string' && /^[a-z](?:\([a-z]\))?$/.test(normalizeText(name));
+      })) return { verdict: 'manual', reason: 'invalid-variables' };
+      parsedRefs.forEach(function (parsed) {
+        if (parsed.parts.length !== q.variables.length) { parsed.invalid = true; return; }
+        parsed.parts.forEach(function (part, index) { part.variable = normalizeText(q.variables[index]); });
+      });
     }
-    const r = judgeParsed(u, main);
-    if (r.verdict === 'correct') return r;
-    for (let i = 1; i < refs.length; i++) {
-      if (judgeParsed(u, parsedRefs[i]).verdict === 'correct') return { verdict: 'correct', reason: 'accept' };
+    const u = parseAnswer(user, main.parts.length === 1 && main.parts[0].kind === 'num');
+    if (u.invalid) return { verdict: 'manual', reason: 'invalid-format' };
+    if (!u.norm) return MANUAL_EMPTY;
+    for (let i = 0; i < refs.length; i++) {
+      const result = judgeParsed(u, parsedRefs[i], !q.unordered);
+      if (result.verdict === 'correct') return { verdict: 'correct', reason: i ? 'accept' : result.reason };
     }
-    return r;
+    return judgeParsed(u, main, !q.unordered);
   }
 
   function judgeShort(user, q) {
+    if (String(user == null ? '' : user).length > 4096) return { verdict: 'manual', reason: 'invalid-format' };
     const u = normalizeText(user);
     if (!u) return MANUAL_EMPTY;
     const refs = [q.answer].concat(q.accept || []);
@@ -850,7 +867,11 @@
       if (normalizeText(refs[i]) === u) return { verdict: 'correct', reason: i ? 'accept' : 'identical' };
     }
     for (let i = 0; i < refs.length; i++) {
-      if (judgeAnswer(user, refs[i]).verdict === 'correct') return { verdict: 'correct', reason: 'equivalent' };
+      const reference = parseAnswer(refs[i]);
+      const parsed = parseAnswer(user, reference.parts.length === 1 && reference.parts[0].kind === 'num');
+      if (allNumeric(parsed.parts) && allNumeric(reference.parts) && judgeParsed(parsed, reference, true).verdict === 'correct') {
+        return { verdict: 'correct', reason: 'equivalent' };
+      }
     }
     return { verdict: 'manual', reason: 'unsure' }; // 文字 / 代数式写法太多，不可靠时让用户对照参考答案自评
   }

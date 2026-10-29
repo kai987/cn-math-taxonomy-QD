@@ -359,7 +359,7 @@ def report_standards(ids, std_items, cited, empty_core):
 Q_DIFFICULTIES = ("basic", "standard", "advanced")
 Q_TYPES = ("numeric", "choice", "short", "self")
 Q_FIELDS = {"id", "topicId", "difficulty", "type", "prompt", "answer", "choices", "accept",
-            "explanation", "verify", "unordered", "fixed_from_source", "unit"}
+            "explanation", "verify", "unordered", "fixed_from_source", "unit", "variables"}
 Q_ID_RE = re.compile(r"^(cnm_(?:p)?\d{3,})_q([1-9]\d*)$")
 NUM_RE = re.compile(r"^-?\d+(?:\.\d+)?(?:/\d+(?:\.\d+)?)?$")
 MIN_QUESTIONS_PER_TOPIC = 3
@@ -436,6 +436,13 @@ def question_errors(questions, topics_by_id, require_coverage=True):
             errs.append("%s unordered 只能用于 numeric 题且取值为 true" % w)
         if "unit" in q and not (typ == "numeric" and nonempty_str(q["unit"])):
             errs.append("%s unit 只能用于 numeric 题且必须是非空字符串" % w)
+        if "variables" in q:
+            names = q["variables"]
+            values = parse_numeric_answer(q.get("answer"))
+            if not (typ == "numeric" and isinstance(names, list) and bool(names) and values is not None and
+                    not q.get("unordered") and len(names) == len(values) and all(isinstance(name, str) and
+                    re.fullmatch(r"[a-z](?:\([a-z]\))?", name) for name in names) and len(set(names)) == len(names)):
+                errs.append("%s variables 只能用于有序 numeric 题，且须按答案顺序提供非空、等长、不重复的小写变量名数组" % w)
         if "fixed_from_source" in q and not nonempty_str(q["fixed_from_source"]):
             errs.append("%s fixed_from_source 为空" % w)
         ans = q.get("answer")

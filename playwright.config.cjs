@@ -20,8 +20,12 @@ module.exports = defineConfig({
   },
   projects: [
     { name: 'phone', use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
-    { name: 'tablet', use: { viewport: { width: 768, height: 1024 }, isMobile: true, hasTouch: true } },
-    { name: 'desktop', use: { viewport: { width: 1440, height: 900 } } }
+    { name: 'tablet', grepInvert: /@grading-contract/, use: { viewport: { width: 768, height: 1024 }, isMobile: true, hasTouch: true } },
+    { name: 'desktop', grepInvert: /@grading-contract/, use: { viewport: { width: 1440, height: 900 } } },
+    ...(process.env.PLAYWRIGHT_WEBKIT ? [
+      { name: 'webkit-phone', use: { browserName: 'webkit', viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
+      { name: 'webkit-tablet', grepInvert: /@grading-contract/, use: { browserName: 'webkit', viewport: { width: 768, height: 1024 }, isMobile: true, hasTouch: true } }
+    ] : [])
   ],
   webServer: process.env.PLAYWRIGHT_BASE_URL ? undefined : {
     command: 'node tests/browser/server.cjs',

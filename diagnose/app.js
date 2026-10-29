@@ -5,7 +5,7 @@
   const LS_SESSION = 'cnmDiagnose.session.v2';
   const LS_SETTINGS = 'cnmDiagnose.settings.v2';
   const LS_SEEN = 'cnmDiagnose.seen.v1';
-  const LIMIT_MIN = 8, LIMIT_MAX = 30;
+  const LIMIT_MIN = 8, LIMIT_MAX = 30, EXTENDED_LIMIT_MAX = 60;
   const VOLUMES = [
     ['一上', '一年级上册'], ['一下', '一年级下册'], ['二上', '二年级上册'], ['二下', '二年级下册'],
     ['三上', '三年级上册'], ['三下', '三年级下册'], ['四上', '四年级上册'], ['四下', '四年级下册'],
@@ -137,15 +137,23 @@
     const counts = new Map(topics.filter(function (t) { return !t.external; }).map(function (t) { return [t.id, 0]; }));
     const ids = new Set();
     questions.forEach(function (q) {
-      if (!q || typeof q.id !== 'string' || ids.has(q.id) || !counts.has(q.topicId) ||
+      if (!q || typeof q.id !== 'string' || !/^cnm_(?:p)?\d{3,}_q[1-9]\d*$/.test(q.id) ||
+          q.id.slice(0, q.id.lastIndexOf('_q')) !== q.topicId || ids.has(q.id) || !counts.has(q.topicId) ||
           !['numeric', 'choice', 'short', 'self'].includes(q.type) || typeof q.prompt !== 'string' || !q.prompt.trim() ||
           typeof q.answer !== 'string' || !q.answer.trim() || !['basic', 'standard', 'advanced'].includes(q.difficulty)) {
         throw bankError('题库包含缺失或无效的题目。');
       }
       if (q.type === 'choice' && (!Array.isArray(q.choices) || q.choices.length < 2 ||
-          q.choices.some(function (c) { return !c || typeof c.key !== 'string' || typeof c.text !== 'string'; }) ||
+          q.choices.some(function (c) { return !c || typeof c.key !== 'string' || !/^[A-Z]$/.test(c.key) || typeof c.text !== 'string' || !c.text.trim(); }) ||
           new Set(q.choices.map(function (c) { return c.key; })).size !== q.choices.length ||
           !q.choices.some(function (c) { return c.key === q.answer; }))) throw bankError('题库包含无效的选择题。');
+      if (q.unit !== undefined && (q.type !== 'numeric' || typeof q.unit !== 'string' || !q.unit.trim())) throw bankError('题库包含无效的单位设置。');
+      if (q.unordered !== undefined && (q.type !== 'numeric' || q.unordered !== true)) throw bankError('题库包含无效的答案顺序设置。');
+      if (q.accept !== undefined && (!Array.isArray(q.accept) || q.accept.some(function (answer) { return typeof answer !== 'string' || !answer.trim(); }))) throw bankError('题库包含无效的可接受答案。');
+      if (q.variables !== undefined && (q.type !== 'numeric' || q.unordered || !Array.isArray(q.variables) || !q.variables.length ||
+          q.variables.length !== q.answer.split(/[，,]/).length ||
+          q.variables.some(function (variable) { return typeof variable !== 'string' || !/^[a-z](?:\([a-z]\))?$/.test(variable); }) ||
+          new Set(q.variables).size !== q.variables.length)) throw bankError('题库包含无效的变量对应设置。');
       ids.add(q.id);
       counts.set(q.topicId, counts.get(q.topicId) + 1);
     });
@@ -171,7 +179,13 @@
 
   /* ------------------------------------------------------------ 会话 */
   function questionFingerprint(question) {
-    return JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '']);
+    return JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '', !!question.unordered, question.variables || []]);
+  }
+  function matchesQuestionFingerprint(fingerprint, question) {
+    if (fingerprint === questionFingerprint(question)) return true;
+    // Older drafts saved the first six fields. Re-judge any restored feedback
+    // against current rules, while preserving input for an unchanged question.
+    return fingerprint === JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '']);
   }
   function save() {
     if (demo || !session) return;
@@ -193,7 +207,7 @@
     const item = E.nextItem(D.graph, session);
     if (!draft || typeof draft.answer !== 'string') return;
     if (!item || draft.key !== item.topicId + '#' + item.attempt || draft.questionId !== item.question.id ||
-        draft.questionFingerprint !== questionFingerprint(item.question)) {
+        !matchesQuestionFingerprint(draft.questionFingerprint, item.question)) {
       if (draft.answer) {
         draftBackup = draft;
         sessionNotice = '题目或诊断流程已更新，旧草稿已保留供核对，未自动填入新题。';
@@ -611,7 +625,9 @@
         stat('unk', sum.untested.length, '未测')),
       sum.unconfirmed.length ? h('p', { class: 'notice' }, '「' + sum.unconfirmed.map(nameOf).join('」「') + '」只答了第一题（答错）就到了题量上限，没来得及复测，暂按薄弱处理。') : null,
       sum.limitReached ? h('p', { class: 'notice' }, '已达到题量上限（' + sum.limit + '），剩余没测到的知识点标为「未测」。薄弱根因的先修里若有未测点，真正的根因可能更靠前。',
-        h('button', { class: 'no-print', style: 'margin-left:8px', onclick: function () { rebuild(session.answers, Math.min(session.limit + 4, 60)); } }, '再多答 4 题')) : null,
+        session.limit < EXTENDED_LIMIT_MAX
+          ? h('button', { class: 'no-print', style: 'margin-left:8px', onclick: function () { rebuild(session.answers, Math.min(session.limit + 4, EXTENDED_LIMIT_MAX)); } }, '再多答 ' + Math.min(4, EXTENDED_LIMIT_MAX - session.limit) + ' 题')
+          : h('span', { class: 'no-print' }, ' 已达到可追加的最大题量（60 题），可导出结果或重新选择目标。')) : null,
       h('p', { class: 'muted small' }, '自动判题只是近似的，答题记录里可以更正任何一题。生成时间：' + new Date().toLocaleString('zh-CN')),
       h('div', { class: 'row result-actions no-print' },
         h('button', { class: 'primary', id: 'btn-export', onclick: exportJson }, '导出 JSON'),

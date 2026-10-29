@@ -27,11 +27,13 @@ jobs:
         run: |
           python3 scripts/validate.py
           node tests/test_engine.js
-          python3 -m unittest discover -s tests -p 'test_site_build.py'
+          python3 -m unittest discover -s tests -p 'test_*.py'
           node tests/test_update_check.js
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Install Chromium and WebKit
+        run: npx playwright install --with-deps chromium webkit
       - name: Test phone, tablet, desktop and update recovery
+        env:
+          PLAYWRIGHT_WEBKIT: '1'
         run: npm run test:browser
       - name: Upload browser failure evidence
         if: failure()

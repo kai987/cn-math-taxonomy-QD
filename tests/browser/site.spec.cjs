@@ -23,6 +23,10 @@ function seedFor(topicId, predicate) {
 const numeric = seedFor('cnm_p001', question => question.type === 'numeric');
 const choice = seedFor('cnm_221', question => question.type === 'choice');
 const conversion = seedFor('cnm_p041', question => question.id === 'cnm_p041_q2');
+const shortAnswer = seedFor('cnm_025', question => question.type === 'short');
+const openAnswer = seedFor('cnm_003', question => question.type === 'self');
+const orderedAnswers = seedFor('cnm_059', question => question.id === 'cnm_059_q1');
+const variableAnswers = seedFor('cnm_089', question => question.id === 'cnm_089_q2');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -42,6 +46,32 @@ test.afterEach(async ({ page }, info) => {
 
 async function noHorizontalOverflow(page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+}
+
+async function activate(page, locator) {
+  await locator.waitFor({ state: 'visible' });
+  if (await page.evaluate(() => matchMedia('(pointer: coarse)').matches)) await locator.tap();
+  else await locator.click();
+}
+
+async function savedSession(page) {
+  return page.evaluate(key => JSON.parse(localStorage.getItem(key)), sessionKey);
+}
+
+async function answerCorrectly(page, item) {
+  if (item.question.type === 'choice') await activate(page, page.locator('#choice-' + item.question.answer));
+  else await page.locator('#ans').fill(item.question.answer);
+  if (item.question.type === 'self') {
+    await activate(page, page.locator('#btn-peek'));
+    await activate(page, page.locator('#btn-right'));
+  } else {
+    await activate(page, page.locator('#btn-submit'));
+    if (await page.locator('#btn-right').isVisible()) await activate(page, page.locator('#btn-right'));
+    else {
+      await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+      await activate(page, page.locator('#btn-next'));
+    }
+  }
 }
 
 test('catalogue filters, touch panels and current-topic diagnosis link', async ({ page }, info) => {
@@ -154,7 +184,7 @@ test('correcting the first answer recalculates the result and drops obsolete fol
   await expect(page.locator('#summary')).toBeVisible();
 });
 
-for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank']) {
+for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank', 'invalid-question-id']) {
   test('unavailable question bank ' + failure + ' blocks diagnosis and retries without clearing progress', async ({ page }) => {
     const url = targetURL('cnm_p001', numeric.seed);
     await page.goto(url);
@@ -165,7 +195,8 @@ for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank']) {
     await page.route('**/data/questions.json*', async route => {
       if (!fail) return route.continue();
       if (failure === 'network') return route.abort();
-      const body = failure === '404' ? '{}' : failure === 'incomplete-bank' ? JSON.stringify(questions.slice(0, 1)) : '{broken-json';
+      const body = failure === '404' ? '{}' : failure === 'incomplete-bank' ? JSON.stringify(questions.slice(0, 1))
+        : failure === 'invalid-question-id' ? JSON.stringify(questions.map((question, index) => index ? question : { ...question, id: 'invalid-id' })) : '{broken-json';
       await route.fulfill({ status: failure === '404' ? 404 : 200, contentType: 'application/json', body });
     });
     await page.reload();
@@ -273,5 +304,198 @@ test('small phone width and tablet landscape retain usable controls', async ({ p
       return rect.width && rect.height && rect.height < 43.5;
     }).map(element => element.textContent));
     expect(smallTargets).toEqual([]);
+  }
+});
+
+test('short answers support manual judgement, undo and restored feedback', async ({ page }) => {
+  await page.goto(targetURL('cnm_025', shortAnswer.seed));
+  await expect(page.locator('#q-text')).toHaveText(shortAnswer.question.prompt);
+  await page.locator('#ans').fill(shortAnswer.question.answer);
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await activate(page, page.locator('#btn-next'));
+  await expect(page.locator('#summary')).toBeVisible();
+  await activate(page, page.getByRole('button', { name: '撤销上一题', exact: true }));
+  await expect(page.locator('#q-text')).toHaveText(shortAnswer.question.prompt);
+  await expect(page.locator('#ans')).toHaveValue('');
+  await page.locator('#ans').fill('我用自己的方法作了说明');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('.refans')).toContainText(shortAnswer.question.answer);
+  await page.reload();
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await activate(page, page.locator('#btn-right'));
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await expect(page.locator('#log tbody tr')).toHaveCount(1);
+});
+
+test('automatic grading can be overridden in both directions and undone without losing the question', async ({ page }) => {
+  await page.goto(targetURL('cnm_p001', numeric.seed));
+  await page.locator('#ans').fill('999999');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.locator('#btn-flip'));
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  expect((await savedSession(page)).answers[0].result).toBe('correct');
+  await activate(page, page.getByRole('button', { name: '撤销上一题', exact: true }));
+  await expect(page.locator('#q-text')).toHaveText(numeric.question.prompt);
+  await page.locator('#ans').fill(numeric.question.answer);
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await activate(page, page.locator('#btn-flip'));
+  await expect(page.locator('.question-card')).toContainText('本知识点第 2 题');
+  expect((await savedSession(page)).answers[0].result).toBe('wrong');
+  await activate(page, page.locator('#btn-skip'));
+  await activate(page, page.locator('#btn-next'));
+  await expect(page.locator('#summary .stat.bad b')).toHaveText('1');
+  await page.reload();
+  await expect(page.locator('#summary .stat.bad b')).toHaveText('1');
+});
+
+test('open answer drafts and self assessment survive rotation, refresh and prerequisite backtracking', async ({ page }, info) => {
+  await page.goto(targetURL('cnm_003', openAnswer.seed));
+  await expect(page.locator('textarea#ans')).toBeVisible();
+  const draft = '先按正数、零和负数分类。\n保留这个尚未提交的解题思路。';
+  await page.locator('#ans').fill(draft);
+  for (const viewport of [{ width: 320, height: 568 }, { width: 844, height: 390 }, { width: 768, height: 1024 }, { width: 1024, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    await expect(page.locator('#ans')).toHaveValue(draft);
+    await noHorizontalOverflow(page);
+  }
+  await activate(page, page.locator('#btn-peek'));
+  await expect(page.locator('.refans')).toContainText(openAnswer.question.answer);
+  await page.reload();
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await page.screenshot({ path: info.outputPath('open-answer-landscape.png') });
+  await activate(page, page.locator('#btn-wrong'));
+  await expect(page.locator('.question-card')).toContainText('本知识点第 2 题');
+  await activate(page, page.locator('#btn-skip'));
+  await activate(page, page.locator('#btn-next'));
+  const saved = await savedSession(page);
+  const replayed = E.replay(graph, saved.targets, saved.answers, { seed: saved.seed, limit: saved.limit, avoid: saved.avoid });
+  expect(E.statusOf(replayed, 'cnm_003')).toBe('weak');
+  const next = E.nextItem(graph, replayed);
+  expect(next.topicId).not.toBe('cnm_003');
+  await expect(page.locator('#q-text')).toHaveText(next.question.prompt);
+  await noHorizontalOverflow(page);
+});
+
+test('a whole chapter can be completed after leaving and continuing the saved session', async ({ page }) => {
+  await page.goto(siteURL('/diagnose/'));
+  await page.locator('#stage').selectOption('j');
+  await page.locator('#search').fill('第一章 有理数');
+  await activate(page, page.getByRole('button', { name: '以整章为目标', exact: true }).first());
+  await expect(page.locator('#q-text')).toBeVisible();
+  const saved = await savedSession(page);
+  expect(saved.targets.length).toBeGreaterThan(1);
+  expect(saved.label).toContain('整章');
+  let modeled = E.createSession(graph, saved.targets, { seed: saved.seed, limit: saved.limit, avoid: saved.avoid });
+  let item = E.nextItem(graph, modeled);
+  await answerCorrectly(page, item);
+  modeled = E.applyAnswer(graph, modeled, item.topicId, 'correct');
+  await activate(page, page.locator('.topbar .back'));
+  await expect(page.locator('.topic-pick').first()).toBeVisible();
+  await activate(page, page.locator('header .tool-link'));
+  await activate(page, page.getByRole('button', { name: '继续', exact: true }));
+  for (let guard = 0; (item = E.nextItem(graph, modeled)) && guard < saved.targets.length; guard++) {
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await answerCorrectly(page, item);
+    modeled = E.applyAnswer(graph, modeled, item.topicId, 'correct');
+  }
+  expect(E.nextItem(graph, modeled)).toBeNull();
+  await expect(page.locator('#summary')).toContainText('整章');
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await expect(page.locator('#summary .stat.ask b')).toHaveText(String(modeled.answers.length));
+  await noHorizontalOverflow(page);
+});
+
+test('two wrong answers backtrack, the question limit can be extended and undo stays consistent', async ({ page }) => {
+  const seed = 'browser-limit-eight';
+  let modeled = E.createSession(graph, ['cnm_221'], { seed, limit: 8, avoid: [] });
+  await page.goto(targetURL('cnm_221', seed) + '&limit=8');
+  for (let index = 0; index < 8; index++) {
+    const item = E.nextItem(graph, modeled);
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    if (index === 1) await expect(page.locator('.question-card')).toContainText('本知识点第 2 题');
+    if (index === 2) expect(item.topicId).not.toBe('cnm_221');
+    await activate(page, page.locator('#btn-skip'));
+    await activate(page, page.locator('#btn-next'));
+    modeled = E.applyAnswer(graph, modeled, item.topicId, 'skip');
+  }
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('8');
+  await expect(page.locator('#summary')).toContainText('已达到题量上限');
+  await page.reload();
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('8');
+  await activate(page, page.getByRole('button', { name: '再多答 4 题', exact: true }));
+  await expect(page.locator('#q-text')).toBeVisible();
+  expect((await savedSession(page)).limit).toBe(12);
+  await activate(page, page.getByRole('button', { name: '撤销上一题', exact: true }));
+  const saved = await savedSession(page);
+  expect(saved.answers).toHaveLength(7);
+  expect(saved.limit).toBe(12);
+  const expected = E.replay(graph, saved.targets, saved.answers, { seed, limit: 12, avoid: [] });
+  await expect(page.locator('#q-text')).toHaveText(E.nextItem(graph, expected).question.prompt);
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(E.nextItem(graph, expected).question.prompt);
+  await noHorizontalOverflow(page);
+});
+
+test('the maximum extended question limit does not expose a dead add-more action', async ({ page }) => {
+  const seed = 'browser-limit-sixty';
+  let session = E.createSession(graph, ['cnm_221'], { seed, limit: 60, avoid: [] });
+  for (let index = 0; index < 60; index++) {
+    const item = E.nextItem(graph, session);
+    expect(item).not.toBeNull();
+    session = E.applyAnswer(graph, session, item.topicId, 'skip');
+  }
+  await page.addInitScript(({ key, saved }) => localStorage.setItem(key, JSON.stringify(saved)), {
+    key: sessionKey, saved: { v: 2, targets: session.targets, limit: 60, label: '配方法', answers: session.answers, seed, avoid: [] }
+  });
+  await page.goto(targetURL('cnm_221', seed));
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('60');
+  await expect(page.getByRole('button', { name: '再多答 4 题', exact: true })).toHaveCount(0);
+});
+
+test('the final one-question extension is accurately labelled and persists after refresh', async ({ page }) => {
+  const seed = 'browser-limit-fifty-nine';
+  let session = E.createSession(graph, ['cnm_221'], { seed, limit: 59, avoid: [] });
+  for (let index = 0; index < 59; index++) {
+    const item = E.nextItem(graph, session);
+    expect(item).not.toBeNull();
+    session = E.applyAnswer(graph, session, item.topicId, 'skip');
+  }
+  await page.addInitScript(({ key, saved }) => {
+    if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(saved));
+  }, {
+    key: sessionKey, saved: { v: 2, targets: session.targets, limit: 59, label: '配方法', answers: session.answers, seed, avoid: [] }
+  });
+  await page.goto(targetURL('cnm_221', seed));
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('59');
+  await activate(page, page.getByRole('button', { name: '再多答 1 题', exact: true }));
+  await expect(page.locator('#q-text')).toBeVisible();
+  expect((await savedSession(page)).limit).toBe(60);
+  await activate(page, page.locator('#btn-skip'));
+  await activate(page, page.locator('#btn-next'));
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('60');
+  await expect(page.getByRole('button', { name: /再多答/ })).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('#summary .stat.ask b')).toHaveText('60');
+  expect((await savedSession(page)).limit).toBe(60);
+});
+
+test('ordered answers and named variables cannot be accepted after separators or names are changed', { tag: '@grading-contract' }, async ({ page }) => {
+  for (const example of [
+    { topic: 'cnm_059', item: orderedAnswers, incorrect: '40130', correct: '40,130' },
+    { topic: 'cnm_089', item: variableAnswers, incorrect: 'y=3,x=2', correct: 'y=2,x=3' }
+  ]) {
+    await page.goto(targetURL(example.topic, example.item.seed));
+    await expect(page.locator('#q-text')).toHaveText(example.item.question.prompt);
+    await page.locator('#ans').fill(example.incorrect);
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+    await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+    await page.locator('#ans').fill(example.correct);
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
   }
 });

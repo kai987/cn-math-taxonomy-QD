@@ -547,7 +547,7 @@ test('多个答案顺序无关："-3 和 -1/2" vs "-1/2，-3"', () => {
 
 test('带变量名的答案：x=… 可省略变量名，但 x、y 不能互换', () => {
   assert.strictEqual(verdict('3', 'x=3'), 'correct');
-  assert.strictEqual(verdict('x=3', '3'), 'correct');
+  assert.strictEqual(verdict('x=3', '3'), 'manual'); // 参考答案没有变量契约时不能猜测 x
   assert.strictEqual(verdict('y=2，x=3', 'x=3，y=2'), 'correct');
   assert.strictEqual(verdict('3，2', 'x=3，y=2'), 'correct');
   assert.strictEqual(verdict('x=2，y=3', 'x=3，y=2'), 'wrong');
@@ -1190,6 +1190,155 @@ test('单位修复保留分数 / 百分数 / 负数 / 多值和已有单位别�
   assert.strictEqual(E.judgeAnswer('12米', '12 m').verdict, 'correct');
   assert.strictEqual(E.judgeAnswer('12', '12 m').verdict, 'correct');
   assert.strictEqual(E.judgeAnswer('12 cm', '12 m').verdict, 'wrong');
+});
+
+/* ------------------------------------------------------------ 深入判题准确性回归 */
+console.log('深入判题准确性回归');
+
+test('真实多答案不与千分位混淆，错误的连写数字不能判对', () => {
+  for (const [id, collapsed] of [['cnm_059_q1', '40130'], ['cnm_295_q1', '90120']]) {
+    const q = questions.find(question => question.id === id);
+    assert.strictEqual(E.judgeQuestion(q, q.answer).verdict, 'correct', id);
+    assert.strictEqual(E.judgeQuestion(q, q.answer.replace(/，/g, ',')).verdict, 'correct', id);
+    assert.strictEqual(E.judgeQuestion(q, collapsed).verdict, 'wrong', id);
+    assert.strictEqual(E.judgeQuestion(q, q.answer.split('，').reverse().join(',')).verdict, 'wrong', id);
+  }
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1，234' }, '1234').verdict, 'wrong');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1，234' }, '1,234').verdict, 'correct');
+});
+
+test('只有明确单个数值才识别规范千分位，并保留分数 / 百分数的精确等值', () => {
+  for (const [input, answer] of [['1,000', '1000'], ['1,000,000', '1000000'], ['1,000/2', '500'],
+    ['1,000%', '10'], ['25%', '1/4'], ['５０％', '0.5'], ['-1又1/2', '-3/2']]) {
+    assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer }, input).verdict, 'correct', input);
+  }
+  for (const [input, answer] of [['1/0', '0'], ['0/0', '0'], ['25%%', '0.25'], ['1/2/3', '1/6']]) {
+    assert.notStrictEqual(E.judgeQuestion({ type: 'numeric', answer }, input).verdict, 'correct', input);
+  }
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '0.333' }, '1/3').verdict, 'wrong');
+});
+
+test('全部明确变量契约支持正确标签重排，拒绝错标签和重复替代标签', () => {
+  const annotated = questions.filter(question => question.variables);
+  assert.ok(annotated.length >= 32);
+  for (const q of annotated) {
+    const values = q.answer.split(/[，,]/);
+    const labelled = q.variables.map((name, index) => name + '=' + values[index]);
+    const wrongName = ['w', 'v', 'z'].find(name => !q.variables.includes(name));
+    const wrongLabel = labelled.slice(); wrongLabel[0] = wrongName + '=' + values[0];
+    assert.strictEqual(E.judgeQuestion(q, labelled.join(',')).verdict, 'correct', q.id + ' labels');
+    assert.strictEqual(E.judgeQuestion(q, labelled.slice().reverse().join(',')).verdict, 'correct', q.id + ' reordered');
+    assert.strictEqual(E.judgeQuestion(q, wrongLabel.join(',')).verdict, 'wrong', q.id + ' wrong label');
+    if (q.variables.length > 1) {
+      const duplicated = labelled.slice(); duplicated[1] = q.variables[0] + '=' + values[1];
+      assert.strictEqual(E.judgeQuestion(q, duplicated.join(',')).verdict, 'wrong', q.id + ' duplicate label');
+    }
+  }
+  const q = questions.find(question => question.id === 'cnm_089_q2');
+  assert.strictEqual(E.judgeQuestion(q, 'y=3,x=2').verdict, 'wrong');
+  assert.strictEqual(E.judgeQuestion(q, 'x=3,x=2').verdict, 'wrong');
+  assert.strictEqual(E.judgeQuestion(q, 'y=2,x=3').verdict, 'correct');
+});
+
+test('没有变量契约时不猜测标签；已有明确标签的参考答案严格绑定变量', () => {
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '3' }, 'x=3').verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '3,2' }, 'y=3,x=2').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('z=3', 'x=3').verdict, 'wrong');
+  assert.strictEqual(E.judgeAnswer('x=2,x=3', 'y=2,y=3').verdict, 'wrong');
+  assert.strictEqual(E.judgeAnswer('x=3,x=2', 'x=2,x=3').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('y=2,x=3', 'x=3,y=2').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('3', 'x=3').verdict, 'correct');
+  const labelled = { type: 'numeric', answer: '3，2', variables: ['x', 'y'] };
+  for (const variables of [[], ['x'], ['x', 'x'], null, ['x', 2]])
+    assert.strictEqual(E.judgeQuestion({ ...labelled, variables }, '3,2').verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion({ ...labelled, unordered: true }, '3,2').verdict, 'manual');
+});
+
+test('阶乘、重复小数点和数字间空白不会被吞掉后判对', () => {
+  for (const [input, answer] of [['3!', '3'], ['3!!', '3'], ['3..', '3'], ['3...', '3'], ['1 2', '12'], ['1\n2', '12']])
+    assert.notStrictEqual(E.judgeQuestion({ type: 'numeric', answer }, input).verdict, 'correct', input);
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1.5' }, '1 1/2').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '3' }, '答：３。').verdict, 'correct');
+});
+
+test('空答案项、错误坐标括号和非法度数后缀不被丢弃后判对', () => {
+  for (const input of ['1,,2', ',1,2', '1,2,', '1;;2', '(1,,2)', '[1,2)', '{1,2}'])
+    assert.notStrictEqual(E.judgeAnswer(input, '(1,2)').verdict, 'correct', input);
+  assert.notStrictEqual(E.judgeAnswer('1,,2', '1,2').verdict, 'correct');
+  assert.notStrictEqual(E.judgeAnswer('1;', '1').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('（１，２）', '(1,2)').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('(0.5,2)', '(1/2,2)').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('(2,1)', '(1,2)').verdict, 'wrong');
+  assert.strictEqual(E.judgeAnswer('(1,2)', '1,2').verdict, 'manual');
+  assert.notStrictEqual(E.judgeAnswer('90°米', '90°').verdict, 'correct');
+  assert.notStrictEqual(E.judgeAnswer('90°角', '90°').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('90度', '90°').verdict, 'correct');
+});
+
+test('short文字列表与坐标序列保持题目次序，不能靠集合重排自动判对', () => {
+  const axes = questions.find(question => question.id === 'cnm_202_q1');
+  const probability = questions.find(question => question.id === 'cnm_307_q1');
+  assert.strictEqual(E.judgeQuestion(axes, '(0.0,4.0),(2.0,0.0)').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion(axes, '(2,0),(0,4)').verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion(probability, '红球，白球，黄球').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion(probability, '黄球，白球，红球').verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion({ type: 'short', answer: '甲，乙' }, '乙，甲').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('乙，甲', '甲，乙').verdict, 'manual');
+});
+
+test('choice全库正确文字与全角key可识别，文字/key歧义仍按有效key优先', () => {
+  let checked = 0, collisions = 0;
+  for (const q of questions.filter(question => question.type === 'choice')) {
+    const text = q.choices.find(choice => choice.key === q.answer).text;
+    const keyMatch = /^[(（]?([a-z])[)）.．、:：]?$/.exec(E.normalizeText(text));
+    if (keyMatch && q.choices.some(choice => choice.key === keyMatch[1].toUpperCase())) {
+      collisions++;
+      assert.strictEqual(E.judgeQuestion(q, text).verdict, keyMatch[1].toUpperCase() === q.answer ? 'correct' : 'wrong', q.id);
+    } else { checked++; assert.strictEqual(E.judgeQuestion(q, text).verdict, 'correct', q.id + ' text'); }
+    for (const choice of q.choices) {
+      const fullwidth = String.fromCharCode(choice.key.charCodeAt(0) + 0xFEE0);
+      assert.strictEqual(E.judgeQuestion(q, fullwidth).verdict, choice.key === q.answer ? 'correct' : 'wrong', q.id + ' ' + fullwidth);
+    }
+  }
+  assert.ok(checked > 600);
+  assert.ok(collisions > 0);
+  assert.strictEqual(E.judgeQuestion(questions.find(q => q.id === 'cnm_162_q1'), 'x').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion(questions.find(q => q.id === 'cnm_194_q3'), 't').verdict, 'correct');
+  const ambiguous = { type: 'choice', answer: 'A', choices: [{ key: 'A', text: '相切' }, { key: 'B', text: '相切。' }, { key: 'C', text: '相离' }] };
+  assert.strictEqual(E.judgeQuestion(ambiguous, '相切').verdict, 'manual');
+});
+
+test('单位多重集合优先完整的确定匹配，不能因贪心次序把正确答案判错', () => {
+  assert.strictEqual(E.judgeAnswer('1,1cm', '1cm,1m').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('1朵,1cm', '1cm,1m').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('1kg,1cm', '1cm,1m').verdict, 'wrong');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1，2', accept: ['3，4'] }, '3.0,4.0').verdict, 'correct');
+});
+
+test('显式按顺序的真实题拒绝答案倒置', () => {
+  for (const [id, right, wrong] of [['cnm_001_q1', '-3,-1/2', '-1/2,-3'], ['cnm_115_q5', '20,80', '80,20']]) {
+    const q = questions.find(question => question.id === id);
+    assert.strictEqual(q.unordered, undefined, id);
+    assert.strictEqual(E.judgeQuestion(q, right).verdict, 'correct', id);
+    assert.strictEqual(E.judgeQuestion(q, wrong).verdict, 'wrong', id);
+  }
+});
+
+test('非法作答结果不会利用对象原型属性混入存档', () => {
+  const session = E.createSession(G2, ['T']);
+  for (const result of ['constructor', '__proto__', 'toString']) {
+    assert.throws(() => E.applyAnswer(G2, session, 'T', result));
+    const replayed = E.replayWithReport(G2, ['T'], [{ id: 'T', result }]);
+    assert.strictEqual(replayed.session.answers.length, 0);
+    assert.strictEqual(replayed.dropped[0].reason, 'invalid-record');
+  }
+});
+
+test('超长输入与超量答案项安全交给自评，不参与大整数或组合匹配', () => {
+  assert.deepStrictEqual(E.judgeQuestion({ type: 'numeric', answer: '3' }, ''), { verdict: 'manual', reason: 'empty' });
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '3' }, '3'.repeat(5000)).verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '3' }, Array(70).fill('3').join(',')).verdict, 'manual');
+  assert.strictEqual(E.judgeQuestion({ type: 'short', answer: '略' }, '略'.repeat(5000)).verdict, 'manual');
 });
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

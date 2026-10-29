@@ -262,7 +262,7 @@ python3 -m http.server 8000
 ### 本 fork 的 GitHub Pages
 
 站点：[kai987.github.io/cn-math-taxonomy-QD](https://kai987.github.io/cn-math-taxonomy-QD/)。
-向 `main` 推送后，`.github/workflows/pages.yml` 会先校验数据，运行引擎、发布和手机／平板／桌面浏览器回归测试，通过后再发布 GitHub Pages。仓库 Settings → Pages 的 Source 使用 **GitHub Actions**。
+向 `main` 推送后，`.github/workflows/pages.yml` 会先校验数据，运行引擎、发布及 Chromium / WebKit 的手机／平板／桌面浏览器回归测试，通过后再发布 GitHub Pages。仓库 Settings → Pages 的 Source 使用 **GitHub Actions**。
 
 构建脚本 `scripts/build_site.py` 仅打包页面所需文件，把完整提交 SHA 写入页面和 `version.json`，并将 JavaScript、CSS 与 JSON 数据放在 `assets/<SHA>/` 目录。每个发布包只包含本次版本；旧页面不会把缺失的旧资源悄悄替换成另一版本的同名资源。根目录的 `update-check.js` 保留稳定地址，以便旧页面仍能检查线上版本并引导更新。
 
@@ -287,6 +287,8 @@ npm run test:browser
 ```
 
 测试覆盖答案更正、单位判题、草稿恢复、题库失败后重试、延迟加载更新脚本和窄屏布局。测试服务会构建临时发布包；报告、截图和跟踪文件不进入发布包或 Git 仓库。
+
+完整跨浏览器验收还可运行 `npx playwright install chromium webkit` 后执行 `PLAYWRIGHT_WEBKIT=1 npm run test:browser`，覆盖开放题、章节诊断、旋转、改判与撤销，以及题量追加到 60 题的边界。CI 默认包含此检查。
 
 ### 上游原有的 Cloudflare 部署方式
 
