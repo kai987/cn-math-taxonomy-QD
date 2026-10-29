@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""题库答案自动核验（仅标准库）。
+"""题库参考答案自动核验（算术使用标准库，模型依赖 requirements-verification.txt）。
 
 用法：
   python3 scripts/verify_questions.py                       # 核验 data/questions.json，写 data/verification_report.json
@@ -14,6 +14,7 @@
   solve2(a1,b1,c1,a2,b2,c2) -> (x, y)    解 a1x+b1y=c1, a2x+b2y=c2（精确 Fraction）
   roots2(a,b,c) -> 升序实根列表          判别式是完全平方（有理）时为 Fraction，否则为 float
   poly(expression[, dependent]) -> 精确多项式，用于 choice / short 的展开式、因式分解、函数式核验
+  model(question_id) -> 从绑定原题的结构化数学输入推导结果，不读取参考答案
 
 比较规则：
   numeric：表达式结果（数，或多个答案时为列表/元组）与 answer 比较。结果是 int/Fraction 时精确比较；
@@ -40,6 +41,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import validate as V  # noqa: E402
 from exact_polynomial import Polynomial, poly  # noqa: E402
+from math_models import model  # noqa: E402
+from model_types import TextProof  # noqa: E402
 
 QUESTIONS_PATH = os.path.join(ROOT, "data", "questions.json")
 REPORT_PATH = os.path.join(ROOT, "data", "verification_report.json")
@@ -93,7 +96,7 @@ NAMES = {
     "abs": abs, "round": round, "sum": sum, "min": min, "max": max, "len": len, "sorted": sorted,
     "range": range, "floor": math.floor, "ceil": math.ceil, "isqrt": math.isqrt, "int": int, "float": float,
     "mean": statistics.mean, "median": statistics.median, "pvariance": statistics.pvariance,
-    "variance": statistics.variance, "mode": _mode, "solve2": solve2, "roots2": roots2, "poly": poly,
+    "variance": statistics.variance, "mode": _mode, "solve2": solve2, "roots2": roots2, "poly": poly, "model": model,
 }
 
 ALLOWED_NODES = (
@@ -234,8 +237,8 @@ def compare_choice(q, res):
 
 
 def compare_short(q, res):
-    if not isinstance(res, Polynomial):
-        return False, "short 的 verify 必须返回精确 Polynomial，不能用答案字符串代替计算"
+    if not isinstance(res, (Polynomial, TextProof)):
+        return False, "short 的 verify 必须返回计算所得 Polynomial/TextProof，不能用答案字符串代替计算"
     for text in [q["answer"]] + q.get("accept", []):
         if not res.matches(text):
             return False, "短答参考值 %r 与独立多项式推导不等价" % text
@@ -312,6 +315,9 @@ def main():
     unver_by_type = Counter(q["type"] for q in questions_ok if q["id"] in set(res["unverifiable"]))
     auto_ids = set(res["auto_verified"])
     auto_by_type = Counter(q["type"] for q in questions_ok if q["id"] in auto_ids)
+    from math_models import model_id
+    auto_by_method = Counter('model' if model_id(q.get('verify')) else 'expression'
+                             for q in questions_ok if q['id'] in auto_ids)
     report = {
         "generated_at": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
         "source": os.path.relpath(path, ROOT),
@@ -320,6 +326,7 @@ def main():
         "format_errors": errs,
         "auto_verified": len(res["auto_verified"]),
         "auto_verified_by_type": dict(auto_by_type),
+        "auto_verified_by_method": dict(auto_by_method),
         "mismatch": len(res["mismatch"]),
         "unverifiable": len(res["unverifiable"]),
         "unverifiable_by_type": dict(unver_by_type),
@@ -341,12 +348,25 @@ def main():
                 "source": str(REVIEW_PATH.relative_to(ROOT)),
                 "scope": 532,
                 "reviewed": len(review["entries"]),
-                "new_expression_verified": sum(entry["id"] in auto_ids for entry in review["entries"]),
+                "scope_auto_verified": sum(entry["id"] in auto_ids for entry in review["entries"]),
                 "review_errors": review_issues,
                 "note": "逐题独立复核及固定判题回归不等于独立计算证明；无表达式的概念/开放题仍保留此边界。",
             }
             if review_issues:
                 errs.extend(review_issues)
+        from check_remaining_review import PATH as FOLLOWUP_PATH, review_errors as followup_errors
+        from math_models import catalogue
+        if FOLLOWUP_PATH.exists():
+            followup = json.loads(FOLLOWUP_PATH.read_text(encoding='utf-8'))
+            issues = followup_errors(questions, followup, catalogue())
+            report['followup_455'] = {
+                'source': str(FOLLOWUP_PATH.relative_to(ROOT)),
+                'reviewed': len(followup['entries']),
+                'outcomes': followup['summary']['outcomes'],
+                'review_errors': issues,
+                'note': '模型核验依赖题干到结构化输入的人工翻译；计算组件不计为整道开放题自动核验。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

@@ -28,6 +28,7 @@ const openAnswer = seedFor('cnm_003', question => question.type === 'self');
 const orderedAnswers = seedFor('cnm_059', question => question.id === 'cnm_059_q1');
 const variableAnswers = seedFor('cnm_089', question => question.id === 'cnm_089_q2');
 const simplifiedFormula = seedFor('cnm_209', question => question.id === 'cnm_209_q1');
+const waterMeaning = seedFor('cnm_028', question => question.id === 'cnm_028_q1');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -519,4 +520,21 @@ test('a required simplified formula keeps unfinished algebra in manual review af
   await page.reload();
   await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
   await noHorizontalOverflow(page);
+});
+
+test('the reviewed water example retains its physical time domain and self assessment after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+  await page.goto(targetURL('cnm_028', waterMeaning.seed));
+  await expect(page.locator('#q-text')).toHaveText(waterMeaning.question.prompt);
+  await page.locator('#ans').fill('水箱原有100升，每分钟流出5升；20分钟后需停止这个模型。');
+  await activate(page, page.locator('#btn-peek'));
+  await expect(page.locator('.refans')).toContainText('0≤t≤20');
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('.refans')).toContainText('0≤t≤20');
+  await noHorizontalOverflow(page);
+  await activate(page, page.locator('#btn-right'));
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await page.reload();
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
 });

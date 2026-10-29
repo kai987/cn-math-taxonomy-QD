@@ -10,8 +10,10 @@ const read = name => JSON.parse(fs.readFileSync(path.join(__dirname, '../data', 
 const questions = new Map(read('questions.json').map(q => [q.id, q]));
 const review = read('answer_review_2026-10-30.json');
 let assertions = 0;
+const seen = new Set();
 function check(q, input, expected) {
   assertions++;
+  seen.add(JSON.stringify([q.id, input, expected]));
   assert.equal(E.judgeQuestion(q, input).verdict, expected, q.id + ' input=' + JSON.stringify(input));
 }
 for (const item of review.entries) {
@@ -48,4 +50,11 @@ for (const item of review.entries) {
   }
   for (const grading of item.grading || []) check(q, grading.input, grading.result);
 }
-console.log('PASS: 532 reviewed questions; ' + assertions + ' answer grading assertions');
+for (const item of read('answer_review_remaining_455.json').entries) {
+  for (const grading of item.grading || []) {
+    if (!seen.has(JSON.stringify([item.id, grading.input, grading.result]))) {
+      check(questions.get(item.id), grading.input, grading.result);
+    }
+  }
+}
+console.log('PASS: 532 reviewed questions and 455 follow-up records; ' + assertions + ' answer grading assertions');

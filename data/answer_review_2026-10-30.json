@@ -45,7 +45,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "0是正负数的分界，既非正数亦非负数，故B唯一；A、C各把0误归为一侧。",
-      "question_sha256": "1fbdbfc5702c9178ae86d48fa5b201ebb7256da2c3cbc6fe898dfac4299b5713"
+      "question_sha256": "33239ed4b9225167e235ff06a51c0740e79d6af35e8f05ffa22a08a488b61ed8",
+      "verify": "model('cnm_001_q2')"
     },
     {
       "id": "cnm_001_q4",
@@ -53,7 +54,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "m>0所以-m<0；m-1可正可负可零，m²>0，-(-m)=m>0，只有A恒负。",
-      "question_sha256": "94835e844dda61131d749240eae6024e50777b660cd8ef3e9bf56c275fa2251e"
+      "question_sha256": "a205b7a8af561f4ced1e792a0411a65e52a37294436d7f4341eee4c71a4b2be9",
+      "verify": "model('cnm_001_q4')"
     },
     {
       "id": "cnm_002_q1",
@@ -61,7 +63,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "正号约定向东，负号反向即向西；绝对值3表示3m，故D，其他方向或距离不符。",
-      "question_sha256": "eb1067f1f3532f886a7303cf11117d9fb227cedb12d2d96db909e7e11d7c92f2"
+      "question_sha256": "ad3672ee9387bcdb9c2b3594abf1343527d0d8d8794acd9ac84f3a1b501ac468",
+      "verify": "model('cnm_002_q1')"
     },
     {
       "id": "cnm_002_q3",
@@ -69,7 +72,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "收入与支出相反，支出取负号且金额150，故-150元；其余符号或数额错误。",
-      "question_sha256": "ead79c2a754c325988242439a1cab7d936759c07e8376423698b3eae911fa337"
+      "question_sha256": "1233bb0e731067a7c04b51d5a539f453b9cd3c056bc286beb9dbccca211b3674",
+      "verify": "model('cnm_002_q3')"
     },
     {
       "id": "cnm_003_q1",
@@ -119,7 +123,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "C具备原点、正方向和一致的单位间隔；A无正方向，B单位间隔不等，D无原点。",
-      "question_sha256": "e7e765ae008ded07649ef1043d7c66208253296a35b3e0d5b226aad9d036a2c2"
+      "question_sha256": "5281dde621298ee48aa053fe87e7e04842ac9ebe6892dbba5b50b0463e049dea",
+      "verify": "model('cnm_004_q3')"
     },
     {
       "id": "cnm_006_q2",
@@ -127,7 +132,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "0.5=1/2，与-1/2之和为0；A和为5/2，B和为-8/3，C两数都为4，故只有D互为相反数。",
-      "question_sha256": "86efcf6dc591b69e0a0325c06c15f65535178b161915707b932f17eb4ddf88de"
+      "question_sha256": "f1c3856ff07f3c3aef5b11b3c423b89965a44e9667b83a67bbbd7845729a0534",
+      "verify": "model('cnm_006_q2')"
     },
     {
       "id": "cnm_007_q3",
@@ -135,7 +141,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "相反数a与-a到原点距离相同；0也等于自己的绝对值且|0|=0，排除A/C，最小绝对值为0而非-1，排除D。",
-      "question_sha256": "19790f537487bb30d1378f67a3388828c14ff686c21fa9da72f7a445224f29ef"
+      "question_sha256": "9c95b418b6149eefbfe2a5b68581d1d09a0d08b1cf451b5ed15f79275975887e",
+      "verify": "model('cnm_007_q3')"
     },
     {
       "id": "cnm_008_q4",
@@ -143,7 +150,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "当a≤0时|a|=-a，反之a>0会得到a=-a矛盾；包含0，所以不能只选负数B，答案C。",
-      "question_sha256": "19c0f61c47ff41f6d72ab077883c7a94dacb9be84056d3d1ca2697ccf92f64ed"
+      "question_sha256": "f374ba3fc37e425db1ae751c482cc7d0875da36f6c6b565128b83a2403cc155f",
+      "verify": "model('cnm_008_q4')"
     },
     {
       "id": "cnm_009_q1",
@@ -151,7 +159,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "通分后-2/3=-8/12，-3/4=-9/12，前者较大，故A，非相等或小于。",
-      "question_sha256": "7af52304fb5083430219ccf781ef9bbd0484f0e127423624c08d20245eaee3cb"
+      "question_sha256": "70b2cf0fe42e0325c87eb16d0886f54d0613ed049f9e2edd72d42a2baf67e317",
+      "verify": "model('cnm_009_q1')"
     },
     {
       "id": "cnm_009_q4",
@@ -159,7 +168,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "C左边为-4，确实小于-3；A的-3小于-2，B为5<3假，D为-1/2>-2/3，故C唯一。",
-      "question_sha256": "5130502bac763ec29dfcbb0f7f37b987529c1913f1d21a00c4ca28fd82c162d5"
+      "question_sha256": "b6280a896b24b601d139bc7eed37fdfef465f67bb01dd7a531e6bba59b8c704c",
+      "verify": "model('cnm_009_q4')"
     },
     {
       "id": "cnm_010_q2",
@@ -167,7 +177,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "(-2)+5=3；其余三式真实值依次为-2、-8、-5，均不同于给定右边。",
-      "question_sha256": "2f586c48dcbbdf72728fccdff53c2f82b0b27132318ce368619dd40a3893d648"
+      "question_sha256": "5fb9848087a61b8f0289502b84f51f0eb707503831a6c40c62a510ed77aa9622",
+      "verify": "model('cnm_010_q2')"
     },
     {
       "id": "cnm_011_q2",
@@ -175,7 +186,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "只是把加数-7和-13交换位置，运用加法交换律；并未改变结合括号，也无乘法分配。",
-      "question_sha256": "3fc076c9889d3c59ac1a426974373aba3d019e6f66f9c7a575746cb5607a751e"
+      "question_sha256": "d0c56b2a0ba41d4b71c0ddefeb24dfd45f471dc0cd909aca83ffe2493f678b86",
+      "verify": "model('cnm_011_q2')"
     },
     {
       "id": "cnm_012_q3",
@@ -183,7 +195,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "减去-3等于加3，因此5-(-3)=5+3=8；其他选项为2、-2、-8。",
-      "question_sha256": "3d786ea1b612d75a7212e41997d4ace214e7a70735f3deda425483bb950acb23"
+      "question_sha256": "64c981f6c54ff6a598a58dd30f4ccb6630df8d407dec08b176a386d0be8cf0c8",
+      "verify": "model('cnm_012_q3')"
     },
     {
       "id": "cnm_013_q3",
@@ -191,7 +204,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "加负数-5写成-5，减负数-7写成+7，最后+2保持，所以为-3-5+7+2。",
-      "question_sha256": "44ae207cdf8c918a28261a39046c7d895a0a5e2b0686c6c7c30516bbfdae5f87"
+      "question_sha256": "cca9da26a0e138297feb1c2237380f845254f083a8f271849d576b9741c46c0b",
+      "verify": "model('cnm_013_q3')"
     },
     {
       "id": "cnm_014_q2",
@@ -199,7 +213,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "D为两个负数相乘得6；A/B均为-6，C为0，只有D结果为正。",
-      "question_sha256": "07322b89115b93790b6d1191c472c82a2cf25e1b9c870bbc62117d212c6250ba"
+      "question_sha256": "b5897ebeb2871136f382ea9c29cdb1f007356232eb05586e24a23de47ddd6f3c",
+      "verify": "model('cnm_014_q2')"
     },
     {
       "id": "cnm_015_q2",
@@ -233,7 +248,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "0除以非零-5仍为0；A真实值4，B真实值-18，D除数0无意义，故C。",
-      "question_sha256": "73d506c847ef1ba0df257219a6299d4fe4c0af54c93cf5a11d33433ef8b4e2ed"
+      "question_sha256": "90c59854d83bf4ce57cfeb1945a1e8142b1a34315f43e69e85387a75a40de02a",
+      "verify": "model('cnm_017_q4')"
     },
     {
       "id": "cnm_019_q2",
@@ -241,7 +257,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "括号把负号包含在底数中，(-5)³的底数是-5、指数是3，故A而非其余三个数。",
-      "question_sha256": "c17cab83e2c42a698d3ed6d13a047626b024eb9ac3c442e0bd9766a126d5f472"
+      "question_sha256": "9290015c94ced6757cae9f070071207a6eabd4178bee5a23443ce5821245f0d6",
+      "verify": "model('cnm_019_q2')"
     },
     {
       "id": "cnm_019_q3",
@@ -249,7 +266,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "奇次幂(-2)³和-(2³)均为-8；两个平方选项各为正数与其负数，2³=8也不等于3²=9，故B。",
-      "question_sha256": "b66f3ac12591f212109cbb634218273398bbfe7521163013e1255310c295b17e"
+      "question_sha256": "31de495ccccb9b5e6fc0793cf8d778895f66d20aeb03c0985bce1a036a5eb3e8",
+      "verify": "model('cnm_019_q3')"
     },
     {
       "id": "cnm_020_q2",
@@ -257,7 +275,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "(-2)³=-8为负；(-3)²=9、(-1)⁴=1，0⁵=0，只有C。",
-      "question_sha256": "48de786bbd6a2f3ab4f06efef7b38bd5ef45ba88fb1e57f75df891e2c542cd1a"
+      "question_sha256": "dcfa34014b0848614ec11bc220b33eeeb9b9516327b87aaeb6f83f5149b35d77",
+      "verify": "model('cnm_020_q2')"
     },
     {
       "id": "cnm_022_q1",
@@ -265,7 +284,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "3450000的小数点左移6位得3.45，系数满足1≤a<10，故3.45×10⁶；B/D虽等值但系数不规范，A少一个10倍。",
-      "question_sha256": "6783904f6455bc55c712e1e5d6cef519ac54367ac2cd89c2d61809a39c4846cc"
+      "question_sha256": "df2e59acf720ace41618e98495e50b876652d4d477524743327e23b60dd1edd1",
+      "verify": "model('cnm_022_q1')"
     },
     {
       "id": "cnm_022_q4",
@@ -273,7 +293,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "150000000=1.5×10⁸，系数1.5规范；A/D系数不在[1,10)，C仅15000000。",
-      "question_sha256": "453b021d70efab3bdfbd2edf574c3ec0a96b045da2ae774efda751a367ab94e5"
+      "question_sha256": "0d15ae0c73ea3772f392339302276e8e97ea67216cbbd526a0badcd37cafabb3",
+      "verify": "model('cnm_022_q4')"
     },
     {
       "id": "cnm_024_q4",
@@ -290,7 +311,7 @@
       "expected_answer": "a+b=b+a",
       "basis": "definition",
       "reason": "加法交换律交换两个加数的位置而和不变，a+b=b+a或反向等式均可；不能把乘法交换律或结合律当作此律。",
-      "question_sha256": "e0d0c1014a39091ba9418a2047667f7a6a671c3a222acda1dd91e00cce240db6",
+      "question_sha256": "f0731475fd7c3c498bb04ee61a7556a63feef440470cc7a5fa035bbf81c068c1",
       "grading": [
         {
           "input": "a+b=b+a",
@@ -304,7 +325,8 @@
           "input": "a+b=a-b",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_025_q1')"
     },
     {
       "id": "cnm_025_q2",
@@ -352,7 +374,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "代数式不含等号或不等号来表示关系；2a-b是代数式，A是方程，C/D是不等关系。",
-      "question_sha256": "fd9681681e690a15b5e9e7125b08f562d2dd77d53aff2643572d777bc4668437"
+      "question_sha256": "2da4d8fedc8d4d942fe7a2e1f805140bcff67e22c43defebeacab34efda0c54b",
+      "verify": "model('cnm_026_q2')"
     },
     {
       "id": "cnm_026_q3",
@@ -368,7 +391,8 @@
       "expected_answer": "4",
       "basis": "definition",
       "reason": "①2a+1、③5、⑤m/n、⑥π是代数式；②x=3和④a-b>0是关系式，因此共4个。",
-      "question_sha256": "a4e63d5984bbea19d9bedcc6a0df36185031023924d6953794c5ce7dea136f3d"
+      "question_sha256": "fd5b80dc762087c5cc5c4f17b84bd7509c74f9cf27aa426ec349e5425371d415",
+      "verify": "model('cnm_026_q4')"
     },
     {
       "id": "cnm_027_q1",
@@ -414,10 +438,10 @@
     {
       "id": "cnm_028_q1",
       "independent_answer": "水箱原有100升水，以每分钟5升的恒定速率流出，t分钟后剩余水量为100-5t升，0≤t≤20。",
-      "expected_answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。",
+      "expected_answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）",
       "basis": "open",
       "reason": "100对应初始量、5对应单位时间减少量、t是时间，表达式表示剩余量而非累计用量；例子须注明单位并限制剩余量非负，开放情境不要求固定措辞。 对照现有参考答案，情境/分类一致，差异仅为标点、单位表述或补充了合理时间范围，不需改参考答案。",
-      "question_sha256": "0407314b827ab6478e1f2d37bb51733b839918cb73d6407152248c4e65e16b57",
+      "question_sha256": "493591cf5d302378fa2d17788e708b158736c7f1dc55a47470776a8fee45acc7",
       "grading": [
         {
           "input": "原有100升，每分钟用5升，t分钟后剩100-5t升，0≤t≤20",
@@ -427,7 +451,11 @@
           "input": "每分钟加5升后共有100-5t升",
           "result": "manual"
         }
-      ]
+      ],
+      "catalogue_preview": {
+        "question": "说明 100-5t 在“用水量问题”里可能的含义。",
+        "answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）"
+      }
     },
     {
       "id": "cnm_028_q2",
@@ -443,7 +471,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "先从m减去卖出n，再加进货5，结果m-n+5是现在库存；其他选项仅描述中途或流动量。",
-      "question_sha256": "30d40aa03249c62b731215624928d4fea1a7520f05d3d9f99c3e7517aef60653"
+      "question_sha256": "d97e7919ad5efb97216ec4bf2b97060e616aa9c64a8b67cb4da293c6cfb120c2",
+      "verify": "model('cnm_028_q3')"
     },
     {
       "id": "cnm_030_q1",
@@ -491,7 +520,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "-5xy是数与字母的单个乘积；a+b和a-1为和差，2/x分母含字母，不属单项式。",
-      "question_sha256": "c3a504afe0e7fb0f81ec33097a8b2addcb9dc3f8b2c66676843aa92651560187"
+      "question_sha256": "a531a9e153e3b4193f534f43d0a8b46dc0bc55564038f46bae9b9a39f66eea87",
+      "verify": "model('cnm_031_q2')"
     },
     {
       "id": "cnm_032_q2",
@@ -508,7 +538,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "1/(x+1)的分母含字母，不是整式；-x/2仅除以常数2，2a-b和5均为整式。",
-      "question_sha256": "f51e79260c3e881a6d77f8ad84cf1742f38e65e8e24812b80e4c9c9cba7a910f"
+      "question_sha256": "331e3b8888356a753533cd2f1b93a94990e26dfc33fcec726cacd694f5743c66",
+      "verify": "model('cnm_032_q3')"
     },
     {
       "id": "cnm_032_q4",
@@ -525,7 +556,7 @@
       "expected_answer": "是",
       "basis": "definition",
       "reason": "两项的字母均为a²b、相同字母指数一致；系数3与-1不同不影响同类项。",
-      "question_sha256": "71d05f7a470d6713619f607b08bbf594d4daeb9e3ddf207904e69fc092fa759b",
+      "question_sha256": "c75f23eb332dd01a7500ada2135d707f12443e75beec7188e188449cf9081076",
       "grading": [
         {
           "input": "是",
@@ -539,7 +570,8 @@
           "input": "不是",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_033_q1')"
     },
     {
       "id": "cnm_033_q2",
@@ -547,7 +579,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "ab=ba，3ab与-ba字母和指数相同；A字母不同，B与D的相应指数不同。",
-      "question_sha256": "44068638c27488e3d7f23ff886e90fb7f1085652b14dec551bd0b044f5855040"
+      "question_sha256": "78c3e65c003be3a28e50e15caea850e29bf69e8f1decf5d71109e38015c2a048",
+      "verify": "model('cnm_033_q2')"
     },
     {
       "id": "cnm_033_q4",
@@ -586,7 +619,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "ba²=a²b，所以4a²b-3ba²=a²b；其他分别合并非同类项、丢失x²或改变次数，故只有A。",
-      "question_sha256": "59afbba5a5ea20b6343ea47be0bd9529714ab80977fcbc50b58b72253bd0be4b"
+      "question_sha256": "f4170e09475d12877dcd01ea555861d9e0ab36df3bc54562bc7600ca417bd923",
+      "verify": "model('cnm_034_q3')"
     },
     {
       "id": "cnm_034_q4",
@@ -635,7 +669,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "2(a-3)=2a-6正确分配；A应为5-x+2，B应为-a+b，D应为-3x-3y。",
-      "question_sha256": "e4746790347e918ec74c0dc3af1d5de68f16870eaf73c32e99cb1ef1bd838963"
+      "question_sha256": "8dacff62dd01b7540a01ea91476befecc320c07cea13d631c9ec1d13e9fc2608",
+      "verify": "model('cnm_035_q3')"
     },
     {
       "id": "cnm_036_q1",
@@ -707,7 +742,7 @@
       "expected_answer": "是",
       "basis": "calculation",
       "reason": "将x=2代入，左边3×2-1=5与右边相等，故是解；回答不是与代入结果相反。",
-      "question_sha256": "5187be87fcbaf8c2264d9ceca037650d126c57fa37495ad613de945e7cd0bde0",
+      "question_sha256": "164ae749953125787e55848b92a0f718152d0e035c2673223a4044b663229730",
       "grading": [
         {
           "input": "是",
@@ -721,7 +756,8 @@
           "input": "不是",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_039_q1')"
     },
     {
       "id": "cnm_039_q2",
@@ -729,7 +765,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "方程是含未知数的等式，2x-5=7具备两者；A无等号，C无未知数，D是不等式。",
-      "question_sha256": "e58b9fa5058dbff8548f89d9645543e674258e906c514ecf6debd6e64a65907b"
+      "question_sha256": "76c4f70363db4c7ea816fe9d48f0465aeeb7160f4b238351f169f15f83da08ae",
+      "verify": "model('cnm_039_q2')"
     },
     {
       "id": "cnm_040_q1",
@@ -737,7 +774,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "2x=6两边同时除以非零2得x=6/2=3；其他操作不能直接产生该式。",
-      "question_sha256": "cb6f0729ccda509c90960ae88b88978e876c4dbf1346f8ee1b49a7578fd85e8b"
+      "question_sha256": "51b3fd48c6c8c34d02cb1074866aec727cda82a49e6e173e35d652fbaf64bdec",
+      "verify": "model('cnm_040_q1')"
     },
     {
       "id": "cnm_040_q2",
@@ -745,7 +783,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "等式两边同减5，x+5-5=9-5，得到x=4；其余同加/乘/除5不能得到此步。",
-      "question_sha256": "86ab40c97b297b4d479f613052b093bdb37a09502a41fd7a20c900f51de06b16"
+      "question_sha256": "d493892ee2bca1d091ed3d1603ecef9b673c52c02598ac9f86345bdcb6ca0d33",
+      "verify": "model('cnm_040_q2')"
     },
     {
       "id": "cnm_040_q3",
@@ -753,7 +792,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "等式两边乘任意同一个数c仍相等；B消去c须额外c≠0，A/D两边加减不同量会破坏等式。",
-      "question_sha256": "9702e2402223bb5bb2318c37efe79ec2ba75b861a6f89c4538c14c30a7d3da11"
+      "question_sha256": "2496ae1bbe05112c9b8e2c2e6d849584ca0ea6bfa83b2e27ec8d9341e62b52fe",
+      "verify": "model('cnm_040_q3')"
     },
     {
       "id": "cnm_041_q1",
@@ -761,7 +801,7 @@
       "expected_answer": "不是",
       "basis": "definition",
       "reason": "x²项的次数是2，所以它是一元二次方程，不符合未知数最高次数为1的要求。",
-      "question_sha256": "0d148d28893e78411771a46e902d189ff8b32be0e50852556ff2059291e9f83b",
+      "question_sha256": "3c22cf4cda4cb3e711991bdedf5bb4f4fde890488ebd1203d02f67d4ff18a14d",
       "grading": [
         {
           "input": "不是",
@@ -775,7 +815,8 @@
           "input": "是",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_041_q1')"
     },
     {
       "id": "cnm_041_q2",
@@ -783,7 +824,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "2x+1=7只含一个未知数且最高次数1；A有两个未知数，B最高次数2，C未知数在分母。",
-      "question_sha256": "24b48a445c0b157894d6772ffb5d7873f5b9b6454353cfef31909a44c4db6b19"
+      "question_sha256": "6ff90c3ac6f9480ab4d27b65dbc1222b91b74c28f56793eeb12179b6d2f5d289",
+      "verify": "model('cnm_041_q2')"
     },
     {
       "id": "cnm_041_q3",
@@ -808,7 +850,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "5x移到左边成为-5x，-3移到右边成为+3，得2x-5x=6+3；其他选项至少一个移项符号错误。",
-      "question_sha256": "1506c04976ed4a287fcab46b5cdbbfe2beb0331361ea953b4936637240583f68"
+      "question_sha256": "9cea8e96aae086fc6b10bb403e686cbe3deabba7cff821f61f40275a121469bf",
+      "verify": "model('cnm_042_q4')"
     },
     {
       "id": "cnm_045_q2",
@@ -816,7 +859,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "一个数的2倍是2x，再加3等于15，直接得2x+3=15；B改变先后顺序，C减3，D把3乘到x上。",
-      "question_sha256": "b8b06830c99461f1cbe5430fd15907d6574472b68a0ec57129a5cfd50bc828f9"
+      "question_sha256": "681c5c94b76fa97595ebd59139d2fc956b839600694ac9f6c463a90fe8256099",
+      "verify": "model('cnm_045_q2')"
     },
     {
       "id": "cnm_049_q4",
@@ -864,8 +908,9 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "A含2×2方格环，折叠会重叠；B的错接3+3和C的三行阶梯可覆盖六个不同朝向；D的四格带上下各一格也可折。独立面朝向算法已检验D的16种附着列组合均可折。",
-      "question_sha256": "84797df0e8883b41d1312c95c2e86a00df5a5b8c0c6cf44f84d8e8633d520aee",
-      "supplementary_proof": "tests/test_cube_nets.py + tests/fixtures/cube_net.json"
+      "question_sha256": "820537048217e8d4a27f4fe9be0f161d9bccef9786e84a071c67478a738387b7",
+      "supplementary_proof": "tests/test_cube_nets.py + tests/fixtures/cube_net.json",
+      "verify": "model('cnm_051_q4')"
     },
     {
       "id": "cnm_052_q1",
@@ -945,7 +990,8 @@
       "expected_answer": "7",
       "basis": "calculation",
       "reason": "三角不等式AC+BC≥AB=7，C在线段AB上取等，故最小7cm；任意平面点条件足够。",
-      "question_sha256": "eafa87150b563cd697e9cadc70ee0518a94b9fcfd65782d2382720e4e217b946"
+      "question_sha256": "84289cefd6f65a859e4fb27da5aad5b2ed7ff5c6867723e40bb04e1585208448",
+      "verify": "model('cnm_054_q5')"
     },
     {
       "id": "cnm_055_q3",
@@ -961,7 +1007,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "三字母角的中间字母是顶点，因此∠AOB的顶点为O，A/B只在两边上。",
-      "question_sha256": "e6ec289f83f2d2fb0b3a7d6b9028314fae697f26aadd2540a17817b5941ae611"
+      "question_sha256": "d5d2dd4b695d9cadac9191ceeaec6d9e729cc563612c67810914a3682b977cf1",
+      "verify": "model('cnm_056_q1')"
     },
     {
       "id": "cnm_056_q3",
@@ -985,7 +1032,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "角平分线使两个小角各为原角的一半，A/B/C成立；小角为原角2倍的D不成立。",
-      "question_sha256": "b9951e09af4b352574d5f1bca8e71c642dfd4507506bcc616c20b6862f5df024"
+      "question_sha256": "156124b2c3f5e7dc3b4ec49d9032f5511d7a13ce260e99206de645d3cffcf27a",
+      "verify": "model('cnm_058_q3')"
     },
     {
       "id": "cnm_059_q2",
@@ -993,7 +1041,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "余角的和为90°；30+60=90，其他三组选项的和分别180、180、100度，故B。",
-      "question_sha256": "ab5194427c4163cf73753a306fee77b0e7c4146d592650c2b8deb18eb64f5adf"
+      "question_sha256": "67cba7e6af39505dcdbf2a43c501bc4c674ce73077c46f119cc40ed2b8b678b0",
+      "verify": "model('cnm_059_q2')"
     },
     {
       "id": "cnm_060_q1",
@@ -1009,7 +1058,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "由∠1+∠2=180和∠2+∠3=180相减得∠1=∠3；B比较不同角的余角不成立，C/D混用余角与补角，差90°。",
-      "question_sha256": "ac2e1fb5a05fbc5ec8ba57d53a4f14be16710def1ff0e02f13c7b991ff5b12d9"
+      "question_sha256": "f96ae55f84a63dda4e21ffc613a428809f6088bcd6bde70049adf844ec15e868",
+      "verify": "model('cnm_060_q4')"
     },
     {
       "id": "cnm_061_q4",
@@ -1033,10 +1083,11 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "当OA/OB、OC/OD分别为相反射线时，∠AOC与∠BOD的边两两反向，为对顶角；A/B/C各共一条边而非对顶。原题仅说两条直线相交，未明确A/B、C/D在O两侧，宜补足该位置条件。",
-      "question_sha256": "db3f612b796c1191158112f3c8cc94c14f288eaf18d42feef03a90f5562d832b",
+      "question_sha256": "ee113530a44d9931f84cf8f3b6f1a8557c55910a21f5859749e84441e66830f1",
       "corrected_fields": [
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_063_q2')"
     },
     {
       "id": "cnm_064_q1",
@@ -1044,7 +1095,8 @@
       "expected_answer": "1",
       "basis": "definition",
       "reason": "欧氏同一平面内，通过任一点有且只有一条垂线，点在给定直线上或线外均成立。",
-      "question_sha256": "bc4b5f29bca2e3366bab863b64384815f95aa2caece9e61eff1e7efb35cc0958"
+      "question_sha256": "13ffe395751c430f89fbdca1dd790c2ede914d33e0321f29f27432e9a5194277",
+      "verify": "model('cnm_064_q1')"
     },
     {
       "id": "cnm_064_q2",
@@ -1076,7 +1128,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "到直线的距离3cm是所有PQ长度的下界，任何Q都不可能使PQ=2cm，故B；近垂足仍不小于3。",
-      "question_sha256": "157ea274308812b17cf07959a622ed2bd07ff5925c4dbc15ad5ad3f20f5d31f6"
+      "question_sha256": "2b9af366271f0f960908a036b0815c0374743da8f20e7cf9f7088c03d05a976e",
+      "verify": "model('cnm_065_q1')"
     },
     {
       "id": "cnm_065_q3",
@@ -1084,7 +1137,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "距离是到l所有连线中最短者，因此不超过已知PB=3；未说明B是垂足，不能断言恰为3，也不可能必为4或5。",
-      "question_sha256": "f93218e17737e1e001b7b883d0790065c7b8d9f0766895b11c2415cabdd39c22"
+      "question_sha256": "134afc9d72678f5dd33593bd1f4b389a57f7c787fc391906442a72ba001fa894",
+      "verify": "model('cnm_065_q3')"
     },
     {
       "id": "cnm_065_q4",
@@ -1132,7 +1186,8 @@
       "expected_answer": "1",
       "basis": "definition",
       "reason": "欧氏平行公理：同一平面内，过直线外一点有且只有一条平行线，故数量1。",
-      "question_sha256": "fa014bb883cf24753a0f3b048c42dcc909f086e998c886c5d06ef2ae43f4321a"
+      "question_sha256": "bb7fe2941e6079974625f6291deea9e202539295208d6c1fabdc25d52182c764",
+      "verify": "model('cnm_067_q3')"
     },
     {
       "id": "cnm_067_q4",
@@ -1148,7 +1203,8 @@
       "expected_answer": "2",
       "basis": "definition",
       "reason": "c与a相交时不能平行b，否则由平行传递会与a平行；c分别交a、b两条平行线于不同点，共2个交点。",
-      "question_sha256": "4dc976b536216cb68d7a4abb2dc1b4ec449dd5bcd07ff79a9217c36ea94f559c"
+      "question_sha256": "a62641ed0d6299a80654bc0a0cfbe2f9762966e47af8b8d71a3a1a54e648dae0",
+      "verify": "model('cnm_067_q5')"
     },
     {
       "id": "cnm_068_q1",
@@ -1239,7 +1295,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "50°、70°均锐角但和120°为钝角，构成反例；其余两角和50°、70°、70°仍锐角。",
-      "question_sha256": "04be9fd7107c3466ac02f3462cb1e019186f1048c9b6e895c12c78fbda4756c8"
+      "question_sha256": "8237bd6d014f0b56b3026f8e3ba0a5e3f83372ffed087a64d75a1760184f7490",
+      "verify": "model('cnm_071_q5')"
     },
     {
       "id": "cnm_072_q1",
@@ -1263,7 +1320,8 @@
       "expected_answer": "5",
       "basis": "definition",
       "reason": "同一次平移的对应点位移向量相同，所以AD=BE=5cm；不依赖原三角形形状或边长。",
-      "question_sha256": "5b41268bd7e0d603d32245621ee1f4c12da7621d8f8714a259516f8aa703380d"
+      "question_sha256": "abdcb3764d35798698a9f885c7c6ca10d9b1e7642d0cdca2aae6b6240c1e3aae",
+      "verify": "model('cnm_072_q3')"
     },
     {
       "id": "cnm_073_q1",
@@ -1271,7 +1329,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "平移向右3格时，每个点都向右移动同样3格；左、上及绕A旋转均不符合方向或变换类型。",
-      "question_sha256": "3d8f35b1e6b3454ab7b03a23a269df268cff21e12f9a1f5ab14f04b0a6621d88"
+      "question_sha256": "045cbe64a3d9ad79384cb26afb8bd8f6a66b70a08bcd9d5adf16e8afe57a7760",
+      "verify": "model('cnm_073_q1')"
     },
     {
       "id": "cnm_074_q3",
@@ -1279,7 +1338,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "0²=0且只有0满足；4的平方根应完整写±2，算术平方根仅2，负实数-4无实平方根，故D唯一。",
-      "question_sha256": "95443cfce38e794bb09d9b2b476c94ac04ba753302d183c03acac6de097bcf25"
+      "question_sha256": "bb055f5c1b9c604d9d6b18738af92cb212645134813e18aa19fdd2f49ed855eb",
+      "verify": "model('cnm_074_q3')"
     },
     {
       "id": "cnm_074_q4",
@@ -1287,7 +1347,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "√16表示非负算术平方根4，所以±√16=±4；A混淆算术平方根与平方根集合，C/D符号错误。",
-      "question_sha256": "7e50688a30a65c1c41ce1ba9d0146929c3ef255cfa3a4cd21b462c7de196a863"
+      "question_sha256": "2a550a461e4fe9fb2ca095dc46b282d0b5c3bc556da191830c2b8c4e7985346a",
+      "verify": "model('cnm_074_q4')"
     },
     {
       "id": "cnm_075_q3",
@@ -1295,7 +1356,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "√(a²)=|a|，已知a<0所以|a|=-a；正数主值不可能等于负a本身或同时±a。",
-      "question_sha256": "e0c3fe06d66d507861ff660dd8d512d624f5b61bdba0d7f9cb72b5c486cd2b93"
+      "question_sha256": "cad1d7e1fa08f64b191d80330ccc271adb8b2f22f76701d36043d1f1dd150447",
+      "verify": "model('cnm_075_q3')"
     },
     {
       "id": "cnm_076_q3",
@@ -1327,7 +1389,8 @@
       "expected_answer": "3",
       "basis": "definition",
       "reason": "无理数为√5、-π及按逐渐增加零位的无限不循环小数；3.14、√16=4、22/7、∛8=2有理，因此共3个。",
-      "question_sha256": "7d38c9206ee65cf50a2a12c5f694845285e7d5b541db3783b48b56fdfa84581a"
+      "question_sha256": "ac730d148014237b56af8bce3758381fa11736a4e344f7b1929621b2d0e03e72",
+      "verify": "model('cnm_077_q3')"
     },
     {
       "id": "cnm_077_q4",
@@ -1351,7 +1414,8 @@
       "expected_answer": "4",
       "basis": "definition",
       "reason": "有理数为-2、0、1/2和-√9=-3；√3与π无理，故6个数中有4个有理数。",
-      "question_sha256": "1b84fef907fc42d2fec5e82bb9d898c648976e4a885dfaa8067da69b5eda0cc3"
+      "question_sha256": "7100169368650da64438a6c9b0152435e97c14611e27da2467d1f844528a488f",
+      "verify": "model('cnm_078_q2')"
     },
     {
       "id": "cnm_078_q4",
@@ -1367,7 +1431,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "两数非负，可比较平方：2.2²=4.84<5，故√5>2.2；小于或相等均不成立。",
-      "question_sha256": "be0b15f634382a0c3698657669fb8dec336d38edb8cf6cc5b8af4593c74b1b0f"
+      "question_sha256": "db22da5c895d274ce6bedce3808849d8df555283939e98a1f2e819b5de97db10",
+      "verify": "model('cnm_079_q3')"
     },
     {
       "id": "cnm_080_q1",
@@ -1375,7 +1440,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "√9=3、∛(-8)=-2，且|1-√2|=√2-1，所以总和3-2-(√2-1)=2-√2。",
-      "question_sha256": "4a5ae262f0cf5c00028699570f13912e743554cf84f5105f67dd3f926e28a07b"
+      "question_sha256": "c10a43d2022981bbb9b6117ffc2468bb3341ff6ff3197620d4aeaff7d735c462",
+      "verify": "model('cnm_080_q1')"
     },
     {
       "id": "cnm_081_q1",
@@ -1383,7 +1449,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "排号与座位号是有序数对的两个不同位置，(3,5)与(5,3)不同，不会因数字相同而代表同一座位。",
-      "question_sha256": "96251cef8b0193f69af5a6d09384360e06c4899b28b33db6470a988ebc309d0d"
+      "question_sha256": "0a02de0ee2199c7246397e72301285fa109f184945728b6878083d1806a0b207",
+      "verify": "model('cnm_081_q1')"
     },
     {
       "id": "cnm_081_q2",
@@ -1391,7 +1458,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "题目规定先列后行，第5列第3行按该顺序写(5,3)，A/B错误地重复或交换位置。",
-      "question_sha256": "ad72fe62302137e612cec740d30087b5ad66c5428f029c493161104b3a936f82"
+      "question_sha256": "7bd9f7df1ebd718f7150ab1765952044851cd12beeb285efd4097850ba6a76a2",
+      "verify": "model('cnm_081_q2')"
     },
     {
       "id": "cnm_082_q1",
@@ -1399,7 +1467,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "横坐标-2表示从原点向左2，纵坐标3表示向上3；其他选项交换坐标或符号。",
-      "question_sha256": "ae1c1cfe5bcf1f5fef220d264d2e254951977e1537ff7103a20885380a0447f4"
+      "question_sha256": "ec266b18fb495921c7f7821523a2ce45d35f03952b531968f62ae168e681addb",
+      "verify": "model('cnm_082_q1')"
     },
     {
       "id": "cnm_082_q2",
@@ -1407,7 +1476,7 @@
       "expected_answer": "4，-5",
       "basis": "definition",
       "reason": "点P(4,-5)中第一分量是横坐标4，第二分量是纵坐标-5，必须依题目顺序保留负号。",
-      "question_sha256": "a22d6ba4873950c165c34db27790bf623b3e33791451e4016da58bc12104d0a1",
+      "question_sha256": "70f537947f34b86a15ab1845a06285ec2455d7f33252cc5a65fb7a10e26be777",
       "grading": [
         {
           "input": "4,-5",
@@ -1417,7 +1486,8 @@
           "input": "-5,4",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_082_q2')"
     },
     {
       "id": "cnm_082_q4",
@@ -1448,7 +1518,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "第二象限要求横坐标负、纵坐标正，只有(-3,2)满足；其余依次第一、第三、第四象限。",
-      "question_sha256": "08116ce326a4db1d10fc2b8508148d21bca11342fc5c8c96fbb5634c39032aec"
+      "question_sha256": "45aa1e794022e458f7b57d114846c393e38e469463414ea4ac26abb120accf7b",
+      "verify": "model('cnm_083_q2')"
     },
     {
       "id": "cnm_083_q5",
@@ -1456,7 +1527,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "横坐标0说明在y轴上，纵坐标-3说明在负半轴；不在任何象限，也不在原点。",
-      "question_sha256": "9a26fc3a123651bc940d5b3b1f176fdae4586472c71ae779acc0382808662b51"
+      "question_sha256": "8d117de2966dd216480c0ffb9d0e7d0a18a3ce0c2e1ba8234c88ad9c5ab46c1e",
+      "verify": "model('cnm_083_q5')"
     },
     {
       "id": "cnm_085_q1",
@@ -1472,7 +1544,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "代入x=2、y=1，左边2+2×1=4，与右边一致；方程有无数组解不妨碍判断某一组是否满足。",
-      "question_sha256": "f99be9845bb662a2a20f1389d0bc0020e3b799534dd6da9dd33a8aff0d92ccc9"
+      "question_sha256": "d3a91a8c1a7c2f81fc84ffa44cce5c43b9301807379fefc1321a32908b725de0",
+      "verify": "model('cnm_087_q1')"
     },
     {
       "id": "cnm_087_q2",
@@ -1480,7 +1553,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "x+y=5含两个未知数且各项次数1；xy为二次项，x²项次数2，1/x是分式项。",
-      "question_sha256": "85775da7ac2e8a83e6b02041f8a1d5607da90cf5a2227e4d9a52862e213fea35"
+      "question_sha256": "3d46607ee17dddf4dc382d6059a8795f84937927ec37eb4ceedb0708535f4835",
+      "verify": "model('cnm_087_q2')"
     },
     {
       "id": "cnm_088_q1",
@@ -1488,7 +1562,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "x=1,y=2同时满足1+2=3及1-2=-1，所以是该方程组的解；不是只满足第一式。",
-      "question_sha256": "ae89c641d832a4e61c47d22e0ea83c153b82384d39a9b923bef024604ff321c2"
+      "question_sha256": "39cc820eaa56503b24932fd72719beb0cbfd85422cbee9a799cde64c6d814f1e",
+      "verify": "model('cnm_088_q1')"
     },
     {
       "id": "cnm_088_q2",
@@ -1496,7 +1571,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "C两式均为关于同两个未知数x,y的一次方程；A含乘积，B含平方，D整个方程组出现第三个未知数z。",
-      "question_sha256": "d69e1d247f24168e41c59b0ac89e9cbc3cb450ec91251deec8917cae3b06c0b1"
+      "question_sha256": "3d4ab84eebc1d59c095a4ec413a0d12a32ff83f040e5bcf36787e448c9ce8b50",
+      "verify": "model('cnm_088_q2')"
     },
     {
       "id": "cnm_088_q4",
@@ -1504,7 +1580,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "把两式相加得3x=6，所以x=2，再得y=3；A/B/C代入2x-y都不等于1。",
-      "question_sha256": "514b9a38119fec5f5b56edf9fb26379fac552b99105ef978a564692362f0bf92"
+      "question_sha256": "a74650f4710a3b1e1db1802cdcfb95511c0b20b35bb43125dc81fd9165432cc0",
+      "verify": "model('cnm_088_q4')"
     },
     {
       "id": "cnm_089_q5",
@@ -1520,7 +1597,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "两式的y系数+1和-1，相加直接抵消；相减消去的是x而不是y，先乘2反而不能直接消去y。",
-      "question_sha256": "181070044542e59659ae14917831bfdb9ce9efb3ffeecfbb68e68289b0f1a5dc"
+      "question_sha256": "0f6ddf933e9328965c6c347774eeaae23b27c267723661feb81f684e8c023a94",
+      "verify": "model('cnm_090_q2')"
     },
     {
       "id": "cnm_091_q3",
@@ -1528,7 +1606,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "头数给x+y=35，鸡每只2脚、兔每只4脚给2x+4y=94；A互换脚数，C把头数脚数总量倒置。",
-      "question_sha256": "3aff780fd455fe3a370b174ec36ca5ff0a817c3b232a72ae98795f093f33e5b5"
+      "question_sha256": "d9e41e5d2385144c7deb09877f944a970b4003acab1c088dbbde215745f53c2f",
+      "verify": "model('cnm_091_q3')"
     },
     {
       "id": "cnm_092_q5",
@@ -1536,7 +1615,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "学生人数必须是非负整数，精确解7.5不符合实际量的定义，应回查建模或条件；不能无依据四舍五入到7或8。",
-      "question_sha256": "f903e8306ea2b60a36df3ff51e1231861049b77e25088d1e47e943eee6a5796a"
+      "question_sha256": "0536954761c720851fc33d1c184c1fa78a267bac631b1b14296ddca89b8535c8",
+      "verify": "model('cnm_092_q5')"
     },
     {
       "id": "cnm_094_q2",
@@ -1544,7 +1624,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "“x的2倍与5的和”为2x+5，“不大于9”是≤9；A漏相等，B方向相反，C把5也乘2。",
-      "question_sha256": "fabcb238a9fcd932e8e41ff82558d7f48b53825d7967172c21ea40dbc6cb2385"
+      "question_sha256": "485b51211f72323988383b835d3f99abf314206a835854412b1f87441d9de187",
+      "verify": "model('cnm_094_q2')"
     },
     {
       "id": "cnm_094_q3",
@@ -1560,7 +1641,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "≥包含端点-1所以画实心点，大于方向向右；其他选项端点开闭或射线方向错误。",
-      "question_sha256": "9d82cf71ae85c464217f2e7bf9a168d8f057e2dcfb1a640b39df249748c7c7d3"
+      "question_sha256": "76db9c3bd663e7fd1771c82069ff95b5690c4eab5d578f9a0a0e22dc4a647b0d",
+      "verify": "model('cnm_095_q1')"
     },
     {
       "id": "cnm_095_q2",
@@ -1568,7 +1650,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "2处空心说明不含2，向左说明小于2，故x<2；闭端或向右均不符。",
-      "question_sha256": "eca9f27a0fcf71572e7621f10b11e0b510fde2c0f9d34609473691fc9bde0dd0"
+      "question_sha256": "e9c79f52d3ee7b3801452d501cd35cfcdeb37e5796ba6333bd5ef84eaeb02d8e",
+      "verify": "model('cnm_095_q2')"
     },
     {
       "id": "cnm_096_q1",
@@ -1576,7 +1659,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "两边除以负数-2时不等号翻转，x<6/(-2)=-3；其他符号或边界值错误。",
-      "question_sha256": "814c138d5fac83f8f7d38f73e5b9a7fb7dbbb376c5e9489d64f9830a3869fbe1"
+      "question_sha256": "dad99375984e457da3be57c53dbce74f88cd0c8cbb235ad4374f66e89de281ee",
+      "verify": "model('cnm_096_q1')"
     },
     {
       "id": "cnm_096_q2",
@@ -1584,7 +1668,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "不等式两边减同数保序，a-2<b-2；乘负数/除负数须反向，乘正3保留<，因此B/C/D全错。",
-      "question_sha256": "d4858fba15b36a5422ce4cc98bcc6690cf53300d949042b4ee633f13d608c6d9"
+      "question_sha256": "777a401268e73e81684d2f97566c5f49af57b027da81f0a48083f1d6ae38425e",
+      "verify": "model('cnm_096_q2')"
     },
     {
       "id": "cnm_096_q4",
@@ -1592,7 +1677,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "移到同一边得(m-2)(a-b)<0；a-b>0，故m-2<0，即m<2，m=2时两边相等不满足。",
-      "question_sha256": "8456801919bdef2cf87b2e0369daac082c60c4bd1f306a0060e22771b3861fae"
+      "question_sha256": "a82437366c1c603e7ea2cef639b027d79a2f58647417ff3a983f62fcb2447aaa",
+      "verify": "model('cnm_096_q4')"
     },
     {
       "id": "cnm_097_q1",
@@ -1600,7 +1686,7 @@
       "expected_answer": "x≤3",
       "basis": "calculation",
       "reason": "移项得3x-x≤4+2，即2x≤6，除以正2保方向，解集x≤3，含端点3。",
-      "question_sha256": "19e73398937ae3c4e1e1523d81fd344f58c546f755c74b060b3bb5657dea85d4",
+      "question_sha256": "29ea2f7dc800e8912f44547efdbfb8d0010580a05042594bfd773fc1975816b0",
       "grading": [
         {
           "input": "x≤3",
@@ -1618,7 +1704,8 @@
           "input": "x<3",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_097_q1')"
     },
     {
       "id": "cnm_097_q3",
@@ -1626,7 +1713,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "同乘正6得3(x+1)-2(2x-1)≥6，化为-x+5≥6，故x≤-1；其他方向或端点错误。",
-      "question_sha256": "377517f98609b1ef8508c067c626f53d7c92cd088b02793cc3cad6820337c2af"
+      "question_sha256": "a08b4b1862be783d5a936439a74e882c248a4330c7717622e2eb97b3658e54e9",
+      "verify": "model('cnm_097_q3')"
     },
     {
       "id": "cnm_098_q2",
@@ -1634,7 +1722,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "不超过包含等于，方向为x≤5；严格小于、反向大于均不符原句。",
-      "question_sha256": "9c9e80e3d8e71bdd77520e873a33e81241dc49e2b286eee418d67426f81df2ee"
+      "question_sha256": "786e37d7ea746e7a4b254290383a8f6937f5471861950591ffc0cd879c7da9da",
+      "verify": "model('cnm_098_q2')"
     },
     {
       "id": "cnm_099_q1",
@@ -1642,7 +1731,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "同时满足x>1与x≤4就是区间(1,4]，写1<x≤4；A/B仅满足一个约束，C错误否认非空交集。",
-      "question_sha256": "6f4bc3af2deca872d18808c88e3db2b349901be19276ee02920d2ce52269c945"
+      "question_sha256": "cac5ccfb39c8ba09d838093ccfaa9bbaf808f3e2367bb768b86e269f79606c84",
+      "verify": "model('cnm_099_q1')"
     },
     {
       "id": "cnm_099_q2",
@@ -1650,7 +1740,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "同时大于2且大于5，取更严格的大于5；2<x<5反而不满足后一条件。",
-      "question_sha256": "38dd26bd7ab45998653d3fe2cfb04dd0f2b2cd92d4e3ffd5e23b983b65404efb"
+      "question_sha256": "8a6c8317e5204d15d698ce739746862ecee3555380ec6de65454adb80c55991f",
+      "verify": "model('cnm_099_q2')"
     },
     {
       "id": "cnm_099_q4",
@@ -1658,7 +1749,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "区间(a,3)非空当且仅当a<3；无解要求a≥3，等号时也无任何x可同时满足两个严格不等式。",
-      "question_sha256": "56a9b79e99ef95867bd7b7b525d743e6e5a7b900bb36aba4be1a008c87f04a89"
+      "question_sha256": "1aaf051a2a0273d4f50f971d9d7e97627ea75e8ae924dabe9ae28ac85f22ce35",
+      "verify": "model('cnm_099_q4')"
     },
     {
       "id": "cnm_100_q2",
@@ -1666,7 +1758,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "第一条件直接是2x>6，第二条件是x+3<8，只有D同时保留两个严格方向。",
-      "question_sha256": "563ac200858d1a5f35a1a512cc35f2b0433ca5849401a7ada766a3bb4543754a"
+      "question_sha256": "c91664947782ac4c14d83c1d9493dfb8c81178bd264e2efae3c987554d7646df",
+      "verify": "model('cnm_100_q2')"
     },
     {
       "id": "cnm_102_q1",
@@ -2033,7 +2126,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "已给夏至昼长15小时、秋分12小时，所比较时段总体减少3小时，图线由高向低，选B下降；上升与水平分别要求增加或保持15小时，都不符给定数值。",
-      "question_sha256": "676994b1d44c7fbce095facabb3472d02f83a13b4a13b6956836bcecce2bd039",
+      "question_sha256": "68c004ca085b94cd5f70e66532cbe775fbee879a77093214e1902838bcf18c69",
       "grading": [
         {
           "input": "A",
@@ -2047,7 +2140,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "['下降','保持水平','上升'][(12>15)-(12<15)+1]"
     },
     {
       "id": "cnm_110_q1",
@@ -2055,7 +2149,7 @@
       "expected_answer": "直角三角形",
       "basis": "definition",
       "reason": "按角分类，有且只有一个90°内角即为直角三角形；另两个角30°、60°均为锐角且总和180°。不能按边型回答为唯一分类，也不是锐角或钝角三角形。",
-      "question_sha256": "3712a17293bb15f39f956964469fc4755a0d47cc62db54dcc766ef4be733798d",
+      "question_sha256": "45829c326e4b28d527b4c90777ee3bf65aaee1260c3b264fcdfb94c90604cfc9",
       "grading": [
         {
           "input": "直角三角形",
@@ -2077,7 +2171,8 @@
           "input": "等腰直角三角形",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_110_q1')"
     },
     {
       "id": "cnm_110_q3",
@@ -2193,7 +2288,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "设钝角在A，A到BC的垂足在BC线段内；另外两个锐角顶点的高需垂向对边的延长线，因此两条在外、一条在内。A、C说全内或全外错误，D说只有一条外也错误，故B。",
-      "question_sha256": "67f4e38635eb251f0a607b8c0b89b1cce473b778460effe241ae0850307f9a8b",
+      "question_sha256": "3668f765edca6be721d3b800f03fabe1ca81aba4f623626cb0bc2118530e484d",
       "grading": [
         {
           "input": "A",
@@ -2211,7 +2306,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_112_q1')"
     },
     {
       "id": "cnm_112_q2",
@@ -2219,7 +2315,7 @@
       "expected_answer": "2",
       "basis": "definition",
       "reason": "直角三角形的两条直角边彼此垂直：从每个锐角顶点向另一条直角边作高，所得高就是一条直角边，共2条；从直角顶点向斜边的高在内部，不与边重合。",
-      "question_sha256": "c4417addfc6abe2a5c4768438965bc11e358ea9fc4dc0747c157e3c0c2769faf",
+      "question_sha256": "a37d1b655138e0644cf343e1a0e91daa06f8b59f5b736bc633172efa0620483f",
       "grading": [
         {
           "input": "2",
@@ -2233,7 +2329,8 @@
           "input": "3",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_112_q2')"
     },
     {
       "id": "cnm_112_q5",
@@ -2241,7 +2338,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "三条高所在直线交于垂心。钝角三角形有两条高在相应边的延长方向，垂心在三角形外，故C。内部为锐角情形，直角顶点为直角三角形情形，边中点并非一般结论。",
-      "question_sha256": "50087eae64d4184d7959be7d46d22eb1ea7473e2f1888756226603cb79ba6f9d",
+      "question_sha256": "6818732e55b571d13fb978377862f26afe33653f64d68a9af97f7284def81600",
       "grading": [
         {
           "input": "A",
@@ -2259,7 +2356,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_112_q5')"
     },
     {
       "id": "cnm_113_q1",
@@ -2267,7 +2365,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "AD为BC边中线，BD=DC。△ABD、△ACD以BD、DC为底，从A到直线BC的高相同，面积均为底乘同高的一半，所以相等选B；不需要另给边长便可判定，排除D。",
-      "question_sha256": "87367639fca8c8b4dc4e1da077121aecc5b38adced23fa863e7764f097db478e",
+      "question_sha256": "b6fd546c5d9dced69282fd9f424599f5cfd83562f6c3b5e6eb716c2e0ecc0ada",
       "grading": [
         {
           "input": "A",
@@ -2285,7 +2383,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_113_q1')"
     },
     {
       "id": "cnm_114_q4",
@@ -2293,7 +2392,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "三角形内角平分线交点是内心，位于三条内角的公共内部区域，因此必在三角形内部，选A。外部、边上、顶点均不符合非退化三角形内心位置。",
-      "question_sha256": "7fe7cb60a0fc28ba347969779716f96afc7b984a7d1fb77c1e5340b571bb28a4",
+      "question_sha256": "22323422d5a57035441f58914c50c19321f5c70f4b8f28da9d815c552bf0c3ff",
       "grading": [
         {
           "input": "A",
@@ -2311,7 +2410,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_114_q4')"
     },
     {
       "id": "cnm_115_q4",
@@ -2375,7 +2475,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "某外角与相邻内角和为180°，而三内角和也为180°，两式相减得外角等于不相邻的两内角之和，故B。A、C、D所述角和均不对。",
-      "question_sha256": "7b05a3f622b50a54d346c477980d4d4ac4990c067364cacb013806bdf78f25bc",
+      "question_sha256": "eca4ab3ffdc16e4e844cae396c8965af8ade41c5107d40f9929cea865d799f29",
       "grading": [
         {
           "input": "A",
@@ -2393,7 +2493,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_117_q2')"
     },
     {
       "id": "cnm_118_q1",
@@ -2505,7 +2606,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "对于匀质三角形薄板，质量重心等于几何重心，即三中线交点D；三高、角平分线、垂直平分线交点分别为垂心、内心、外心。题干未说明匀质时，任意密度薄板的质量重心未必在三中线交点，应补匀质条件。",
-      "question_sha256": "450108301ca150289c688504b12aecf5e1cfad5bb180938c1b3c7b6eb53a5da4",
+      "question_sha256": "f73ba2b9983a3461a1ab8be46a04a0a4193223963c2de2a705b1087668e6bd43",
       "grading": [
         {
           "input": "A",
@@ -2530,7 +2631,8 @@
       "catalogue_preview": {
         "question": "匀质三角形薄板的重心在哪里？",
         "answer": "三条中线的交点"
-      }
+      },
+      "verify": "model('cnm_119_q1')"
     },
     {
       "id": "cnm_119_q2",
@@ -2560,7 +2662,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "匀质三角形的重心在从A到BC中点的中线上；从A悬挂的竖直线经过A和重心，两点确定这条中线，故与BC交于中点A。垂足、角平分线交点、三等分点一般不与中点重合。",
-      "question_sha256": "a33342caec5342986493ee3b309d54d8d75403f553fa3243f325483bc9a725a3",
+      "question_sha256": "f391cc4bf21d75b45c1295e912c2e9ed36719f40b3513c412aad42f6ef3e9f2d",
       "grading": [
         {
           "input": "A",
@@ -2578,7 +2680,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_119_q4')"
     },
     {
       "id": "cnm_120_q1",
@@ -2586,7 +2689,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "全等式△ABC≌△DEF按对应顶点顺序书写，首位A对应首位D，选项A。E、F分别对应B、C，D选项的“无法确定”与全等式已给出的对应顺序矛盾。",
-      "question_sha256": "99bf4558d112d624ef27299738050a9865376d4666be2b0a479dcef6b82f5a48",
+      "question_sha256": "b975d258eb97e28df1366528a4c158ff733d333df967ec55c362627985f07b1b",
       "grading": [
         {
           "input": "A",
@@ -2604,7 +2707,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_120_q1')"
     },
     {
       "id": "cnm_120_q2",
@@ -2638,7 +2742,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "△ABC≌△CDE给出A↔C、B↔D、C↔E，故边AB对应CD，选B。DE对应BC，CE对应AC，均非AB对应边。",
-      "question_sha256": "2ac63a80617395d722e0620a444213fcd81c931384bb5453ee1cd1dc787c7b01",
+      "question_sha256": "7f06e118b84fa81297af3da705f3d4e428d8fac13426ad1f4dc1cc63dc6511fd",
       "grading": [
         {
           "input": "A",
@@ -2652,7 +2756,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_120_q3')"
     },
     {
       "id": "cnm_120_q4",
@@ -2660,7 +2765,7 @@
       "expected_answer": "△EDF",
       "basis": "definition",
       "reason": "角对应关系明确A↔E、B↔D、C↔F，依次把ABC替换为EDF，所填三字母应为EDF。不能写DEF或只交换任意两个顶点，因为会改变已给角的对应。现有参考“△EDF”与所填“EDF”语义一致，accept 已含 EDF，不属于答案错误。",
-      "question_sha256": "57dbc4de0b4a782d75df01853bdbe2a3631013a318a73136cf222a31d947b77e",
+      "question_sha256": "498c25260a1d66910628e37e8d33778de16f19f2c8914faeb61fcddce1127326",
       "grading": [
         {
           "input": "EDF",
@@ -2686,7 +2791,8 @@
           "input": "FDE",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_120_q4')"
     },
     {
       "id": "cnm_121_q2",
@@ -2694,7 +2800,7 @@
       "expected_answer": "70",
       "basis": "definition",
       "reason": "△ABC≌△DEF中B对应E，故∠E=∠B=70°。这里直接用全等对应角相等，不需假设三角形是等腰或直角。",
-      "question_sha256": "5c0249e34ad43911e33d2c1091105a6e42ea9778ad03801754202403880ca507",
+      "question_sha256": "f3460d78994f0464afb8bb617f081c9c85a280105bb523f8439e4c0a338a3cb7",
       "grading": [
         {
           "input": "70",
@@ -2719,7 +2825,8 @@
       ],
       "corrected_fields": [
         "unit"
-      ]
+      ],
+      "verify": "model('cnm_121_q2')"
     },
     {
       "id": "cnm_122_q1",
@@ -2727,7 +2834,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "三条边分别对应相等是边边边SSS全等判定，故C。SAS需要夹角，AAA只保证相似不保证大小，A否认三边判定不正确。",
-      "question_sha256": "2e89a5f171d3448baa77689d86c6875a4cfaa448a4d666dad3ffb76a2a82bb0c",
+      "question_sha256": "e8edf23e4c9728995e57d7e6c8f437114cf586cfa289ab7d20193a929484ef3a",
       "grading": [
         {
           "input": "A",
@@ -2745,7 +2852,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_122_q1')"
     },
     {
       "id": "cnm_122_q2",
@@ -2753,7 +2861,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "B给AB=DE、BC=EF、AC=DF，三组对应边齐全，可用SSS。A、D是两边与非夹角SSA一般不足；C的AAA仅确定相似。因此B唯一。",
-      "question_sha256": "243c7232b683261c9860c0f4990719e31e7da17761660e16d435151c57bba74a",
+      "question_sha256": "3d5d1b8506e951f63da3b955378b4d4c8312edfa385eed48d3a8487b47fa16a2",
       "grading": [
         {
           "input": "A",
@@ -2771,7 +2879,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_122_q2')"
     },
     {
       "id": "cnm_122_q4",
@@ -2779,7 +2888,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "AB=CD、BC=DA且AC为公共边，△ABC和△CDA的三边依次对应相等，直接用SSS选A。题干未给对应角或直角，不能直接选SAS、ASA、HL。",
-      "question_sha256": "c88090c0c04b3e024949710c79af992b53d7eca2e9836298871c253cebe9c4a5",
+      "question_sha256": "2283ae70bb552a0e2bb3b6aefa3c2d2c420ff9fb643661a603bd7232179a1453",
       "grading": [
         {
           "input": "A",
@@ -2797,7 +2906,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_122_q4')"
     },
     {
       "id": "cnm_122_q5",
@@ -2805,7 +2915,7 @@
       "expected_answer": "70",
       "basis": "definition",
       "reason": "连接AC后，AB=CD、BC=DA、AC公共，SSS得△ABC≌△CDA，所以B对应D，∠D=∠B=70°。对边相等的四边形也是平行四边形，同样得对角相等。",
-      "question_sha256": "9a1d7fd995d15fd6539e13fdabb71b7fedca15515c369162cbcdccdc33de77f6",
+      "question_sha256": "86754155dfb671df81dc45734b733f00a4f96f75a8650bfa88e1531671b990df",
       "grading": [
         {
           "input": "70",
@@ -2830,7 +2940,8 @@
       ],
       "corrected_fields": [
         "unit"
-      ]
+      ],
+      "verify": "model('cnm_122_q5')"
     },
     {
       "id": "cnm_123_q1",
@@ -2872,7 +2983,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "所给相等角∠B、∠E分别夹在AB/BC和DE/EF之间，故是边角边SAS，选C。不是两角条件，SSA也不符合已知角为夹角的结构。",
-      "question_sha256": "23088e7f442650dda04659a93a8a5ca4fab7e17c00e558d6ed82dd79d919b190",
+      "question_sha256": "ec350ad39705e98b31422abcd51a4207e5532b9b28fadfe1bb21af53f2ab13d9",
       "grading": [
         {
           "input": "A",
@@ -2890,7 +3001,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_123_q2')"
     },
     {
       "id": "cnm_123_q3",
@@ -2898,7 +3010,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "AB、AC的夹角为∠A，DE、DF的夹角为∠D，添加∠A=∠D正好形成SAS，选A。B、C为非夹角，D添加的是第三边只能直接用SSS。",
-      "question_sha256": "8550313d7b61d864bba22e5248a24a23e7338afd97ada1a2712fd4d9c4ccd211",
+      "question_sha256": "7e60560e2660fe0c5002d5de2f9458addce1864d4846d02f0448a194f9562df9",
       "grading": [
         {
           "input": "A",
@@ -2916,7 +3028,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_123_q3')"
     },
     {
       "id": "cnm_123_q4",
@@ -2924,7 +3037,7 @@
       "expected_answer": "7",
       "basis": "definition",
       "reason": "OA=OC、OB=OD且∠AOB=∠COD为对顶角，SAS得△AOB≌△COD，故AB=CD=7。条件中的两线相交使相应夹角确定，结论不依赖示意图长短。",
-      "question_sha256": "6afe6fb85e1664524158088252e111694a19c6219c701ff758c0b323460325c0",
+      "question_sha256": "e2b8afbe9b27893b13cbaaf31a2363f8abb68935eb208ffd3c9c2164f2f9e8e0",
       "grading": [
         {
           "input": "7",
@@ -2938,7 +3051,8 @@
           "input": "8",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_123_q4')"
     },
     {
       "id": "cnm_123_q5",
@@ -2946,7 +3060,7 @@
       "expected_answer": "6",
       "basis": "definition",
       "reason": "比较△ABE和△ACD：AB=AC、AE=AD，∠BAE和∠CAD都是顶角∠A，SAS全等，故BE=CD，得CD=6。D、E分别位于两腰上使所取夹角确为同一顶角。",
-      "question_sha256": "c1c01bab6b46653859e583d2e38cf854db2c83cf2d79a18fba7e28ee1b3b0f50",
+      "question_sha256": "1593db9adf0f739f930add9ae6d55454308e3cb00954487ae9b28d6e3183dd2f",
       "grading": [
         {
           "input": "6",
@@ -2960,7 +3074,8 @@
           "input": "7",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_123_q5')"
     },
     {
       "id": "cnm_124_q1",
@@ -2968,7 +3083,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "已给两角A、B与D、E对应相等，而边BC/EF不是这两个已知角的夹边，直接对应AAS，选B。ASA需要给AB/DE；SAS、SSS需要更多边条件。",
-      "question_sha256": "018552cb700d666e77ea312932cdc5111a2cae5fca451adc0ad728e75d10bcdf",
+      "question_sha256": "8bbb507f57177c6f4967ff51ed04f5b3cff1de8f42f1e70b5069c82610dfb59d",
       "grading": [
         {
           "input": "A",
@@ -2986,7 +3101,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_124_q1')"
     },
     {
       "id": "cnm_124_q2",
@@ -2994,7 +3110,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "边AB位于∠A、∠B之间，边DE位于∠D、∠E之间，已知两端角及夹边对应相等，直接用ASA，选C，而非缺夹边的AAS或需两三边的判定。",
-      "question_sha256": "ff047542704480daae89f58c016760b02bff970ac9a546db980a46c8d18b3a38",
+      "question_sha256": "83207578a34246ad8482b61b73223f0eb9d368458ebae15f8dcaf9f3cdc49bab",
       "grading": [
         {
           "input": "A",
@@ -3012,7 +3128,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_124_q2')"
     },
     {
       "id": "cnm_124_q3",
@@ -3020,7 +3137,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "已给边AB/DE以及端角A/D，若要直接满足ASA，另一端角必须是B/E，所以选D。A加C/F属于AAS结构，B、C加边都未给两个夹边端角。",
-      "question_sha256": "fb58f3642f77dadf1f81697d19041e6bfa4eeae68c28fe44310e8073692ebe2e",
+      "question_sha256": "889526ffec18facfb46b046f22d7a081fc0a9fb66e7893cd6ca501682df2fd63",
       "grading": [
         {
           "input": "A",
@@ -3038,7 +3155,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_124_q3')"
     },
     {
       "id": "cnm_124_q5",
@@ -3046,7 +3164,7 @@
       "expected_answer": "4",
       "basis": "definition",
       "reason": "两角A=D、B=E对应相等且AC=DF，可用AAS判全等，对应边BC=EF，故EF=4。给定AC=5是全等所需对应边，不应误作所求EF。",
-      "question_sha256": "d8b2d9dab916758c636840f18e4734889192852d546e7f2cac2bbc08af5b885a",
+      "question_sha256": "57e7a98c78c9825e26143489ac40b5269d943585a7fa99bf623e7d4ac7ec088f",
       "grading": [
         {
           "input": "4",
@@ -3060,7 +3178,8 @@
           "input": "5",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_124_q5')"
     },
     {
       "id": "cnm_125_q1",
@@ -3094,7 +3213,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "斜边及一条直角边对应相等、且双方均为直角三角形，正是HL判定，选B。一般SSA不成立，题干没有SAS所需夹角配两边，也没有两锐角条件。",
-      "question_sha256": "d24ffe5e404f860f38a75b43242b9c195c2532c766e26952636dc6ecbd64358e",
+      "question_sha256": "813a8a0b4a288c451474cfac16c1cb143aeb01fc5a44e4e9ecbb33fec87c9f20",
       "grading": [
         {
           "input": "A",
@@ -3112,7 +3231,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_125_q2')"
     },
     {
       "id": "cnm_125_q3",
@@ -3120,7 +3240,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "C的“斜边和一直角边”直接对应HL。A的两直角边可直接SAS，B锐角加斜边可AAS，D锐角加直角边可ASA/AAS。若允许先推导再证明，“只能用”并不严谨，应问直接对应HL的条件。",
-      "question_sha256": "3f2fd2c8f0f07bece9859d054cd9caa3904e2f06558b3e2d0af48f547f49de5c",
+      "question_sha256": "ca05b2e18a5c4a82e402e7272d4413874e27db1372dcb822fe56c60c805ed750",
       "grading": [
         {
           "input": "A",
@@ -3142,7 +3262,8 @@
       "corrected_fields": [
         "explanation",
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_125_q3')"
     },
     {
       "id": "cnm_125_q5",
@@ -3150,7 +3271,7 @@
       "expected_answer": "6",
       "basis": "definition",
       "reason": "△ACD在D处为直角、△BDC在C处为直角；AC=BD=8是这两个三角形的斜边，CD是公共直角边，故HL全等并有AD=BC=6。不能把△ABC、△BAD擅当已知直角三角形，因为A、B处未给直角。",
-      "question_sha256": "fd5e78879825ac7fda28195a40959ab6e57fbda739ad8c25c72e070aa2f2ce9e",
+      "question_sha256": "438ec3df2fa9d3df9178cccfe2f81f44b3e0d0f2b59216ca12cc89d0a112acb6",
       "grading": [
         {
           "input": "6",
@@ -3167,7 +3288,8 @@
       ],
       "corrected_fields": [
         "explanation"
-      ]
+      ],
+      "verify": "model('cnm_125_q5')"
     },
     {
       "id": "cnm_126_q1",
@@ -3175,7 +3297,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "AD为中线给BD=DC，另有AB=AC与AD公共，三组边对应相等，直接用SSS，选B。没有独立给出直角或相等夹角，SAS、AAS、HL均非直接的给定结构。",
-      "question_sha256": "244bfb12f536562427e98a3f6cdf67467fd3551af783c2d1bc090d6ea6fd0619",
+      "question_sha256": "b719c3114946e5e62edb77302589488c7f89366302a89232ba04135b8e614765",
       "grading": [
         {
           "input": "A",
@@ -3193,7 +3315,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_126_q1')"
     },
     {
       "id": "cnm_126_q2",
@@ -3201,7 +3324,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "两三角形分别给B处角和C处角相等，并以公共BC作为两角夹边，直接用ASA，选C。没有三边、两边或直角斜边的已知。",
-      "question_sha256": "db0e9b359dcf18da3f435137d05abcd74dfbcdb23dea013b3b1ee7a5f0826760",
+      "question_sha256": "1de20244eb4cf60f2042775f4be6a0ec84429b6efb25ec0affce419b296f8f24",
       "grading": [
         {
           "input": "A",
@@ -3219,7 +3342,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_126_q2')"
     },
     {
       "id": "cnm_126_q3",
@@ -3227,7 +3351,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "AB=AC，AD公共，AD平分顶角使∠BAD=∠CAD，相等角正夹在相等两边之间，故SAS选A。其余判定需额外侧角条件，不能直接从当前给定使用。",
-      "question_sha256": "bc79cd1c7488c75b8f398d00d18efc7b5b81f83b22d0a07a8564852423ad3c4e",
+      "question_sha256": "9a561d8f9548362267a12ea9ec41a3b59b8ecb0f9317452e49644aa07dca467e",
       "grading": [
         {
           "input": "A",
@@ -3245,7 +3369,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_126_q3')"
     },
     {
       "id": "cnm_126_q5",
@@ -3253,7 +3378,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "C、F均90°，AB、DE分别为斜边，BC、EF分别为直角边，相应相等直接用HL，选D。题设不是一般SSA，也未直接给额外锐角。",
-      "question_sha256": "bf2638633af69077478831910c8fe012528a41aaa7fc8efaada11ab1500b06d0",
+      "question_sha256": "e8a612cfc455114b7b408808e8230ae6e5f65a4ba4696e48e1f261c8b7058bc5",
       "grading": [
         {
           "input": "A",
@@ -3271,7 +3396,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_126_q5')"
     },
     {
       "id": "cnm_127_q1",
@@ -3279,7 +3405,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "标准作法使OC=OD、CP=DP，OP为公共边，△OCP与△ODP三边对应相等，用SSS推出两顶角相等，故D。作图前未知被平分的两角相等，不能先拿它当SAS条件。",
-      "question_sha256": "8c33a05fa1753a493aab89b333359f084c543f7e3b9748ad31f4b8fa5c3c9344",
+      "question_sha256": "32ed0e1b24085f980efec77aa8a8a0a9b9bdeb5ed2775bf42cd7496e6a45de9b",
       "grading": [
         {
           "input": "A",
@@ -3297,7 +3423,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_127_q1')"
     },
     {
       "id": "cnm_127_q2",
@@ -3305,7 +3432,7 @@
       "expected_answer": "3",
       "basis": "definition",
       "reason": "作图条件已要求C′D′=CD，且已测CD=3 cm，故C′D′=3。OC=OD=O′C′=O′D′=4使对应两边相等，第三边用量取原弦长确定。",
-      "question_sha256": "2a304cf7853e9c74eefc810af7d102beb937bfb4891a1becb4a4d1896c52b733",
+      "question_sha256": "82431b6e8d4ad5f0f2458d1e0bf627f1fcee04f5de4eeb54cce02f1bc93ad51e",
       "grading": [
         {
           "input": "3",
@@ -3330,7 +3457,8 @@
       ],
       "corrected_fields": [
         "unit"
-      ]
+      ],
+      "verify": "model('cnm_127_q2')"
     },
     {
       "id": "cnm_127_q3",
@@ -3338,7 +3466,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "两等半径圆的圆心距为CD，若要有两个不同交点须2r>CD，即r>CD/2，选C。小于一半不相交，等于一半仅相切一个点；等于CD是可行但非必要。题干宜明确“两个不同交点”，以排除把相切也称相交的歧义。",
-      "question_sha256": "2a88833b86fac378dbc5176c42206cf51a5132b372ab510e04e7ce369fdb4d6a",
+      "question_sha256": "c3cd402e3d0755764991eab61235841b8ac99d4f619b40a3c37fda87d8ca2932",
       "grading": [
         {
           "input": "A",
@@ -3359,7 +3487,8 @@
       ],
       "corrected_fields": [
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_127_q3')"
     },
     {
       "id": "cnm_128_q2",
@@ -3441,7 +3570,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "两三角形的D、E为垂足，故都是直角三角形；PO是公共斜边，PD=PE是一组对应直角边，直接用HL，选D。SAS、ASA、SSS都缺相应直接已知。",
-      "question_sha256": "f5bb2f75391c2d4880fcfc62860ac9c9b9fbdb4e6ea6fd28355b5a22d676df45",
+      "question_sha256": "e266b470a57431e52811859345d5e803b279832d54d714be6f19efda222927e3",
       "grading": [
         {
           "input": "A",
@@ -3459,7 +3588,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_129_q5')"
     },
     {
       "id": "cnm_130_q1",
@@ -3519,7 +3649,7 @@
       "expected_answer": "7",
       "basis": "definition",
       "reason": "BD=DC、AD=DE且∠ADB=∠EDC为对顶角，SAS得△ADB≌△EDC，AB对应CE，所以CE=AB=7。中线和平分延长两项条件都参与对应。",
-      "question_sha256": "f03c0049a6b1cb98a256b0c7a3844268566676f6e71547f89bdba06a5548c8ca",
+      "question_sha256": "a57255c2060a9e4a060ba3984cc827f1b5fc8c55dff2ebe8f3a29f22280d9cd8",
       "grading": [
         {
           "input": "7",
@@ -3533,7 +3663,8 @@
           "input": "8",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_130_q5')"
     },
     {
       "id": "cnm_131_q1",
@@ -3541,7 +3672,7 @@
       "expected_answer": "3",
       "basis": "definition",
       "reason": "等边三角形每个顶点与对边中点的连线都能折叠重合，共3条，且轴必须经过某顶点并垂直平分对边，没有额外对称轴。",
-      "question_sha256": "10ff39968e80e4ebd14b6b2a7e26f15de6a37ebc2aa4e0fdc2da09f792c6c4ca",
+      "question_sha256": "628df05503bd7a39c20dde3d48f93ee833350b50c6505f240e7c5044e2d4c7c6",
       "grading": [
         {
           "input": "3",
@@ -3555,7 +3686,8 @@
           "input": "4",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_131_q1')"
     },
     {
       "id": "cnm_131_q2",
@@ -3618,7 +3750,7 @@
       "expected_answer": "2",
       "basis": "definition",
       "reason": "非正方形长方形仅有分别经过两组对边中点的两条对称轴；对角线反射会交换长宽而不能重合。题干排除了正方形的4轴情形，所以是2。",
-      "question_sha256": "0112055bcdd684516c5e8f8719a90506fee98eede7b4d1257c381eaf2bc05a35",
+      "question_sha256": "35e9428ec49d8a674cb57b95226f5098909dfe72f0b0582e7fb633dfde50afa8",
       "grading": [
         {
           "input": "2",
@@ -3632,7 +3764,8 @@
           "input": "3",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_131_q4')"
     },
     {
       "id": "cnm_132_q1",
@@ -3673,7 +3806,7 @@
       "expected_answer": "5",
       "basis": "definition",
       "reason": "线段垂直平分线上的点到两端点距离相等，故PB=PA=5。无需知道P在垂直平分线上的具体位置，也无需假设P是AB中点。",
-      "question_sha256": "ac2dc29a15eb3b246d76f572d73be1e56835ec9e9e6bf7195cdaf11e05da0a25",
+      "question_sha256": "73e5e60b6cb68801f99ac6d3ce987535c9d0ac1608f608823466c3954dddb572",
       "grading": [
         {
           "input": "5",
@@ -3687,7 +3820,8 @@
           "input": "6",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_133_q1')"
     },
     {
       "id": "cnm_133_q2",
@@ -3747,7 +3881,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "要从两端点同半径画弧得到两个不同交点以确定垂直平分线，需2r>AB，即r>AB/2，选C。小于一半无交点，等于一半只切于中点，任意长度不保证成功。",
-      "question_sha256": "4abb4086d32d3bfaeaca8a31a213bbf52e900c4a6ce5a86ff6d736f5d34ec718",
+      "question_sha256": "e4fd22e17f5a4e5dcc412f94337b7c73b905f2320a1dd3f3e4e6941298a95e4b",
       "grading": [
         {
           "input": "A",
@@ -3765,7 +3899,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_134_q2')"
     },
     {
       "id": "cnm_135_q1",
@@ -3806,7 +3941,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "关于y轴反射，横坐标变号、纵坐标不变，(3,−2)变为(−3,−2)，选A。B为x轴对称，C为原点中心对称，D是原点不动但此点不在y轴上，均不符。",
-      "question_sha256": "68ff7b015aaa599952e5fd821cc507027fbfa8d2096bbbcfce0a7a064e1029ae",
+      "question_sha256": "65fa25ad8731fec77ec6502725cf699a6ba65fc2ca72cdcb9f382a18cf431912",
       "grading": [
         {
           "input": "A",
@@ -3824,7 +3959,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_136_q1')"
     },
     {
       "id": "cnm_136_q4",
@@ -3832,7 +3968,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "第二象限满足a<0、b>0，关于x轴对称后为(a,−b)，两个坐标都负，落在第三象限A。横坐标不变，故不会到第一或第四象限，也不留在第二象限。",
-      "question_sha256": "5c1652b7e5993063ca7e4c4c86ec9e5abc09f531f50f61ac8c9547cf13792dcf",
+      "question_sha256": "5eb17ca9f39458c820db45999b70be121bd49e0f281d6ade21ddadcfe486cedb",
       "grading": [
         {
           "input": "A",
@@ -3850,7 +3986,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_136_q4')"
     },
     {
       "id": "cnm_137_q2",
@@ -3858,7 +3995,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "AB与AC相等，所对的底角分别是C与B，等边对等角给∠B=∠C，选B。顶角A不必等于底角，底边BC也未必等于两腰。",
-      "question_sha256": "249bd0d92cc60e413e3685c6b2d6683179dd029550ee71f182b5f8d7f70d88b8",
+      "question_sha256": "a2ce912e1da411a6061abace881a254a60be8e6b0b52861d8d67ee23956f3f0b",
       "grading": [
         {
           "input": "A",
@@ -3876,7 +4013,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_137_q2')"
     },
     {
       "id": "cnm_138_q1",
@@ -3884,7 +4022,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "∠B与∠C相等，所对的边分别是AC和AB，等角对等边得AB=AC，选B。不要求底边BC也相等，因此A、C、D都过强或对应错误。",
-      "question_sha256": "d57f279578a1f3df5cea93b6da46d59acc969d5c1fedb69f539e7d44bff9cc40",
+      "question_sha256": "cc05b23f613c0dd1944627efc74dd2a4531e67bc8293d9a3036867ed645513e4",
       "grading": [
         {
           "input": "A",
@@ -3902,7 +4040,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_138_q1')"
     },
     {
       "id": "cnm_138_q2",
@@ -3910,7 +4049,7 @@
       "expected_answer": "7",
       "basis": "definition",
       "reason": "B、C两个角相等，对边AC、AB相等，故AC=AB=7。与这两角相对的不是边BC，不能把等边关系移错。",
-      "question_sha256": "8da3d4d35f917d69dcbb50a51b2f58a33b50ea2c224c002b2a5f032ff4642ba2",
+      "question_sha256": "30c056b1bd32dfee531dc89eed22718c23b7a29af42ef3a4e6f2ed32eef6acdc",
       "grading": [
         {
           "input": "7",
@@ -3924,7 +4063,8 @@
           "input": "8",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_138_q2')"
     },
     {
       "id": "cnm_138_q3",
@@ -3962,7 +4102,7 @@
       "expected_answer": "6",
       "basis": "calculation",
       "reason": "第三角C=180−40−70=70°，因此B=C，所对AC=AB=6。等腰的两腰是AB、AC，而不是凭图形选择任意两边。",
-      "question_sha256": "6e8013d800bb94a8a88af58312f98083ea835e1b4e29f44a8968fec7c62f8819",
+      "question_sha256": "c4371f267d474eac63229f116705924ffc8c4e79ba6fbd7b5a03eb24dd776373",
       "grading": [
         {
           "input": "6",
@@ -3976,7 +4116,8 @@
           "input": "7",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_138_q4')"
     },
     {
       "id": "cnm_138_q5",
@@ -4033,7 +4174,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "一个60°角只能确定另两角和120°，如40°、80°便非等边，故A不能判定。三角相等结合和180°得每角60°；三边相等是定义；两个60°也迫使第三角60°，B、C、D均充分。",
-      "question_sha256": "e4867690e15502fadc6d1793dbe96c98db0ca9533dcf67beda80df161c9ce2c3",
+      "question_sha256": "7fc23236d5df57f2a52c6cb08869a34401af4f8fb7f675bf7e152b5ae55f1fa2",
       "grading": [
         {
           "input": "A",
@@ -4051,7 +4192,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_139_q2')"
     },
     {
       "id": "cnm_140_q2",
@@ -4059,7 +4201,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "30°角对边是BC，直角三角形的30°所对直角边等于斜边AB的一半，所以AB=2BC，选A。AC是另一条直角边，不能用同一半斜边结论；C反写倍数，D也不成立。",
-      "question_sha256": "94423dc0c7b9ef8d4acfd81694df5afa07fe4ed74845385b9c54395c9b482085",
+      "question_sha256": "31092cd1ee13538c5709696d035e60de154ef80f8275dff205e12dd6654abb72",
       "grading": [
         {
           "input": "A",
@@ -4077,7 +4219,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_140_q2')"
     },
     {
       "id": "cnm_141_q1",
@@ -4085,7 +4228,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "反射A为A′后，对任何l上的P有PA=PA′，于是PA+PB=PA′+PB≥A′B，等号在A′、P、B共线时成立。A′与B位于异侧保证交点存在，所以D；其余中点、垂足、垂直平分线一般不满足此共线最短条件。",
-      "question_sha256": "4f1d757a26533f04777af48b9c796c45476c4a711afe7e72a09401a2e51ef8a4",
+      "question_sha256": "175fabafa9242453a5cb10dd8af2d167a08df1535800b2319c69a4e608212cf0",
       "grading": [
         {
           "input": "A",
@@ -4103,7 +4246,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_141_q1')"
     },
     {
       "id": "cnm_141_q2",
@@ -4137,7 +4281,7 @@
       "expected_answer": "9",
       "basis": "definition",
       "reason": "P在l上时PA=PA′，故PA+PB=PA′+PB≥A′B=9，且A′B与l的交点可取到等号，最小值9。A、B在同侧保证A′、B在异侧，使这个交点位于线段A′B内。",
-      "question_sha256": "8bbe415cb45ef1b5a15f7aadf12cfafb220bd75247513df68d72af62f6cfaa89",
+      "question_sha256": "10cb0cd98eace431b0aa0451800649019101c84b12afe1bc0a1f4758f222907c",
       "grading": [
         {
           "input": "9",
@@ -4151,7 +4295,8 @@
           "input": "10",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_141_q3')"
     },
     {
       "id": "cnm_142_q1",
@@ -4186,7 +4331,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "a·a⁴=a⁵，A成立。幂的加法不能直接加指数，a³·a³=a⁶不是2a³，a²·a³=a⁵不是a⁶，因此B、C、D都错。",
-      "question_sha256": "7de8d5c58fd1f34dee4fb5cb6309fcea9d48bbf799768c08e9f3b1d81335f58f",
+      "question_sha256": "dbd733a1ad5dbb5a01801a90ffdba5e42d6e75afbfd416cc5d072aca9de6706e",
       "grading": [
         {
           "input": "A",
@@ -4207,7 +4352,8 @@
       ],
       "corrected_fields": [
         "explanation"
-      ]
+      ],
+      "verify": "model('cnm_142_q3')"
     },
     {
       "id": "cnm_143_q1",
@@ -4215,7 +4361,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "幂的乘方指数相乘得(a²)³=a⁶；积的乘方得(2b)³=2³b³=8b³，故C。A、D的a次幂错误，B把2³错当6。",
-      "question_sha256": "aec1defe143f2c122214522698aca689ac49f9dd90713f189637864154b02e35",
+      "question_sha256": "29a5c75a23053224868fb00263a814838095c6c4eff6567d661b553669feb657",
       "grading": [
         {
           "input": "A",
@@ -4233,7 +4379,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_143_q1')"
     },
     {
       "id": "cnm_143_q3",
@@ -4241,7 +4388,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "积的乘方(ab)²=a²b²，D正确。A应为a⁵，B应为a⁶，C也应为a⁶，分别错用指数加法或乘法，故仅D。",
-      "question_sha256": "c2105454e2bfd1380e6232ee28d2fefb33e8ee376ee6d9c94c3a5c83b9bd5613",
+      "question_sha256": "c4a5256cf47bf13d59f6f95bc7e9eb389d9f5227b803e1dc17200f3bd5026b06",
       "grading": [
         {
           "input": "A",
@@ -4259,7 +4406,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_143_q3')"
     },
     {
       "id": "cnm_144_q1",
@@ -4402,7 +4550,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "平方差公式需要同一组两项的和与差相乘，A正是(x+y)(x−y)。B是完全平方，C是负完全平方，D是−(x−y)²，均不是该直接结构。",
-      "question_sha256": "0cba1115a7cfb26d7c030c8e1165f13fd482ae04102a4580d32d9952745e54b4",
+      "question_sha256": "33848bf0604ecf32a80f4e561543d27da73d6907d955e3355cec102918d720c2",
       "grading": [
         {
           "input": "A",
@@ -4420,7 +4568,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_147_q2')"
     },
     {
       "id": "cnm_148_q1",
@@ -4482,7 +4631,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "等号从左到右把多项式x²−1写为两个整式(x+1)、(x−1)的乘积，且展开确等于原式，符合因式分解，选C。反向才称整式乘法，分解的终点本就不应再展开成多项式。",
-      "question_sha256": "d4a6e8930d13c059644eb8f1ac1829c835b38bcfb8ebf3f429e90b02e54ed2b7",
+      "question_sha256": "e33063562aee36e9c4aef431c4dfa786383c92af4a3d131fc93a875bab33a911",
       "grading": [
         {
           "input": "A",
@@ -4500,7 +4649,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_150_q1')"
     },
     {
       "id": "cnm_150_q2",
@@ -4508,7 +4658,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "B左端为多项式，右端为相等的整式积，是因式分解。A、D从积展开为和；C右端仍为和x(x+2)+1，未把整个多项式写成积，因此只有B。",
-      "question_sha256": "e732705e6a6e5b1f84aa9a48e6472a549e87916a2fa38213640673a7958633c4",
+      "question_sha256": "6dd8e73c3cc379f2ebde8bb0bff24c85c13fd5f8fc0488f0822807b2d1b95333",
       "grading": [
         {
           "input": "A",
@@ -4526,7 +4676,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_150_q2')"
     },
     {
       "id": "cnm_151_q1",
@@ -4561,7 +4712,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "2x²+2x的最大公因式为2x，提取得2x(x+1)，且x+1不能再分解，故C。A少2x项；B尚未提出常数2；D括号内仍有公因式x，均不符合“彻底”。",
-      "question_sha256": "669e1139f61e1772cd6f4da6b5cbbe4d28b682d31fb7fd4a57f99cd78391fbf3",
+      "question_sha256": "d9d5ae967141c56c012ddef44c6e46a5163fd48cf380f6c610a88b4e34c32488",
       "grading": [
         {
           "input": "A",
@@ -4579,7 +4730,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_151_q3')"
     },
     {
       "id": "cnm_152_q1",
@@ -4614,7 +4766,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "−x²+y²=y²−x²，是两个平方相减，可用平方差，选A。B、C是同号平方和或其相反数，D的2y不是整式的平方，不能直接套该公式。",
-      "question_sha256": "8ce6d615e4132194a7b0597c523803a097abf009fe90684791edfc8ad86b5ce2",
+      "question_sha256": "07b36d3d2ff894a0124df4a92327a811dc6ce8a19ef873e9083807390a9531b8",
       "grading": [
         {
           "input": "A",
@@ -4632,7 +4784,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_152_q3')"
     },
     {
       "id": "cnm_152_q5",
@@ -4640,7 +4793,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "x⁴−16=(x²+4)(x²−4)=(x²+4)(x+2)(x−2)，在通常有理数整式范围已彻底，选A。B仍含可分解的x²−4；C、D都等于(x²−4)²=x⁴−8x²+16而非原式。",
-      "question_sha256": "989b8714abb8aa4edeaa4e3adcd2202fda790b0a94225018d883935526d0e9c4",
+      "question_sha256": "dff06a76edf46f41ccb22a3358fe79eececa956ecd78ae1d8a323d086b2100b0",
       "grading": [
         {
           "input": "A",
@@ -4658,7 +4811,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_152_q5')"
     },
     {
       "id": "cnm_153_q1",
@@ -4720,7 +4874,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "先提2x得2x(x²−4)，再用平方差得2x(x+2)(x−2)，彻底形式为C。A、D代数相等但没有继续分尽公因式或平方差；B平方展开有一次交叉项，不等于原式。题干宜明确“要求分解彻底”。",
-      "question_sha256": "f5117746debb36d2d602bc9c912884c0f948cf976ae2541646f2f6fedc208ac5",
+      "question_sha256": "4954e0cebba0eaa78fc712983a02e5838b120b1ccf958936654710be23bd7372",
       "grading": [
         {
           "input": "A",
@@ -4745,7 +4899,8 @@
       "catalogue_preview": {
         "question": "分解因式 2x³−8x（要求分解彻底）。",
         "answer": "2x(x+2)(x-2)"
-      }
+      },
+      "verify": "model('cnm_154_q1')"
     },
     {
       "id": "cnm_154_q4",
@@ -4753,7 +4908,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "−x³+2x²−x=−x(x²−2x+1)=−x(x−1)²，A彻底。B整体符号相反，C中间项符号不符，D虽然相等但括号还能写成完全平方，故不彻底。",
-      "question_sha256": "07b1f8d98fda94dd49955f2e90f03529557fb509046c9f617d49a7806e6fddaa",
+      "question_sha256": "03dad3278ddc40af1d121c10eb46f770c0a57298b466ca93e2cb31ea5bb66b32",
       "grading": [
         {
           "input": "A",
@@ -4771,7 +4926,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_154_q4')"
     },
     {
       "id": "cnm_155_q5",
@@ -4806,7 +4962,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "分母x−2不能为0，因此x≠2，选A。排除−2或0都不是让该分母非零的完整条件，且它们本身可代入原式。",
-      "question_sha256": "1f4ae6a2af99619b91a2b7cf05f806564ad0d048f6dc0ab2910bb337019b7d37",
+      "question_sha256": "e8c1449209e759a33bc1429309b20dd687d92ea9d9ee76eb1ccb086bfcff4b3e",
       "grading": [
         {
           "input": "A",
@@ -4820,7 +4976,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_156_q1')"
     },
     {
       "id": "cnm_156_q2",
@@ -4828,7 +4985,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "分式的分母须含字母。3/(m−1)分母含变量m，故B。π是非零常数，所以A分母不含变量；C可写x/2+1为整式，D本就是多项式。",
-      "question_sha256": "0710124f66dc1936d624e4bb77d72fb1c0c64135e4ff075cbad372ac258dd733",
+      "question_sha256": "d03bd083dedb7f9feb162b8b46d4041e267d213bfb47ac6e96ba1aa2e1653c5d",
       "grading": [
         {
           "input": "A",
@@ -4846,7 +5003,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_156_q2')"
     },
     {
       "id": "cnm_157_q1",
@@ -4854,7 +5012,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "−a/(−b)的分子分母同时乘−1得到a/b，前提b≠0，故C。A保留了不应有的负号，B、D把分子分母倒置。",
-      "question_sha256": "1d887764aa8c21c623b2226be54258735ede6fbf38769a80cd601bb0121d502e",
+      "question_sha256": "14410553f765439c95e3f35c72e6193c0727c23493d957e6d4ec368d3404deff",
       "grading": [
         {
           "input": "A",
@@ -4872,7 +5030,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_157_q1')"
     },
     {
       "id": "cnm_157_q3",
@@ -4880,7 +5039,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "x−y=−(y−x)，且x≠y保证分母不为0，因此商为−1，D。A一般改变值；B上下同加m不保值；C写m任意而未排除m=0，可能令分母为0，故不成立。",
-      "question_sha256": "86c6aba53026d57fd7f40703aab1444fab76bb15474360e5c356a7987686da0a",
+      "question_sha256": "1eaaeb6f2efcf5e4cbce6ecde66b4197103a314880169ab35c99544313fb5154",
       "grading": [
         {
           "input": "A",
@@ -4898,7 +5057,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_157_q3')"
     },
     {
       "id": "cnm_158_q1",
@@ -4906,7 +5066,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "分子(x−1)(x+1)，分母x(x+1)，在原式x≠0、−1的范围内约去公因式x+1，得(x−1)/x，A。B漏掉x−1，C符号/因式错，D错误地约去整个分母。",
-      "question_sha256": "1e0932d67117eed26ef353867135bb131b87d34259a3aa5da897b47e77c8693f",
+      "question_sha256": "ab4cb9d2b6e147611da49c0a367a87d3e5e2bd6d1d7abfd2951058812dcbd34b",
       "grading": [
         {
           "input": "A",
@@ -4924,7 +5084,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_158_q1')"
     },
     {
       "id": "cnm_158_q3",
@@ -4932,7 +5093,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "(x+y)/(x²+y²)的分子分母在有理系数多项式意义下无公共因式，B为最简分式。A可约x+y，C可约常数2，D可约x−y并得−1，故其余都不是最简。",
-      "question_sha256": "cebc55dd7316ae0925c12f72c80eb8e300f930a27281eba2a7a9fd03d4e0974f",
+      "question_sha256": "f3e4b85ae5a1ed8447745d6f16430ed23b8f5ffd6b5b2882d3ecbcf9720163ed",
       "grading": [
         {
           "input": "A",
@@ -4950,7 +5111,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_158_q3')"
     },
     {
       "id": "cnm_158_q5",
@@ -4958,7 +5120,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "分子a(a−b)，分母(a−b)²，原式要求a≠b，约去一个a−b后为a/(a−b)，选C。A漏a，B把差写成和，D整体符号相反。",
-      "question_sha256": "b0c9ba075233095f4ab1a1ac21cf5d0c412c67d51b0913fbc216ce52aef9eacc",
+      "question_sha256": "b3352948707d0161339c8b4a96d3c9868c3d6a7c8594275e209dc47d9e3f17b6",
       "grading": [
         {
           "input": "A",
@@ -4976,7 +5138,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_158_q5')"
     },
     {
       "id": "cnm_159_q1",
@@ -4984,7 +5147,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "公分母取x(x+1)。第一式上下同乘x+1得(x+1)/[x(x+1)]；第二式上下同乘x得x/[x(x+1)]，故B。A未给分子补因式，C更改原分母又不保值；原式x≠0、−1。",
-      "question_sha256": "614c71fb0ddbbbe201c83d8e5e8e6a7c1f58786002c3cf3b742bd2c69c1cf44b",
+      "question_sha256": "6537b65c44e43612b749c0bd81b38b38a481dcdfb8b7e0c8c927b4735e2c7810",
       "grading": [
         {
           "input": "A",
@@ -4998,7 +5161,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_159_q1')"
     },
     {
       "id": "cnm_159_q3",
@@ -5029,7 +5193,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "除以分式等于乘其倒数：(a/b)·(b²/a²)=b/a，所以A。原式需a、b均非0；B未倒置除数，C误把除法当乘法，均不符。",
-      "question_sha256": "990bcc5505054c041c1627c024c93d139cfedd4f59dca4ea0dee672d222f4338",
+      "question_sha256": "7ec7968636e1bc5a6e471de7cf25ded9336cb3e1b892c2365fad9dc1e6e6574c",
       "grading": [
         {
           "input": "A",
@@ -5043,7 +5207,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_160_q1')"
     },
     {
       "id": "cnm_160_q3",
@@ -5051,7 +5216,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "(x²−1)/[x(x+2)]乘以x/(x+1)，分解分子并约去x和x+1，得(x−1)/(x+2)，选B。A未正确倒置和约分，C分子因式符号错；原式还要求x≠0、−2、−1。",
-      "question_sha256": "eaf9fe3a933c571001e65e69a1b3567d600e5ffbd79b8fa54249655773633dee",
+      "question_sha256": "9ee50164bbe7486f05892d4a6bff51c796370631727ce966cb9925e3269d9ad0",
       "grading": [
         {
           "input": "A",
@@ -5065,7 +5230,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_160_q3')"
     },
     {
       "id": "cnm_161_q1",
@@ -5073,7 +5239,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "通分后分子为(x+1)−(x−1)=2，分母(x−1)(x+1)=x²−1，得2/(x²−1)，选C。A差的次序符号反，B错误地把不同分母的分子相消；x≠±1。",
-      "question_sha256": "9b972a154b7b5e0bc3b3525f55c257ec8a5d85985b5f58917c1d5d09fa107ff4",
+      "question_sha256": "ae9478a25293ff0b43f730496a8a61ee25d340f8e6624e1b429d174914c2bc13",
       "grading": [
         {
           "input": "A",
@@ -5087,7 +5253,8 @@
           "input": "C",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_161_q1')"
     },
     {
       "id": "cnm_162_q1",
@@ -5095,7 +5262,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "1+1/x=(x+1)/x，再乘除数倒数x²/(x+1)，约分得到x，故B。A倒置方向错误，C把分子分母错误相乘；原式x≠0、−1。",
-      "question_sha256": "48167f3827aa83c28fb51e4fe77fa0ec351824c8831235479fb89d8698946151",
+      "question_sha256": "cb385cc398e0b92c50c11a2e8e0bdaca88c0760ab2b150a0f5316dd57c145173",
       "grading": [
         {
           "input": "A",
@@ -5109,7 +5276,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_162_q1')"
     },
     {
       "id": "cnm_163_q1",
@@ -5147,7 +5315,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "a⁹÷a³=a⁶且a≠0，D成立。A指数应6−2=4；B应5−1=4；C同一非零式相除为1而非0，所以其他都错。",
-      "question_sha256": "644e4c685474c6cd481900084493012af1f52c26874b29e584a8c5e49e8b16b3",
+      "question_sha256": "2fc821f795f6eebbee2f58a50f0af529ccae39f391c7768289eba78c664a1ee7",
       "grading": [
         {
           "input": "A",
@@ -5165,7 +5333,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_163_q4')"
     },
     {
       "id": "cnm_164_q1",
@@ -5200,7 +5369,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "原式要求x≠1、−1。两边乘(x−1)(x+1)得到x+1=2，只得x=1，却被原分母排除，所以无解选C。A是增根，B代入1/2≠2/8，不是根。",
-      "question_sha256": "3b092ab56004a5d45e8d3ca000de688e217d16e41028e3dd579e9d352764e7cb",
+      "question_sha256": "715f7e76c4964f53a044f5057a9551dd76a5ba1ee5432fa4169eb7cc14ae1c95",
       "grading": [
         {
           "input": "A",
@@ -5214,7 +5383,8 @@
           "input": "C",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_165_q1')"
     },
     {
       "id": "cnm_166_q2",
@@ -5222,7 +5392,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "时间=路程/速度。步行速度x、骑车速度x+8，等时给12/x=36/(x+8)，选A。B把两种速度反配，C把路程乘速度而非相除；实际域x>0。",
-      "question_sha256": "532014b06c7f4ced3355a51cc88a48ad03bbf44a405165238b0361db9d915730",
+      "question_sha256": "0f94e3bc549345e75b3ff8962edc7e4b44c3fd949c571a327f36d20c520dcdb1",
       "grading": [
         {
           "input": "A",
@@ -5236,7 +5406,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_166_q2')"
     },
     {
       "id": "cnm_167_q1",
@@ -5244,7 +5415,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "实数范围内平方根需被开方数x−3≥0，所以x≥3，D。A错误排除了x=3，B方向相反，C仅排除3不能确保根号内非负。",
-      "question_sha256": "d8017d2525f30c6da91b13f6722d90e4e2d4478f85ab5653fe8779595bcfb028",
+      "question_sha256": "a68f53f3e88537a7c8ff13c831c55f61ca9dee900d8ad9016d935e9820dfa74c",
       "grading": [
         {
           "input": "A",
@@ -5262,7 +5433,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_167_q1')"
     },
     {
       "id": "cnm_167_q2",
@@ -5270,7 +5442,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "对任意实数x有x²+1≥1，故√(x²+1)总有意义且为二次根式，选A。√(−2)在实数范围无意义，∛3是三次根式，√(a−1)需另加a≥1。题干宜明确“对任意实数x、a，始终有意义的二次根式”。",
-      "question_sha256": "9146a1548c890bbc693c7f9a5d676730830db84d8f10268bc3129424fcc3c613",
+      "question_sha256": "4419224ca2dd7b64d2de62859481c3906a971a969a2eea421f1c8196751b197f",
       "grading": [
         {
           "input": "A",
@@ -5291,7 +5463,8 @@
       ],
       "corrected_fields": [
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_167_q2')"
     },
     {
       "id": "cnm_168_q3",
@@ -5299,7 +5472,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "(√3)²=3，B正确。√((-3)²)=3非−3；√(3²)=3只取算术平方根，不是±3；(−√3)²=3非−3，故其余均错。",
-      "question_sha256": "0b33360118e4107e9d80908078384146ee816c87d2243c28666196b4dc5bd22e",
+      "question_sha256": "6dfa752100ccd5b5dd286ec18f48c16091e9b773a4f28e450ecbe5f6c0c60b64",
       "grading": [
         {
           "input": "A",
@@ -5317,7 +5490,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_168_q3')"
     },
     {
       "id": "cnm_169_q4",
@@ -5352,7 +5526,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "左式同时要求x≥0、x−2>0（分母根号非零），合并为x>2；此时两边实数运算法则成立，选D。A包含分母为0的x=2，B、C还包含x−2<0的值，均不足。",
-      "question_sha256": "8495ef39e6395820699347eeda8d67e22d03d72accde4b35e8eb8964ba9a3119",
+      "question_sha256": "c6deb774747e90d4861a01e1891c314d9cddab7f42b77880d538d307d1e70caf",
       "grading": [
         {
           "input": "A",
@@ -5370,7 +5544,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_170_q4')"
     },
     {
       "id": "cnm_171_q1",
@@ -5405,7 +5580,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "最简二次根式的被开方数无分母、无可开尽平方因子。7无平方因子，√7满足，选B；√8、√12可提出2，√(1/2)有分母需先化简。",
-      "question_sha256": "ab4d543ca5121dbe878e7f60674f5972361f4c7c46b397d00f4923cb7d0d7989",
+      "question_sha256": "56e9d78683ebac67dc8dbf619ed16a63d0adfca99d9c63df9802f469800da488",
       "grading": [
         {
           "input": "A",
@@ -5423,7 +5598,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_171_q2')"
     },
     {
       "id": "cnm_172_q1",
@@ -5458,7 +5634,7 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "√8−√2=2√2−√2=√2，所以D。A与C把根式加法错作根号内相加，B应为2√2而不是3，均不成立。",
-      "question_sha256": "57c9d7fec35f323cf4bfc81a843b1a77bfaa757fc88d6baf4cdc832fe06e400b",
+      "question_sha256": "aa17c28e0885e6489e4b93aee26aea9514839eccec2f75fd6394dea8ee060455",
       "grading": [
         {
           "input": "A",
@@ -5476,7 +5652,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_172_q3')"
     },
     {
       "id": "cnm_173_q1",
@@ -5511,7 +5688,7 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "大正方形面积c²等于4个面积ab/2的直角三角形加中心边长b−a的正方形面积，故c²=4(ab/2)+(b−a)²=a²+b²，选C。A把每个三角形面积多算一倍，B中心边长误用a+b。",
-      "question_sha256": "6f3baa6c5cd12d2b5e16caa99e0fec3ccb7c0dc085db7b19dfe23f9aec0c0fe0",
+      "question_sha256": "3cb4a9f861619ff5a7eb1355f95b7b96b32e3fee5ee832fcaba402144bce7e9e",
       "grading": [
         {
           "input": "A",
@@ -5525,7 +5702,8 @@
           "input": "C",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_175_q1')"
     },
     {
       "id": "cnm_175_q3",
@@ -5533,7 +5711,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "按题设拼接面积，大正方形(a+b)²=四个直角三角形的面积4·ab/2+中心正方形c²，选A。B只计了两个三角形的合面积，C把每个三角形当矩形ab，均不对。",
-      "question_sha256": "5009fc614d1bda2cda27eb2b9b6d098d9c5b08088910993df7b074f11745acaa",
+      "question_sha256": "aa4a11ad138e49f382010a9d11da31b0a4b392dc3fd0967f3e0c7b6358fa6980",
       "grading": [
         {
           "input": "A",
@@ -5547,7 +5725,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_175_q3')"
     },
     {
       "id": "cnm_177_q1",
@@ -5555,7 +5734,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "最长边13，且5²+12²=25+144=169=13²，所以由勾股逆定理是直角三角形，B。A没有把最长边放作斜边验证；C只验证构成三角形，不能推出直角。",
-      "question_sha256": "d83789109d27922b0edfd1b7025452fa2ce3ef8a85c1a0359cf3183c761b809d",
+      "question_sha256": "db49b5f257927db797768aa06d8f7f355b5e62a797f3fb6a4b3cf23d58941c3a",
       "grading": [
         {
           "input": "A",
@@ -5569,7 +5748,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_177_q1')"
     },
     {
       "id": "cnm_177_q2",
@@ -5604,7 +5784,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "展开(a+b)²−c²=2ab得到a²+2ab+b²−c²=2ab，即a²+b²=c²。边长均正，由勾股逆定理为直角三角形B；锐、钝和等边均不满足该等式。",
-      "question_sha256": "b155fabf1cb1e7f64895042b23b2af7d301a059de71abb0a684179651d49e552",
+      "question_sha256": "d94a841441bc5810de8a1d39a71cdad7561553b1a9a5cc39b70f13b8fc35da07",
       "grading": [
         {
           "input": "A",
@@ -5622,7 +5802,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_177_q4')"
     },
     {
       "id": "cnm_178_q1",
@@ -5630,7 +5811,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "最长边√5，且(√2)²+(√3)²=2+3=5=(√5)²，所以是直角三角形，B的理由完整。A的平方根加法等式不成立，C由该错误加法反推非直角也错误。",
-      "question_sha256": "66e763568d23e462f87573adc31b2adceae51d30974d464406547b1de1ac0fce",
+      "question_sha256": "dab7d4fb01a11c8085c3f0eb1865e9015e5aeaea658eb89ee22d044725bc2850",
       "grading": [
         {
           "input": "A",
@@ -5644,7 +5825,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_178_q1')"
     },
     {
       "id": "cnm_178_q2",
@@ -5746,7 +5928,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "对于凸n边形，从一个顶点连到其余不相邻顶点，分成n−2个三角形，故B。n−3是对角线条数，其他两式均多算。若不限定凸多边形，所画对角线可能在形外，题干宜补“凸”。",
-      "question_sha256": "92558efa5e83eaf01ad9a61d79bb8e6e1382ee01f7f393e221204dc991715b36",
+      "question_sha256": "9c170678efe122bbbb1eb8d7cf75059f06a4971b3fe8cbaa1166133b4a8c5da5",
       "grading": [
         {
           "input": "A",
@@ -5768,7 +5950,8 @@
       "corrected_fields": [
         "explanation",
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_181_q3')"
     },
     {
       "id": "cnm_182_q2",
@@ -5776,7 +5959,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "沿凸多边形边界转一周，按一致方向在每顶点取一个外角，总转角360°，选A。180°是平角，(n−2)·180°是内角和，外角和不随n改变。任意凹多边形若把转角一律取正则不同，题干应限定凸多边形。",
-      "question_sha256": "4cd4b047f8996cc0b961609af4c1c60e0c5af3b309425f3d0fa158e56dc42844",
+      "question_sha256": "bb8ebdb18f25833a0de852860a076425c7041cd0d403e39a1c0e4acef45e5d65",
       "grading": [
         {
           "input": "A",
@@ -5798,7 +5981,8 @@
       "corrected_fields": [
         "explanation",
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_182_q2')"
     },
     {
       "id": "cnm_183_q3",
@@ -5806,7 +5990,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "平行四边形都具有对边平行相等、对角相等、对角线互相平分，但对角线不一定等长，例如非矩形平行四边形。故D是不一定具有的性质，A、B、C均必有。",
-      "question_sha256": "49b0e93cdd47ae87cdaa5204c04648c3ec017beb4c87760661bb8e68383c8ed9",
+      "question_sha256": "f59d15071e3ca920e4a5f7be42b6f1c7f22a6216d5e1256c412c23494502d61a",
       "grading": [
         {
           "input": "A",
@@ -5824,7 +6008,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_183_q3')"
     },
     {
       "id": "cnm_184_q1",
@@ -5854,7 +6039,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "C只给AB∥CD、另两边AD=BC，可得到一般等腰梯形而不一定为平行四边形。A两组对边平行、B两组对边相等、D对角线互相平分都是充分判定，所以只有C不能判。",
-      "question_sha256": "ce3924aa4bf72750932486e7dac77f243f7bfe6612104253c65669ed5f5e8ece",
+      "question_sha256": "83f5147cda473f1761fd19a7b1712d7b1764a7aaa96b16c14ef63a8206a07c17",
       "grading": [
         {
           "input": "A",
@@ -5872,7 +6057,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_184_q2')"
     },
     {
       "id": "cnm_184_q4",
@@ -5907,7 +6093,7 @@
       "expected_answer": "10",
       "basis": "definition",
       "reason": "矩形两条对角线相等，既然一条长10，另一条也为10。不能把“互相平分”误用成整条只有一半；本题问整条对角线。",
-      "question_sha256": "66b6c4342f392ebac628167dbdc38937bb564c5f6876f6d3698b384e9c03e001",
+      "question_sha256": "22dfb20c7a0a42da34e23798ee4ae3633025194efbd23aea011296568a213ffa",
       "grading": [
         {
           "input": "10",
@@ -5921,7 +6107,8 @@
           "input": "11",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_186_q1')"
     },
     {
       "id": "cnm_186_q2",
@@ -5929,7 +6116,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "矩形额外具有对角线相等，而一般平行四边形未必等对角线，故C。对边相等、对角线互相平分、对角相等本来就是所有平行四边形都有的，不能作为差异。",
-      "question_sha256": "600c1309887bc181e49f95b0ac85b73fa75d393659f1ccef681d351293110da0",
+      "question_sha256": "fa15d9d8d0a1db248f7f8022bce78ec702eb6114584c65c93241a3418f842ce5",
       "grading": [
         {
           "input": "A",
@@ -5947,7 +6134,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_186_q2')"
     },
     {
       "id": "cnm_188_q1",
@@ -5955,7 +6143,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "对角线相等的平行四边形可推出一个内角为直角，故为矩形C。它不必四边相等，所以不必菱形或正方形；按通常梯形定义，它也不是只有一组对边平行的等腰梯形。",
-      "question_sha256": "270ceed1aebb418939f8e803d0f70d6af219069ecded17e7c3fea2851d72ba20",
+      "question_sha256": "0a6eca30fe7c7b6ed38b0f7d2ebd26f15144c4780b477d745799816f4901babb",
       "grading": [
         {
           "input": "A",
@@ -5973,7 +6161,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_188_q1')"
     },
     {
       "id": "cnm_188_q2",
@@ -5981,7 +6170,7 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "简单四边形内角和360°，三个角各90°迫使第四角90°，所以A一定为矩形。一个直角、等对角线或垂直对角线的平行四边形分别可出现在直角梯形、等腰梯形、非正方形菱形中，都不够。",
-      "question_sha256": "ae89a312e7946cfc9b0117ad048daf2383acd031ef641a4f789936a71583044c",
+      "question_sha256": "b34b7a52167a51d9fc940e9eee162bcaada18da5dc637a95eb12a03a284876dd",
       "grading": [
         {
           "input": "A",
@@ -5999,7 +6188,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_188_q2')"
     },
     {
       "id": "cnm_189_q2",
@@ -6007,7 +6197,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "菱形的对角线互相垂直，这是一般平行四边形未必具有的附加性质D。对边平行、对角相等、对角线互相平分都是所有平行四边形都有的，故A、B、C不是差异。",
-      "question_sha256": "4f54364fceb9ee1cf3a94241ee57f43c874fe7a02812509206935497cd71706f",
+      "question_sha256": "1a7cd352a8040c663135633525bf2f5253d76623001d11e4fffd959d6f2234ed",
       "grading": [
         {
           "input": "A",
@@ -6025,7 +6215,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_189_q2')"
     },
     {
       "id": "cnm_190_q1",
@@ -6033,7 +6224,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "平行四边形对角线互相平分，再加互相垂直，可由四个直角三角形的对应边推出邻边相等，因此为菱形A。不能仅此推出直角或正方形，也非一般梯形。",
-      "question_sha256": "a1ae269cc410195732e94d0c0460c2694aff9cddd8538cedd6476f91170dd11d",
+      "question_sha256": "f058fe2b87a9931d4d03efd20911d2e88f7e8b09b7f617e6beaf65caf92cf0a3",
       "grading": [
         {
           "input": "A",
@@ -6051,7 +6242,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_190_q1')"
     },
     {
       "id": "cnm_190_q2",
@@ -6059,7 +6251,7 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "平行四边形若有一组邻边AB=BC，结合对边相等即可得四边全等，故为菱形D。等对角线或一个直角只能判矩形，AB∥CD是原有性质，不足以判菱形。",
-      "question_sha256": "f9f2c27ed0ac1ef5e4bc96900ecd440e7866359e626c8f8ee8fcdcba512d8b93",
+      "question_sha256": "da9325c4f72c8d23c88776851ad89e01e239f378d2aa13e4cde39d7571e9e9f3",
       "grading": [
         {
           "input": "A",
@@ -6077,7 +6269,8 @@
           "input": "D",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_190_q2')"
     },
     {
       "id": "cnm_190_q5",
@@ -6085,7 +6278,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "四条边都相等的简单四边形可由对角线SSS证明两组对边平行，故为菱形，C真。A可能是非菱形风筝，B可能是非正方形矩形，D只一组邻边相等不足以迫使另外两边也等，都是反例。",
-      "question_sha256": "ff98783e7003e5da12acfd2d35e9fdfe36de5de4d6d005e9159f15339de15225",
+      "question_sha256": "a7feeb40ab49fd7e2a17947f14586648d83f15e8200b55e36febb9336bf5c984",
       "grading": [
         {
           "input": "A",
@@ -6103,7 +6296,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_190_q5')"
     },
     {
       "id": "cnm_191_q1",
@@ -6138,7 +6332,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "菱形已有四边相等，若对角线又相等则也是矩形，兼具等边和直角，所以为正方形A。B可为风筝，C可为非正方形矩形，D可为非正方形菱形，均不足。",
-      "question_sha256": "69ea868a9fe232e67ec331febd1109fa77696026d67a038be2f004ec7a806b06",
+      "question_sha256": "4d088eea513f82b72072b0757d769b1798cd6a6247f28a322a03e52d174e9261",
       "grading": [
         {
           "input": "A",
@@ -6156,7 +6350,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_191_q4')"
     },
     {
       "id": "cnm_193_q1",
@@ -6164,7 +6359,7 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "在圆半径可变的情境中，r可变且C随r变化；2与π固定，因此2π是常量，A正确。B把π也说可变，C、D各把r或C固定而未给该限制。",
-      "question_sha256": "39fa93f7685875072a7468e5e30dd52901f7b25589057cca1828c5b103572b28",
+      "question_sha256": "85bf2ae715177608f118dd31c4e307f864af95a6a60b191a3af130b14c818643",
       "grading": [
         {
           "input": "A",
@@ -6182,7 +6377,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_193_q1')"
     },
     {
       "id": "cnm_193_q2",
@@ -6190,7 +6386,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "速度给定且恒为60，t和s随行驶过程变化，故常量是60选C。把s、t或二者都视为常量都不符合时间、路程在变化的情境。",
-      "question_sha256": "a223758628f23f43cec924631b5dfd6be97a31b6baedbafa0029ac38426bbe94",
+      "question_sha256": "c689f818dbd10c232ce7a07c66c1ee873049fc19cc069434bce3a6598840a7e2",
       "grading": [
         {
           "input": "A",
@@ -6208,7 +6404,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_193_q2')"
     },
     {
       "id": "cnm_193_q3",
@@ -6216,7 +6413,7 @@
       "expected_answer": "2",
       "basis": "definition",
       "reason": "题设固定v=5，故速度不算变量；时间t和路程s仍变化，两个变量。不能把常量v也计入，也不能因为s依赖t而遗漏因变量s。",
-      "question_sha256": "81ec1f1f83fec1c518f8a1016e20d5ee4f31dd9f490d1f4adcc109f6a00d0a99",
+      "question_sha256": "d8163c10db8cfeb533cd6bd1bbdff4d5b41a4daa97ea2c3ceb1eac8563dcc062",
       "grading": [
         {
           "input": "2",
@@ -6230,7 +6427,8 @@
           "input": "3",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_193_q3')"
     },
     {
       "id": "cnm_193_q4",
@@ -6238,7 +6436,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "50是总钱数常量、5是单价常量；n为买的本数，m为剩余钱数，随购买量变化，故变量n和m选B。其他组合至少混入一个给定常量。",
-      "question_sha256": "40be9fa50a61dcd74ddaef7d002993c8f1b7b9da753f21ae6b1300e33c2ed0e5",
+      "question_sha256": "c49fd13203eae81c84c1b840259a703a3d3cce22f7aff064acc18d17265b8472",
       "grading": [
         {
           "input": "A",
@@ -6256,7 +6454,8 @@
           "input": "D",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_193_q4')"
     },
     {
       "id": "cnm_193_q5",
@@ -6264,7 +6463,7 @@
       "expected_answer": "3",
       "basis": "definition",
       "reason": "r和h均可变，V=πr²h也随之变，是因变量；π固定不变。故变量为r、h、V共3个，不能只数独立变量r和h。",
-      "question_sha256": "943cc928b7b45b5faa7898237ba96787f1bc657c3dcd65014651b7e93a01aed4",
+      "question_sha256": "66ede8f390f2c7760e78765812f8308705cfc874ea541320adf9de0d9b171aaf",
       "grading": [
         {
           "input": "3",
@@ -6278,7 +6477,8 @@
           "input": "4",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_193_q5')"
     },
     {
       "id": "cnm_194_q1",
@@ -6286,7 +6486,7 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "取任意x>0，比如x=1，有y=1和y=−1两个值，一个自变量对应不唯一，故y不是x的函数，B。A仅“有值”不满足唯一性，C的±写法恰表明有两值。",
-      "question_sha256": "7f268f96349a94428a5f68d31478cbbf8b20feda883cd708211cf723e94c2cb7",
+      "question_sha256": "bb0af1f6344edbe5fd70c740cab82db0dc9360fdc817e9af8ed0fe5a453d225f",
       "grading": [
         {
           "input": "A",
@@ -6300,7 +6500,8 @@
           "input": "C",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_194_q1')"
     },
     {
       "id": "cnm_194_q2",
@@ -6308,7 +6509,7 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "y=3x−2对每个实数x给唯一实数y，所以C。A、B在x>0时均允许正负两个y，D在−1<x<1时通常有上下两个y，均不满足函数单值性。",
-      "question_sha256": "705c97db6fb9020fcce26d4c58f6acacf4e7fe3afe860bf4c069693af20e4a00",
+      "question_sha256": "3a841a2169c7cbfc96de47ccefec22870f9245df4608fce0dd70d8ae7316192c",
       "grading": [
         {
           "input": "A",
@@ -6329,7 +6530,8 @@
       ],
       "corrected_fields": [
         "explanation"
-      ]
+      ],
+      "verify": "model('cnm_194_q2')"
     },
     {
       "id": "cnm_194_q3",
@@ -6345,7 +6547,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "函数要求每个自变量恰有一个函数值；同一个x=3同时对应6和7违反唯一性。B漏掉唯一要求，C即使有总体趋势也不能消除一对多，D已有充分信息。",
-      "question_sha256": "6ad9e54e04f406e18928b61bac36f9dc3e0286cfaa504811e3596089761161a7"
+      "question_sha256": "84152e504c7081845315b18a75eabb9a8b4ebb73813cb9640dcabe6675aa5594",
+      "verify": "model('cnm_194_q4')"
     },
     {
       "id": "cnm_194_q5",
@@ -6353,7 +6556,8 @@
       "expected_answer": "2",
       "basis": "definition",
       "reason": "①绝对值对每个实数x给唯一y；③在自然定义域x≠0内也唯一。②例如x=1对应±1，④例如x=0对应±2，故只有①③，共2个。",
-      "question_sha256": "39516dcd7afcd06f2c5bc4ad05634f993d81024e53dbd3b7d7280de44020b5c3"
+      "question_sha256": "5e734821ad95eed906eeb25b9fda95a867dfcb009d47841eb1a203e0ee75fe2e",
+      "verify": "model('cnm_194_q5')"
     },
     {
       "id": "cnm_195_q1",
@@ -6361,7 +6565,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "根式要求x+2≥0，分母要求x−1≠0，合取为x≥−2且x≠1。A漏去分母限制，B漏去根式限制，D错误排除可取端点−2。",
-      "question_sha256": "cc6a262eaa937e33fdb88c1094ef588ab735d034f6a8173a0bfebf714df534e1"
+      "question_sha256": "60ae07c98a4dfdfc8e172e8415b32060907d9d516096844fe131579bed6800d1",
+      "verify": "model('cnm_195_q1')"
     },
     {
       "id": "cnm_195_q2",
@@ -6369,7 +6574,8 @@
       "expected_answer": "3",
       "basis": "calculation",
       "reason": "分母x−3不能为0，因此唯一排除x=3；其它实数均使分母非零。",
-      "question_sha256": "56076bb0a43e553021e5f3440363f215d2c744505731c8aefc70776419608ac5"
+      "question_sha256": "453657bfc015be7f0dda5b89663f3273af1412fc57d41116a8a3218e44afeb7d",
+      "verify": "solve2(1,0,3,0,1,0)[0]"
     },
     {
       "id": "cnm_195_q5",
@@ -6377,7 +6583,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "分母含√(x−3)，既须被开方数非负又须分母非零，合并得x−3>0，即x>3。A包含非法端点3，C包含x<3，D取值方向错误。",
-      "question_sha256": "00326ce905ab53e965ceadbcba17d960e8a501503268dbc6c8536710219a01cb"
+      "question_sha256": "5b488a88bd223f7df2936e40794de185e69b6f9ce2756cf61be25c46dbe2c377",
+      "verify": "model('cnm_195_q5')"
     },
     {
       "id": "cnm_197_q1",
@@ -6385,7 +6592,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "直线由两个不同的点唯一确定。x=0和1时y分别为−1和1，C的两点均满足；A两点不在直线上，B只有一点不足定位直线，D含不在直线上的原点。",
-      "question_sha256": "fefef92e62334c604372afd1b8758febbabb036f43f8f2af96c5a0a9413e5855"
+      "question_sha256": "9b0a5d8cd908d815dded2e59154a7838fc20319153bcfbd7788f1397f2f8f50e",
+      "verify": "model('cnm_197_q1')"
     },
     {
       "id": "cnm_197_q4",
@@ -6393,7 +6601,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "平行t轴表示时间增加而路程s保持不变，即停止行走。匀速非零运动应为倾斜线段，加速体现斜率变化，返回家中也仍是运动而不会保持累计路程不变。",
-      "question_sha256": "45efcd00b2796d21432ed98d2e12e5c1413c1cae3bb30e0254e101d37f618f99"
+      "question_sha256": "8a9cd2ca91f8d9fcf19a41eff04210ab17de8b7799dc1f41a4a8731feae5da77",
+      "verify": "model('cnm_197_q4')"
     },
     {
       "id": "cnm_198_q1",
@@ -6417,7 +6626,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "总长度=原长+伸长量=10+0.5m。A漏原长，B把原长与增长率混置，C把伸长误写为缩短，只有D成立。",
-      "question_sha256": "9b5f38f964fa7051d1290c5b8bb58bd45d330ead1ea9fd62abcacb9bc193b72a"
+      "question_sha256": "14cd304027513237932a91f9af0d1994c62cb9d50706ff496df04e64fb46955f",
+      "verify": "model('cnm_199_q1')"
     },
     {
       "id": "cnm_200_q2",
@@ -6425,7 +6635,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "正比例函数必须为y=kx且k≠0；C中k=−1/2。A有非零截距，B是反比例，D是二次函数，均不满足。",
-      "question_sha256": "7d1273125ed431e7b2acfedcb31e046df553519b7a8fe436c9586752c29409c6"
+      "question_sha256": "450906160546fc0a543d5c9dfe10bd55387c2b2f6147f47b90f7ac0c379cc378",
+      "verify": "model('cnm_200_q2')"
     },
     {
       "id": "cnm_201_q1",
@@ -6433,7 +6644,7 @@
       "expected_answer": "m≠1",
       "basis": "definition",
       "reason": "一次函数的x项系数必须非零，即m−1≠0，所以m≠1；m=1时仅剩常函数y=2。",
-      "question_sha256": "5e5f5b07dfe788c527ff622ea16626a8b23916d0fc4e4781a3cbd0cf51fbca82",
+      "question_sha256": "570ea64ab3d856e6768e87590257e170dc879d88b3dc29fbec6e7e5145c8ec39",
       "grading": [
         {
           "input": "m=1",
@@ -6443,7 +6654,8 @@
           "input": "m不等于1",
           "result": "correct"
         }
-      ]
+      ],
+      "verify": "model('cnm_201_q1')"
     },
     {
       "id": "cnm_201_q2",
@@ -6451,7 +6663,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "A为y=kx+b且k=−2≠0。B有二次项，C含自变量倒数，D斜率为0是常函数，只有A为一次函数。",
-      "question_sha256": "922c929165854510666ee7f55e69739bf0622eac95b794e36c9fd611695b0e2b"
+      "question_sha256": "3bc5d5cafc9e3fb288a1e24f495aaeed7c308daa62703a471647240f5f5b2245",
+      "verify": "model('cnm_201_q2')"
     },
     {
       "id": "cnm_202_q1",
@@ -6459,7 +6672,7 @@
       "expected_answer": "(0,4)，(2,0)",
       "basis": "calculation",
       "reason": "令x=0得y=4，为y轴交点(0,4)；令y=0得−2x+4=0，x=2，为x轴交点(2,0)。题目要求先y轴后x轴，次序不能互换。",
-      "question_sha256": "06f79ece3db5f201e2417a87c782d8fb23ea481e466f788fb86887e8758793ca",
+      "question_sha256": "58e323d5c74385d690e3dbcc775f97cee8ee8d3822943972b6b89da7677ffcaf",
       "grading": [
         {
           "input": "(0,4),(2,0)",
@@ -6473,7 +6686,8 @@
           "input": "(0,2),(4,0)",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_202_q1')"
     },
     {
       "id": "cnm_202_q3",
@@ -6481,7 +6695,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "y轴交点令x=0得(0,−6)，x轴交点令y=0得(3,0)，B给出了这两个点；A、C、D至少一个截距数值或符号错误。",
-      "question_sha256": "bde0e481d0bd6c2b7093fda7cba607ca2a5ae8c1b1e6d4e1a2120abcaf9f7cce"
+      "question_sha256": "94e14e5d2ee232ec58631fc4d2250d175f6a6e5f4ee8f7e66bbcdd2c55eb8646",
+      "verify": "model('cnm_202_q3')"
     },
     {
       "id": "cnm_203_q1",
@@ -6507,7 +6722,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "一次函数的斜率−4<0，任意x增加时−4x+2减少，故C；A趋势相反，B需斜率0。",
-      "question_sha256": "13e0768b976dfba382d99151456cde5ce2ca69bcde4aa74349ef0dba11afa336"
+      "question_sha256": "ebc9abf8a16d0db69f44d98512b5e773a01e60ce52dd0b80bf04414b10b63c90",
+      "verify": "model('cnm_203_q2')"
     },
     {
       "id": "cnm_203_q3",
@@ -6515,7 +6731,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "图象经过第二、四象限表明直线下降，k<0；又经过第一象限但不经第三象限，y轴截距b>0。A、D斜率为正，C截距负会经过第三而非第一。",
-      "question_sha256": "fd6021c1b3d1e82183efe8c8b7f1e8e7bd23ce7390b211802376cd6efb7bb91d"
+      "question_sha256": "d1d6d590139cd9d5db22204b576fc90dd99660766680c90bad7e42df97e5efa9",
+      "verify": "model('cnm_203_q3')"
     },
     {
       "id": "cnm_203_q4",
@@ -6523,7 +6740,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "−3<0，函数递减，而−2<1<3，所以y1>y2>y3；也可代入得7、−2、−8，只有D的顺序一致。",
-      "question_sha256": "d5c15e56cac8e7af43dd8608cf6e44403713518f2866955f3a004378d91d0147"
+      "question_sha256": "3fe4cb1eaba4bcbf57ce0ed70dcb1b26be5a18901f9f63947bf592c63bf7ca5c",
+      "verify": "model('cnm_203_q4')"
     },
     {
       "id": "cnm_204_q1",
@@ -6605,7 +6823,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "与x轴相交于(−2,0)意味着kx+b在x=−2时等于0，且一次函数斜率非零保证解唯一，所以A；B、C不满足交点横坐标，D并非信息不足。",
-      "question_sha256": "df21e997f56a2a93f0b408fd133cce52ab06b153f1e8d9298c5e4e5615714f9d"
+      "question_sha256": "69cb6c4ff2e639097b446d91fd218bd51d00eb9495fd0bffb4f56e804b2422ac",
+      "verify": "model('cnm_206_q3')"
     },
     {
       "id": "cnm_207_q1",
@@ -6613,7 +6832,7 @@
       "expected_answer": "x>2",
       "basis": "calculation",
       "reason": "y=x−2随x增大且在x=2处为0；图象位于x轴上方对应x−2>0，即x>2，不能含等号。",
-      "question_sha256": "e4cafc74166d0d3b728c4a8239a3ce956aa045b668773c2a769753cb8396c919",
+      "question_sha256": "550e72359ad70f786b7b2fa632b2b08a889a0dd1cdd89b760e5f5fb507339aeb",
       "grading": [
         {
           "input": "x大于2",
@@ -6627,7 +6846,8 @@
           "input": "x<2",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_207_q1')"
     },
     {
       "id": "cnm_207_q2",
@@ -6635,7 +6855,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "零点为−2且斜率2>0，零点右侧函数值为正，故x>−2。A方向相反，C虽部分满足却不是完整解集。",
-      "question_sha256": "80bcc594439359676df3bc4b80552c7a0b48e2874ad0d0ef2f31717a8e9551ba"
+      "question_sha256": "5ad292dcb87ece50044ccfde547edef523892ce032ef056d529015b8bd7fca9c",
+      "verify": "model('cnm_207_q2')"
     },
     {
       "id": "cnm_207_q3",
@@ -6643,7 +6864,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "−x+3<0等价于−x<−3，除以−1翻转不等号得x>3。A方向错，B、D把临界点符号弄错。",
-      "question_sha256": "1d7e6200cd1c7d9fdd5f436e68290763cb7a4aa5ba98df670f6a90b3f447a064"
+      "question_sha256": "97bb5aa79d7edc98ceb2f7f84c6b66f7b04fb012ac814379578c3f8cd28ed63e",
+      "verify": "model('cnm_207_q3')"
     },
     {
       "id": "cnm_208_q1",
@@ -6651,7 +6873,7 @@
       "expected_answer": "(1,2)",
       "basis": "calculation",
       "reason": "交点满足x+1=−x+3，得x=1，再代入y=2，所以(1,2)；横纵坐标不能倒置。",
-      "question_sha256": "ce13c52dfdb9643279d70e0078c070aa8537d8473853ccb7c94e6e11d115db00",
+      "question_sha256": "da06735023bccb079ba99af13965a8208b059675d936b73d0f7778d5fee9efd6",
       "grading": [
         {
           "input": "(1,2)",
@@ -6661,7 +6883,8 @@
           "input": "(2,1)",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_208_q1')"
     },
     {
       "id": "cnm_209_q1",
@@ -6708,7 +6931,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "在弦长及频率为正的物理情境下Lf=k≠0，所以f=k/L，是反比例关系。正比例需f/L定值，一次及二次函数也不是倒数形式。",
-      "question_sha256": "07e477dbf51a34c097048178c33ffc90de988efa57964a38ca8848a69b4a146a"
+      "question_sha256": "803f99a2c7bd19b12e405d95839259337bf81819245c0d8e3b4fd4f4bc8d06e6",
+      "verify": "model('cnm_210_q3')"
     },
     {
       "id": "cnm_212_q5",
@@ -6755,7 +6979,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "甲的方差=1.5²=2.25，乙的方差=2；或比较标准差1.5与√2≈1.414。乙更小所以更稳定；A、C错误，已给同均值且可统一指标，D也不对。",
-      "question_sha256": "ea2b19c63f4f45c6721d78e103af177571cddba881394684f340262fd88574f1"
+      "question_sha256": "ee244aee867c7cd0a5494938374e857622b04951ddc538051f5daf394a5f0837",
+      "verify": "model('cnm_215_q4')"
     },
     {
       "id": "cnm_216_q5",
@@ -6771,7 +6996,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "分组后用各组组中值代表该组数据，按频数加权，估计均值=Σ(组中值×频数)/Σ频数。A忽略不同组频数，B只平均人数，C错误地以上限代表整组。",
-      "question_sha256": "83e27597e4d5a85842ff7d1f213ce99b016ff48dd606c80a071d050a9c5e123f"
+      "question_sha256": "9c5e1aff37bce8e0f38e829a2d3041cb327a827e54511f8dfb14dc991b677b8b",
+      "verify": "model('cnm_217_q1')"
     },
     {
       "id": "cnm_217_q5",
@@ -6779,7 +7005,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "同组各真实数通常不都恰等于组中值，代换会产生估计误差。组内数据偏在组中值左侧或右侧，误差可正可负甚至为0，所以A、C的必然断言均不对。",
-      "question_sha256": "7a01982a68f569630fcf4e7c05ff727dcc5dee27b6003ec782dc75c03b92f63f"
+      "question_sha256": "b10f8903651464181937533f1e5ee2701c7ce12ad5cefda7365cad511785566d",
+      "verify": "model('cnm_217_q5')"
     },
     {
       "id": "cnm_218_q1",
@@ -6803,7 +7030,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "D化成3x²−2x−1=0，只有未知数x且二次项系数非零。A消去x²后成一次方程，B含未知数分母不是整式方程，C有x、y两个未知数。",
-      "question_sha256": "1182d44ffac57e30e9c67d871d12665525801f171ceb9e67da8599c36d9eb1b8"
+      "question_sha256": "6a2a2f18e89d0bf114d6489a8f236c7a3b30b88800fc5f629c385452b534b768",
+      "verify": "model('cnm_219_q2')"
     },
     {
       "id": "cnm_220_q4",
@@ -6811,7 +7039,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "(x−2)²=k−3有两个不等实根当且仅当右端严格正，即k>3。k=3仅有重根2，k<3无实根，D还允许2<k≤3，故只有C完整。",
-      "question_sha256": "4586d5c63cffe359cfbfef2044c17928e7b97e146ff7e4fd970f751c4f96c7a0"
+      "question_sha256": "2e86794f4ab1461fa9c5a41a97c35db3273a021c8f3e314793da3e5f6d4fe78f",
+      "verify": "model('cnm_220_q4')"
     },
     {
       "id": "cnm_221_q1",
@@ -6819,7 +7048,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "移项x²−4x=1，配成(x−2)²=5，开平方得x=2±√5。A右端算错，B平方中心符号错，D将一次项系数误作平移量。",
-      "question_sha256": "743c45fc0deaa381c8db05691db85b11423413070bd222b9612fe74caf65c8d4"
+      "question_sha256": "03ff767fcbaa13fabbcabd6464d6b519b615dbf3030fd7259286dd161ca1967b",
+      "verify": "model('cnm_221_q1')"
     },
     {
       "id": "cnm_222_q3",
@@ -6827,7 +7057,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "a=3、b=5、c=−1，判别式25−4×3×(−1)=37，分母2a=6，故x=(−5±√37)/6。A错在−b，B判别式错，C分母缺因子2。",
-      "question_sha256": "827860bbfb842b56e375de275c20b4389af7c1c9986ce40f1118e2b7c9bbde0d"
+      "question_sha256": "812ecae14831b65a1b4b563e0d5749d14338a84277cfec971b86ec9eeffdfe2a",
+      "verify": "model('cnm_222_q3')"
     },
     {
       "id": "cnm_223_q1",
@@ -6835,7 +7066,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "两个不等实根要求Δ=(−4)²−4k>0，所以k<4。k=4只得重根，A、B取错方向，D错误包括等号。",
-      "question_sha256": "c1c9fe038db21f9417304be200f2428b87e24e439cc0cc935bfc8507285aadb0"
+      "question_sha256": "15778e4019dfbb89d742a14160f7a101193c64c23594f45a63350803fb9d5a01",
+      "verify": "model('cnm_223_q1')"
     },
     {
       "id": "cnm_223_q3",
@@ -6843,7 +7075,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "Δ=(−3)²−4×2×5=9−40=−31<0，无实数根；B需Δ>0，C需Δ=0，均不满足。",
-      "question_sha256": "b6e2831d2d78e410766f041587c4132a18c7a976631e82c296b3c55212724751"
+      "question_sha256": "991adfe372a1057aaf585dc1c2dd5340156f5471ed0a10552fc6a108291f9bdc",
+      "verify": "model('cnm_223_q3')"
     },
     {
       "id": "cnm_225_q1",
@@ -6867,7 +7100,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "平均每年增长率x表示逐年乘1+x，两年后藏书5(1+x)²=7.2。B误当简单累计，C量纲和基数不对，D只计算了一年增长。",
-      "question_sha256": "1cc8ccd9e6991ac5ec6c8d35c3b1cb97d8b7a279d0ed8d41035a09236fef6cc4"
+      "question_sha256": "a70707d7f953500c691d8d9077db9375d7770f6bc68e073aca780b502f6140e5",
+      "verify": "model('cnm_227_q2')"
     },
     {
       "id": "cnm_229_q1",
@@ -6875,7 +7109,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "二次项系数m−2必须非零，所以m≠2。A恰使其退化成一次函数；C只包含部分允许值，D排错参数，均不是完整条件。",
-      "question_sha256": "623014c61b0e4189ca41271599576316993ac6375af2b50b9b229418c4eebbb1"
+      "question_sha256": "b8799055c4b0f8521d4c916c277679aa885bed29e327c173dac8d07909f83fd3",
+      "verify": "model('cnm_229_q1')"
     },
     {
       "id": "cnm_229_q2",
@@ -6883,7 +7118,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "D展开为3x²−6x+5，是二次项系数非零的二次整式。A为一次，B有1/x不属二次整式，C消去二次项后是−2x+1。",
-      "question_sha256": "4a291a5531b84b0a8a49fea99074f30128867e69034f7117b4b8624fe425b3af"
+      "question_sha256": "284ee933ad5e547340ee4c4531f35e3615d5b0af068436a34787e8a8e8ba88c5",
+      "verify": "model('cnm_229_q2')"
     },
     {
       "id": "cnm_230_q1",
@@ -6891,7 +7127,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "y=−2x²的系数a<0，开口向下；没有一次项和常数项，顶点(0,0)，轴为直线x=0即y轴。A、D方向错，C顶点错。",
-      "question_sha256": "f4c3e8cffacb02bcb66a1bed0398e689466839fb3af8587555c51416b97daf43"
+      "question_sha256": "e5128bd4725609628c47c4d412bfbecb48bea981e2720666637f167063c08468",
+      "verify": "model('cnm_230_q1')"
     },
     {
       "id": "cnm_230_q3",
@@ -6899,7 +7136,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "抛物线y=ax²的开口宽窄由|a|决定，绝对值越小越宽。四项|a|为2、1、1/2、3，最小为C；负号仅改变开口方向，不使开口变窄。",
-      "question_sha256": "e66654339dd07b0a372de78ab8f7c04190094d9e33095234a8449d36539a4bb5"
+      "question_sha256": "315362c726be6fc038363929c15f27c891e1052804465210e30fc3d9b1b8495d",
+      "verify": "model('cnm_230_q3')"
     },
     {
       "id": "cnm_230_q4",
@@ -6907,7 +7145,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "逐个代入得到y1=−9、y2=−1、y3=−4，故−1>−4>−9，即y2>y3>y1。A、B、C的相对顺序均至少有一处反转。",
-      "question_sha256": "fc967f3c112172a3c773a2bf310cfef05b7d67306e289ca18f053c9a14644460"
+      "question_sha256": "1c115cbd9513450af6be8cbcf6b8ea91cc35fc89b86db0fe34160fc4f2ff080e",
+      "verify": "model('cnm_230_q4')"
     },
     {
       "id": "cnm_231_q1",
@@ -6915,7 +7154,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "顶点式y=(x−h)²+k给h=1、k=2，顶点(1,2)、对称轴x=1；从y=x²向右1再向上2得到。B左右与顶点符号错，C平移方向错，D将坐标互换。",
-      "question_sha256": "f03d7d04beb8e31e586b247c50e798d63f7e42df297e1bd1bdec72b803d50331"
+      "question_sha256": "c7d87f239c1cd7a9b4ff0f3ba0759eb9a8b52eddad4b9f0ef2275f2d104aa1ff",
+      "verify": "model('cnm_231_q1')"
     },
     {
       "id": "cnm_231_q3",
@@ -6941,7 +7181,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "配方为y=−(x+2)²+5，轴x=−2且开口向下，轴左侧随x增大而增大，故选x<−2。A为递减侧，C、D都跨入或位于错误区间。",
-      "question_sha256": "61dc2773c5009c4a4968f1724b2a48c92cc33499a9b26d1edfebfe72d7cdefde"
+      "question_sha256": "590373fecdad763df70e331ded875aff05742cbb1f3ede6c6387d7b1ec4371c2",
+      "verify": "model('cnm_232_q4')"
     },
     {
       "id": "cnm_234_q2",
@@ -6977,7 +7218,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "反比例函数须为y=k/x、k≠0。C的k=5；A、B是正比例函数，D是二次函数，只有C符合。",
-      "question_sha256": "3d3272bd477c0d32a9f7ed1da88fe8ccedabeef71d1b1824d9fb9d915c7cc71d"
+      "question_sha256": "109f986f55b1bc12e751e74edc3d0583cd3dab4453e9b6b73d62ab6ff3a5fb78",
+      "verify": "model('cnm_237_q2')"
     },
     {
       "id": "cnm_238_q1",
@@ -6985,7 +7227,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "k=−6<0时x与y异号，图象在第二、四象限；在每个连续象限分支上，x增加时−6/x增加。A、D象限错，C增减性错；跨越x=0不能统称整个定义域递增。",
-      "question_sha256": "f766a514245cc498972ea7b15feab213b1d352378094df3965e1b66ac84e6528"
+      "question_sha256": "4a76dcee4aaa39e2f8e7073e72a871949fb42006b2858afd1c62ffdcc5a9b725",
+      "verify": "model('cnm_238_q1')"
     },
     {
       "id": "cnm_238_q3",
@@ -6993,7 +7236,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "代入x=1、2、−3得y1=6、y2=3、y3=−2，故y1>y2>y3。B、C、D都与这三个具体值的顺序矛盾。",
-      "question_sha256": "deb064a62766a9461c8fa0f5c503cce8cc54705d8068ef20e6fe8d2baed96f90"
+      "question_sha256": "0dc0d690dedc3db24147c999af99af53824c43695f2cb62ed83e4e0cea5af879",
+      "verify": "model('cnm_238_q3')"
     },
     {
       "id": "cnm_240_q1",
@@ -7001,7 +7245,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "反比例系数k=xy=(−2)×3=−6，因此y=−6/x。A符号错，B、C把两坐标之比误当乘积，故只有D。",
-      "question_sha256": "d142260d6b22188bf29e59c2215800706c8e43b480c143720f3606772eebb23b"
+      "question_sha256": "fc23f4a50f391ce568d53c5d8fb24c426e6792a37a77297c98bd359e7ef3d056",
+      "verify": "model('cnm_240_q1')"
     },
     {
       "id": "cnm_240_q3",
@@ -7009,7 +7254,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "原点给k=−6，候选点必须满足xy=−6。A、B、D乘积均为6，只有C的3×(−2)=−6成立。",
-      "question_sha256": "be1cc7eab6c808794ccc706da32406aae1007befb2ef8d1a50b8a5992e609c07"
+      "question_sha256": "26c6a95824aa1ac9311b7f5e2d785e2b7b25e351d486819b1f9b98e8b49bdd0f",
+      "verify": "model('cnm_240_q3')"
     },
     {
       "id": "cnm_241_q4",
@@ -7017,7 +7263,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "化为(x+3)(x−2)/x>0，临界点为−3、0、2。分区代值判断符号依次为负、正、负、正，且0不在定义域，解为−3<x<0或x>2。A漏第一段，C取负区间，D跨过非法0及负区间。",
-      "question_sha256": "dcadd9a713344476dd65ba7c6a274ee9e4c0e8f60f132ea687cf4e6b00d377ce"
+      "question_sha256": "faa47b79884b34ee05e67055d61baff1bdf67efd9f9e42798046cacb66c5eb55",
+      "verify": "model('cnm_241_q4')"
     },
     {
       "id": "cnm_242_q1",
@@ -7025,7 +7272,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "矩形面积xy=12且长宽均正，所以y=12/x并限定x>0。A、B为比例形式不满足面积恒定，D固定的是周长相关和量而非积。",
-      "question_sha256": "5dfc52472f4d03e5efaba3f02847762cf124d31e5b288783288c8eba7cbbfbb2"
+      "question_sha256": "7a69b406500fd39ee9f1e430804b4138a20fd1e4b6d6fc7da1b0f467f5e90373",
+      "verify": "model('cnm_242_q1')"
     },
     {
       "id": "cnm_243_q1",
@@ -7042,14 +7290,15 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "非中心点旋转保持到中心的距离且转过的角为90°，因此OA=OA′且两射线垂直，选C。A给成180°，B给成平行均不对；为使∠AOA′有定义，应明确A≠O。",
-      "question_sha256": "4dc18b72cc6cdf6a13bba6a3cd9a850ea87916d81e02ea61ec858ea480e79b7f",
+      "question_sha256": "c19d427a301e84d67e42cfd26da0ba7568794bf507162e6e2895fba7dceaab93",
       "corrected_fields": [
         "prompt"
       ],
       "catalogue_preview": {
         "question": "点 A（A≠O）绕 O 顺时针旋转 90° 得 A′，OA 与 OA′ 有何关系？",
         "answer": "OA=OA′，∠AOA′=90°"
-      }
+      },
+      "verify": "model('cnm_244_q1')"
     },
     {
       "id": "cnm_244_q2",
@@ -7065,11 +7314,12 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "旋转为等距变换，故对应线段相等且对应角相等，A成立。但原B“成比例”也成立，因为各对应边比都为1，造成A/B双真。应把B的边长比改成明确不等于1的数，如2；C互补也非旋转的一般性质。",
-      "question_sha256": "8faca15d80a4514130a6c13c4a014e329c45c56dd7206fe3f878eedd4d62433b",
+      "question_sha256": "a1366d08f27af33dddc385bd25699b50c9a1b84d5ab0e45e8a4291efbd7f3ac0",
       "corrected_fields": [
         "choices",
         "explanation"
-      ]
+      ],
+      "verify": "model('cnm_245_q1')"
     },
     {
       "id": "cnm_245_q2",
@@ -7077,7 +7327,7 @@
       "expected_answer": "7，40",
       "basis": "definition",
       "reason": "旋转保持线段长度与角大小，A′B′对应AB，∠A′对应∠A，所以依题目规定顺序为7、40。不能交换两种量，也不能把旋转角当成内角的增加量。",
-      "question_sha256": "58ec265e8e705d7295a33deee22c5e09e58880cc2b9f8558e3b71323e8b91d4e",
+      "question_sha256": "1bdb8890220028357c5d7ca0305761c7c66c6d287a8471939728a39a13670b83",
       "grading": [
         {
           "input": "7,40",
@@ -7091,7 +7341,8 @@
           "input": "740",
           "result": "wrong"
         }
-      ]
+      ],
+      "verify": "model('cnm_245_q2')"
     },
     {
       "id": "cnm_246_q1",
@@ -7115,7 +7366,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "平行四边形和矩形绕对角线交点转180°均重合，圆绕圆心转180°也重合。B含等边三角形，C含等腰三角形及正五边形，奇数边的这些三角形/正五边形没有半周对称。",
-      "question_sha256": "fe3e46f5d03715e948b5229611bf3861aa152a6bfd31962d82bca51aa559c177"
+      "question_sha256": "f3bc03c9f01bc5c66ee25833297b487d5969c3ec6fe97a6ea31fd601000002e5",
+      "verify": "model('cnm_248_q1')"
     },
     {
       "id": "cnm_248_q3",
@@ -7131,7 +7383,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "第二象限a<0、b>0，原点对称点(−a,−b)满足横坐标正、纵坐标负，在第四象限。A、B、D的符号组合均不符。",
-      "question_sha256": "70b458fe28d30b2ab62f440f96c3f9bbc983ff450523a69d3a786f2c55e5fa1c"
+      "question_sha256": "214644335480066bdbbba1088c10571f886def15e07cec0b3562e2d5dd9e8d1b",
+      "verify": "model('cnm_249_q4')"
     },
     {
       "id": "cnm_250_q2",
@@ -7216,7 +7469,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "点到圆心距离4小于半径5，按点圆位置判定在圆内。圆上需距离等于5，圆外需大于5，因此只有B。",
-      "question_sha256": "4555a3c4ce49c9905848e8e690d0a97c05e4966c7b160e21e7560e74f00e1abb"
+      "question_sha256": "88f3a40ba24a9233d1487d0ff21bb833893cbc7f037446af464a135153cfeae5",
+      "verify": "model('cnm_259_q1')"
     },
     {
       "id": "cnm_259_q4",
@@ -7224,7 +7478,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "OA=√(3²+4²)=5，圆内要求OA<r，因此r>5。B方向相反，C允许3<r≤5而点不在圆内，不是完整条件。",
-      "question_sha256": "535db0cc2eeac295205ba4b70b9e6b635477f9f867e2f8ccb2c45208bb06301e"
+      "question_sha256": "d0ce6a1ba0e8d8593282b870d20d50ce6ae7d586f38a11e9716ee4d3d1ccb3bc",
+      "verify": "model('cnm_259_q4')"
     },
     {
       "id": "cnm_260_q1",
@@ -7232,7 +7487,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "圆心到直线的垂直距离d等于r时恰有一个公共点，称相切，故C；相交对应d<r，相离对应d>r。",
-      "question_sha256": "cd21dbf3db234b4b5aed55536db3df9080e2586c6ed76c4198bf3b95d670de57"
+      "question_sha256": "6b22adb7ab7f815441e4aea0645cbc7e6b5159bd9bebd1f451492079d8c6b675",
+      "verify": "model('cnm_260_q1')"
     },
     {
       "id": "cnm_260_q4",
@@ -7240,7 +7496,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "圆心(3,4)到x轴距离4等于半径，故与x轴相切；到y轴距离3小于4，故与y轴相交，按顺序为相切、相交。其它选项至少一个位置条件不符。",
-      "question_sha256": "cdec29e1153638ad6c44671ad5bc2185a0dd278d59c32d5d88c39b827975cb71"
+      "question_sha256": "2ef822d725cb0544033b93be9a6ef342f074496119ce3b6b241c1224e08f9b9d",
+      "verify": "model('cnm_260_q4')"
     },
     {
       "id": "cnm_261_q1",
@@ -7264,7 +7521,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "OA²+AB²=5²+12²=169=OB²，勾股定理逆定理得OA⊥AB，而A在圆上，因此直线AB为切线，C成立。",
-      "question_sha256": "cd6e78e0ac2d801f5f1d5513e0cee65097bbe4d6754f1aee803654ab6f215f73"
+      "question_sha256": "b88a27b7e5ddb16d2cee7933f17ecd064b9fdf30882f2699c25a472fe1456625",
+      "verify": "model('cnm_261_q4')"
     },
     {
       "id": "cnm_262_q4",
@@ -7297,7 +7555,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "直角三角形斜边中点到三个顶点距离都等于斜边一半，所以为外接圆圆心。直角顶点到自身距离0不能为圆心，斜边高的垂足一般也不等距。",
-      "question_sha256": "6e2137de0f3d63c60a57efc285e51b4423691c1966f940f5831d8ad1704c89b5"
+      "question_sha256": "525b2c75c8e7d39237cef1d9912f35cd43e8b8eec0f3715eb39b4cab6f8b106a",
+      "verify": "model('cnm_265_q1')"
     },
     {
       "id": "cnm_265_q4",
@@ -7324,7 +7583,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "可调顺序成比例等价于能把四数分成乘积相等的两对；C有2×6=3×4=12。A的外内积为4与6，B为18与20，D为16与20，另外两种配对也不相等，故只有C。",
-      "question_sha256": "b37818af9a788be2eec155d3cfa4b15d9dc1ea5815b66408ea440be2e3b80291"
+      "question_sha256": "e502700098681e303b60c157e281fcc935de5ae5911e0f92bd86026e76f88a10",
+      "verify": "model('cnm_268_q2')"
     },
     {
       "id": "cnm_269_q2",
@@ -7332,7 +7592,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "由平行得AD/AB=AE/AC=DE/BC=k，也推出AD/DB=AE/EC=k/(1−k)，及倒数关系C。D把全边比k与分段比k/(1−k)混同，故错误项仅D；默认D、E为边内分点使分母非零。",
-      "question_sha256": "6ce08dd6b3db592b86252339a77bc0e2b2c69a661f83a157951a3a81d6bbaa8b"
+      "question_sha256": "f85606a22e11f197afc34d48ca6612fa09d778174fe7d27eb942a4e4ff2c5c70",
+      "verify": "model('cnm_269_q2')"
     },
     {
       "id": "cnm_270_q1",
@@ -7359,7 +7620,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "已给两组对应角分别相等，直接符合AA相似判定；第三角也由内角和相等。A、B否认已有充分条件，D虽是另一有效判定定理，但题中没有三边数据可作为直接依据。",
-      "question_sha256": "3d470ba797038e6fbff54726dbdbe33b8acab67e77d12d1477ce9f0c8a1c5fc5"
+      "question_sha256": "27edbb14cd56dce2fa620259e8e1549d52ea8b01bf5d827424307a7a9fbf52e7",
+      "verify": "model('cnm_271_q1')"
     },
     {
       "id": "cnm_271_q2",
@@ -7367,7 +7629,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "ABC第三角=180−50−60=70°，DEF第三角=180−50−70=60°，两三角形角组同为50°、60°、70°，可按AA判定相似，B、C不对。",
-      "question_sha256": "351130f1421c0761434bb0987bd698eab249a60361899e1521369954705a6184"
+      "question_sha256": "3d73e0b69f4d18b5241f107b90c00d08f42634e9eb7a63b968adb8b700b79a29",
+      "verify": "model('cnm_271_q2')"
     },
     {
       "id": "cnm_271_q3",
@@ -7375,7 +7638,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "AB/DE=4/6=2/3，AC/DF=6/9=2/3，且这两边夹角A=D=50°，正是SAS相似判定。并未给两组角或三边，C的两边相等也不成立。",
-      "question_sha256": "562a96cff2b8595d2ca76c2b68277e1e6478e8aab9b348f44f07d7fba8be2c5d"
+      "question_sha256": "e2d4d625a36642dab96d6f4dbe6534590bc5f633d0276f04c6d94e3d496949b5",
+      "verify": "model('cnm_271_q3')"
     },
     {
       "id": "cnm_272_q1",
@@ -7392,7 +7656,12 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "DE∥BC给∠ADE=∠ABC、∠AED=∠ACB，A角公共，顶点对应为A↔A、D↔B、E↔C，故ADE∽ABC。B交换了B、C，C的DBC没有相应两组平行角保证。",
-      "question_sha256": "b570822e66f28a568564826761a54c43f0797bd05aa8a4cf8c37e078c2df745b"
+      "question_sha256": "c26b8b4553812aea379e04d63ea1578580e2c34335aa5f94ab1a045e8b34c6a1",
+      "verify": "model('cnm_273_q1')",
+      "catalogue_preview": {
+        "question": "△ABC 中，D、E 分别在边 AB、AC 的内部，且 DE∥BC。哪对三角形按指定对应顶点顺序相似？",
+        "answer": "△ADE∽△ABC（A 型）"
+      }
     },
     {
       "id": "cnm_275_q1",
@@ -7430,7 +7699,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "两条用来求正弦的边同乘2，sinA=(2×对边)/(2×斜边)=原正弦；角度本身也不变。A、B把长度缩放误套到比值，D否认已知的相似比例。",
-      "question_sha256": "15b603790ca62bf77600bbafcbc4b69b4e190cbe85328e1a0e60f5919d5e36a5"
+      "question_sha256": "a62fda9ed9ab745dcc5291edf108bb7126fd511e04801f6e857a8c489b6fd3a3",
+      "verify": "model('cnm_276_q4')"
     },
     {
       "id": "cnm_277_q1",
@@ -7438,7 +7708,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "30°直角三角形短直角边是斜边一半，sin30°=1/2；等腰直角三角形cos45°=√2/2；tan60°=√3。A首项错，B第二项错，C第三项为tan30°，只有D依序正确。",
-      "question_sha256": "3638942a8655257485e6b0d006a6bb7a8eeb2568e41b29e9e9da8ffb7810a1f1"
+      "question_sha256": "e09751926b53ee0cd18a6615aaa106913265122e13c0c2dab44cdd5fb3d34bff",
+      "verify": "model('cnm_277_q1')"
     },
     {
       "id": "cnm_278_q1",
@@ -7446,7 +7717,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "30°角的对边BC=4是斜边一半，AB=8；由勾股AC=√(8²−4²)=4√3。A把两边混置，B斜边算错，D邻边算错，C两者均对。",
-      "question_sha256": "f7f65fa4e532869c06647678a8b868b2dfe5b01db490a8b63706f538698e1f17"
+      "question_sha256": "949dfb661ad67ee6fcb412860e0f7ae6c85d985326b642c3beceac995fe8928f",
+      "verify": "model('cnm_278_q1')"
     },
     {
       "id": "cnm_279_q1",
@@ -7479,10 +7751,11 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "在水平地面、灯高H和杆高h固定且H>h的模型下，相似三角形给影长s=hd/(H−h)，随杆到灯的水平距离d增大而增大，所以D。A趋势相反，B只适合平行光固定杆高，C没有对应的转折条件。",
-      "question_sha256": "a7c756ba59121e97f60903d0a4efc0f813192c8783476ecf992ed8f13f9c2fa2",
+      "question_sha256": "40fabc3252e3df7539eb25890728cfcd88998cbaf2940e2dba36cb66b9b076fe",
       "corrected_fields": [
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_281_q4')"
     },
     {
       "id": "cnm_282_q1",
@@ -7505,7 +7778,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "圆纸片所在平面与投影面垂直，沿垂直投影线看去圆面侧立，直径方向展开而另一方向被压缩为零，正投影是长度为直径的线段。不是点、圆或非退化椭圆。",
-      "question_sha256": "e58de892b1cb3a2361d8e2291e8ae52d8145b9651e904ce2c3770052bff590e0"
+      "question_sha256": "2bf8d19a0fb6867b351ad5986d373b82acd441b78147ff3536bac65ad36b80b6",
+      "verify": "model('cnm_282_q4')"
     },
     {
       "id": "cnm_283_q1",
@@ -7513,14 +7787,15 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "若圆柱轴线竖直且底面水平，正面和左侧看到高×直径的矩形，俯视看到底面圆，所以A。B对应水平轴线的一种摆法，C、D不符此摆法；原题未给摆放方向，需补明以保证A与B不因姿态而变。",
-      "question_sha256": "23e3c92cfa8d9ba4949b32b55600fbd0a3bf54f9a4e0502707a0c23415a17c57",
+      "question_sha256": "5c7e7c7cb310afeffaa802527f91232feb776d59a4ae39c3fe2c8b678d2e07b1",
       "corrected_fields": [
         "prompt"
       ],
       "catalogue_preview": {
         "question": "圆柱竖直放置，轴线垂直于水平投影面，它的主视图、左视图和俯视图各是什么形状？请选择。",
         "answer": "主视图、左视图为矩形，俯视图为圆"
-      }
+      },
+      "verify": "model('cnm_283_q1')"
     },
     {
       "id": "cnm_283_q2",
@@ -7528,7 +7803,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "按常规棱与观察方向平行的摆法，正方体三个方向的轮廓均为同边长正方形。圆柱和圆锥至少俯视为圆，球各向视图是圆，因此只有D。",
-      "question_sha256": "25b38d1b7515bfe524dff23aa96cc1800f9bc0b97f477a982bdeedcbe7571573"
+      "question_sha256": "86b5c5e4370b15c34cba7e0f56793be4265dd24e701b9049966466de0e3d499b",
+      "verify": "model('cnm_283_q2')"
     },
     {
       "id": "cnm_283_q4",
@@ -7536,7 +7812,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "直立圆锥的主、左视图轮廓是以底面直径为底、高为高的等腰三角形；俯视为底面圆，顶点投影在圆心处，故B。其它选项至少把一项误作矩形或圆。",
-      "question_sha256": "59198ac993f77255eaee4dc32f30480e8bc650ef8210caa842d6202c63ff48ad"
+      "question_sha256": "852a3ffaebc8eb49a4a79740292a5740ea5354db9961521aafafe17fb11f1d98",
+      "verify": "model('cnm_283_q4')"
     },
     {
       "id": "cnm_284_q1",
@@ -7544,7 +7821,7 @@
       "expected_answer": "不可能事件",
       "basis": "definition",
       "reason": "普通六面骰子的样本空间为1至6，7不在其中，发生概率为0，是不可能事件。不是必然发生，也不是有时发生的随机事件。",
-      "question_sha256": "2bcf14acde504df0664be33d8790fccebe5cf8e254c965b35066d41faeb64ad6",
+      "question_sha256": "864bedf97144e1e879a4bb1cbe16e837703018581c5e6dd1e3461e6e65a6da74",
       "grading": [
         {
           "input": "不可能事件",
@@ -7558,7 +7835,8 @@
           "input": "随机事件",
           "result": "manual"
         }
-      ]
+      ],
+      "verify": "model('cnm_284_q1')"
     },
     {
       "id": "cnm_284_q2",
@@ -7566,7 +7844,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "只装红球的袋中任取一个必为红球，C为必然事件。硬币正面和电视广告有时发生有时不发生；普通骰子掷7不可能，D不是必然。",
-      "question_sha256": "51fc5a65383df21cd4b25dfaad26eeadd7cafde5bdc5f3cb9f870ba2e3541bcf"
+      "question_sha256": "74b25779fd17346e970f2daaf4ef0d1682c2e6c241e319a3b2a170ef53b5a86a",
+      "verify": "model('cnm_284_q2')"
     },
     {
       "id": "cnm_284_q4",
@@ -7574,7 +7853,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "一次取3球但袋中只有2个黄球，不可能全黄，因此至少有1白必然。全白可以发生但不必然，至少1黄可被取3白反例否定，D根本不可能。",
-      "question_sha256": "1a20c0da4f78441bb6046300a2d2d61dc883285d05098a06ba864b791af74cbc"
+      "question_sha256": "51026c1113af8a6c48d71583d6db4df1db3f62083c89bcc3adf7003e2e470be5",
+      "verify": "model('cnm_284_q4')"
     },
     {
       "id": "cnm_285_q2",
@@ -7598,7 +7878,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "同条件大量重复独立试验时，频率围绕固定概率波动并趋于稳定，A描述正确。有限次数无论10次还是更多不保证恰等，概率是模型属性并不随次数改变，否定B、C、D。",
-      "question_sha256": "822c2a6082e4a40e2259e0bfeb2332d50055197564abae6fbd53b87a0a989bb1"
+      "question_sha256": "72b7672a31661084038ab336c0bb09a3b2827cdbd65534edf79c3074580d0a95",
+      "verify": "model('cnm_288_q2')"
     },
     {
       "id": "cnm_289_q2",
@@ -7617,7 +7898,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "两骰子有36个等可能有序结果。和7有6种，和6有5种，和8有5种，因此甲胜6/36、乙胜10/36，乙概率较大，选D。A方向错，B非等概率，C已有完整模型可计算。",
-      "question_sha256": "06ac13e203f21400d64dfe1a2d464fb9adb662ab76b686566525b9bd6393b748"
+      "question_sha256": "7fbd9c761a1f55f3173082a37e651463c0a5c2fd96fb97054974602a65c9dee1",
+      "verify": "model('cnm_289_q3')"
     },
     {
       "id": "cnm_290_q4",
@@ -7625,10 +7907,11 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "仅按长5米线段的垂直投影估计，所需深度为5sinθ。45°得约3.54≤4，60°约4.33、75°约4.83、90°为5，只有A放得下。原题应明确此简化模型，不计车位宽度，并将“锐角”改为“夹角”以容纳90°选项。",
-      "question_sha256": "1c1151e0ccf0392d2c81ea6b5664f8432060d291b31f91aef7cadb8be40efd0f",
+      "question_sha256": "040a440acd0702aa5dbb2bd6d6405e76efd9cc30466dc56e59ceca310d417a17",
       "corrected_fields": [
         "prompt"
-      ]
+      ],
+      "verify": "model('cnm_290_q4')"
     },
     {
       "id": "cnm_291_q4",
@@ -7636,7 +7919,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "直立圆柱的两个侧面正投影都是矩形、俯视为圆，A与三个轮廓相符。长方体俯视是矩形，圆锥侧视为三角形，球侧视为圆，B、C、D不符。题问“最可能”是在常见几何体中识别，并非三视图能唯一确定任意复杂建筑。",
-      "question_sha256": "7a3dcd1afd7fbd119ad9c1c97ca7bd496a61152ada666f7ed594ee99f9d4ead2"
+      "question_sha256": "0a056f5ab087e7abca96c4eb1b2732b9e92572dedd038936d1cc7ae5540cdafd",
+      "verify": "model('cnm_291_q4')"
     },
     {
       "id": "cnm_292_q1",
@@ -7687,7 +7971,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "相邻变化分别为35−20=15、55−35=20、40−55=−15毫米，最大正变化20出现在2至3月。B是下降，C只增加15。",
-      "question_sha256": "f49cc9afa4cab7b5aab51954aefc9903652c7416ec770f4aa5dde43581baea3e"
+      "question_sha256": "0dd2d64774f30ebac153b71e3a60a39268f60d11c9100b4aeab7f13478a5cd35",
+      "verify": "model('cnm_294_q1')"
     },
     {
       "id": "cnm_294_q3",
@@ -7695,7 +7980,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "最大值410，0～500的范围足以覆盖且每格100便于比较。A上限5远低于数据；C上限5000过大使四根柱压在底部、分辨不清。",
-      "question_sha256": "c076fcf6e1a6eade11d890da929d765c6e3a8c65b0f614324e6bdee3ae9a319c"
+      "question_sha256": "7ae8f830fdcde5130eafa094ad8aed6361e8e5188dc7316cff21941edeb70342",
+      "verify": "model('cnm_294_q3')"
     },
     {
       "id": "cnm_296_q1",
@@ -7703,7 +7989,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "真实比值为51/49≈1.04，截去0～48后可见柱高变为1和3，造成三倍错觉。题中已明确的误导来自纵轴截断而非颜色或柱宽，故B。",
-      "question_sha256": "2992c3d7ce138c24f6566b515feeff0c820f25e8d74622564616e94ffb527856"
+      "question_sha256": "0cbd18c85e083122320c6d8b275c712e4b3cc18980cd345804e65a30bf6cdb74",
+      "verify": "model('cnm_296_q1')"
     },
     {
       "id": "cnm_296_q2",
@@ -7719,7 +8006,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "完整且互不重叠分组下，各组频率为ni/N，总和Σni/N=N/N=1。0排除了全部数据，数据总数是频数和而非频率和，组数也非概率总量。",
-      "question_sha256": "6b1040af3ce2d4ad22dc11dc99b1a604155d1078a6c4410f2324ada964f66dfa"
+      "question_sha256": "fe9e6c8c5b91a900c29f476414da36213c26e1ce322efb63266d54dc1c052626",
+      "verify": "model('cnm_297_q2')"
     },
     {
       "id": "cnm_298_q1",
@@ -7727,7 +8015,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "D为所有50人各做一张不可辨认的等大小纸签，搅匀后不放回随机抽5张，保证各个体入样机会相等。A主观挑选、B固定前五号、C只覆盖十人都不是全体的随机抽签。",
-      "question_sha256": "6c1ef4a3b44449dcf3832450f7b6b52ca18c6785c7f67eac62a2f5ee11fdaa85"
+      "question_sha256": "40762a9fe3db1f73c0400798a97c0114fbfb901db16b75e0c6f7c55e21297605",
+      "verify": "model('cnm_298_q1')"
     },
     {
       "id": "cnm_298_q2",
@@ -7836,7 +8125,8 @@
       "expected_answer": "B",
       "basis": "calculation",
       "reason": "同均值下直接比较方差，乙3.8小于甲5.2，因此乙成绩波动更小。A与大小相反，方差和均值条件已足，C不成立。",
-      "question_sha256": "541389b21d2f111c927a07997aeaf724f40074f4f959657a504c05fbbab4e36a"
+      "question_sha256": "4ebfd3295ccdef51b04ca3a74593c4a85dbde20fe807daf0eb0443f320439e4e",
+      "verify": "model('cnm_304_q2')"
     },
     {
       "id": "cnm_304_q4",
@@ -7844,7 +8134,8 @@
       "expected_answer": "C",
       "basis": "definition",
       "reason": "全部数据加5时均值也加5，每个数与新均值的差仍与原来相同，故方差仍为2，稳定性相同。A、B把位置平移误当离散程度变化。",
-      "question_sha256": "82879bf139317d56b2cf86b68ac5c1d761d0a9ad9cb3182c4dc89dfe5e88b96e"
+      "question_sha256": "e080ff7fd3e0ffbcd3f65ca0b31d44c832acc8998e95e692b02d515397108545",
+      "verify": "model('cnm_304_q4')"
     },
     {
       "id": "cnm_305_q3",
@@ -7852,7 +8143,8 @@
       "expected_answer": "D",
       "basis": "calculation",
       "reason": "甲中间50%跨度80−60=20，乙跨度75−65=10，乙四分位距更小，故更集中。A、C不符数值，B忽略了题已给可比较的四分位数。",
-      "question_sha256": "42d791dca7f357a708cbbbdd31da8d32f5fd501ecd183d983fcd13cd43717d16"
+      "question_sha256": "1087371b690bf1e9af742cdb71117c50f52b82c64015d526a447acc368943dab",
+      "verify": "model('cnm_305_q3')"
     },
     {
       "id": "cnm_306_q1",
@@ -7860,7 +8152,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "同样随机抽5个的样本，甲方差0.04小于乙0.09，可据此估计甲长度更稳定。题目用“估计”并非断言已证明总体，B反向，C完全否认已有样本比较依据过强。",
-      "question_sha256": "9f6faa715d7ffa85a79d796e82ca5888218f279adec4830d8fd1a5f84cade086"
+      "question_sha256": "26244c443add50794448deabad21eda76a3d7ac6c9920ae2599c43687f12df8d",
+      "verify": "model('cnm_306_q1')"
     },
     {
       "id": "cnm_306_q4",
@@ -7876,7 +8169,7 @@
       "expected_answer": "红球＞白球＞黄球",
       "basis": "calculation",
       "reason": "等可能抽球时概率分别为5/10、3/10、2/10，按5>3>2排列即红>白>黄。原题仅说形状相同，不足排除重量、大小差异，宜补为除颜色外完全相同并充分搅匀。",
-      "question_sha256": "5bcf06649fe4d25ba7c1443f2de0e7e6e9af8acd1c6d9830fe1b520852046c94",
+      "question_sha256": "a3d1978168d544626cc666884d0abcbfd72938576a5f3f1d0b608342ded7a7b6",
       "grading": [
         {
           "input": "红球>白球>黄球",
@@ -7893,7 +8186,8 @@
       "catalogue_preview": {
         "question": "袋中有 5 个红球、3 个白球、2 个黄球，除颜色外完全相同。充分搅匀后随机摸一个，摸到红、白、黄球的可能性由大到小怎样排列？（用“＞”连接）",
         "answer": "红球＞白球＞黄球"
-      }
+      },
+      "verify": "model('cnm_307_q1')"
     },
     {
       "id": "cnm_307_q2",
@@ -7901,7 +8195,8 @@
       "expected_answer": "A",
       "basis": "calculation",
       "reason": "总5球，白球概率4/5，红球1/5，前者更大，所以A。B把数量关系颠倒，C只在两色数量相同且等可能时成立。",
-      "question_sha256": "98296c86e3e5028437563e9b3f830119f2129db62f3fb89087b543a5ebd12fe7"
+      "question_sha256": "21455eb40a0e31284a94ec4768162e9be4fcb069eeffa25769c73d6ad60b2fd9",
+      "verify": "model('cnm_307_q2')"
     },
     {
       "id": "cnm_307_q3",
@@ -7909,7 +8204,8 @@
       "expected_answer": "C",
       "basis": "calculation",
       "reason": "四事件概率依次为1/6、3/6、2/6、6/6，升序为①③②④。A、B误把奇数事件放在更小位置，D误把小于3放到6点事件之前。",
-      "question_sha256": "8a5625fe8ce97c5d3061257f60f1c82c8d0f41ba59f3df8ed87f8f4e9dbe7178"
+      "question_sha256": "9fd01a89ec0c88e8e561468161dac5f9db6d2c5faf2b27ec4350c1dadaa81e49",
+      "verify": "model('cnm_307_q3')"
     },
     {
       "id": "cnm_308_q3",
@@ -7917,7 +8213,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "在本题有限样本空间的中学概率语境里，既非必然也非不可能要求0<P<1。0、1为两端事件，1.2超过上界，只有0.75符合。",
-      "question_sha256": "b147d84a39785c77e60739426108f434070001ecc4473085844a2e9323352b1b"
+      "question_sha256": "7c239dc69ad199c0561551d5fc5731984513bcf3cb64816c216707acc34f1b3d",
+      "verify": "model('cnm_308_q3')"
     },
     {
       "id": "cnm_309_q1",
@@ -7925,7 +8222,7 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "不均匀骰子不满足六结果等可能的已知条件，因此不能仅凭6个面直接套1/6。某一特定面的实际概率仍可能偶然等于1/6，故宜将“不能”写成“不能直接断定”，避免错误声称必不等于1/6；D的结果数并非无限。",
-      "question_sha256": "4515938f971484ee9624408bb1105b72f85341a25a5d63b173e9547a6738a860",
+      "question_sha256": "32ac531d4dc6ed3db95f263c2afd91c9fb2600107fd0511c999b4fc5529e0f42",
       "corrected_fields": [
         "choices",
         "explanation",
@@ -7934,7 +8231,8 @@
       "catalogue_preview": {
         "question": "只知道一枚骰子不均匀，能否仅因为它有 6 个面，就直接断定出现 6 点的概率为 1/6？为什么？",
         "answer": "不能直接断定，因为没有各点数出现等可能的条件"
-      }
+      },
+      "verify": "model('cnm_309_q1')"
     },
     {
       "id": "cnm_309_q2",
@@ -7978,7 +8276,8 @@
       "expected_answer": "B",
       "basis": "definition",
       "reason": "每次正面概率1/2不规定有限样本中恰一半；10次正面计数可从0至10，5只是其中一种可能。C把概率误作1/10，A、D把随机频率等同理论概率，只有B。",
-      "question_sha256": "ee533da00be2865805dc42e31fb658ffcf359ff0caa36c88de18011c388a611a"
+      "question_sha256": "d807332994338be103c4c68084a9047de6d07776293745314676f860a9b8c20f",
+      "verify": "model('cnm_314_q3')"
     },
     {
       "id": "cnm_314_q4",
@@ -7986,7 +8285,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "大量同条件独立试验中正面频率通常围绕1/2、其典型波动幅度随次数增加而缩小，A为正确趋势。前三次反面不影响下一次公平独立抛掷，B是赌徒谬误；小概率事件不规定固定计数，C、D错误。",
-      "question_sha256": "d32e00a4a97fc41fde6cc782ead4cb7d4fd32d14e9568a0efed58739edd9d810"
+      "question_sha256": "6d8088f2870e9113e8dc6d0115253be32ab57549128a04305c0fa9ce0cc1ccea",
+      "verify": "model('cnm_314_q4')"
     },
     {
       "id": "cnm_315_q1",
@@ -8026,5 +8326,131 @@
         "explanation"
       ]
     }
-  ]
+  ],
+  "followup_455": {
+    "source": "data/answer_review_remaining_455.json",
+    "summary": {
+      "reviewed": 455,
+      "outcomes": {
+        "model": 290,
+        "manual": 163,
+        "expression": 2
+      },
+      "remaining_by_type": {
+        "self": 6,
+        "choice": 154,
+        "numeric": 3
+      },
+      "models_by_kind": {
+        "numeric_relations": 12,
+        "positive_polynomial_sign": 1,
+        "coordinate_choices": 4,
+        "signed_quantity": 1,
+        "number_axis": 1,
+        "absolute_implications": 1,
+        "absolute_domain": 1,
+        "law_identification": 1,
+        "polynomial_identity": 4,
+        "power_base": 1,
+        "scientific_notation": 2,
+        "commutative_identity": 1,
+        "expression_kind": 7,
+        "monomial_pairs": 2,
+        "equation_solution": 4,
+        "equation_operation": 2,
+        "polynomial_implications": 1,
+        "equation_classification": 1,
+        "linear_interval": 12,
+        "cube_net": 1,
+        "two_focus_minimum": 1,
+        "angle_vertex": 1,
+        "linear_implications": 3,
+        "vertical_angle_pairs": 1,
+        "symbolic_affine_incidence": 3,
+        "point_line_distance": 1,
+        "distance_bound": 1,
+        "translation_equal_length": 1,
+        "real_root_sets": 2,
+        "symbolic_identity": 12,
+        "symbolic_number_rationality": 2,
+        "positive_sqrt_compare": 1,
+        "coordinate_equality": 1,
+        "coordinate_value": 1,
+        "quadrant": 1,
+        "point_location": 1,
+        "system_kind": 1,
+        "linear_elimination": 1,
+        "system_from_heads_legs": 1,
+        "numeric_property": 1,
+        "positive_factor_inequality": 1,
+        "window_empty_parameter": 1,
+        "geometry_triangle": 5,
+        "geometry_altitudes": 3,
+        "geometry_affine": 4,
+        "geometry_linear_identity": 1,
+        "geometry_correspondence": 3,
+        "geometry_congruence": 24,
+        "geometry_equal_length": 1,
+        "geometry_circle_intersections": 2,
+        "geometry_symmetry_axes": 2,
+        "geometry_reflection": 2,
+        "geometry_angle_implication": 1,
+        "geometry_triangle_ratio": 1,
+        "geometry_reflected_path": 2,
+        "symbolic_product_conjugates": 1,
+        "symbolic_factorization_explanation": 1,
+        "symbolic_factorization_form": 1,
+        "symbolic_factorization": 4,
+        "symbolic_difference_squares": 1,
+        "symbolic_domain": 4,
+        "symbolic_rational_form": 1,
+        "symbolic_simplify": 7,
+        "symbolic_statements": 1,
+        "symbolic_rational_reduced": 1,
+        "symbolic_equation": 1,
+        "symbolic_radical_domain": 1,
+        "symbolic_radical_simplest": 1,
+        "geometry_triangle_squares": 3,
+        "geometry_polygon": 2,
+        "geometry_quadrilateral": 10,
+        "geometry_diagonal": 1,
+        "formula_quantities": 5,
+        "function_relation": 4,
+        "app_radical_domain": 1,
+        "app_affine": 17,
+        "app_polynomial_class": 4,
+        "app_monomial_product": 1,
+        "app_statistics": 8,
+        "app_weighted_mean_formula": 1,
+        "app_grouping_error": 1,
+        "app_quadratic": 8,
+        "app_growth_equation": 1,
+        "app_inverse": 6,
+        "app_rational_sign": 1,
+        "app_rotation": 3,
+        "app_rotation_invariants": 1,
+        "app_central_symmetry": 1,
+        "app_circle_position": 5,
+        "app_equidistant_point": 1,
+        "app_proportions": 1,
+        "app_rational_identity": 1,
+        "app_triangle_similarity": 4,
+        "app_trig": 4,
+        "app_positive_rational_sign": 1,
+        "app_orthographic": 5,
+        "app_probability": 7,
+        "app_bernoulli_claims": 3,
+        "app_symbolic_ratio": 1,
+        "app_sampling": 1,
+        "app_probability_number": 1,
+        "app_identifiability": 1
+      },
+      "questions_corrected_or_clarified": 4,
+      "supporting_checks_not_counted_as_full_proofs": 13,
+      "catalogue_previews_synchronized": [
+        "cnm_028",
+        "cnm_273"
+      ]
+    }
+  }
 }

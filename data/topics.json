@@ -6293,7 +6293,7 @@
     ],
     "diagnostic_question": {
       "question": "说明 100-5t 在“用水量问题”里可能的含义。",
-      "answer": "如：水箱原有 100 L，每分钟流出 5 L，t 分钟后剩余水量"
+      "answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）"
     },
     "external": false,
     "standards": [
@@ -12698,7 +12698,7 @@
       "能添加平行线构造相似"
     ],
     "diagnostic_question": {
-      "question": "DE∥BC 且 D、E 在 AB、AC 上，图中有哪对相似三角形？",
+      "question": "△ABC 中，D、E 分别在边 AB、AC 的内部，且 DE∥BC。哪对三角形按指定对应顶点顺序相似？",
       "answer": "△ADE∽△ABC（A 型）"
     },
     "external": false,

@@ -1,0 +1,3 @@
+# Offline question verification only; the published static app has no Python dependency.
+sympy==1.13.1
+mpmath==1.3.0

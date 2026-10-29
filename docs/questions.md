@@ -4,7 +4,43 @@
 
 下面标成第五轮、2026-10-19 的数字是历史记录；当前复核与核验覆盖见本节，完整机器报告见 `data/verification_report.json`。
 
-## 532 题逐题复核（2026-10-30）
+## 455 题追加核验（2026-10-30，当前结果）
+
+以 `4aed966` 中剩余的 **455 题**为固定范围，全部逐题记录在 `data/answer_review_remaining_455.json`，每题都有 `derivation`（推导）与 `boundary`（验证和判题边界），不会因补上自动核验而从清单中删除。
+
+| 结果 | 数量 | 依据 |
+|---|---:|---|
+| 新增模型核验 | 290 | 从结构化数学输入推导，逐项检验候选及唯一性 |
+| 新增计算表达式 | 2 | 独立计算，不返回固定答案字母 |
+| 保留人工 | 163 | choice 154、numeric 3、self 6，均有具体推导及未覆盖边界 |
+| 开放题组件检查 | 13 | 覆盖 6 道开放题中的数值/分类计算，不计为整题自动核验 |
+
+全库当前 **2108 题**自动通过（numeric 1544、choice 541、short 23），不一致 **0**。其中普通计算/多项式表达式 **1818** 题，结构化模型 **290** 题。**参考答案离线核验不等于自动批改任意学生表达式**：浏览器仍对不能可靠识别的等价写法保留自评，6 道开放题始终自评。
+
+模型入口为 `model('题号')`，输入保存在 `data/verification_models.json`；模型函数不读取题库或答案键。输入的原题指纹、全部选项文字及模型语义指纹分别绑定，旧题、错选项、跨题引用、输入中直接声明 `answer` / `expected` / `truth` 等都会被门禁拒绝。题干到结构化数学输入的翻译仍由 AI 审核，**不是自动理解题意，也没有教师审核**。
+
+模型覆盖精确有理运算、线性蕴涵和不等式消元、全等对应及定理闭包、符号反射与旋转、函数定义域、方程增根排除、彻底因式分解、有限概率样本空间和部分统计论证。几何/逻辑负结论要求可验证反例或严格推导；没有证明的项抛出“未决”，不当作假。存在性证明可用一个精确见证，全称结论不得靠有限采样。π 的无理性采用符号库已有定理属性；增长小数使用无限非零位与无界零间隔排除最终周期，不从有限小数输出猜测有理性。
+
+符号代数使用固定的离线开发依赖 [SymPy 1.13.1](https://pypi.org/project/sympy/1.13.1/)。公式由有界 AST 转成数学对象，不用 `eval`、`sympify` 或 `parse_expr` 执行字符串；恒等变形保留原分母/根式定义域，公共定义域必须证明非空。因式分解检查有理数范围的不可约因子及尚未提取的整数公因数，参照 [SymPy 因式分解文档](https://docs.sympy.org/latest/tutorials/intro-tutorial/simplification.html#factor)。这些依赖和模型输入只用于离线门禁，不进入发布站点，前端仍为静态文件。
+
+本轮修复/澄清 **4 题**：水箱 `100−5t` 例子补 `0≤t≤20` 分钟的物理时域；两道平行截线题明确分点在边的内部以排除退化三角形；三视图题明确正方体与投影坐标轴的标准放置。涉及的 q1 条件或参考说明同步到首页预览。验证器另补了错误精确三角分数、不放回抽取顺序、布尔数值混淆、未知抽样方案、超能力范围和空定义域等反例测试。
+
+新环境先安装离线测试依赖，再运行完整门禁：
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r requirements-verification.txt
+python3 scripts/validate.py
+python3 scripts/verify_questions.py --check
+python3 scripts/check_answer_review.py
+python3 scripts/check_remaining_review.py
+python3 -m unittest discover -s tests -p 'test_*.py'
+npm test
+PLAYWRIGHT_WEBKIT=1 npm run test:browser
+```
+
+## 532 题逐题复核（2026-10-30，上一轮记录）
 
 以 `be357c0` 中没有 `verify` 的全部 **532** 题为固定范围（choice 464、numeric 39、short 23、self 6），分三批先隐藏参考答案独立解题，再逐题核对参考答案、全部选项、条件、解析和判题边界。每题的独立答案、具体推导、最终参考答案、判题样例及当前题目 SHA-256 记录在 `data/answer_review_2026-10-30.json`。新增公式后，这个复核范围仍保持 532 题，不会把已补公式的题从记录里移走。
 
@@ -44,7 +80,7 @@ PLAYWRIGHT_WEBKIT=1 npm run test:browser
 | `choices` | choice 必填 | `[{"key":"A","text":"…"}, …]`，3–4 个选项，key 依次为 A、B、C、D，选项文字互不相同 |
 | `accept` | 否 | short（也可用于 numeric）的等价答案列表 |
 | `explanation` | 是 | 1–3 句中文解析，答题后显示 |
-| `verify` | 否 | 一个 Python 表达式字符串，用于机器核验 `answer`（见下）；short 仅支持 `poly(...)` 的精确多项式核验 |
+| `verify` | 否 | 一个 Python 表达式字符串，用于机器核验 `answer`（见下）；short 支持 `poly(...)` 或 `model(...)` 返回的严格参考值比较器 |
 | `unordered` | 否 | numeric 且多个答案顺序无关时为 `true`（如方程的两个根）；没有这个字段的多答案题按顺序比较 |
 | `unit` | 否 | numeric 的期望单位，如 `厘米`、`角`。只在已核实题干明确要求该单位时填写；纯数字仍可输入，明确填错受支持的单位会判错，无法确定单位关系时交给自评。不批量从题干猜测单位 |
 | `variables` | 否 | 有序 numeric 答案各项对应的变量，按答案顺序填写非空、等长、不重复的小写数组，如 `["x","y"]`，不与 `unordered` 并用；须由题干明确确认。允许正确带标签答案换序（`y=2,x=3`），不允许把数值赋给错误变量；没有变量契约且参考答案也没有变量标签时，带标签输入（包括只有一个变量的 `x=3`）转自评，不自动忽略变量名 |
@@ -67,11 +103,12 @@ PLAYWRIGHT_WEBKIT=1 npm run test:browser
 
 ### 1. 自动核验：`python3 scripts/verify_questions.py`
 
-numeric、choice 及部分 short 题可以带 `verify` 表达式，脚本在**受限环境**里求值（Python `ast` 白名单：四则运算、`**`、`//`、`%`、比较、列表 / 元组 / 推导式、下标；只能调用 `Fraction sqrt pi sin cos … comb perm gcd lcm sum min max sorted range ceil floor mean median pvariance …`，外加 `solve2`（解二元一次方程组，精确分数）、`roots2`（一元二次方程实根）、`poly`（有理系数多项式）；没有 import、属性访问、赋值，单次求值 2 秒超时），再与 `answer` 比较：
+numeric、choice 及 short 题可以带 `verify` 表达式，脚本在**受限环境**里求值（Python `ast` 白名单：四则运算、`**`、`//`、`%`、比较、列表 / 元组 / 推导式、下标；只能调用 `Fraction sqrt pi sin cos … comb perm gcd lcm sum min max sorted range ceil floor mean median pvariance …`，外加 `solve2`（精确解二元一次方程组）、`roots2`（一元二次方程实根）、`poly`（有理系数多项式）、`model`（独立数学模型）；没有 import、属性访问、赋值，单次求值 2 秒超时），再与 `answer` 比较：
 
 - numeric：结果与 `answer` 逐项比较；整数 / 分数结果**精确比较**，浮点结果容差 1e-9；多个答案按 `unordered` 决定是否顺序无关；
 - choice：结果与**正确选项的内容**比较（选项是数时按数值比较，否则要求文字完全相同），同时要求没有第二个选项与它相同（防双解）。
 - choice / short 的 `poly` 结果按精确系数比较，规则与边界见本轮复核说明。
+- `model` 返回推导的数值、唯一选项文字或严格参考值比较器；有序坐标、变量和不等号方向不能忽略，文字别名限制到相应题型语境。
 
 脚本会同时做格式检查，输出 `auto_verified`（有 verify 且通过）、`mismatch`、`unverifiable`，明细写入 `data/verification_report.json`。第五轮当时（只计初中；全库数字见文末）：
 
@@ -113,7 +150,7 @@ numeric、choice 及部分 short 题可以带 `verify` 表达式，脚本在**�
 ## 局限
 
 - **没有教师审核**；独立复核的解题者与出题者是同一模型家族，如果对某个知识点有共同的误解，这种错误两边都不会暴露。「0 处答案错误」说明没有发现分歧，不是「保证无错」。
-- 当前仍有 436 道 numeric / choice 和 19 道 short / self 题没有 `verify`，主要是概念、几何证明与开放表述；逐题记录和判题回归不能替代独立数学证明。
+- 当前仍有 157 道 numeric / choice 和 6 道 self 题没有 `verify`，主要是概念、语言证明与开放表述；逐题记录和判题回归不能替代独立数学证明。具体未自动化原因与推导见 455 题逐项记录。
 - 题干纯文字，不能画图：几何题用文字描述条件，没有图形题、作图题、证明题（证明思路类用 choice 或 `self`）。
 - **选择题干扰项**只对应「典型错误」的猜测，没有真实学生数据校准；难度标注（basic / standard / advanced）是出题者的主观判断，同一难度内也没有区分度数据。
 - 每个知识点只有 4–5 题：重测几次后会重复（诊断工具会优先出没出过的题，出完才重复）；也不足以支撑严肃的测评。
