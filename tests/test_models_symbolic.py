@@ -90,6 +90,11 @@ class SymbolicModelsTests(unittest.TestCase):
             '3.14','sqrt(5)','-pi',{'kind':'growing_decimal_gaps','start':1,'step':1,'digit':1},'sqrt(16)','22/7','cbrt(8)']}), 3)
         with self.assertRaises(ValueError):
             number_rationality({'target':'irrational','values':[{'kind':'growing_decimal_gaps','start':1,'step':0,'digit':1}]})
+        self.assertEqual(number_rationality({'target':'irrational', 'options':options('pi','-4','0','2.5')}), 'pi')
+        self.assertEqual(number_rationality({'query':'classification','source':'sqrt(2)','options':[
+            {'key':'A','text':'无理数','number_class':'irrational'},
+            {'key':'B','text':'有理数','number_class':'rational'},
+            {'key':'C','text':'其他','number_class':'neither'}]}), '无理数')
 
     def test_symbolic_incidence_handles_all_admitted_directions_not_one_example(self):
         for query in ('perpendicular_through_point','parallel_through_point'):

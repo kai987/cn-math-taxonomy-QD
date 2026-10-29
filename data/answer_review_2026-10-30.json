@@ -99,7 +99,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "π为无限不循环小数；-4和0为整数，2.5=5/2为分数，后三者都是有理数，故A唯一。",
-      "question_sha256": "fc4d53d756dc97d49a8fec78e7f0c641429a2b0f9a3bccdb5246759c48f423d4"
+      "question_sha256": "8e5b6f3d0d5ffccbcbe180717b3aa28923f14d8ee9332a9dffcf47c4e5fb246a",
+      "verify": "model('cnm_003_q2')"
     },
     {
       "id": "cnm_003_q4",
@@ -1373,7 +1374,8 @@
       "expected_answer": "A",
       "basis": "definition",
       "reason": "若√2是最简分数p/q，则p²=2q²迫使p、q都偶数而矛盾，所以为无理数，不是有理数或二者皆非。",
-      "question_sha256": "f5fe604ca1790aadda7125fbd80ba6db7e5b742837fb29cb831ec41c1400d170"
+      "question_sha256": "e039d0924c89d07993ad6c8a5583b419316854ea9df22d6c0100a5654b961564",
+      "verify": "model('cnm_077_q1')"
     },
     {
       "id": "cnm_077_q2",
@@ -1381,7 +1383,8 @@
       "expected_answer": "D",
       "basis": "definition",
       "reason": "π为无理数；22/7是分数、0.101是有限小数、√16=4，均为有理数。",
-      "question_sha256": "0511521b9999cde8d2efd5683f5ef8bb34b2658b83a8a29ab5bfaa544182ed6e"
+      "question_sha256": "2fa60427ef412d31b335f9da7c17d0984cc661ad35dfdc44f093636ad868f3ce",
+      "verify": "model('cnm_077_q2')"
     },
     {
       "id": "cnm_077_q3",
@@ -8332,13 +8335,13 @@
     "summary": {
       "reviewed": 455,
       "outcomes": {
-        "model": 290,
-        "manual": 163,
+        "model": 293,
+        "manual": 160,
         "expression": 2
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 154,
+        "choice": 151,
         "numeric": 3
       },
       "models_by_kind": {
@@ -8346,6 +8349,7 @@
         "positive_polynomial_sign": 1,
         "coordinate_choices": 4,
         "signed_quantity": 1,
+        "symbolic_number_rationality": 5,
         "number_axis": 1,
         "absolute_implications": 1,
         "absolute_domain": 1,
@@ -8372,7 +8376,6 @@
         "translation_equal_length": 1,
         "real_root_sets": 2,
         "symbolic_identity": 12,
-        "symbolic_number_rationality": 2,
         "positive_sqrt_compare": 1,
         "coordinate_equality": 1,
         "coordinate_value": 1,

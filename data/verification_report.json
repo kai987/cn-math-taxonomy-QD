@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T04:18:42",
+  "generated_at": "2026-10-30T04:29:16",
   "source": "data/questions.json",
   "total_questions": 2271,
   "by_type": {
@@ -9,29 +9,28 @@
     "short": 23
   },
   "format_errors": [],
-  "auto_verified": 2108,
+  "auto_verified": 2111,
   "auto_verified_by_type": {
     "numeric": 1544,
-    "choice": 541,
+    "choice": 544,
     "short": 23
   },
   "auto_verified_by_method": {
     "expression": 1818,
-    "model": 290
+    "model": 293
   },
   "mismatch": 0,
-  "unverifiable": 163,
+  "unverifiable": 160,
   "unverifiable_by_type": {
     "self": 6,
-    "choice": 154,
+    "choice": 151,
     "numeric": 3
   },
   "numeric_choice_total": 2242,
-  "numeric_choice_auto_verified_share": 0.93,
+  "numeric_choice_auto_verified_share": 0.9313,
   "mismatches": [],
   "unverifiable_ids": [
     "cnm_003_q1",
-    "cnm_003_q2",
     "cnm_003_q4",
     "cnm_004_q1",
     "cnm_016_q3",
@@ -81,8 +80,6 @@
     "cnm_072_q1",
     "cnm_072_q2",
     "cnm_076_q3",
-    "cnm_077_q1",
-    "cnm_077_q2",
     "cnm_077_q4",
     "cnm_078_q1",
     "cnm_078_q4",
@@ -302,7 +299,7 @@
     "source": "data/answer_review_2026-10-30.json",
     "scope": 532,
     "reviewed": 532,
-    "scope_auto_verified": 369,
+    "scope_auto_verified": 372,
     "review_errors": [],
     "note": "逐题独立复核及固定判题回归不等于独立计算证明；无表达式的概念/开放题仍保留此边界。"
   },
@@ -310,8 +307,8 @@
     "source": "data/answer_review_remaining_455.json",
     "reviewed": 455,
     "outcomes": {
-      "model": 290,
-      "manual": 163,
+      "model": 293,
+      "manual": 160,
       "expression": 2
     },
     "review_errors": [],

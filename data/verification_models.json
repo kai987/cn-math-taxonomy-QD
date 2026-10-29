@@ -12581,6 +12581,89 @@
           }
         ]
       }
+    },
+    "cnm_003_q2": {
+      "question_sha256": "8e5b6f3d0d5ffccbcbe180717b3aa28923f14d8ee9332a9dffcf47c4e5fb246a",
+      "spec": {
+        "kind": "symbolic_number_rationality",
+        "target": "irrational",
+        "options": [
+          {
+            "key": "A",
+            "text": "π",
+            "expression": "pi"
+          },
+          {
+            "key": "B",
+            "text": "-4",
+            "expression": "-4"
+          },
+          {
+            "key": "C",
+            "text": "0",
+            "expression": "0"
+          },
+          {
+            "key": "D",
+            "text": "2.5",
+            "expression": "2.5"
+          }
+        ]
+      }
+    },
+    "cnm_077_q1": {
+      "question_sha256": "e039d0924c89d07993ad6c8a5583b419316854ea9df22d6c0100a5654b961564",
+      "spec": {
+        "kind": "symbolic_number_rationality",
+        "query": "classification",
+        "source": "sqrt(2)",
+        "options": [
+          {
+            "key": "A",
+            "text": "无理数",
+            "number_class": "irrational"
+          },
+          {
+            "key": "B",
+            "text": "有理数",
+            "number_class": "rational"
+          },
+          {
+            "key": "C",
+            "text": "既不是有理数也不是无理数",
+            "number_class": "neither"
+          }
+        ]
+      }
+    },
+    "cnm_077_q2": {
+      "question_sha256": "2fa60427ef412d31b335f9da7c17d0984cc661ad35dfdc44f093636ad868f3ce",
+      "spec": {
+        "kind": "symbolic_number_rationality",
+        "target": "irrational",
+        "options": [
+          {
+            "key": "A",
+            "text": "22/7",
+            "expression": "22/7"
+          },
+          {
+            "key": "B",
+            "text": "0.101",
+            "expression": "0.101"
+          },
+          {
+            "key": "C",
+            "text": "√16",
+            "expression": "sqrt(16)"
+          },
+          {
+            "key": "D",
+            "text": "π",
+            "expression": "pi"
+          }
+        ]
+      }
     }
   }
 }

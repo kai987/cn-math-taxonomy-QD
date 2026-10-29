@@ -11,13 +11,13 @@
   "summary": {
     "reviewed": 455,
     "outcomes": {
-      "model": 290,
-      "manual": 163,
+      "model": 293,
+      "manual": 160,
       "expression": 2
     },
     "remaining_by_type": {
       "self": 6,
-      "choice": 154,
+      "choice": 151,
       "numeric": 3
     },
     "models_by_kind": {
@@ -25,6 +25,7 @@
       "positive_polynomial_sign": 1,
       "coordinate_choices": 4,
       "signed_quantity": 1,
+      "symbolic_number_rationality": 5,
       "number_axis": 1,
       "absolute_implications": 1,
       "absolute_domain": 1,
@@ -51,7 +52,6 @@
       "translation_equal_length": 1,
       "real_root_sets": 2,
       "symbolic_identity": 12,
-      "symbolic_number_rationality": 2,
       "positive_sqrt_compare": 1,
       "coordinate_equality": 1,
       "coordinate_value": 1,
@@ -217,10 +217,12 @@
     },
     {
       "id": "cnm_003_q2",
-      "status": "manual",
-      "derivation": "π为无限不循环小数；-4和0为整数，2.5=5/2为分数，后三者都是有理数，故A唯一。 未自动化原因：已逐项核对π无理与其余三项有理；π无理性需超出本批模型的定理证明，不能把预置“π=False”布尔值冒充独立算法。",
-      "boundary": "已逐项核对π无理与其余三项有理；π无理性需超出本批模型的定理证明，不能把预置“π=False”布尔值冒充独立算法。",
-      "question_sha256": "fc4d53d756dc97d49a8fec78e7f0c641429a2b0f9a3bccdb5246759c48f423d4"
+      "status": "model",
+      "derivation": "各选项用精确整数、有限十进制分数或根式构造；有理数属性逐项计算，π采用符号库的已知无理性定理。其余三个选项均为有理数，因此只有π对应的选项不是有理数。",
+      "boundary": "依赖精确根式/有理数运算及π无理性的已知定理属性，不用有限小数近似或预置选项真值。所有候选必须可判定且仅一项符合；未知符号常数返回未决，不能当无理数。",
+      "question_sha256": "8e5b6f3d0d5ffccbcbe180717b3aa28923f14d8ee9332a9dffcf47c4e5fb246a",
+      "model_sha256": "fd67a433bbb9aa402a494dc40e194bf26a18c7c8b8700481370360fc5f7c6e1f",
+      "model_kind": "symbolic_number_rationality"
     },
     {
       "id": "cnm_003_q4",
@@ -1226,21 +1228,25 @@
     },
     {
       "id": "cnm_077_q1",
-      "status": "manual",
-      "derivation": "若√2是最简分数p/q，则p²=2q²迫使p、q都偶数而矛盾，所以为无理数，不是有理数或二者皆非。 未自动化原因：已给出最简分数奇偶矛盾证明√2无理；当前未形式化整数互素性与二次幂整除推理，不能用非循环小数有限采样判断无理。",
-      "boundary": "已给出最简分数奇偶矛盾证明√2无理；当前未形式化整数互素性与二次幂整除推理，不能用非循环小数有限采样判断无理。",
-      "question_sha256": "f5fe604ca1790aadda7125fbd80ba6db7e5b742837fb29cb831ec41c1400d170",
+      "status": "model",
+      "derivation": "√2为正实数。精确根式的有理性检查采用整数非完全平方根为无理数的代数定理，结果为无理，而不是有理数或不属于实数分类；逐项比较三个分类命题，只有A。",
+      "boundary": "依赖精确根式/有理数运算及π无理性的已知定理属性，不用有限小数近似或预置选项真值。所有候选必须可判定且仅一项符合；未知符号常数返回未决，不能当无理数。",
+      "question_sha256": "e039d0924c89d07993ad6c8a5583b419316854ea9df22d6c0100a5654b961564",
       "catalogue_preview": {
         "question": "√2 是有理数还是无理数？",
         "answer": "无理数"
-      }
+      },
+      "model_sha256": "64a5d400168d98c0bbf0cf0f4bb3886aec5de3a5ccc696eb59c4d54e3bf43b0a",
+      "model_kind": "symbolic_number_rationality"
     },
     {
       "id": "cnm_077_q2",
-      "status": "manual",
-      "derivation": "π为无理数；22/7是分数、0.101是有限小数、√16=4，均为有理数。 未自动化原因：已证明三个非π选项有理并引用π无理定理；当前没有π无理性的独立证明模型，不能把π名称查表当算法。",
-      "boundary": "已证明三个非π选项有理并引用π无理定理；当前没有π无理性的独立证明模型，不能把π名称查表当算法。",
-      "question_sha256": "0511521b9999cde8d2efd5683f5ef8bb34b2658b83a8a29ab5bfaa544182ed6e"
+      "status": "model",
+      "derivation": "各选项用精确整数、有限十进制分数或根式构造；有理数属性逐项计算，π采用符号库的已知无理性定理。其余三个选项均为有理数，因此只有π对应的选项不是有理数。",
+      "boundary": "依赖精确根式/有理数运算及π无理性的已知定理属性，不用有限小数近似或预置选项真值。所有候选必须可判定且仅一项符合；未知符号常数返回未决，不能当无理数。",
+      "question_sha256": "2fa60427ef412d31b335f9da7c17d0984cc661ad35dfdc44f093636ad868f3ce",
+      "model_sha256": "a3b09ac137bc9abd3f601ba72e498396677da1722ae087071d8dc6c9e7b1d16e",
+      "model_kind": "symbolic_number_rationality"
     },
     {
       "id": "cnm_077_q3",

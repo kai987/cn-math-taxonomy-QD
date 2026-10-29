@@ -453,8 +453,7 @@ def number_rationality(spec):
     nonterminating base-10 expansion has bounded zero runs if a nonzero digit
     occurs infinitely often. A strictly growing arithmetic gap contradicts it.
     """
-    classifications = []
-    for value in spec['values']:
+    def classify(value):
         if isinstance(value, dict):
             if value.get('kind') != 'growing_decimal_gaps':
                 raise ValueError('unknown decimal certificate')
@@ -464,7 +463,7 @@ def number_rationality(spec):
             n = S.Symbol('n', integer=True, positive=True)
             if S.limit(start + step*n, n, S.oo) != S.oo:
                 raise ValueError('unbounded gaps not proved')
-            classifications.append(False)
+            return False
         else:
             expression, constraints = parse_math(value)
             if expression.free_symbols or not _has_domain(constraints, set()):
@@ -472,10 +471,16 @@ def number_rationality(spec):
             result = S.simplify(expression).is_rational
             if result is None:
                 raise ValueError('rationality is unresolved')
-            classifications.append(bool(result))
+            return bool(result)
+    if spec.get('query') == 'classification':
+        category = 'rational' if classify(spec['source']) else 'irrational'
+        return select_unique(spec['options'], lambda option: option['number_class'] == category)
     target = spec['target']
     if target not in ('rational', 'irrational'):
         raise ValueError('unsupported number class')
+    if 'options' in spec:
+        return select_unique(spec['options'], lambda option: classify(option['expression']) == (target == 'rational'))
+    classifications = [classify(value) for value in spec['values']]
     return sum(result == (target == 'rational') for result in classifications)
 
 
