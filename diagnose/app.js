@@ -27,9 +27,23 @@
   let startQuery = '';
   let startStage = '';
   let seedParam = null;    // URL 参数 seed：固定选题的随机种子
+  let sessionNotice = '';
+  let draftBackup = null;
   const touchInput = window.matchMedia('(pointer: coarse)');
   const dataVersion = document.querySelector('meta[name="app-version"]').content;
-  function fetchData(path) { return fetch(path + '?v=' + encodeURIComponent(dataVersion)); }
+  const assetsBase = new URL(document.querySelector('meta[name="app-assets-base"]').content, document.baseURI);
+  async function fetchData(path) {
+    const url = new URL(path, assetsBase);
+    url.searchParams.set('v', dataVersion);
+    const controller = new AbortController();
+    const timeout = setTimeout(function () { controller.abort(); }, 15000);
+    try {
+      const response = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
+      if (!response.ok) throw new Error(path + ' → HTTP ' + response.status);
+      return await response.json();
+    }
+    finally { clearTimeout(timeout); }
+  }
 
   /* ------------------------------------------------------------ 小工具 */
   function h(tag, attrs) {
@@ -79,24 +93,63 @@
   function newSeed() { return seedParam != null ? seedParam : Math.random().toString(36).slice(2, 10); }
   function resetUi() { ui = { key: null, phase: 'ask', answer: '', verdict: null, picked: null }; }
   function clearRoot() { while (root.firstChild) root.removeChild(root.firstChild); }
-  function show(node) { clearRoot(); root.append(node); window.scrollTo(0, 0); }
+  function show(node) {
+    clearRoot();
+    if (sessionNotice) {
+      const notice = h('div', { class: 'banner no-print', id: 'session-notice', role: 'status' },
+        h('span', { text: sessionNotice }),
+        draftBackup ? h('details', { class: 'draft-backup', id: 'draft-backup' },
+          h('summary', null, '查看旧草稿'),
+          h('p', { text: draftBackup.prompt || '原题目：' + draftBackup.questionId }),
+          h('pre', { text: draftBackup.answer || '未填写' })) : null,
+        h('button', { 'aria-label': '关闭诊断提示', onclick: function () { sessionNotice = ''; draftBackup = null; save(); notice.remove(); } }, '关闭'));
+      root.append(notice);
+    }
+    root.append(node);
+    window.scrollTo(0, 0);
+  }
 
   /* ------------------------------------------------------------ 数据 */
   async function loadData() {
-    const urls = ['../data/topics.json', '../data/dependencies.json', '../data/cn-curriculum-standards.json', '../data/id-aliases.json'];
-    const rs = await Promise.all(urls.map(fetchData));
-    rs.forEach(function (r, i) { if (!r.ok) throw new Error(urls[i] + ' → HTTP ' + r.status); });
-    const js = await Promise.all(rs.map(function (r) { return r.json(); }));
-    // 题库可选：缺失（404）或损坏时回退到 topics.json 的 diagnostic_question
-    let questions = null;
-    try {
-      const qr = await fetchData('../data/questions.json');
-      if (qr.ok) questions = await qr.json();
-    } catch (e) { questions = null; }
+    const urls = ['data/topics.json', 'data/dependencies.json', 'data/cn-curriculum-standards.json', 'data/id-aliases.json'];
+    // The full bank is required for the two-question diagnostic contract.
+    // Catch immediately so a failed bank request cannot become an unhandled rejection.
+    const bankRequest = loadQuestionBank();
+    const js = await Promise.all(urls.map(fetchData));
+    const bank = await bankRequest;
+    if (bank.error) throw bank.error;
+    const questions = bank.questions;
+    validateQuestionBank(js[0], questions);
     const stdById = {};
     js[2].items.forEach(function (x) { stdById[x.id] = x; });
     const graph = E.buildGraph(js[0], js[1], questions);
     D = { topics: js[0], deps: js[1], stdById: stdById, graph: graph, tree: buildTree(js[0]), aliases: (js[3] && js[3].aliases) || {} };
+  }
+
+  function bankError(message) { return Object.assign(new Error(message), { questionBank: true }); }
+  async function loadQuestionBank() {
+    try {
+      return { questions: await fetchData('data/questions.json') };
+    } catch (error) { return { error: bankError('题库请求失败：' + error.message) }; }
+  }
+  function validateQuestionBank(topics, questions) {
+    if (!Array.isArray(questions) || !questions.length) throw bankError('题库内容为空或格式不正确。');
+    const counts = new Map(topics.filter(function (t) { return !t.external; }).map(function (t) { return [t.id, 0]; }));
+    const ids = new Set();
+    questions.forEach(function (q) {
+      if (!q || typeof q.id !== 'string' || ids.has(q.id) || !counts.has(q.topicId) ||
+          !['numeric', 'choice', 'short', 'self'].includes(q.type) || typeof q.prompt !== 'string' || !q.prompt.trim() ||
+          typeof q.answer !== 'string' || !q.answer.trim() || !['basic', 'standard', 'advanced'].includes(q.difficulty)) {
+        throw bankError('题库包含缺失或无效的题目。');
+      }
+      if (q.type === 'choice' && (!Array.isArray(q.choices) || q.choices.length < 2 ||
+          q.choices.some(function (c) { return !c || typeof c.key !== 'string' || typeof c.text !== 'string'; }) ||
+          new Set(q.choices.map(function (c) { return c.key; })).size !== q.choices.length ||
+          !q.choices.some(function (c) { return c.key === q.answer; }))) throw bankError('题库包含无效的选择题。');
+      ids.add(q.id);
+      counts.set(q.topicId, counts.get(q.topicId) + 1);
+    });
+    if (Array.from(counts.values()).some(function (count) { return count < 2; })) throw bankError('部分知识点缺少用于复测的题目。');
   }
 
   function buildTree(topics) {
@@ -117,17 +170,55 @@
   }
 
   /* ------------------------------------------------------------ 会话 */
+  function questionFingerprint(question) {
+    return JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '']);
+  }
   function save() {
     if (demo || !session) return;
+    const item = E.nextItem(D.graph, session);
+    const draft = item && ui.key === item.topicId + '#' + item.attempt && ui.questionId === item.question.id
+      ? { key: ui.key, questionId: ui.questionId, questionFingerprint: questionFingerprint(item.question), prompt: item.question.prompt,
+          answer: ui.answer, picked: ui.picked, phase: ui.phase } : null;
     lsSet(LS_SESSION, {
       v: 2, targets: session.targets, limit: session.limit, label: sessionMeta.label, answers: session.answers,
-      seed: session.seed, avoid: session.avoid, savedAt: new Date().toISOString()
+      seed: session.seed, avoid: session.avoid, draft: draft, draftBackup: draftBackup, savedAt: new Date().toISOString()
     });
   }
+
+  function reportReplay(report) {
+    session = report.session;
+    if (report.dropped.length) sessionNotice = '已重新计算诊断，移除了 ' + report.dropped.length + ' 条不再适用的答题记录；未完成部分会按新流程继续提问。';
+  }
+  function restoreDraft(draft) {
+    const item = E.nextItem(D.graph, session);
+    if (!draft || typeof draft.answer !== 'string') return;
+    if (!item || draft.key !== item.topicId + '#' + item.attempt || draft.questionId !== item.question.id ||
+        draft.questionFingerprint !== questionFingerprint(item.question)) {
+      if (draft.answer) {
+        draftBackup = draft;
+        sessionNotice = '题目或诊断流程已更新，旧草稿已保留供核对，未自动填入新题。';
+      }
+      return;
+    }
+    ui = { key: draft.key, questionId: draft.questionId, answer: draft.answer, picked: null, phase: 'ask', verdict: null };
+    if (item.question.type === 'choice') {
+      const picked = (item.question.choices || []).find(function (c) { return c.key === draft.answer; });
+      ui.picked = picked ? picked.key : null;
+      if (!picked) ui.answer = '';
+    }
+    if (draft.phase === 'skip' || draft.phase === 'self') ui.phase = draft.phase;
+    else if (draft.phase === 'auto' && ui.answer.trim()) {
+      ui.verdict = E.judgeQuestion(item.question, ui.answer.trim());
+      ui.phase = ui.verdict.verdict === 'manual' ? 'self' : 'auto';
+    }
+  }
+  window.addEventListener('pagehide', save);
+  window.addEventListener('cnm:before-update', save);
 
   function startSession(targets, label, limit) {
     session = E.createSession(D.graph, targets, { limit: limit || getSettings().limit, seed: newSeed(), avoid: seenList() });
     sessionMeta = { label: label };
+    sessionNotice = ''; draftBackup = null;
     resetUi();
     save();
     render();
@@ -135,14 +226,19 @@
 
   function restoreSession(saved) {
     try {
-      session = E.replay(D.graph, saved.targets, saved.answers, { limit: saved.limit, seed: saved.seed, avoid: saved.avoid });
+      reportReplay(E.replayWithReport(D.graph, saved.targets, saved.answers, { limit: saved.limit, seed: saved.seed, avoid: saved.avoid }));
       sessionMeta = { label: saved.label || saved.targets.map(nameOf).join('、') };
+      draftBackup = saved.draftBackup && typeof saved.draftBackup.answer === 'string' ? saved.draftBackup : null;
+      if (draftBackup && !sessionNotice) sessionNotice = '题目或诊断流程已更新，旧草稿已保留供核对，未自动填入新题。';
+      resetUi();
+      restoreDraft(saved.draft);
+      save();
       return true;
     } catch (e) { return false; }
   }
 
   function restart() {
-    session = null; demo = null;
+    session = null; demo = null; sessionNotice = ''; draftBackup = null;
     lsDel(LS_SESSION);
     if (location.search) history.replaceState(null, '', location.pathname);
     render();
@@ -158,9 +254,9 @@
   }
 
   function rebuild(answers, limit) {
-    session = E.replay(D.graph, session.targets, answers, {
+    reportReplay(E.replayWithReport(D.graph, session.targets, answers, {
       limit: limit == null ? session.limit : limit, seed: session.seed, avoid: session.avoid
-    });
+    }));
     resetUi();
     save();
     render();
@@ -341,7 +437,7 @@
     const q = item.question;
     const t = D.graph.byId[id];
     const key = id + '#' + item.attempt;
-    if (ui.key !== key) ui = { key: key, phase: 'ask', answer: '', verdict: null, picked: null };
+    if (ui.key !== key || ui.questionId !== q.id) ui = { key: key, questionId: q.id, phase: 'ask', answer: '', verdict: null, picked: null };
     const n = session.answers.length;
     const card = h('div', { class: 'card question-card' });
     card.append(
@@ -371,18 +467,19 @@
                 button.setAttribute('aria-pressed', String(picked));
               });
               document.getElementById('btn-submit').disabled = false;
+              save();
             }
           }, h('b', { text: c.key + '.' }), ' ', c.text);
         })));
       } else if (q.type === 'self') {
         card.append(h('textarea', {
           class: 'ans-input', id: 'ans', 'aria-label': '你的解题思路', rows: 3, placeholder: '写下自己的思路，再查看参考答案并自评', value: ui.answer,
-          oninput: function (e) { ui.answer = e.target.value; }
+          oninput: function (e) { ui.answer = e.target.value; save(); }
         }));
       } else {
         card.append(h('input', {
           type: 'text', class: 'ans-input', id: 'ans', 'aria-label': '你的答案', enterkeyhint: 'done', autocomplete: 'off', placeholder: '输入答案，多个答案用逗号分开', value: ui.answer,
-          oninput: function (e) { ui.answer = e.target.value; },
+          oninput: function (e) { ui.answer = e.target.value; save(); },
           onkeydown: function (e) { if (e.key === 'Enter' && !e.isComposing) judgeAndGo(item); }
         }));
       }
@@ -425,6 +522,7 @@
     if (demo) page.append(demoBanner());
     page.append(card);
     show(page);
+    save();
     const inp = document.getElementById('ans');
     // Let touch users read the prompt before choosing to open the keyboard.
     if (inp && !touchInput.matches) {
@@ -608,7 +706,7 @@
     });
     return h('div', { class: 'card', id: 'log' },
       h('h2', { text: '答题记录（可更正）' }),
-      h('p', { class: 'muted small' }, '自动判题可能判错。在这里改某一题的结果会重新计算整份诊断（后续是否还需要追问也会随之变化）。'),
+      h('p', { class: 'muted small' }, '更正某题后会重新计算诊断，不再适用的后续记录会移除，未完成部分会重新提问。保留的记录会保持原题目和答案。'),
       session.answers.length ? h('table', { class: 'log', role: 'table', 'aria-label': '答题记录' },
         h('thead', null, h('tr', null, h('th', { text: '#' }), h('th', { text: '知识点 / 题目' }), h('th', { text: '你的答案' }), h('th', { text: '结果' }), h('th', { text: '参考答案' }))),
         h('tbody', null, rows)) : h('p', { class: 'muted', text: '还没有答题。' }));
@@ -736,11 +834,15 @@
   }
 
   async function init() {
+    show(h('p', { class: 'loading', role: 'status' }, '正在加载知识点与完整题库……'));
     try { await loadData(); } catch (e) {
       clearRoot();
-      root.append(h('div', { class: 'card' }, h('h2', { class: 'err', text: '数据加载失败' }),
-        h('p', null, String(e.message || e)),
-        h('p', null, '请在项目根目录运行 ', h('code', { text: 'python3 -m http.server 8000' }), '，再访问 http://localhost:8000/diagnose/ （不能直接用 file:// 打开）。')));
+      root.append(h('div', { class: 'card', id: e.questionBank ? 'question-bank-error' : 'data-load-error', role: 'alert' },
+        h('h2', { class: 'err', text: e.questionBank ? '题库未完整加载' : '数据加载失败' }),
+        h('p', null, '诊断暂不可用。请检查网络后重试，已保存的进度和草稿会保留。'),
+        h('p', { class: 'muted small', text: String(e.message || e) }),
+        h('button', { class: 'primary', id: 'btn-retry-data', onclick: init }, '重新加载'),
+        h('a', { class: 'btn', href: '../index.html' }, '返回知识图谱')));
       return;
     }
     const params = new URLSearchParams(location.search);

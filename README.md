@@ -248,7 +248,7 @@ python3 -m http.server 8000
 # 然后访问 http://localhost:8000/
 ```
 
-功能：左侧可按学科、学段（全部 / 小学 / 初中）、年级或册次、类型筛选并搜索（名称、描述、章节）。点击知识点后显示描述、掌握标准、诊断题（答案默认折叠）、**先修链**（向上递归，树状或分层列表两种视图，边上标注硬/软先修及理由），以及**它是哪些后续知识点的先修**。地址栏 `#cnm_219` 或 `#cnm_p001` 可直接定位。`#cnm_ext_002` 这类旧编号会跳到 `id-aliases.json` 里的第一个小学知识点。页面标题是「中小学数学知识图谱」。
+功能：左侧可按学科、学段（全部 / 小学 / 初中）、年级或册次、类型筛选并搜索（名称、描述、章节）。点击知识点后显示描述、掌握标准、诊断题（答案默认折叠）、**先修链**（向上递归，树状或分层列表两种视图，边上标注硬/软先修及理由），以及**它是哪些后续知识点的先修**。详情中的「诊断当前知识点」可直接开始该知识点的诊断。手机用底部导航切换列表与详情，平板保留双栏。地址栏 `#cnm_219` 或 `#cnm_p001` 可直接定位。`#cnm_ext_002` 这类旧编号会跳到 `id-aliases.json` 里的第一个小学知识点。页面标题是「中小学数学知识图谱」。
 
 ## 后续建议
 
@@ -262,9 +262,11 @@ python3 -m http.server 8000
 ### 本 fork 的 GitHub Pages
 
 站点：[kai987.github.io/cn-math-taxonomy-QD](https://kai987.github.io/cn-math-taxonomy-QD/)。
-向 `main` 推送后，`.github/workflows/pages.yml` 会先校验数据、运行引擎与发布测试，再构建、发布 GitHub Pages。仓库 Settings → Pages 的 Source 使用 **GitHub Actions**。
+向 `main` 推送后，`.github/workflows/pages.yml` 会先校验数据，运行引擎、发布和手机／平板／桌面浏览器回归测试，通过后再发布 GitHub Pages。仓库 Settings → Pages 的 Source 使用 **GitHub Actions**。
 
-构建脚本 `scripts/build_site.py` 仅打包页面所需文件，把完整提交 SHA 写入页面和 `version.json`，并为 CSS、JavaScript、数据请求加上版本参数。页面打开时会绕过缓存检查线上版本，发现旧 HTML 会保留路径、URL 参数和锚点重新加载；用户已经开始操作时改为提示更新。诊断存档不会被清除。离线或检查失败时页面继续使用已有内容。首次从旧版升级时，可直接打开 `?v=提交SHA` 的页面，以避开旧版 HTML 缓存。
+构建脚本 `scripts/build_site.py` 仅打包页面所需文件，把完整提交 SHA 写入页面和 `version.json`，并将 JavaScript、CSS 与 JSON 数据放在 `assets/<SHA>/` 目录。每个发布包只包含本次版本；旧页面不会把缺失的旧资源悄悄替换成另一版本的同名资源。根目录的 `update-check.js` 保留稳定地址，以便旧页面仍能检查线上版本并引导更新。
+
+版本检查绕过缓存。首页只有在最早交互跟踪确认用户尚未操作时才自动重新加载；诊断页始终提示更新，由用户决定何时重新加载。手动更新保留路径、URL 参数和锚点，诊断进度和当前题草稿保存在本机。离线或检查失败时，不会因为版本检查打断现有页面。首次从旧版升级时，可直接打开 `?_v=提交SHA`，以避开旧版 HTML 缓存。
 
 本地仍可直接运行 `python3 -m http.server 8000`；开发页面不检查线上版本。测试发布包可以运行：
 
@@ -274,6 +276,17 @@ python3 -m http.server 8001 --directory /tmp/cnm-site-preview
 ```
 
 输出目录须为空；无需安装依赖。GitHub Pages 的 CDN 缓存与部署传播仍由 GitHub 控制，版本检查无法使断网的旧页面获得新文件。
+
+浏览器回归测试使用开发依赖，不影响静态站运行：
+
+```bash
+npm ci
+npx playwright install chromium
+npm test
+npm run test:browser
+```
+
+测试覆盖答案更正、单位判题、草稿恢复、题库失败后重试、延迟加载更新脚本和窄屏布局。测试服务会构建临时发布包；报告、截图和跟踪文件不进入发布包或 Git 仓库。
 
 ### 上游原有的 Cloudflare 部署方式
 

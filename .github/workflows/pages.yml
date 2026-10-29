@@ -20,12 +20,29 @@ jobs:
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: '24'
+          cache: npm
+      - name: Install browser test dependencies
+        run: npm ci
       - name: Validate data and diagnosis engine
         run: |
           python3 scripts/validate.py
           node tests/test_engine.js
           python3 -m unittest discover -s tests -p 'test_site_build.py'
           node tests/test_update_check.js
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test phone, tablet, desktop and update recovery
+        run: npm run test:browser
+      - name: Upload browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: browser-test-failures
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore
       - name: Build versioned site
         run: python3 scripts/build_site.py --version "$GITHUB_SHA"
       - uses: actions/upload-pages-artifact@v5.0.0

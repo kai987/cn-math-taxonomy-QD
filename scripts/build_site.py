@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Package only public site files and stamp a Git commit into all asset URLs."""
+"""Package public pages with assets isolated in this release's Git SHA directory."""
 import argparse
 import json
 from pathlib import Path
+import posixpath
 import re
 import shutil
 
@@ -13,6 +14,13 @@ FILES = (
     'data/topics.json', 'data/dependencies.json', 'data/cn-curriculum-standards.json',
     'data/questions.json', 'data/id-aliases.json',
 )
+VERSIONED_FILES = frozenset(relative for relative in FILES
+                            if relative.endswith(('.css', '.json'))
+                            or (relative.endswith('.js') and relative != 'update-check.js'))
+
+
+def public_path(relative, version):
+    return f'assets/{version}/{relative}' if relative in VERSIONED_FILES else relative
 
 
 def build(output, version):
@@ -27,14 +35,32 @@ def build(output, version):
         raise ValueError('output directory must be empty')
     for relative in FILES:
         source = ROOT / relative
-        target = output / relative
+        target = output / public_path(relative, version)
         target.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix == '.html':
             html = source.read_text(encoding='utf-8')
             html = html.replace('name="app-version" content="development"',
                                 f'name="app-version" content="{version}"')
-            html = re.sub(r'((?:src|href)="[^"?]+\.(?:js|css))"',
-                          lambda match: f'{match[1]}?v={version}"', html)
+            page_dir = posixpath.dirname(relative) or '.'
+            assets_base = posixpath.relpath(f'assets/{version}', page_dir) + '/'
+            html, count = re.subn(r'(name="app-assets-base" content=")[^"]*(")',
+                                  lambda match: match[1] + assets_base + match[2], html)
+            if count != 1:
+                raise ValueError(f'{relative} must have exactly one app-assets-base meta tag')
+
+            def asset_url(match):
+                asset = match[2]
+                asset_source = posixpath.normpath(posixpath.join(page_dir, asset))
+                if asset_source in VERSIONED_FILES:
+                    destination = posixpath.relpath(public_path(asset_source, version), page_dir)
+                    return match[1] + destination + match[3]
+                # Keep the recovery bootstrap at a stable root path so stale
+                # HTML can still offer an update when its old assets are gone.
+                if asset_source == 'update-check.js':
+                    return match[1] + asset + '?v=' + version + match[3]
+                return match[0]
+
+            html = re.sub(r'((?:src|href)=")([^"?]+\.(?:js|css))(")', asset_url, html)
             target.write_text(html, encoding='utf-8')
         else:
             shutil.copyfile(source, target)

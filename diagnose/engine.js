@@ -241,7 +241,8 @@
    *  - 第一题 wrong/skip：还没有结论，该点仍排在最前面，下一题给它出第二题（没有第二题可出就直接判薄弱）；
    *  - 第二题 correct：不稳（shaky），不向先修回溯；
    *  - 第二题 wrong/skip：薄弱，并把其先修（hard 先、soft 后）压到出题栈顶。
-   * 直接作答（direct）的判定不会被推断（inferred）覆盖。extra.text 是用户输入的答案（只用于记录）。
+   * 直接作答（direct）的判定不会被推断（inferred）覆盖。extra.text 是用户输入的答案；
+   * extra.qid 用于重放实际答过的题目，不能把旧作答重新分配给另一道题。
    */
   function applyAnswer(graph, session, id, result, extra) {
     if (!RESULTS[result]) throw new Error('作答结果必须是 correct / wrong / skip');
@@ -249,7 +250,10 @@
     const s = cloneSession(session);
     if (s.status[id]) { delete s.status[id]; s.attempts[id] = []; } // 对已有结论的点重新作答 = 重新开始
     const prev = s.attempts[id] || [];
-    const q = pickQuestion(graph, s, id, prev.length + 1);
+    const q = extra && extra.qid ? questionById(graph, extra.qid) : pickQuestion(graph, s, id, prev.length + 1);
+    if (extra && extra.qid && (!q || q.topicId !== id || prev.some(function (a) { return a.qid === q.id; }))) {
+      throw new Error('无法记录该题的作答：' + extra.qid);
+    }
     const rec = { id: id, qid: q ? q.id : null, result: result };
     if (extra && extra.text != null && extra.text !== '') rec.text = String(extra.text);
     s.answers.push(rec);
@@ -294,11 +298,37 @@
     return q ? { topicId: id, question: q, attempt: attempt } : null;
   }
 
-  /** 由作答记录重建会话（用于刷新恢复、撤销、更正）。 */
-  function replay(graph, targets, answers, opts) {
+  /**
+   * 由作答记录重建会话。更正答案后只保留仍符合新诊断流程的记录，并保留原题号。
+   * 旧存档没有 qid 时按种子补齐；题目已删除或记录损坏时停止沿用后续作答。
+   * dropped 中的 index 对应传入 answers 的下标，供界面说明移除了多少条记录。
+   */
+  function replayWithReport(graph, targets, answers, opts) {
     let s = createSession(graph, targets, opts);
-    answers.forEach(function (a) { s = applyAnswer(graph, s, a.id, a.result, { text: a.text }); });
-    return s;
+    const dropped = [];
+    let broken = false;
+    answers.forEach(function (a, index) {
+      let reason = '';
+      const item = nextItem(graph, s);
+      if (broken) reason = 'after-invalid-record';
+      else if (!a || !RESULTS[a.result] || !graph.byId[a.id]) { reason = 'invalid-record'; broken = true; }
+      else if (!item) reason = 'complete-or-limit';
+      else if (a.id !== item.topicId) reason = 'out-of-path';
+      else if (a.qid) {
+        const question = questionById(graph, a.qid);
+        if (!question || question.topicId !== a.id) { reason = 'missing-question'; broken = true; }
+        else if ((s.attempts[a.id] || []).some(function (old) { return old.qid === a.qid; })) {
+          reason = 'duplicate-question'; broken = true;
+        }
+      }
+      if (reason) dropped.push({ index: index, reason: reason });
+      else s = applyAnswer(graph, s, a.id, a.result, { text: a.text, qid: a.qid });
+    });
+    return { session: s, dropped: dropped };
+  }
+
+  function replay(graph, targets, answers, opts) {
+    return replayWithReport(graph, targets, answers, opts).session;
   }
 
   /** 状态：mastered / shaky / weak / unknown。只答错一题就遇到题量上限的点按 weak 算（见 isUnconfirmed）。 */
@@ -570,7 +600,7 @@
     '米': 'm', 'm': 'm', '厘米': 'cm', 'cm': 'cm', '毫米': 'mm', 'mm': 'mm', '千米': 'km', '公里': 'km', 'km': 'km',
     '千克': 'kg', '公斤': 'kg', 'kg': 'kg', '克': 'g', 'g': 'g', '秒': 's', 's': 's', '分钟': 'min', 'min': 'min',
     '小时': 'h', 'h': 'h', '平方米': 'm^2', 'm^2': 'm^2', '平方厘米': 'cm^2', 'cm^2': 'cm^2',
-    '立方米': 'm^3', 'm^3': 'm^3', '立方厘米': 'cm^3', 'cm^3': 'cm^3', '元': '元', '度': '°', '°': '°'
+    '立方米': 'm^3', 'm^3': 'm^3', '立方厘米': 'cm^3', 'cm^3': 'cm^3', '元': '元', '角': '角', '度': '°', '°': '°'
   };
 
   function canonUnit(u) {
@@ -639,7 +669,7 @@
       const items = splitTop(tm[1], ',');
       const nums = items.map(parseNumeric);
       if (items.length > 1 && nums.every(Boolean)) {
-        return { raw: p, variable: variable, kind: 'tuple', key: 't:' + nums.map(function (x) { return x.key; }).join(','), unit: { name: '', known: true } };
+        return { raw: p, variable: variable, kind: 'tuple', key: 't:' + nums.map(function (x) { return x.key; }).join(','), items: nums, unit: { name: '', known: true } };
       }
     }
     return { raw: p, variable: variable, kind: 'text', key: body, unit: { name: '', known: true } };
@@ -653,9 +683,32 @@
 
   // 'eq' | 'ne' | 'unsure'
   function partCompare(a, b) {
-    if (a.kind !== b.kind || a.key !== b.key) return 'ne';
-    const ua = a.unit, ub = b.unit;
-    if (!ua.name || !ub.name || ua.name === ub.name) return 'eq';
+    if (a.kind !== b.kind) return 'ne';
+    if (a.kind === 'tuple') {
+      if (a.items.length !== b.items.length) return 'ne';
+      let result = 'eq';
+      for (let i = 0; i < a.items.length; i++) {
+        const compared = numericPartCompare(a.items[i], b.items[i]);
+        if (compared === 'ne') return 'ne';
+        if (compared === 'unsure') result = 'unsure';
+      }
+      return result;
+    }
+    if (a.kind === 'num') return numericPartCompare(a, b);
+    return a.key === b.key ? 'eq' : 'ne';
+  }
+
+  function numericPartCompare(a, b) {
+    const units = unitCompare(a.unit, b.unit);
+    if (units === 'unsure') return 'unsure';
+    return a.key === b.key ? units : 'ne';
+  }
+
+  function unitCompare(ua, ub) {
+    // Bare user numbers remain convenient when the expected unit is explicit.
+    // A unit supplied only by the user cannot establish the expected dimension.
+    if (!ua.name || ua.name === ub.name) return 'eq';
+    if (!ub.name) return 'unsure';
     return ua.known && ub.known ? 'ne' : 'unsure';
   }
 
@@ -715,6 +768,10 @@
   function judgeAnswer(user, reference) {
     const u = parseAnswer(user);
     const r = parseAnswer(reference);
+    return judgeParsed(u, r);
+  }
+
+  function judgeParsed(u, r) {
     if (!u.norm) return { verdict: 'manual', reason: 'empty' };
     if (u.norm === r.norm) return { verdict: 'correct', reason: 'identical' };
     if (!r.parts.length) return { verdict: 'manual', reason: 'no-reference' };
@@ -749,10 +806,19 @@
     const u = parseAnswer(user);
     if (!u.norm) return MANUAL_EMPTY;
     const refs = [q.answer].concat(q.accept || []);
+    const parsedRefs = refs.map(function (reference) {
+      const parsed = parseAnswer(reference);
+      const expected = q.unit && canonUnit(normalizeText(q.unit));
+      if (expected) parsed.parts.forEach(function (part) {
+        if (part.kind === 'num' && !part.unit.name) part.unit = expected;
+        if (part.kind === 'tuple') part.items.forEach(function (item) { if (!item.unit.name) item.unit = expected; });
+      });
+      return parsed;
+    });
     for (let i = 0; i < refs.length; i++) {
-      if (parseAnswer(refs[i]).norm === u.norm) return { verdict: 'correct', reason: 'identical' };
+      if (parsedRefs[i].norm === u.norm) return { verdict: 'correct', reason: 'identical' };
     }
-    const main = parseAnswer(q.answer);
+    const main = parsedRefs[0];
     if (!q.unordered && main.parts.length > 1) {
       // 多个答案且顺序有关：逐项按顺序比较（变量名忽略）
       if (u.parts.length !== main.parts.length) {
@@ -768,10 +834,10 @@
       if (res === 'ne' && allNumeric(u.parts) && allNumeric(main.parts)) return { verdict: 'wrong', reason: 'numeric-mismatch' };
       return { verdict: 'manual', reason: 'unsure' };
     }
-    const r = judgeAnswer(user, q.answer);
+    const r = judgeParsed(u, main);
     if (r.verdict === 'correct') return r;
     for (let i = 1; i < refs.length; i++) {
-      if (judgeAnswer(user, refs[i]).verdict === 'correct') return { verdict: 'correct', reason: 'accept' };
+      if (judgeParsed(u, parsedRefs[i]).verdict === 'correct') return { verdict: 'correct', reason: 'accept' };
     }
     return r;
   }
@@ -817,6 +883,7 @@
     applyAnswer: applyAnswer,
     nextQuestion: nextQuestion,
     replay: replay,
+    replayWithReport: replayWithReport,
     statusOf: statusOf,
     summarize: summarize,
     layout: layout,

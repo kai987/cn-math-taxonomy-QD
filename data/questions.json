@@ -1902,6 +1902,7 @@
     "type": "numeric",
     "prompt": "3 元是多少角？",
     "answer": "30",
+    "unit": "角",
     "explanation": "1 元是 10 角，3 元是 30 角。",
     "verify": "3*10"
   },
@@ -2176,6 +2177,7 @@
     "type": "numeric",
     "prompt": "2 米是多少厘米？",
     "answer": "200",
+    "unit": "厘米",
     "explanation": "2×100＝200。",
     "verify": "2*100"
   },

@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="app-version" content="development">
+<meta name="app-assets-base" content="./">
+<script>
+window.__cnmPageInteracted = false;
+['pointerdown', 'keydown', 'input'].forEach(function (type) {
+  document.addEventListener(type, function () { window.__cnmPageInteracted = true; }, { once: true, capture: true });
+});
+</script>
 <title>中小学数学知识图谱（一—九年级）· 草稿</title>
 <link rel="icon" href="data:,">
 <script defer src="update-check.js"></script>
@@ -98,6 +105,8 @@
   #main:focus, #side:focus { outline:none; }
   .card { padding:20px; border-radius:12px; overflow-wrap:anywhere; }
   .card h2 { font-size:16px; }
+  .detail-diagnose { display:inline-flex; align-items:center; justify-content:center; min-height:48px; margin-top:4px; padding:10px 18px; background:var(--accent); color:#fff; border-radius:8px; text-decoration:none; font-weight:600; }
+  .detail-diagnose:active { background:#1d4ed8; }
   h1.title { font-size:24px; line-height:1.4; }
   .tag { border-radius:6px; padding:3px 8px; }
   .toolbar button, .chip { min-height:44px; padding:8px 12px; }
@@ -134,6 +143,7 @@
     #filters { max-height:65%; overflow:auto; flex-shrink:0; }
     #list .nm { font-size:16px; }
     .card { padding:18px 16px; margin-bottom:12px; }
+    .detail-diagnose { width:100%; }
     .mobile-nav { display:flex; gap:8px; padding:8px max(14px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); background:#fff; border-top:1px solid var(--line); flex-shrink:0; }
     .mobile-nav button { flex:1; min-height:48px; border:0; background:#f1f5f9; border-radius:8px; font-size:15px; font-weight:600; }
     .mobile-nav button[aria-pressed="true"] { background:#e8f0fe; color:#1d4ed8; }
@@ -204,7 +214,12 @@ const TYPE_ZH = {conceptual:"概念理解", procedural:"程序性技能", reason
 const GRADE_ZH = {1:"一", 2:"二", 3:"三", 4:"四", 5:"五", 6:"六", 7:"七", 8:"八", 9:"九"};
 const $ = s => document.querySelector(s);
 const dataVersion = document.querySelector('meta[name="app-version"]').content;
-const fetchData = path => fetch(path + "?v=" + encodeURIComponent(dataVersion));
+const assetsBase = new URL(document.querySelector('meta[name="app-assets-base"]').content, document.baseURI);
+const fetchData = path => {
+  const url = new URL(path, assetsBase);
+  url.searchParams.set("v", dataVersion);
+  return fetch(url);
+};
 const el = (tag, attrs, ...kids) => {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
@@ -350,7 +365,8 @@ function renderDetail(t) {
                  : [el("span", {class:"tag", text:GRADE_ZH[t.grade] + "年级" + t.semester}),
                     el("span", {class:"tag", text:TYPE_ZH[t.type] || t.type}),
                     el("span", {class:"tag", text:t.chapter})]),
-    el("p", {text:t.description}));
+    el("p", {text:t.description}),
+    t.external ? null : el("a", {id:"diagnose-current", class:"detail-diagnose", href:"diagnose/?target=" + encodeURIComponent(t.id), text:"诊断当前知识点"}));
   const parts = [head];
   if (!t.external) {
     parts.push(el("div", {class:"card"}, el("h2", {text:"掌握标准"}),

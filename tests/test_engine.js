@@ -1076,5 +1076,121 @@ test('带题库：重测时避开已出过的题（avoid 里的题尽量不再�
   assert.ok(total > 0);
 });
 
+/* ------------------------------------------------------------ 更正 / 存档与单位回归 */
+console.log('更正、存档与单位回归');
+
+test('真实更正：第一题改对后丢弃第二题与不再需要的先修记录，不覆盖已掌握状态', () => {
+  let s = E.createSession(RGQ, ['cnm_221'], { seed: 'review' });
+  for (const result of ['wrong', 'wrong', 'correct']) {
+    const item = E.nextItem(RGQ, s);
+    s = E.applyAnswer(RGQ, s, item.topicId, result, { text: '原始输入' });
+  }
+  const original = JSON.stringify(s);
+  const corrected = s.answers.map((a, i) => i === 0 ? { ...a, result: 'correct' } : a);
+  const replayed = E.replayWithReport(RGQ, s.targets, corrected, { seed: s.seed, limit: s.limit });
+  assert.strictEqual(E.statusOf(replayed.session, 'cnm_221'), 'mastered');
+  assert.strictEqual(E.nextItem(RGQ, replayed.session), null);
+  assert.deepStrictEqual(replayed.session.answers, [corrected[0]]);
+  assert.deepStrictEqual(replayed.dropped.map(x => x.index), [1, 2]);
+  assert.strictEqual(JSON.stringify(s), original, '不能改写原会话或题号');
+});
+
+test('更正第二题为对：保留两道原题，不再重放先修作答', () => {
+  const [s] = run2(E.createSession(G2, ['T'], { seed: 5 }), {
+    T: ['wrong', 'wrong'], P1: ['correct'], P2: ['correct']
+  });
+  const corrected = s.answers.map((a, i) => i === 1 ? { ...a, result: 'correct' } : a);
+  const { session: result, dropped } = E.replayWithReport(G2, s.targets, corrected, { seed: s.seed });
+  assert.deepStrictEqual(result.answers, corrected.slice(0, 2));
+  assert.strictEqual(E.statusOf(result, 'T'), 'shaky');
+  assert.strictEqual(E.nextItem(G2, result), null);
+  assert.strictEqual(dropped.length, s.answers.length - 2);
+});
+
+test('更正一个分支只删除失效记录，其他仍符合新流程的分支记录保留', () => {
+  const [s] = run2(E.createSession(G2, ['T'], { seed: 8 }), {
+    T: ['wrong', 'wrong'], P1: ['wrong', 'wrong'], R: ['correct'], P2: ['correct']
+  });
+  const corrected = s.answers.map((a, i) => i === 2 ? { ...a, result: 'correct' } : a);
+  const { session: result, dropped } = E.replayWithReport(G2, s.targets, corrected, { seed: s.seed });
+  assert.deepStrictEqual(result.answers, [corrected[0], corrected[1], corrected[2], corrected[5]]);
+  assert.deepStrictEqual(dropped.map(x => x.index), [3, 4]);
+  assert.strictEqual(E.statusOf(result, 'P1'), 'mastered');
+  assert.strictEqual(E.statusOf(result, 'R'), 'mastered');
+  assert.strictEqual(E.statusOf(result, 'P2'), 'mastered');
+});
+
+test('重放已有 qid 时不按新随机选择替换题目；缺 qid 的旧存档仍可恢复', () => {
+  const [s] = run2(E.createSession(G2, ['T'], { seed: 9 }), { T: ['wrong', 'correct'] });
+  const newSeed = Array.from({ length: 30 }, (_, i) => 'changed-' + i).find(seed =>
+    E.nextItem(G2, E.createSession(G2, ['T'], { seed })).question.id !== s.answers[0].qid);
+  assert.ok(newSeed, '回归需要确实改变下一道随机题');
+  const report = E.replayWithReport(G2, ['T'], s.answers, { seed: newSeed });
+  assert.deepStrictEqual(report.session.answers, s.answers);
+  assert.deepStrictEqual(report.dropped, []);
+  const legacy = s.answers.map(({ qid, ...record }) => record);
+  assert.deepStrictEqual(E.replay(G2, ['T'], legacy, { seed: s.seed }), s);
+});
+
+test('已删除的历史题、重复题号和超过新上限的记录不会被重新分配到其他题', () => {
+  const s = E.createSession(G2, ['T']);
+  const first = E.nextItem(G2, s).question.id;
+  const removed = E.replayWithReport(G2, ['T'], [
+    { id: 'T', qid: 'T_q999', result: 'wrong' },
+    { id: 'T', qid: first, result: 'correct' }
+  ]);
+  assert.strictEqual(removed.session.answers.length, 0);
+  assert.deepStrictEqual(removed.dropped.map(x => x.reason), ['missing-question', 'after-invalid-record']);
+  const repeated = E.replayWithReport(G2, ['T'], [
+    { id: 'T', qid: first, result: 'wrong' },
+    { id: 'T', qid: first, result: 'wrong' }
+  ]);
+  assert.strictEqual(repeated.session.answers.length, 1);
+  assert.strictEqual(repeated.dropped[0].reason, 'duplicate-question');
+  const [full] = run2(s, { T: ['wrong', 'wrong'], P1: ['correct'], P2: ['correct'] });
+  const capped = E.replayWithReport(G2, ['T'], full.answers, { limit: 1 });
+  assert.strictEqual(capped.session.answers.length, 1);
+  assert.strictEqual(capped.dropped.length, full.answers.length - 1);
+  assert.throws(() => E.applyAnswer(G2, s, 'T', 'correct', { qid: 'R_q1' }));
+});
+
+test('真实换算题：确认的厘米 / 角单位可省略，写对别名可判对，错误单位不能判对', () => {
+  const length = questions.find(q => q.id === 'cnm_p041_q2');
+  const money = questions.find(q => q.id === 'cnm_p036_q2');
+  assert.strictEqual(length.unit, '厘米');
+  assert.strictEqual(money.unit, '角');
+  for (const answer of ['200', '200厘米', '200 cm', '２００ｃｍ'])
+    assert.strictEqual(E.judgeQuestion(length, answer).verdict, 'correct', answer);
+  for (const answer of ['200米', '200千克'])
+    assert.strictEqual(E.judgeQuestion(length, answer).verdict, 'wrong', answer);
+  for (const answer of ['30', '30角'])
+    assert.strictEqual(E.judgeQuestion(money, answer).verdict, 'correct', answer);
+  assert.strictEqual(E.judgeQuestion(money, '30元').verdict, 'wrong');
+});
+
+test('没有期望单位时带单位输入转人工，不能用正确数字掩盖错误量纲', () => {
+  const unannotated = questions.find(q => q.id === 'cnm_p040_q2');
+  for (const answer of ['40毫米', '40米', '40千克', '4厘米'])
+    assert.strictEqual(E.judgeQuestion(unannotated, answer).verdict, 'manual', answer);
+  assert.strictEqual(E.judgeQuestion(unannotated, '40').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '200' }, '200米').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('(1米,2)', '(1,2)').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('(1米,2)', '(1厘米,2)').verdict, 'wrong');
+  assert.strictEqual(E.judgeAnswer('5朵', '5').verdict, 'manual');
+});
+
+test('单位修复保留分数 / 百分数 / 负数 / 多值和已有单位别名的正确数值判定', () => {
+  for (const [answer, expected] of [['1/4', 'correct'], ['25%', 'correct'], ['0.25', 'correct'], ['75%', 'wrong']])
+    assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1/4' }, answer).verdict, expected, answer);
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '-3/2' }, '-1又1/2').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1/2，2', unordered: true }, '2，50%').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1/2', unit: '厘米' }, '0.5 cm').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1/2', unit: '厘米' }, '0.5 kg').verdict, 'wrong');
+  assert.strictEqual(E.judgeQuestion({ type: 'numeric', answer: '1/2', unit: '厘米' }, '0.5朵').verdict, 'manual');
+  assert.strictEqual(E.judgeAnswer('12米', '12 m').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('12', '12 m').verdict, 'correct');
+  assert.strictEqual(E.judgeAnswer('12 cm', '12 m').verdict, 'wrong');
+});
+
 console.log('\n' + passed + ' passed, ' + failed + ' failed');
 process.exit(failed ? 1 : 0);
