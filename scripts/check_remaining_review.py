@@ -10,13 +10,13 @@ PATH = ROOT / 'data/answer_review_remaining_455.json'
 SCOPE_SHA256 = '424330f6f0102e3cfe6ed7acf28ea39f990156076c91703f4084489db1ef6879'
 
 
-def review_errors(questions, review, records):
+def review_errors(questions, review, records, *, scope_count=455, scope_sha256=SCOPE_SHA256):
     errors = []
     entries = review.get('entries', [])
     ids = [entry.get('id', '') for entry in entries]
     digest = hashlib.sha256('\n'.join(sorted(ids)).encode()).hexdigest()
-    if len(ids) != 455 or len(set(ids)) != 455 or digest != SCOPE_SHA256:
-        errors.append('follow-up must cover exactly the original 455 IDs once each')
+    if len(ids) != scope_count or len(set(ids)) != scope_count or digest != scope_sha256:
+        errors.append('follow-up must cover exactly the original %s IDs once each' % scope_count)
     by_id = {question['id']: question for question in questions}
     for entry in entries:
         qid = entry['id']

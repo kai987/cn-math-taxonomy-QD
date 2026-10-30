@@ -7289,7 +7289,7 @@
       "能说出各自的位置特征"
     ],
     "diagnostic_question": {
-      "question": "直线 a、b 被 c 所截，位于 a、b 之间且在 c 两侧的角叫什么角？",
+      "question": "直线 a、b 被 c 所截，位于 a、b 之间且在 c 两侧的角叫什么角？（两个角的顶点分别为 c 与 a、b 的两个不同交点。）",
       "answer": "内错角"
     },
     "external": false,
@@ -7470,7 +7470,7 @@
       "能指出对应点、对应线段的关系"
     ],
     "diagnostic_question": {
-      "question": "平移后对应点连线有什么关系？",
+      "question": "平移后对应点连线有什么关系？（本题的平移距离大于 0。）",
       "answer": "平行（或共线）且相等"
     },
     "external": false,
@@ -8328,7 +8328,7 @@
     ],
     "diagnostic_question": {
       "question": "只调查校篮球队队员的身高能代表全校吗？",
-      "answer": "不能，样本不具代表性"
+      "answer": "不能保证，抽样范围只限篮球队队员，缺乏全校覆盖"
     },
     "external": false,
     "standards": [

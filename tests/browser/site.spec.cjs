@@ -29,6 +29,9 @@ const orderedAnswers = seedFor('cnm_059', question => question.id === 'cnm_059_q
 const variableAnswers = seedFor('cnm_089', question => question.id === 'cnm_089_q2');
 const simplifiedFormula = seedFor('cnm_209', question => question.id === 'cnm_209_q1');
 const waterMeaning = seedFor('cnm_028', question => question.id === 'cnm_028_q1');
+const parallelDefinition = seedFor('cnm_067', question => question.id === 'cnm_067_q4');
+const probabilityRange = seedFor('cnm_285', question => question.id === 'cnm_285_q2');
+const suspension = seedFor('cnm_119', question => question.id === 'cnm_119_q2');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -537,4 +540,39 @@ test('the reviewed water example retains its physical time domain and self asses
   await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
   await page.reload();
   await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+});
+
+for (const [topic, item, wording, option] of [
+  ['cnm_067', parallelDefinition, /线段/, 'B'],
+  ['cnm_285', probabilityRange, /完整/, 'A']
+]) {
+  test('reviewed choice ' + topic + ' has unambiguous conditions and stable feedback after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+    await page.goto(targetURL(topic, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(topic === 'cnm_067' ? page.locator('#choice-B') : page.locator('#q-text')).toContainText(wording);
+    await activate(page, page.locator('#choice-' + option));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toContainText('不正确');
+    await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+    await activate(page, page.locator('#choice-' + item.question.answer));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await page.reload();
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('suspension question states independent traces and preserves its answer after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+  await page.goto(targetURL('cnm_119', suspension.seed));
+  await expect(page.locator('#q-text')).toHaveText(suspension.question.prompt);
+  await expect(page.locator('#q-text')).toContainText(/不重合/);
+  await page.locator('#ans').fill('2');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await page.reload();
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await expect(page.locator('#q-text')).toContainText(/不重合/);
+  await noHorizontalOverflow(page);
 });

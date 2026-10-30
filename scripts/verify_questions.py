@@ -367,6 +367,19 @@ def main():
                 'note': '模型核验依赖题干到结构化输入的人工翻译；计算组件不计为整道开放题自动核验。',
             }
             errs.extend(issues)
+        from check_manual_review import PATH as MANUAL_PATH, review_errors as manual_errors
+        if MANUAL_PATH.exists():
+            manual = json.loads(MANUAL_PATH.read_text(encoding='utf-8'))
+            issues = manual_errors(questions, manual, catalogue(), list(topics.values()))
+            report['followup_160'] = {
+                'source': str(MANUAL_PATH.relative_to(ROOT)),
+                'reviewed': len(manual['entries']),
+                'outcomes': manual['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in manual['entries']),
+                'review_errors': issues,
+                'note': '严格区分整题核验、开放题组件计算和语言/教学判断；未决模型不视为否定。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

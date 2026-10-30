@@ -50,11 +50,12 @@ for (const item of review.entries) {
   }
   for (const grading of item.grading || []) check(q, grading.input, grading.result);
 }
-for (const item of read('answer_review_remaining_455.json').entries) {
+for (const item of [...read('answer_review_remaining_455.json').entries,
+  ...read('answer_review_remaining_160.json').entries]) {
   for (const grading of item.grading || []) {
     if (!seen.has(JSON.stringify([item.id, grading.input, grading.result]))) {
       check(questions.get(item.id), grading.input, grading.result);
     }
   }
 }
-console.log('PASS: 532 reviewed questions and 455 follow-up records; ' + assertions + ' answer grading assertions');
+console.log('PASS: 532 reviewed questions, 455 and 160 follow-up records; ' + assertions + ' answer grading assertions');

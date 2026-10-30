@@ -12664,6 +12664,3520 @@
           }
         ]
       }
+    },
+    "cnm_003_q4": {
+      "question_sha256": "91a8c5c85f7e90f6bf81046610ed6cd3aed31db2b59f90e8af800ac87a8a8f1e",
+      "spec": {
+        "kind": "f160_real_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "分数不是有理数",
+            "claim": "fraction_class",
+            "number_class": "not_rational"
+          },
+          {
+            "key": "B",
+            "text": "有理数分为正有理数和负有理数两类",
+            "claim": "sign_partition",
+            "domain": "rational",
+            "signs": [
+              -1,
+              1
+            ]
+          },
+          {
+            "key": "C",
+            "text": "0 是正数",
+            "claim": "numeric_sign",
+            "value": 0,
+            "sign": 1
+          },
+          {
+            "key": "D",
+            "text": "正整数、0、负整数统称整数",
+            "claim": "sign_partition",
+            "domain": "integer",
+            "signs": [
+              1,
+              0,
+              -1
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_004_q1": {
+      "question_sha256": "6205d362fc7b4bd1b4b4bcaf2783b460121e4aac68428bf8b815496c1e341110",
+      "spec": {
+        "kind": "f160_missing_axis_parameter",
+        "known": {
+          "origin": 0,
+          "orientation": 1
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "缺少原点",
+            "parameter": "origin"
+          },
+          {
+            "key": "B",
+            "text": "缺少单位长度",
+            "parameter": "unit_length"
+          },
+          {
+            "key": "C",
+            "text": "缺少箭头方向",
+            "parameter": "orientation"
+          }
+        ]
+      }
+    },
+    "cnm_016_q3": {
+      "question_sha256": "bb520d1207d83640fcf3af46addf7a83763cd1bd5eb3831e851a34885a6c57a0",
+      "spec": {
+        "kind": "f160_reciprocal_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "0 的倒数是 0",
+            "claim": "reciprocal_value",
+            "value": 0,
+            "reciprocal": 0
+          },
+          {
+            "key": "B",
+            "text": "倒数等于它本身的数是 1 和 -1",
+            "claim": "fixed_points",
+            "values": [
+              1,
+              -1
+            ]
+          },
+          {
+            "key": "C",
+            "text": "倒数等于它本身的数只有 1",
+            "claim": "fixed_points",
+            "values": [
+              1
+            ]
+          },
+          {
+            "key": "D",
+            "text": "一个数的倒数一定比它小",
+            "claim": "forall_comparison",
+            "operator": "<"
+          }
+        ]
+      }
+    },
+    "cnm_025_q4": {
+      "question_sha256": "4925f49db5bc9eddede5d05cba13ad4802143287c9007b8e477d88db60490139",
+      "spec": {
+        "kind": "f160_real_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "字母 a 一定表示正数",
+            "claim": "forall_affine",
+            "conclusion": {
+              "left": "a",
+              "op": ">",
+              "right": "0"
+            }
+          },
+          {
+            "key": "B",
+            "text": "-a 一定是负数",
+            "claim": "forall_affine",
+            "conclusion": {
+              "left": "-a",
+              "op": "<",
+              "right": "0"
+            }
+          },
+          {
+            "key": "C",
+            "text": "字母 a 可以取正数、负数或 0",
+            "claim": "each_sign_possible",
+            "variable": "a",
+            "signs": [
+              1,
+              -1,
+              0
+            ]
+          },
+          {
+            "key": "D",
+            "text": "a+b 一定大于 a",
+            "claim": "forall_affine",
+            "conclusion": {
+              "left": "a+b",
+              "op": ">",
+              "right": "a"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_028_q2": {
+      "question_sha256": "a291e78a59277a779e245d76f91340c6b05daff4a1bafaf69a274b1b1d1bbfe3",
+      "spec": {
+        "kind": "f160_polygon_quantity",
+        "vertices": [
+          [
+            "0",
+            "0"
+          ],
+          [
+            "a",
+            "0"
+          ],
+          [
+            "a",
+            "a"
+          ],
+          [
+            "0",
+            "a"
+          ]
+        ],
+        "assumptions": {
+          "a": "positive"
+        },
+        "source": "4*a",
+        "options": [
+          {
+            "key": "A",
+            "text": "面积",
+            "quantity": "area"
+          },
+          {
+            "key": "B",
+            "text": "周长",
+            "quantity": "perimeter"
+          },
+          {
+            "key": "C",
+            "text": "对角线长",
+            "quantity": "segment",
+            "vertices": [
+              0,
+              2
+            ]
+          },
+          {
+            "key": "D",
+            "text": "边长的一半",
+            "quantity": "segment",
+            "vertices": [
+              0,
+              1
+            ],
+            "divisor": 2
+          }
+        ]
+      }
+    },
+    "cnm_033_q4": {
+      "question_sha256": "0ebd06f5753b7e9bc9a0d78ddae94c8b47582c6dcf34939ab2858d4c90ac26fb",
+      "spec": {
+        "kind": "f160_monomial_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "所有的常数项都不是同类项",
+            "claim": "all_constants_unlike",
+            "counterexample": [
+              "1",
+              "2"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "2ab 与 2abc 是同类项",
+            "claim": "pair_like",
+            "left": "2ab",
+            "right": "2abc"
+          },
+          {
+            "key": "C",
+            "text": "x²y 与 xy² 是同类项，因为字母相同",
+            "claim": "pair_like",
+            "left": "x²y",
+            "right": "xy²",
+            "reason": "same_letters_only"
+          },
+          {
+            "key": "D",
+            "text": "-3 与 5 是同类项",
+            "claim": "pair_like",
+            "left": "-3",
+            "right": "5"
+          }
+        ]
+      }
+    },
+    "cnm_041_q4": {
+      "question_sha256": "e32980857a4751fd96aeed3238caf0514f1dc1f64ece784adb820243cc870657",
+      "spec": {
+        "kind": "f160_degree_parameter_condition",
+        "expression": "a*x+b",
+        "unknown": "x",
+        "parameters": [
+          "a",
+          "b"
+        ],
+        "degree": 1,
+        "options": [
+          {
+            "key": "A",
+            "text": "a=0",
+            "condition": "a==0"
+          },
+          {
+            "key": "B",
+            "text": "b≠0",
+            "condition": "b!=0"
+          },
+          {
+            "key": "C",
+            "text": "a≠0",
+            "condition": "a!=0"
+          },
+          {
+            "key": "D",
+            "text": "a、b 都不为 0",
+            "condition": "a!=0 and b!=0"
+          }
+        ]
+      }
+    },
+    "cnm_053_q1": {
+      "question_sha256": "1897530d8562333429155ad7a39a1a37c3135cb800e419909bfe9d60e22c7b31",
+      "spec": {
+        "kind": "f160_primitive_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "直线",
+            "claim": "unbounded_directions",
+            "primitive": {
+              "kind": "line",
+              "a": 0,
+              "b": 1
+            },
+            "count": 2
+          },
+          {
+            "key": "B",
+            "text": "射线",
+            "claim": "unbounded_directions",
+            "primitive": {
+              "kind": "ray",
+              "a": 0,
+              "b": 1
+            },
+            "count": 2
+          },
+          {
+            "key": "C",
+            "text": "线段",
+            "claim": "unbounded_directions",
+            "primitive": {
+              "kind": "segment",
+              "a": 0,
+              "b": 1
+            },
+            "count": 2
+          }
+        ]
+      }
+    },
+    "cnm_053_q2": {
+      "question_sha256": "61445b6a655ed01cb006add4762bbfbf6875bd230b2f3bcc7fb82e0c8970cae5",
+      "spec": {
+        "kind": "f160_primitive_claims",
+        "primitive": {
+          "kind": "ray",
+          "a": 0,
+          "b": 1
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "端点是 B，向 BA 方向无限延伸",
+            "claim": "same_as_target",
+            "primitive": {
+              "kind": "ray",
+              "a": 1,
+              "b": 0
+            }
+          },
+          {
+            "key": "B",
+            "text": "端点是 A，向 AB 方向无限延伸",
+            "claim": "same_as_target",
+            "primitive": {
+              "kind": "ray",
+              "a": 0,
+              "b": 1
+            }
+          },
+          {
+            "key": "C",
+            "text": "有 A、B 两个端点",
+            "claim": "endpoint_count",
+            "count": 2
+          },
+          {
+            "key": "D",
+            "text": "可以向两个方向无限延伸",
+            "claim": "unbounded_directions",
+            "count": 2
+          }
+        ]
+      }
+    },
+    "cnm_053_q4": {
+      "question_sha256": "1ef075562f144e428a2738f2b8c8ab5dfc5de3cd429f03860d18446c869578de",
+      "spec": {
+        "kind": "f160_primitive_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "线段 AB 与线段 BA 是不同的线段",
+            "claim": "different_set",
+            "first": {
+              "kind": "segment",
+              "a": 0,
+              "b": 1
+            },
+            "second": {
+              "kind": "segment",
+              "a": 1,
+              "b": 0
+            }
+          },
+          {
+            "key": "B",
+            "text": "射线 AB 与射线 BA 是同一条射线",
+            "claim": "same_set",
+            "first": {
+              "kind": "ray",
+              "a": 0,
+              "b": 1
+            },
+            "second": {
+              "kind": "ray",
+              "a": 1,
+              "b": 0
+            }
+          },
+          {
+            "key": "C",
+            "text": "直线可以度量长度",
+            "claim": "finite_length",
+            "primitive": {
+              "kind": "line",
+              "a": 0,
+              "b": 1
+            }
+          },
+          {
+            "key": "D",
+            "text": "直线 AB 与直线 BA 是同一条直线",
+            "claim": "same_set",
+            "first": {
+              "kind": "line",
+              "a": 0,
+              "b": 1
+            },
+            "second": {
+              "kind": "line",
+              "a": 1,
+              "b": 0
+            }
+          }
+        ]
+      }
+    },
+    "cnm_055_q3": {
+      "question_sha256": "dfa52357f48c3cf4717476950879dc0f11904040d9bdb9cc915010a5b371331e",
+      "spec": {
+        "kind": "f160_affine_order",
+        "premises": [
+          {
+            "left": "b",
+            "op": ">",
+            "right": "0"
+          },
+          {
+            "left": "b",
+            "op": "<",
+            "right": "d"
+          }
+        ],
+        "left": "b",
+        "right": "d",
+        "options": [
+          {
+            "key": "A",
+            "text": "AB>CD",
+            "operator": ">"
+          },
+          {
+            "key": "B",
+            "text": "AB<CD",
+            "operator": "<"
+          },
+          {
+            "key": "C",
+            "text": "AB=CD",
+            "operator": "="
+          },
+          {
+            "key": "D",
+            "text": "无法比较",
+            "operator": "undetermined"
+          }
+        ]
+      }
+    },
+    "cnm_060_q1": {
+      "question_sha256": "f45eb35750d89967d9b87329784c4c57416e3e11e570a7bfef5d484c798a4dff",
+      "spec": {
+        "kind": "f160_affine_reasoning",
+        "ambient": [
+          {
+            "left": "a",
+            "op": ">=",
+            "right": "0"
+          },
+          {
+            "left": "b",
+            "op": ">=",
+            "right": "0"
+          },
+          {
+            "left": "c",
+            "op": ">=",
+            "right": "0"
+          },
+          {
+            "left": "a",
+            "op": "<=",
+            "right": "180"
+          },
+          {
+            "left": "b",
+            "op": "<=",
+            "right": "180"
+          },
+          {
+            "left": "c",
+            "op": "<=",
+            "right": "180"
+          }
+        ],
+        "given": [
+          {
+            "left": "a+b",
+            "op": "=",
+            "right": "90"
+          },
+          {
+            "left": "a+c",
+            "op": "=",
+            "right": "90"
+          }
+        ],
+        "compare": [
+          "b",
+          "c"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "∠2=∠3，因为同角的补角相等",
+            "claim": "explained_conclusion",
+            "reasons": [
+              {
+                "left": "a+b",
+                "op": "=",
+                "right": "180"
+              },
+              {
+                "left": "a+c",
+                "op": "=",
+                "right": "180"
+              }
+            ],
+            "conclusions": [
+              {
+                "left": "b",
+                "op": "=",
+                "right": "c"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "∠2+∠3=180°，因为互为补角",
+            "claim": "explained_conclusion",
+            "reasons": [
+              {
+                "left": "b+c",
+                "op": "=",
+                "right": "180"
+              }
+            ],
+            "conclusions": [
+              {
+                "left": "b+c",
+                "op": "=",
+                "right": "180"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "∠2=∠3，因为同角的余角相等",
+            "claim": "explained_conclusion",
+            "reasons": [
+              {
+                "left": "a+b",
+                "op": "=",
+                "right": "90"
+              },
+              {
+                "left": "a+c",
+                "op": "=",
+                "right": "90"
+              }
+            ],
+            "conclusions": [
+              {
+                "left": "b",
+                "op": "=",
+                "right": "c"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "无法确定它们的关系",
+            "claim": "undetermined"
+          }
+        ]
+      }
+    },
+    "cnm_064_q4": {
+      "question_sha256": "75321af613b20c15b3f8e4b5728601f5036916c0b4c92e80c2f26674ac748c4a",
+      "spec": {
+        "kind": "f160_line_relation_family",
+        "plane_dimension": 2,
+        "relations": [
+          [
+            "a",
+            "perpendicular",
+            "b"
+          ],
+          [
+            "b",
+            "perpendicular",
+            "c"
+          ]
+        ],
+        "query": [
+          "a",
+          "c"
+        ],
+        "distinct_pairs": [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "b",
+            "c"
+          ],
+          [
+            "a",
+            "c"
+          ]
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "a⊥c",
+            "relation": "perpendicular"
+          },
+          {
+            "key": "B",
+            "text": "a 与 c 相交但不垂直",
+            "relation": "intersect_nonperpendicular"
+          },
+          {
+            "key": "C",
+            "text": "a∥c",
+            "relation": "parallel"
+          },
+          {
+            "key": "D",
+            "text": "a 与 c 重合",
+            "relation": "coincident"
+          }
+        ]
+      }
+    },
+    "cnm_066_q1": {
+      "question_sha256": "19f77c96994c66efd783fc0a8ec6e274a8f1ab7d547f40123b00d3aa776616e7",
+      "spec": {
+        "kind": "f160_angle_slot_classification",
+        "angles": [
+          {
+            "vertex": "upper",
+            "region": "interior",
+            "side": "right"
+          },
+          {
+            "vertex": "lower",
+            "region": "interior",
+            "side": "left"
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "同位角",
+            "angle_class": "corresponding"
+          },
+          {
+            "key": "B",
+            "text": "同旁内角",
+            "angle_class": "same_side_interior"
+          },
+          {
+            "key": "C",
+            "text": "对顶角",
+            "angle_class": "vertical"
+          },
+          {
+            "key": "D",
+            "text": "内错角",
+            "angle_class": "alternate_interior"
+          }
+        ]
+      }
+    },
+    "cnm_066_q4": {
+      "question_sha256": "603507a52be2494c6d61b7ab13e2742322c647ff68005e51e944207859992abb",
+      "spec": {
+        "kind": "f160_angle_slot_classification",
+        "angles": [
+          {
+            "vertex": "upper",
+            "region": "interior",
+            "side": "right"
+          },
+          {
+            "vertex": "lower",
+            "region": "interior",
+            "side": "right"
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "同位角",
+            "angle_class": "corresponding"
+          },
+          {
+            "key": "B",
+            "text": "内错角",
+            "angle_class": "alternate_interior"
+          },
+          {
+            "key": "C",
+            "text": "同旁内角",
+            "angle_class": "same_side_interior"
+          },
+          {
+            "key": "D",
+            "text": "邻补角",
+            "angle_class": "linear_pair"
+          }
+        ]
+      }
+    },
+    "cnm_067_q1": {
+      "question_sha256": "7d021419ed328cdde162198ff94db06f73eda66b5dd78981eab49e0522a57dd6",
+      "spec": {
+        "kind": "f160_line_relation_family",
+        "plane_dimension": 2,
+        "relations": [
+          [
+            "a",
+            "parallel",
+            "b"
+          ],
+          [
+            "b",
+            "parallel",
+            "c"
+          ]
+        ],
+        "query": [
+          "a",
+          "c"
+        ],
+        "distinct_pairs": [
+          [
+            "a",
+            "c"
+          ]
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "a⊥c",
+            "relation": "perpendicular"
+          },
+          {
+            "key": "B",
+            "text": "a∥c",
+            "relation": "parallel"
+          },
+          {
+            "key": "C",
+            "text": "a 与 c 相交但不垂直",
+            "relation": "intersect_nonperpendicular"
+          },
+          {
+            "key": "D",
+            "text": "无法确定",
+            "relation": "undetermined"
+          }
+        ]
+      }
+    },
+    "cnm_067_q4": {
+      "question_sha256": "3731486afb35b9762c1c2cfe85067f2622a8e7618f17179b0b3f5693a4f18a9b",
+      "spec": {
+        "kind": "f160_parallel_axiom_claims",
+        "plane_dimension": 2,
+        "options": [
+          {
+            "key": "A",
+            "text": "过直线外一点有且只有一条直线与已知直线平行",
+            "claim": "parallel_count",
+            "point_domain": "off_line",
+            "count": 1
+          },
+          {
+            "key": "B",
+            "text": "两个没有公共点的线段，其所在直线一定平行",
+            "claim": "disjoint_segments_imply_parallel_lines",
+            "counterexample": [
+              [
+                [
+                  1,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ]
+              ],
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  2
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "过一点有且只有一条直线与已知直线平行",
+            "claim": "parallel_count",
+            "point_domain": "all",
+            "count": 1,
+            "counterexample": {
+              "point": [
+                0,
+                0
+              ],
+              "line": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "平行于同一条直线的两条直线互相垂直",
+            "claim": "common_parallel_implies_perpendicular",
+            "counterexample": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  0
+                ]
+              ],
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ],
+              [
+                [
+                  0,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_068_q1": {
+      "question_sha256": "869554511acd292a56ef68d67ca464f1e27e6850752a48442559636f5172e317",
+      "spec": {
+        "kind": "f160_numeric_angle_lines",
+        "angles": [
+          {
+            "vertex": "upper",
+            "region": "interior",
+            "side": "right"
+          },
+          {
+            "vertex": "lower",
+            "region": "exterior",
+            "side": "right"
+          }
+        ],
+        "measures": [
+          65,
+          65
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "a⊥b",
+            "relation": "perpendicular"
+          },
+          {
+            "key": "B",
+            "text": "a 与 b 相交",
+            "relation": "intersect"
+          },
+          {
+            "key": "C",
+            "text": "无法判断",
+            "relation": "undetermined"
+          },
+          {
+            "key": "D",
+            "text": "a∥b",
+            "relation": "parallel"
+          }
+        ]
+      }
+    },
+    "cnm_068_q2": {
+      "question_sha256": "6565cadb24e03c1ff5cabe27ea7776fde6d6c0c5885bf363aac28c041a25202c",
+      "spec": {
+        "kind": "f160_parallel_angle_claims",
+        "mode": "criterion",
+        "options": [
+          {
+            "key": "A",
+            "text": "同旁内角相等",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "right"
+              }
+            ],
+            "relation": "equal"
+          },
+          {
+            "key": "B",
+            "text": "同位角互补",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "exterior",
+                "side": "right"
+              }
+            ],
+            "relation": "supplementary"
+          },
+          {
+            "key": "C",
+            "text": "内错角相等",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "left"
+              }
+            ],
+            "relation": "equal"
+          },
+          {
+            "key": "D",
+            "text": "同旁内角互余",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "right"
+              }
+            ],
+            "relation": "complementary"
+          }
+        ]
+      }
+    },
+    "cnm_068_q5": {
+      "question_sha256": "1b783085fadf0be44d577701701254975a903aa39035bbd8e6fc7aeb3e7ff12f",
+      "spec": {
+        "kind": "f160_supplementary_quad",
+        "vertices": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "supplementary": [
+          "A",
+          "D"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "AB∥CD",
+            "claim": "parallel_edges",
+            "edges": [
+              [
+                "A",
+                "B"
+              ],
+              [
+                "C",
+                "D"
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "AD∥BC",
+            "claim": "parallel_edges",
+            "edges": [
+              [
+                "A",
+                "D"
+              ],
+              [
+                "B",
+                "C"
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "AC∥BD",
+            "claim": "parallel_edges",
+            "edges": [
+              [
+                "A",
+                "C"
+              ],
+              [
+                "B",
+                "D"
+              ]
+            ]
+          },
+          {
+            "key": "D",
+            "text": "四边形 ABCD 是平行四边形",
+            "claim": "parallelogram"
+          }
+        ]
+      }
+    },
+    "cnm_069_q2": {
+      "question_sha256": "ba6536da56229b732f2f50125d4d48cfa094ee3a9aae14e06e414b985eaf0d33",
+      "spec": {
+        "kind": "f160_parallel_angle_claims",
+        "mode": "property",
+        "options": [
+          {
+            "key": "A",
+            "text": "同位角互补",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "exterior",
+                "side": "right"
+              }
+            ],
+            "relation": "supplementary"
+          },
+          {
+            "key": "B",
+            "text": "内错角相等",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "left"
+              }
+            ],
+            "relation": "equal"
+          },
+          {
+            "key": "C",
+            "text": "同旁内角相等",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "right"
+              }
+            ],
+            "relation": "equal"
+          },
+          {
+            "key": "D",
+            "text": "内错角互补",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "left"
+              }
+            ],
+            "relation": "supplementary"
+          }
+        ]
+      }
+    },
+    "cnm_072_q1": {
+      "question_sha256": "36efeb9079788bc52a2e8d71a6b08de672da408079a6b76052f535ed27169a1a",
+      "spec": {
+        "kind": "f160_translation_relations",
+        "translation_domain": "nonzero",
+        "options": [
+          {
+            "key": "A",
+            "text": "相交于一点",
+            "relation": "always_one_intersection",
+            "counterexample": {
+              "points": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              "vector": [
+                1,
+                0
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "互相垂直",
+            "relation": "always_perpendicular"
+          },
+          {
+            "key": "C",
+            "text": "平行（或在同一直线上）且相等",
+            "relation": "parallel_or_collinear_and_equal"
+          },
+          {
+            "key": "D",
+            "text": "平行但不相等",
+            "relation": "parallel_and_unequal"
+          }
+        ]
+      }
+    },
+    "cnm_076_q3": {
+      "question_sha256": "5163e4020088d5b1921ab0fb7e01fcd32baf3d78612cdb2906ffc3bd68014735",
+      "spec": {
+        "kind": "f160_cubic_root_counts",
+        "degree": 3,
+        "options": [
+          {
+            "key": "A",
+            "text": "任何实数都有且只有一个立方根",
+            "domain": "real",
+            "count": 1
+          },
+          {
+            "key": "B",
+            "text": "负数没有立方根",
+            "domain": "negative",
+            "count": 0
+          },
+          {
+            "key": "C",
+            "text": "一个正数有两个立方根，它们互为相反数",
+            "domain": "positive",
+            "count": 2
+          },
+          {
+            "key": "D",
+            "text": "0 的立方根不存在",
+            "domain": "zero",
+            "count": 0
+          }
+        ]
+      }
+    },
+    "cnm_078_q1": {
+      "question_sha256": "a8dcded914707a8861a69a1aa99cb30ca7374d6068597ab34cd47f2c9107ea5c",
+      "spec": {
+        "kind": "f160_pi_location",
+        "terms": 6,
+        "options": [
+          {
+            "key": "A",
+            "text": "0 和 1 之间",
+            "interval": [
+              0,
+              1
+            ]
+          },
+          {
+            "key": "B",
+            "text": "2 和 3 之间",
+            "interval": [
+              2,
+              3
+            ]
+          },
+          {
+            "key": "C",
+            "text": "3 和 4 之间，约 3.14",
+            "interval": [
+              3,
+              4
+            ],
+            "approximation": "3.14",
+            "decimal_places": 2
+          },
+          {
+            "key": "D",
+            "text": "4 和 5 之间",
+            "interval": [
+              4,
+              5
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_094_q3": {
+      "question_sha256": "0995552d79b259d1c18511a53fc8533f2ad277c79f7a663dfeee9730214b0bac",
+      "spec": {
+        "kind": "g160_inequality_objects",
+        "variable": "x",
+        "relation": "x>2",
+        "options": [
+          {
+            "key": "A",
+            "text": "x=2 是它的一个解",
+            "claim": "membership",
+            "point": 2
+          },
+          {
+            "key": "B",
+            "text": "它只有一个解",
+            "claim": "cardinality",
+            "count": 1
+          },
+          {
+            "key": "C",
+            "text": "x>2 是它的解集",
+            "claim": "set_equality",
+            "relation": "x>2"
+          },
+          {
+            "key": "D",
+            "text": "x=3 是它的解集",
+            "claim": "set_equality",
+            "points": [
+              3
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_119_q2": {
+      "question_sha256": "445879b427422bf04b7ab096d9a7e55ab5ccaa6066409c7d0326e35de470691f",
+      "spec": {
+        "kind": "g160_localization_rank",
+        "dimension": 2,
+        "variables": [
+          "u"
+        ],
+        "nonzero": [
+          "v"
+        ],
+        "normals": [
+          [
+            1,
+            0
+          ],
+          [
+            "u",
+            "v"
+          ]
+        ]
+      }
+    },
+    "cnm_120_q2": {
+      "question_sha256": "55f5d349c18ecf9e0560318a289ce031aa87790baf20e851c0147ab21f903c8c",
+      "spec": {
+        "kind": "g160_congruence_invariants",
+        "options": [
+          {
+            "key": "A",
+            "text": "面积相等的两个三角形全等",
+            "premise": "area",
+            "counterexample_triangles": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  0,
+                  2
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "周长相等的两个三角形全等",
+            "premise": "perimeter",
+            "counterexample_triangles": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  0,
+                  3
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  1,
+                  "sqrt(24)"
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "能够完全重合的两个图形全等",
+            "premise": "rigid_overlap"
+          },
+          {
+            "key": "D",
+            "text": "形状相同的两个图形全等",
+            "premise": "similar_shape",
+            "counterexample_triangles": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  0,
+                  3
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  0
+                ],
+                [
+                  0,
+                  6
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_123_q1": {
+      "question_sha256": "c987c92394b4f8a5143bf6a3128bcffad9940d2be9d3d0778d49fd4d307ce9b2",
+      "spec": {
+        "kind": "g160_ssa_claims",
+        "counterexample": {
+          "adjacent": 4,
+          "opposite": 3,
+          "angle_degrees": 30
+        },
+        "congruent_example": [
+          3,
+          4,
+          5
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "一定全等",
+            "quantifier": "all"
+          },
+          {
+            "key": "B",
+            "text": "不一定；若相等角是这两边的夹角，则可用 SAS 判定全等",
+            "quantifier": "not_all_and_sufficient",
+            "additional": "included_angle",
+            "criterion": "SAS"
+          },
+          {
+            "key": "C",
+            "text": "一定不全等",
+            "quantifier": "none"
+          },
+          {
+            "key": "D",
+            "text": "一定全等，依据 SSA",
+            "quantifier": "all",
+            "criterion": "SSA"
+          }
+        ]
+      }
+    },
+    "cnm_125_q1": {
+      "question_sha256": "75a44c5ed0d5fb52e3bf8947fb163bfcf97baf7b80536060de846142539de3c4",
+      "spec": {
+        "kind": "g160_hl_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "因为已有一个直角对应相等，斜边和直角边对应相等是 SSA 的特例，即 HL",
+            "proof": "right_hypotenuse_leg"
+          },
+          {
+            "key": "B",
+            "text": "因为任意两个三角形只要两边及其中一边的对角对应相等就全等",
+            "proof": "unrestricted_ssa",
+            "counterexample": {
+              "adjacent": 4,
+              "opposite": 3,
+              "angle_degrees": 30
+            }
+          },
+          {
+            "key": "C",
+            "text": "因为直角三角形的两个锐角互余，所以三个角都对应相等",
+            "proof": "right_angles_force_all_angles",
+            "counterexample_angles": [
+              [
+                30,
+                60,
+                90
+              ],
+              [
+                45,
+                45,
+                90
+              ]
+            ]
+          },
+          {
+            "key": "D",
+            "text": "因为直角三角形的斜边总是最短的边",
+            "proof": "hypotenuse_shortest",
+            "counterexample_sides": [
+              3,
+              4,
+              5
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_128_q2": {
+      "question_sha256": "f34251392f813575b61e53f23408149e37bd4e27cca1df6e935fe488352c4f54",
+      "spec": {
+        "kind": "g160_distance_minimum",
+        "variables": [
+          "p",
+          "q",
+          "e"
+        ],
+        "positive": [
+          "h"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "点到两边端点的距离",
+            "squared_distance": "(p-e)**2+h**2"
+          },
+          {
+            "key": "B",
+            "text": "点到两边的垂线段的长度",
+            "squared_distance": "h**2"
+          },
+          {
+            "key": "C",
+            "text": "点到顶点的距离",
+            "squared_distance": "p**2+h**2"
+          },
+          {
+            "key": "D",
+            "text": "点到两边上任意一点的距离",
+            "squared_distance": "(p-q)**2+h**2"
+          }
+        ]
+      }
+    },
+    "cnm_129_q1": {
+      "question_sha256": "78b08e779a2c2f324b2442951bfba041dc73d93519b9177b5842ebb7cf79651b",
+      "spec": {
+        "kind": "g160_angle_bisector",
+        "full_angle_domain": [
+          0,
+          180
+        ],
+        "point_region": "interior",
+        "radius_domain": "positive",
+        "options": [
+          {
+            "key": "A",
+            "text": "是，一定在平分线上",
+            "claim": "angle_relation",
+            "expression": "p-t",
+            "op": "="
+          },
+          {
+            "key": "B",
+            "text": "不一定，还要看 P 到顶点 O 的距离",
+            "claim": "depends_on_radius"
+          },
+          {
+            "key": "C",
+            "text": "不一定，只有 ∠AOB 是直角时才在平分线上",
+            "claim": "requires_full_angle",
+            "degrees": 90,
+            "counterexample_full_angle": 60,
+            "counterexample_radius": 1
+          },
+          {
+            "key": "D",
+            "text": "不是，一定不在平分线上",
+            "claim": "angle_relation",
+            "expression": "p-t",
+            "op": "!="
+          }
+        ]
+      }
+    },
+    "cnm_131_q2": {
+      "question_sha256": "4570c7f539d4e049c603f383f9c69232c0f3e04114a10e55a967d9992b31b4d7",
+      "spec": {
+        "kind": "g160_symmetry_families",
+        "options": [
+          {
+            "key": "A",
+            "text": "平行四边形",
+            "family": "parallelogram",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                1,
+                2
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "等腰三角形",
+            "family": "isosceles_triangle"
+          },
+          {
+            "key": "C",
+            "text": "直角三角形",
+            "family": "right_triangle",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ]
+          },
+          {
+            "key": "D",
+            "text": "任意梯形",
+            "family": "trapezoid",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                6,
+                0
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                1,
+                2
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_131_q3": {
+      "question_sha256": "f3a228ba360de4200dd7d4b12c51f68b5072ef11ec372660f2389600690a8284",
+      "spec": {
+        "kind": "g160_reflection_implications",
+        "options": [
+          {
+            "key": "A",
+            "text": "两个全等的图形一定成轴对称",
+            "conclusion": "congruence_suffices_for_reflection",
+            "counterexample_triangles": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  2
+                ]
+              ],
+              [
+                [
+                  5,
+                  0
+                ],
+                [
+                  8,
+                  0
+                ],
+                [
+                  6,
+                  2
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "成轴对称的两个图形必须有公共点",
+            "conclusion": "reflections_intersect",
+            "counterexample_triangles": [
+              [
+                [
+                  2,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  3,
+                  1
+                ]
+              ],
+              [
+                [
+                  -2,
+                  0
+                ],
+                [
+                  -4,
+                  0
+                ],
+                [
+                  -3,
+                  1
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "成轴对称的两个图形只需形状相同，大小可以不同",
+            "conclusion": "similarity_suffices_for_reflection",
+            "counterexample_triangles": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  4,
+                  0
+                ],
+                [
+                  0,
+                  3
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  0
+                ],
+                [
+                  0,
+                  6
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "D",
+            "text": "成轴对称的两个图形一定全等",
+            "conclusion": "isometry"
+          }
+        ]
+      }
+    },
+    "cnm_132_q1": {
+      "question_sha256": "6856a690f1290efbddc47fcaab6a83324cddca1084da5161030be7a362f22f05",
+      "spec": {
+        "kind": "g160_symbolic_claims",
+        "variables": [
+          "u"
+        ],
+        "positive": [
+          "v"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "l 平行于 AA′",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "2*v"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "l 垂直于 AA′，但不一定平分它",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "1*(u-u)+0*((-v)-v)"
+              },
+              {
+                "op": "not_identity",
+                "expression": "(v+(-v))/2"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "l 垂直平分 AA′",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "1*(u-u)+0*((-v)-v)"
+              },
+              {
+                "op": "identity",
+                "expression": "(v+(-v))/2"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "l 与 AA′ 互相平分，但不一定垂直",
+            "clauses": [
+              {
+                "op": "not_identity",
+                "expression": "1*(u-u)+0*((-v)-v)"
+              }
+            ],
+            "opaque_conjunct": "两条无限直线互相平分没有定义，另一个“不一定垂直”的合取项已被精确否定"
+          }
+        ]
+      }
+    },
+    "cnm_133_q2": {
+      "question_sha256": "f5a2f1fc3bca28c1c91651acac8b52e90a999d57ec5d981acddac38bd50407e3",
+      "spec": {
+        "kind": "g160_equidistant_locus",
+        "positive": [
+          "a"
+        ],
+        "variables": [
+          "x",
+          "y"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "线段 AB 上",
+            "condition": "And(Eq(y,0),x>=-a,x<=a)",
+            "counterexample": {
+              "a": 1,
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "key": "B",
+            "text": "线段 AB 的延长线上",
+            "condition": "And(Eq(y,0),Or(x< -a,x>a))",
+            "counterexample": {
+              "a": 1,
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "key": "C",
+            "text": "过点 A 且垂直于 AB 的直线上",
+            "condition": "Eq(x,-a)",
+            "counterexample": {
+              "a": 1,
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "key": "D",
+            "text": "线段 AB 的垂直平分线上",
+            "condition": "Eq(x,0)"
+          }
+        ]
+      }
+    },
+    "cnm_134_q1": {
+      "question_sha256": "5e76c549ed785129d966442bb2445f3d6ed2b4b1fa816b826d3004dc9a7b0d05",
+      "spec": {
+        "kind": "g160_symbolic_claims",
+        "construction": "equal_circle_intersections",
+        "positive": [
+          "a",
+          "h"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "因为 CD 与 AB 平行且相等",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "4*a*h"
+              },
+              {
+                "op": "identity",
+                "expression": "4*h**2-4*a**2"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "因为 C、D 是线段 AB 上的两个点",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "h"
+              },
+              {
+                "op": "identity",
+                "expression": "-h"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "C、D 各到 A、B 的距离相等，由判定知 C、D 都在 AB 的垂直平分线上，两点确定直线 CD",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "(0-(-a))**2+(h-0)**2-((0-a)**2+(h-0)**2)"
+              },
+              {
+                "op": "identity",
+                "expression": "(0-(-a))**2+((-h)-0)**2-((0-a)**2+((-h)-0)**2)"
+              },
+              {
+                "op": "positive",
+                "expression": "2*h"
+              },
+              {
+                "op": "identity",
+                "expression": "(0-0)*(2*a)+(h-(-h))*0"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "因为所画圆弧的半径等于 AB 的长",
+            "clauses": [
+              {
+                "op": "identity",
+                "expression": "a**2+h**2-(2*a)**2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_135_q1": {
+      "question_sha256": "7ef4180056a24da3839f481a161e79a274eb84bd1916ea0ba8a935e175da4130",
+      "spec": {
+        "kind": "g160_reflection_constructions",
+        "variables": [
+          "p",
+          "x",
+          "y"
+        ],
+        "positive": [
+          "v",
+          "r"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "过 A 作 l 的平行线，在 l 的另一侧截取等长线段",
+            "equations": [
+              "y-v"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "以 A 为圆心、任意长为半径画弧交 l 于一点，该点即所求",
+            "equations": [
+              "y",
+              "x**2+(y-v)**2-r**2"
+            ]
+          },
+          {
+            "key": "C",
+            "text": "连接 A 与 l 上任一点 P 并延长到 A′，使 PA′=PA",
+            "equations": [
+              "x-2*p",
+              "y+v"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "过 A 作 l 的垂线，垂足为 O，在垂线上另一侧截取 OA′=OA，A′ 即所求",
+            "equations": [
+              "x",
+              "y+v"
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_139_q1": {
+      "question_sha256": "81ce008fc9c71f797ad1c946cee4b2dabcd5472117b9997b62ad928baf027063",
+      "spec": {
+        "kind": "g160_isosceles_angle_cases",
+        "angle": 60,
+        "options": [
+          {
+            "key": "A",
+            "text": "不一定，60° 角为底角时不是等边三角形",
+            "placements": [
+              "B",
+              "C"
+            ],
+            "quantifier": "exists",
+            "conclusion": "not_equilateral"
+          },
+          {
+            "key": "B",
+            "text": "不一定，60° 角为顶角时不是等边三角形",
+            "placements": [
+              "A"
+            ],
+            "quantifier": "exists",
+            "conclusion": "not_equilateral"
+          },
+          {
+            "key": "C",
+            "text": "一定是，无论 60° 角是顶角还是底角，三个角都是 60°",
+            "placements": [
+              "A",
+              "B",
+              "C"
+            ],
+            "quantifier": "all",
+            "conclusion": "equilateral"
+          },
+          {
+            "key": "D",
+            "text": "一定不是，因为等腰三角形只有两腰相等",
+            "placements": [
+              "A",
+              "B",
+              "C"
+            ],
+            "quantifier": "all",
+            "conclusion": "not_equilateral"
+          }
+        ]
+      }
+    },
+    "cnm_178_q2": {
+      "question_sha256": "fc1960981059b5bd579fe3594655d445012123fc107d3a0505549a43701b63bd",
+      "spec": {
+        "kind": "g160_hypotenuse_order",
+        "options": [
+          {
+            "key": "A",
+            "text": "最短边",
+            "selection": "least"
+          },
+          {
+            "key": "B",
+            "text": "任意一条边",
+            "selection": "arbitrary"
+          },
+          {
+            "key": "C",
+            "text": "最长边",
+            "selection": "greatest"
+          }
+        ]
+      }
+    },
+    "cnm_180_q3": {
+      "question_sha256": "8268ba9c12a7af10cd59a336dc2ab0e2330e44baad00c3bec526fc99d0fd98d7",
+      "spec": {
+        "kind": "g160_regular_polygon_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "各边相等的多边形是正多边形",
+            "claim": "regular_from_properties",
+            "given": [
+              "equal_sides"
+            ],
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                5,
+                0
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "各角相等的多边形是正多边形",
+            "claim": "regular_from_properties",
+            "given": [
+              "equal_angles"
+            ],
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                4,
+                0
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                0,
+                2
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "各边相等且各角相等的多边形是正多边形",
+            "claim": "regular_from_properties",
+            "given": [
+              "equal_sides",
+              "equal_angles"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "n 边形从一个顶点出发可引 n-2 条对角线",
+            "claim": "vertex_diagonal_count",
+            "expression": "n-2"
+          }
+        ]
+      }
+    },
+    "cnm_184_q1": {
+      "question_sha256": "1ca12dcf7a63802224e562c5fda135079b66c800de6e9fdf7b0df07ba6585f28",
+      "spec": {
+        "kind": "g160_quadrilateral_quantifiers",
+        "given": [
+          "parallel_ab_cd",
+          "equal_ab_cd"
+        ],
+        "goal": "parallelogram",
+        "options": [
+          {
+            "key": "A",
+            "text": "是",
+            "quantifier": "all"
+          },
+          {
+            "key": "B",
+            "text": "不是",
+            "quantifier": "none",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                1,
+                2
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "不一定",
+            "quantifier": "not_all"
+          }
+        ]
+      }
+    },
+    "cnm_212_q5": {
+      "question_sha256": "f182ae66fa58ff5c0d7542261bca41e248e372abc3305d1ed3b942a7c4f75bf7",
+      "spec": {
+        "kind": "g160_weighted_influence",
+        "weight_domain": "positive",
+        "other_weight": "positive_fixed",
+        "options": [
+          {
+            "key": "A",
+            "text": "该数据对平均数的影响越大",
+            "claim": "data_sensitivity_increases"
+          },
+          {
+            "key": "B",
+            "text": "该数据本身越大",
+            "claim": "data_value_increases"
+          },
+          {
+            "key": "C",
+            "text": "该数据出现的次数越少",
+            "claim": "frequency_decreases",
+            "counterexample_counts": [
+              1,
+              2
+            ]
+          },
+          {
+            "key": "D",
+            "text": "平均数一定越大",
+            "claim": "mean_increases",
+            "counterexample": {
+              "before": 1,
+              "after": 2,
+              "data": 1,
+              "other_data": 2,
+              "other_weight": 1
+            }
+          }
+        ]
+      }
+    },
+    "cnm_246_q1": {
+      "question_sha256": "ca9fb1b3091b10cff88a581d48d22fd540be54eedec8e77c412ffca5526c2011",
+      "spec": {
+        "kind": "rotation160_right_angle_construction",
+        "angle_degrees": 90,
+        "direction": "counterclockwise",
+        "options": [
+          {
+            "key": "A",
+            "text": "过 A 作 CA 的垂线，在垂线上任取一点作为 A′",
+            "perpendicular_through": "source",
+            "radius": null,
+            "orientation": "either"
+          },
+          {
+            "key": "B",
+            "text": "连 CA，作 ∠ACA′=90°，截取 CA′=AB",
+            "perpendicular_through": "center",
+            "radius": "AB",
+            "orientation": "either"
+          },
+          {
+            "key": "C",
+            "text": "连 CA，作 ∠ACA′=90°（逆时针方向），截取 CA′=CA",
+            "perpendicular_through": "center",
+            "radius": "CA",
+            "orientation": "counterclockwise"
+          }
+        ]
+      }
+    },
+    "cnm_250_q2": {
+      "question_sha256": "704a5d1ab41b410145f725d8547c41695c8e677fb8a614f36ee0b5999048ab95",
+      "spec": {
+        "kind": "app160_relation_proofs",
+        "options": [
+          {
+            "key": "A",
+            "text": "圆中任意一条弧都是半圆",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "premises": [
+                  {
+                    "left": "t",
+                    "op": "<",
+                    "right": "2"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "r*t",
+                    "op": "=",
+                    "right": "r"
+                  }
+                ],
+                "witness": {
+                  "r": 1,
+                  "t": "1/2"
+                },
+                "counterexample": {
+                  "r": 1,
+                  "t": "1/2"
+                }
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "直径是圆中最长的弦",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "a": "real",
+                  "b": "real",
+                  "c": "real",
+                  "d": "real"
+                },
+                "premises": [
+                  {
+                    "left": "a**2+b**2",
+                    "op": "=",
+                    "right": "r**2"
+                  },
+                  {
+                    "left": "c**2+d**2",
+                    "op": "=",
+                    "right": "r**2"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "4*r**2-(a-c)**2-(b-d)**2",
+                    "op": ">=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "r": 1,
+                  "a": 1,
+                  "b": 0,
+                  "c": -1,
+                  "d": 0
+                },
+                "certificates": {
+                  "0": {
+                    "squares": [
+                      "a+c",
+                      "b+d"
+                    ]
+                  }
+                }
+              },
+              {
+                "variables": {
+                  "r": "positive"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "(r-(-r))**2",
+                    "op": "=",
+                    "right": "4*r**2"
+                  }
+                ],
+                "witness": {
+                  "r": 1
+                },
+                "mode": "forall"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "半径相等的两个圆是同心圆",
+            "cases": [
+              {
+                "variables": {
+                  "a": "real",
+                  "b": "real",
+                  "r": "positive"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "a",
+                    "op": "=",
+                    "right": "0"
+                  },
+                  {
+                    "left": "b",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "a": 1,
+                  "b": 0,
+                  "r": 1
+                },
+                "counterexample": {
+                  "a": 1,
+                  "b": 0,
+                  "r": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_251_q4": {
+      "question_sha256": "c0d829b2d61812a70c6aa467c8005e44504518f08346649f681864140b99ba3f",
+      "spec": {
+        "kind": "app160_relation_proofs",
+        "options": [
+          {
+            "key": "A",
+            "text": "平分弦（不是直径）的直径垂直于这条弦",
+            "cases": [
+              {
+                "variables": {
+                  "a": "positive",
+                  "d": "nonzero",
+                  "u": "real",
+                  "v": "real"
+                },
+                "premises": [
+                  {
+                    "left": "d*u",
+                    "op": "=",
+                    "right": "0"
+                  },
+                  {
+                    "left": "d",
+                    "op": "!=",
+                    "right": "0"
+                  },
+                  {
+                    "left": "u*u+v*v",
+                    "op": ">",
+                    "right": "0"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "2*a*u",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "a": 1,
+                  "d": 1,
+                  "u": 0,
+                  "v": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "平分弦的直线一定垂直于这条弦",
+            "cases": [
+              {
+                "variables": {
+                  "a": "positive",
+                  "d": "nonzero",
+                  "u": "real",
+                  "v": "real"
+                },
+                "premises": [
+                  {
+                    "left": "u**2+v**2",
+                    "op": ">",
+                    "right": "0"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "2*a*u",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "a": 1,
+                  "d": 1,
+                  "u": 1,
+                  "v": 1
+                },
+                "counterexample": {
+                  "a": 1,
+                  "d": 1,
+                  "u": 1,
+                  "v": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "垂直于弦的直线一定经过圆心",
+            "cases": [
+              {
+                "variables": {
+                  "a": "positive",
+                  "d": "real",
+                  "c": "real"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "c",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "a": 1,
+                  "d": 1,
+                  "c": 1
+                },
+                "counterexample": {
+                  "a": 1,
+                  "d": 1,
+                  "c": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_252_q1": {
+      "question_sha256": "89f60c53ce6f3609de335351f2ff1ed4a904dd670a0ec8e298b1222cbce13ca3",
+      "spec": {
+        "kind": "app160_circle_pairs",
+        "options": [
+          {
+            "key": "A",
+            "text": "弧相等，弦不一定相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "arc",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              },
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "chord_squared",
+                "mode": "not_always_equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "弧相等，弦相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "arc",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              },
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "chord_squared",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "弦相等，弧不一定相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "chord_squared",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              },
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "arc",
+                "mode": "not_always_equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_252_q4": {
+      "question_sha256": "69511696e50587a1ebe9f7c4aa6309d3891357d838f1938c7b9e7716b0e7ec95",
+      "spec": {
+        "kind": "app160_circle_pairs",
+        "options": [
+          {
+            "key": "A",
+            "text": "相等的圆心角所对的弧相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "s": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t"
+                  },
+                  {
+                    "radius": "s",
+                    "angle": "t"
+                  }
+                ],
+                "quantity": "arc",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1,
+                  "s": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "在同圆中，相等的弧所对的弦不相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t/r"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t/r"
+                  }
+                ],
+                "quantity": "chord_squared",
+                "mode": "not_always_equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "在同圆中，相等的弧所对的圆心角相等",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "t": "positive"
+                },
+                "circles": [
+                  {
+                    "radius": "r",
+                    "angle": "t/r"
+                  },
+                  {
+                    "radius": "r",
+                    "angle": "t/r"
+                  }
+                ],
+                "quantity": "angle",
+                "mode": "equal",
+                "witness": {
+                  "r": 1,
+                  "t": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_254_q4": {
+      "question_sha256": "e888e0b051527f8a0d91aaf8229d36a874e359f640d67eb27b3c3f782ffe6c6b",
+      "spec": {
+        "kind": "app160_circumcircle_chord",
+        "options": [
+          {
+            "key": "A",
+            "text": "AB 小于⊙O 的半径",
+            "op": "<",
+            "radius_squared_factor": 1
+          },
+          {
+            "key": "B",
+            "text": "AB 是⊙O 的直径",
+            "op": "=",
+            "radius_squared_factor": 4
+          },
+          {
+            "key": "C",
+            "text": "无法确定 AB 是否为直径",
+            "op": "=",
+            "radius_squared_factor": 4,
+            "quantifier": "not_forall"
+          }
+        ],
+        "variables": {
+          "a": "positive",
+          "b": "positive"
+        },
+        "vertices": [
+          [
+            "a",
+            "0"
+          ],
+          [
+            "0",
+            "b"
+          ],
+          [
+            "0",
+            "0"
+          ]
+        ],
+        "chord": [
+          0,
+          1
+        ],
+        "witness": {
+          "a": 1,
+          "b": 2
+        }
+      }
+    },
+    "cnm_258_q2": {
+      "question_sha256": "950074be70ea8f482f0617e72bdf25fd2558ba2d9c253354ef18a1416d5aed04",
+      "spec": {
+        "kind": "app160_cone_development",
+        "options": [
+          {
+            "key": "A",
+            "text": "扇形的半径等于圆锥的底面半径，扇形的弧长等于母线长",
+            "radius": "r",
+            "arc": "sqrt(r**2+h**2)"
+          },
+          {
+            "key": "B",
+            "text": "扇形的半径等于圆锥的高，扇形的弧长等于底面圆的半径",
+            "radius": "h",
+            "arc": "r"
+          },
+          {
+            "key": "C",
+            "text": "扇形的半径等于圆锥的母线，扇形的弧长等于圆锥底面圆的周长",
+            "radius": "sqrt(r**2+h**2)",
+            "arc": "2*pi*r"
+          }
+        ],
+        "variables": {
+          "r": "positive",
+          "h": "positive"
+        },
+        "radius": "r",
+        "height": "h",
+        "witness": {
+          "r": 3,
+          "h": 4
+        }
+      }
+    },
+    "cnm_261_q1": {
+      "question_sha256": "6bebe3a7c051151be5f144800a44f044c1264545872cd12ec2615a081b45bad3",
+      "spec": {
+        "kind": "app160_tangent_conditions",
+        "options": [
+          {
+            "key": "A",
+            "text": "连 OA，证 OA⊥l",
+            "point": [
+              "1",
+              "0"
+            ],
+            "direction": [
+              "d",
+              "e"
+            ],
+            "case": {
+              "variables": {
+                "d": "real",
+                "e": "nonzero"
+              },
+              "premises": [
+                {
+                  "left": "d",
+                  "op": "=",
+                  "right": "0"
+                }
+              ],
+              "witness": {
+                "d": 0,
+                "e": 1
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "证 l 经过圆心 O",
+            "point": [
+              "1",
+              "0"
+            ],
+            "direction": [
+              "d",
+              "e"
+            ],
+            "case": {
+              "variables": {
+                "d": "nonzero",
+                "e": "real"
+              },
+              "premises": [
+                {
+                  "left": "e",
+                  "op": "=",
+                  "right": "0"
+                }
+              ],
+              "witness": {
+                "d": 1,
+                "e": 0
+              },
+              "counterexample": {
+                "d": 1,
+                "e": 0
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "连 OA，证 OA∥l",
+            "point": [
+              "1",
+              "0"
+            ],
+            "direction": [
+              "d",
+              "e"
+            ],
+            "case": {
+              "variables": {
+                "d": "nonzero",
+                "e": "real"
+              },
+              "premises": [
+                {
+                  "left": "e",
+                  "op": "=",
+                  "right": "0"
+                }
+              ],
+              "witness": {
+                "d": 1,
+                "e": 0
+              },
+              "counterexample": {
+                "d": 1,
+                "e": 0
+              }
+            }
+          }
+        ],
+        "center": [
+          "0",
+          "0"
+        ],
+        "radius": "1"
+      }
+    },
+    "cnm_261_q3": {
+      "question_sha256": "db14842ae92234e2dfb3abb2532f33261a2c9ffa8cd817c90762fc06db4dd261",
+      "spec": {
+        "kind": "app160_tangent_conditions",
+        "options": [
+          {
+            "key": "A",
+            "text": "过圆心 O 作 l 的垂线，证明垂线段的长等于半径",
+            "point": [
+              "0",
+              "d"
+            ],
+            "direction": [
+              "1",
+              "0"
+            ],
+            "case": {
+              "variables": {
+                "r": "positive",
+                "d": "nonnegative"
+              },
+              "premises": [
+                {
+                  "left": "d",
+                  "op": "=",
+                  "right": "r"
+                }
+              ],
+              "witness": {
+                "r": 1,
+                "d": 1
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "连接 O 与 l 上任意一点，证明所连线段垂直于 l",
+            "point": [
+              "0",
+              "d"
+            ],
+            "direction": [
+              "1",
+              "0"
+            ],
+            "case": {
+              "variables": {
+                "r": "positive",
+                "d": "nonnegative"
+              },
+              "premises": [],
+              "witness": {
+                "r": 1,
+                "d": 2
+              },
+              "counterexample": {
+                "r": 1,
+                "d": 2
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "证明 l 经过圆心 O",
+            "point": [
+              "0",
+              "d"
+            ],
+            "direction": [
+              "1",
+              "0"
+            ],
+            "case": {
+              "variables": {
+                "r": "positive",
+                "d": "nonnegative"
+              },
+              "premises": [
+                {
+                  "left": "d",
+                  "op": "=",
+                  "right": "0"
+                }
+              ],
+              "witness": {
+                "r": 1,
+                "d": 0
+              },
+              "counterexample": {
+                "r": 1,
+                "d": 0
+              }
+            }
+          }
+        ],
+        "center": [
+          "0",
+          "0"
+        ],
+        "radius": "r"
+      }
+    },
+    "cnm_262_q4": {
+      "question_sha256": "95c8ea9fec5125878f28bfa07ddc4a5eab8195ed56790d85fae0e98b140e4f3c",
+      "spec": {
+        "kind": "app160_relation_proofs",
+        "options": [
+          {
+            "key": "A",
+            "text": "圆的切线垂直于圆的任意一条半径",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "a": "real",
+                  "b": "real"
+                },
+                "premises": [
+                  {
+                    "left": "a**2+b**2",
+                    "op": "=",
+                    "right": "r**2"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "a",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "r": 1,
+                  "a": 1,
+                  "b": 0
+                },
+                "counterexample": {
+                  "r": 1,
+                  "a": 1,
+                  "b": 0
+                }
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "圆的切线垂直于过切点的半径",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "0*1+r*0",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "r": 1
+                }
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "经过圆上一点的直线都垂直于过该点的半径",
+            "cases": [
+              {
+                "variables": {
+                  "r": "positive",
+                  "d": "real",
+                  "e": "real"
+                },
+                "premises": [
+                  {
+                    "left": "d**2+e**2",
+                    "op": ">",
+                    "right": "0"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "r*e",
+                    "op": "=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "r": 1,
+                  "d": 0,
+                  "e": 1
+                },
+                "counterexample": {
+                  "r": 1,
+                  "d": 0,
+                  "e": 1
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_265_q4": {
+      "question_sha256": "ed881f42c63f0c5b0f4f4dfc7c94aec90a4b9c5fa8f24135f61ebabdd22974c8",
+      "spec": {
+        "kind": "app160_obtuse_circumcenter",
+        "options": [
+          {
+            "key": "A",
+            "text": "三角形的内部",
+            "region": "inside"
+          },
+          {
+            "key": "B",
+            "text": "最长边的中点",
+            "region": "longest_side_midpoint"
+          },
+          {
+            "key": "C",
+            "text": "三角形的外部",
+            "region": "outside"
+          }
+        ],
+        "normalization": {
+          "base": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "third": [
+            "u",
+            "v"
+          ],
+          "obtuse_at": "third"
+        },
+        "witness": {
+          "u": "1/2",
+          "v": "1/4",
+          "g": "3/16"
+        }
+      }
+    },
+    "cnm_275_q4": {
+      "question_sha256": "aa2ce95aed14b6b02410a98f67d67372a91f6a81417b8082f888df03291f9e5f",
+      "spec": {
+        "kind": "app160_relation_proofs",
+        "options": [
+          {
+            "key": "A",
+            "text": "相似图形一定是位似图形",
+            "cases": [
+              {
+                "construction": "similarity_pair",
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    3,
+                    0
+                  ],
+                  [
+                    0,
+                    4
+                  ]
+                ],
+                "matrix": [
+                  [
+                    0,
+                    -1
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "translation": [
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "位似图形一定是相似图形",
+            "cases": [
+              {
+                "variables": {
+                  "k": "nonzero"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "k*k",
+                    "op": ">",
+                    "right": "0"
+                  },
+                  {
+                    "left": "k*0+0*k",
+                    "op": "=",
+                    "right": "0"
+                  },
+                  {
+                    "left": "k*k+0*0",
+                    "op": "=",
+                    "right": "0*0+k*k"
+                  }
+                ],
+                "witness": {
+                  "k": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "位似图形的对应边长度一定相等",
+            "cases": [
+              {
+                "variables": {
+                  "k": "nonzero"
+                },
+                "premises": [],
+                "conclusions": [
+                  {
+                    "left": "k*k",
+                    "op": "=",
+                    "right": "1"
+                  }
+                ],
+                "witness": {
+                  "k": 2
+                },
+                "counterexample": {
+                  "k": 2
+                }
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "任意一对不重合的对应点与位似中心一定不共线",
+            "cases": [
+              {
+                "variables": {
+                  "k": "nonzero",
+                  "x": "real",
+                  "y": "real"
+                },
+                "premises": [
+                  {
+                    "left": "k",
+                    "op": "!=",
+                    "right": "1"
+                  },
+                  {
+                    "left": "x*x+y*y",
+                    "op": ">",
+                    "right": "0"
+                  }
+                ],
+                "conclusions": [
+                  {
+                    "left": "k*x*y-k*y*x",
+                    "op": "!=",
+                    "right": "0"
+                  }
+                ],
+                "witness": {
+                  "k": 2,
+                  "x": 1,
+                  "y": 0
+                },
+                "counterexample": {
+                  "k": 2,
+                  "x": 1,
+                  "y": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_285_q2": {
+      "question_sha256": "7771b8e79cdd3c7390097cdf5410caae83aa49e38a39311f3f7fdaa578ed11f4",
+      "spec": {
+        "kind": "linear_interval",
+        "options": [
+          {
+            "key": "A",
+            "text": "P≥0",
+            "constraints": [
+              {
+                "left": "p",
+                "op": ">=",
+                "right": "0"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "0<P<1",
+            "constraints": [
+              {
+                "left": "p",
+                "op": ">",
+                "right": "0"
+              },
+              {
+                "left": "p",
+                "op": "<",
+                "right": "1"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "P≤1",
+            "constraints": [
+              {
+                "left": "p",
+                "op": "<=",
+                "right": "1"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "0≤P≤1",
+            "constraints": [
+              {
+                "left": "p",
+                "op": ">=",
+                "right": "0"
+              },
+              {
+                "left": "p",
+                "op": "<=",
+                "right": "1"
+              }
+            ]
+          }
+        ],
+        "constraints": [
+          {
+            "left": "p",
+            "op": ">=",
+            "right": "0"
+          },
+          {
+            "left": "1-p",
+            "op": ">=",
+            "right": "0"
+          }
+        ]
+      }
     }
   }
 }

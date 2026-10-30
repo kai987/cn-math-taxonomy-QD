@@ -7,7 +7,8 @@ import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from math_models import MODEL_PATH, binding_errors, evaluate
 from check_remaining_review import PATH, review_errors
-from verify_questions import compare_choice, compare_numeric, compare_short, safe_eval, num_equal
+from check_manual_review import check_supporting_proof
+from verify_questions import compare_choice, compare_numeric, compare_short
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -79,15 +80,7 @@ class MathematicalModelsTests(unittest.TestCase):
                 checked += 1
                 with self.subTest(id=entry['id'], expression=proof['expression']):
                     self.assertEqual(entry['status'], 'manual')
-                    actual = safe_eval(proof['expression'])
-                    expected = proof['value']
-                    if proof.get('comparison') == 'lt':
-                        self.assertLess(actual, Fraction(expected))
-                    else:
-                        actuals = list(actual) if isinstance(actual, (list, tuple)) else [actual]
-                        expecteds = expected if isinstance(expected, list) else [expected]
-                        self.assertEqual(len(actuals), len(expecteds))
-                        self.assertTrue(all(num_equal(Fraction(str(e)), a) for a, e in zip(actuals, expecteds)))
+                    check_supporting_proof(proof)
         self.assertGreaterEqual(checked, 6)
 
 
