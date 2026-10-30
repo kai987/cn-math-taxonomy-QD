@@ -37,6 +37,8 @@ const daylightMaximum = seedFor('cnm_109', question => question.id === 'cnm_109_
 const varianceInference = seedFor('cnm_306', question => question.id === 'cnm_306_q4');
 const explicitAnglePositions = seedFor('cnm_070', question => question.id === 'cnm_070_q5');
 const restrictedReadingSample = seedFor('cnm_104', question => question.id === 'cnm_104_q3');
+const angleCriterionDomain = seedFor('cnm_129', question => question.id === 'cnm_129_q3');
+const measuredGermination = seedFor('cnm_292', question => question.id === 'cnm_292_q1');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -622,6 +624,33 @@ for (const [topic, item] of [
     await page.reload();
     await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
     await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await noHorizontalOverflow(page);
+  });
+}
+
+for (const [topic, item, condition] of [
+  ['cnm_129', angleCriterionDomain, '0°<∠AOB<180°'],
+  ['cnm_292', measuredGermination, '尚无这种新型种子在规定条件下的可靠发芽资料']
+]) {
+  test('43-item reviewed conditions ' + topic + ' keep current references and grading after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+    await page.goto(targetURL(topic, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(page.locator('#q-text')).toContainText(condition);
+    await activate(page, page.locator('#choice-A'));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+    await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+    const correct = page.locator('#choice-' + item.question.answer);
+    await activate(page, correct);
+    await page.reload();
+    await expect(correct).toHaveAttribute('aria-pressed', 'true');
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await page.reload();
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await expect(page.locator('.refans')).toContainText(item.question.choices.find(option => option.key === item.question.answer).text);
+    await expect(page.locator('#explain')).toContainText(item.question.explanation);
     await noHorizontalOverflow(page);
   });
 }

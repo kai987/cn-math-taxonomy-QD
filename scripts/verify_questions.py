@@ -406,6 +406,19 @@ def main():
                 'note': '数学关系和定义级转译单独验证；情境与偏好不以固定答案映射冒充证明。',
             }
             errs.extend(issues)
+        from check_remaining_43 import PATH as REVIEW43_PATH, review_errors as review43_errors
+        if REVIEW43_PATH.exists():
+            review43 = json.loads(REVIEW43_PATH.read_text(encoding='utf-8'))
+            issues = review43_errors(questions, review43, catalogue(), list(topics.values()))
+            report['followup_43'] = {
+                'source': str(REVIEW43_PATH.relative_to(ROOT)),
+                'reviewed': len(review43['entries']),
+                'outcomes': review43['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review43['entries']),
+                'review_errors': issues,
+                'note': '形式定义、数学关系与方法偏好/情境解释分开；没有可靠整题模型时只计组件。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

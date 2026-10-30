@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T15:38:36",
+  "generated_at": "2026-10-30T16:53:31",
   "source": "data/questions.json",
   "total_questions": 2271,
   "by_type": {
@@ -9,24 +9,24 @@
     "short": 23
   },
   "format_errors": [],
-  "auto_verified": 2228,
+  "auto_verified": 2230,
   "auto_verified_by_type": {
     "numeric": 1547,
-    "choice": 658,
+    "choice": 660,
     "short": 23
   },
   "auto_verified_by_method": {
     "expression": 1818,
-    "model": 410
+    "model": 412
   },
   "mismatch": 0,
-  "unverifiable": 43,
+  "unverifiable": 41,
   "unverifiable_by_type": {
     "self": 6,
-    "choice": 37
+    "choice": 35
   },
   "numeric_choice_total": 2242,
-  "numeric_choice_auto_verified_share": 0.9835,
+  "numeric_choice_auto_verified_share": 0.9844,
   "mismatches": [],
   "unverifiable_ids": [
     "cnm_003_q1",
@@ -45,7 +45,6 @@
     "cnm_105_q2",
     "cnm_107_q3",
     "cnm_118_q1",
-    "cnm_129_q3",
     "cnm_130_q4",
     "cnm_198_q1",
     "cnm_198_q2",
@@ -56,7 +55,6 @@
     "cnm_218_q4",
     "cnm_225_q1",
     "cnm_244_q2",
-    "cnm_282_q1",
     "cnm_287_q4",
     "cnm_292_q1",
     "cnm_292_q2",
@@ -181,7 +179,7 @@
     "source": "data/answer_review_2026-10-30.json",
     "scope": 532,
     "reviewed": 532,
-    "scope_auto_verified": 489,
+    "scope_auto_verified": 491,
     "review_errors": [],
     "note": "逐题独立复核及固定判题回归不等于独立计算证明；无表达式的概念/开放题仍保留此边界。"
   },
@@ -189,8 +187,8 @@
     "source": "data/answer_review_remaining_455.json",
     "reviewed": 455,
     "outcomes": {
-      "model": 410,
-      "manual": 43,
+      "model": 412,
+      "manual": 41,
       "expression": 2
     },
     "review_errors": [],
@@ -200,10 +198,10 @@
     "source": "data/answer_review_remaining_105.json",
     "reviewed": 105,
     "outcomes": {
-      "manual": 43,
-      "model": 62
+      "manual": 41,
+      "model": 64
     },
-    "scope_auto_verified": 62,
+    "scope_auto_verified": 64,
     "review_errors": [],
     "note": "保留完整题意推导和判题边界；概念的固定映射/答案快照不计为数学证明。"
   },
@@ -211,10 +209,10 @@
     "source": "data/answer_review_remaining_160.json",
     "reviewed": 160,
     "outcomes": {
-      "manual": 43,
-      "model": 117
+      "manual": 41,
+      "model": 119
     },
-    "scope_auto_verified": 117,
+    "scope_auto_verified": 119,
     "review_errors": [],
     "note": "严格区分整题核验、开放题组件计算和语言/教学判断；未决模型不视为否定。"
   },
@@ -222,11 +220,22 @@
     "source": "data/answer_review_remaining_63.json",
     "reviewed": 63,
     "outcomes": {
-      "manual": 43,
-      "model": 20
+      "manual": 41,
+      "model": 22
     },
-    "scope_auto_verified": 20,
+    "scope_auto_verified": 22,
     "review_errors": [],
     "note": "数学关系和定义级转译单独验证；情境与偏好不以固定答案映射冒充证明。"
+  },
+  "followup_43": {
+    "source": "data/answer_review_remaining_43.json",
+    "reviewed": 43,
+    "outcomes": {
+      "manual": 41,
+      "model": 2
+    },
+    "scope_auto_verified": 2,
+    "review_errors": [],
+    "note": "形式定义、数学关系与方法偏好/情境解释分开；没有可靠整题模型时只计组件。"
   }
 }

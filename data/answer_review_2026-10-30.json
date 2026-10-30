@@ -80,7 +80,7 @@
       "independent_answer": "正数：3.5、7；0：0；负数：-2、-1/3。",
       "expected_answer": "正数：3.5，7；0：0；负数：-2，-1/3",
       "basis": "open",
-      "reason": "7/2和7大于0，0单列，-2和-1/3小于0；五个给定数应被三类互斥且无遗漏地覆盖。",
+      "reason": "正数为3.5=7/2及7，0单列，负数为-2及-1/3；三类应互斥并恰好覆盖五个给定数。",
       "question_sha256": "353efe995db38381165029fc79f5c7515f7fa04a9544a3daf040760714cb018e",
       "grading": [
         {
@@ -455,7 +455,7 @@
       "independent_answer": "水箱原有100升水，以每分钟5升的恒定速率流出，t分钟后剩余水量为100-5t升，0≤t≤20。",
       "expected_answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）",
       "basis": "open",
-      "reason": "水箱例子中100L为初值、5L/分钟为流出率，t分钟后剩100-5t L，t≥0且剩量非负给0≤t≤20。其他满足同一初值与变化率的合理用水情境也可成立。",
+      "reason": "在水箱情境中，100L为初始水量，5L/分钟为流出率，t分钟后剩100-5t L；t≥0且剩量非负给0≤t≤20。其他初值与变化率相符的用水情境也可合理。",
       "question_sha256": "493591cf5d302378fa2d17788e708b158736c7f1dc55a47470776a8fee45acc7",
       "grading": [
         {
@@ -1117,7 +1117,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "标准田径跑道采用两段等长直道加两段半圆形弯道的模型，周长L(r)=2s+2πr。外道半径多d>0时弯道多2πd，前移2πd恰抵消增量，故D给出等路程的数学原因；B的直道更短与模型不符，A体能/C美观不由几何约束给出。",
+      "reason": "标准跑道由两段等长直道和两段半圆构成，L(r)=2s+2πr。外道半径增加d>0，弯道多2πd，前移2πd后路程与内道一致，因此D解释等路程要求；B的直道更短不符模型，A体能和C美观不由几何条件推出。",
       "question_sha256": "049335799112a06fe9096d750e6595a548314f7926b4b1edb5a5a6c8d79994dd",
       "verify": null
     },
@@ -1639,7 +1639,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "明显稳定的旗杆/校门便于所有人复用同一原点，统一单位可比较景点坐标；A缺单位，C各建坐标系，D只用左右均削弱统一定位，所以B符合本题情境。",
+      "reason": "共同采用明显稳定的旗杆或校门作原点并统一单位，便于比较所有景点位置，故B符合教学情境。A缺单位，C各建坐标系，D只有相对左右，都不利于统一描述。",
       "question_sha256": "691602b668885f1d3afb934b22305110fbf2d85b41fa143cc3c3469ff2a74a6d",
       "verify": null,
       "catalogue_preview": {
@@ -1697,7 +1697,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "calculation",
-      "reason": "三个重排都正确：首式解y=7-3x无需分数，第二式解x=(1+3y)/2或y=(2x-1)/3分别带分母2、3。A符合通常优先避免分数的教学策略，三条代入恒等式组件分别核对其代数正确性。",
+      "reason": "A由首式的单位系数直接得y=7-3x，不引入分数；B、C从第二式解出x或y也都正确，但出现分母2或3。三条代入组件分别证明等价，A符合通常优先避免分数的策略。",
       "question_sha256": "6eed09f729736c5088f4d842d3970d802ad675110762a43eda13c28285bab454",
       "verify": null
     },
@@ -1877,7 +1877,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "全国中学生规模大，代表性抽样可在现实成本下估计视力情况；全面调查代价高，两种方式并非通常同样合适，因此A是教学建议。",
+      "reason": "全国中学生人数多，代表性抽样通常能在较低成本下了解视力情况，因此A是常规教学建议；完整普查成本高，两方案通常不被视为同样合适。",
       "question_sha256": "26f17be9dcb072d1ec9bcfe20978d599a33e85c539ee56cc83d05fdf7414ef73",
       "verify": null,
       "catalogue_preview": {
@@ -1890,7 +1890,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "一班45人体重可逐个无破坏测量，B适合普查；灯泡寿命测试会消耗对象，全国影评总体大，河流水质是连续变化总体，通常宜抽样。",
+      "reason": "某班45人体重可无破坏逐一测量，B适合普查；灯泡寿命检测会消耗对象，全国影评对象多，河流水质随地点与时间变化，通常采用抽样。",
       "question_sha256": "287c1aa29cb83d5bc887cedda461b9fbcae7da53cdbfc745f6fb6a0e64dc445e",
       "verify": null
     },
@@ -1899,7 +1899,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "炮弹半径检测需引爆，全面检测会耗尽待用炮弹，故D宜抽样；飞船安全检查、新生体检及班长选举分别有覆盖各对象的实际要求。",
+      "reason": "炮弹杀伤半径需要引爆测试，全面检测会耗尽待用对象，因此D宜抽样。飞船安全检查、新生体检和班长选举分别具有逐个对象覆盖的实际要求。",
       "question_sha256": "a25a2c3dfd79dc36451e705238a63a9d50212d4b44b294251d96062c3966a75e",
       "verify": null
     },
@@ -1908,7 +1908,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "A把普查推荐到任何情况，B宣称抽样必与总体完全一致，均过强；C符合高成本或破坏性场景下的常见策略，D仅3人可逐个了解，因此C为教学上的正确概括。",
+      "reason": "普查并非任何条件下都合适，A的全称推荐过强；B被总体数值0、2而样本仅抽到0的合法反例推翻，样本均值0不等于总体1。C是高成本或破坏性情形的常见建议，D仅3人可逐个调查，故教材选C。",
       "question_sha256": "af1a93759a1a356dc5d221b03b953f20644c74ab31650f56c922608bf5906e84",
       "verify": null
     },
@@ -1978,7 +1978,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "全校名单随机抽100人的设计给所有学生入样机会；班长、篮球队和单年级限制抽样框，可能不能代表全校身高。D是题目预期的完整覆盖设计，但任何实际样本都不保证最接近真实均值。",
+      "reason": "全校名单随机抽100人的设计覆盖目标总体；只取班长、篮球队或单年级则限制框，可能不能代表全校。D符合完整随机设计的教学目的，但不保证任何一次样本最接近总体。",
       "question_sha256": "8841c4bcf46299861fa35fc2cbc460405c886e068fc9ebd4fee3011f009642c5",
       "grading": [
         {
@@ -2008,7 +2008,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "调查目标是全市市民，门口随机只在图书馆访客框内随机，不能保证代表全市。B指出可能的选择偏差；A无容量太大的依据，C忽略框限制，D只老人也限制总体。相同抽样方式在不同阅读分布下可高估或低估。",
+      "reason": "目标是全市市民，门口随机仅发生在图书馆访客框内，不能保证代表全市，B指出可能的选择偏差。A无容量过大的依据，C忽略框限制，D只老人也限制总体；偏差方向不能从地点名称推出。",
       "question_sha256": "750faef604b3d87fcc87185f7a252e6b6ec8c511d38a83611494e1248315bdbb",
       "grading": [
         {
@@ -2039,7 +2039,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "合理随机且容量适当有助于减少抽样误差，A的“通常较好”保留了不确定性。受限抽样框可在样本很大时仍偏离总体，否定B的必然保证；只抽熟人也不由便利性自动获得代表性，C理由不足。",
+      "reason": "合理随机与适当容量有助于反映总体，A的“通常”没有宣称每次零误差。总体一半值0、一半值2，而抽样框只含值0者时，样本由10增至400仍均值0、目标均值1，反驳B的必然保证；只抽熟人也不由便利性保证代表性。",
       "question_sha256": "d762c7cf597293819541845b8bcb1bb38993ba501deb52d976e7ec44e17557c6",
       "grading": [
         {
@@ -2066,8 +2066,8 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "一年中气温是按时间排序的数值，折线连接相邻时点，便于观察变化。扇形主要表达组成占比，条形更突出类别数量对比，因此教材在这个目的下选A。",
-      "question_sha256": "ae1b765ff4a0702edb12d0f26e6d2bace3d5def2572d8523349c22763733a62f",
+      "reason": "折线按时间顺序连接气温观测点，通常便于查看一年中的变化趋势，因此A符合本题表达目的。条形图也可正确显示各时点气温，但更突出数量比较；扇形图主要表达部分与整体比例。",
+      "question_sha256": "e30601f4c9351346563da801c8ba182784c5a4cfe6add6b1cbe86fe56c7d7495",
       "grading": [
         {
           "input": "A",
@@ -2084,7 +2084,7 @@
       ],
       "verify": null,
       "catalogue_preview": {
-        "question": "想表示某城市一年中气温变化，应选择哪种图？",
+        "question": "想表示某城市一年中气温变化，应选择哪种图？（问突出时间变化趋势时通常优先的图形表达，不表示其他图形不能展示气温。）",
         "answer": "折线图"
       }
     },
@@ -2093,8 +2093,8 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "四种球类占全班的百分比形成部分与整体关系，扇形能直接显示各部分占一个整体的比例，C最符合题目目的。条形可比较比例，折线则容易暗示连续次序。",
-      "question_sha256": "1320145ef660c1c154ba9c40656aeb60365330c01e0cacd7494872f86fc21bea",
+      "reason": "扇形图以全班为整体直观展示各类所占份额，C符合部分与整体的强调目的；百分比条形图也能正确表示这些份额，折线容易暗示连续次序。类别须互斥；若四类未覆盖全班，应补“其他”而非重归一化四类。",
+      "question_sha256": "c21069b85da043e524e8f6ebb0a25f7a0c1a2db1f90669214094ab007eeae4e0",
       "grading": [
         {
           "input": "A",
@@ -2178,7 +2178,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "初中采用频数纵轴的画法把数据分组区间放在横轴，把每组频数放在纵轴，B符合；A交换轴，C/D分别换成总数、组距、频率或组数。",
+      "reason": "初中采用频数纵轴的画法把数据分组区间放在横轴，各组频数放在纵轴，B符合。A交换轴，C/D换成了总数、组距、频率或组数。",
       "question_sha256": "a3cef2595c9c6ebdc774bf3d3e80ef4ab28d0516653a6ea678e878b8f911e6ad",
       "grading": [
         {
@@ -2663,7 +2663,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "几何命题证明通常分别交代已知、求证和从已知到结论的证明，C完整对应。A是作图任务格式，B是探究活动，D的图测不提供普遍演绎论证。",
+      "reason": "证明通常交代已知、求证和论证过程，C对应。A是作图任务格式，B是探究过程，D的图测不足以构成一般演绎证明。",
       "question_sha256": "ac4a36674090d007b17b59132c00e33b6361b4b51ddbd080cd78ec2aa526fbf0",
       "grading": [
         {
@@ -3731,8 +3731,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "角平分线上的点到两边等距是性质方向；题目从角内等距推出在平分线上，是判定方向，因此B。角平分线的通常定义直接规定两部分角相等。",
-      "question_sha256": "b7ee75c50bb2c2ed9133f00e206da8a53604a423dde5d2252777c98fde6d1477",
+      "reason": "以P表示“点属于内部角平分线”、Q表示“到两边所在直线的垂距相等”、D表示“两部分角相等”。基本构造定义是P↔D，性质给P⇒Q，判定给Q⇒P。设全角2t∈(0,π)、点方向φ∈(0,2t)，等距差分解为2r cos(t)sin(φ−t)，其中r>0、cos(t)>0，且φ−t∈(−π/2,π/2)仅有正弦零点0，因此Q确推出P。本条从可检验条件Q推出集合成员P，其蕴含签名与B相同；A方向相反，C是角等分构造的定义签名。",
+      "question_sha256": "02b490edb193b17f1a3f793f7367ba5886619499adc07eaef35d731f9956e317",
       "grading": [
         {
           "input": "A",
@@ -3747,7 +3747,7 @@
           "result": "wrong"
         }
       ],
-      "verify": null
+      "verify": "model('cnm_129_q3')"
     },
     {
       "id": "cnm_129_q5",
@@ -3812,7 +3812,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "截长把长段的一部分取成另一段，补短把短段相接，均能把a=b+c类和差关系转为线段相等，因此C是常用思路。倍长中线、高线和角平分线各适用于另外的具体结构。",
+      "reason": "截长把长段分出一部分，补短把短段相接，直接把a=b+c类和差关系化为线段相等；其余方法适用于另外的具体结构。",
       "question_sha256": "ce9418ecdd70e66d4ed5bfd6eab1d71f1808fead352a831758eae6c9f3f34873",
       "grading": [
         {
@@ -6824,7 +6824,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "列表直接展示已列出的自变量与函数值配对，B是主要直接优点。图象通常更便于直观看趋势；有限表一般不能给任意x的值，但有限定义域全部列出时C可以成立。",
+      "reason": "列表直接展示已列出的自变量与函数值配对，B是主要直接优点。图象通常更便于观察趋势，有限表一般不能给任意x的值；但有限定义域全部列出时C也能成立。",
       "question_sha256": "d846d5a2b399d13083f3d9b36d8b255b9d3f519b82032458a3cdcab85f2836b0",
       "verify": null,
       "catalogue_preview": {
@@ -6837,7 +6837,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "图象将自变量与函数值转为空间位置，最直接地显示上升、下降与高低极值；列表突出具体配对，解析式便于计算，文字也能描述趋势。",
+      "reason": "图象把函数值变化转为空间位置，通常最直观地显示上升、下降和高低极值。列表突出具体数值，解析式便于计算，文字同样可描述趋势。",
       "question_sha256": "685bd620a6ca08f92c414be453d76255614d6aa42e77d5da30a7046bac2f87fc",
       "verify": null
     },
@@ -6924,7 +6924,7 @@
       "independent_answer": "y随x增大而减小；经过一、二、四象限",
       "expected_answer": "y 随 x 增大而减小；经过一、二、四象限",
       "basis": "open",
-      "reason": "斜率−3<0，所以y随x增大而减小。x<0时y>0，经过第二象限；0<x<1/3时y>0，经过第一象限；x>1/3时y<0，经过第四象限，不经过第三象限。",
+      "reason": "斜率−3<0，函数递减；x<0时y>0，在第二象限；0<x<1/3时y>0，在第一象限；x>1/3时y<0，在第四象限，不经过第三象限。",
       "question_sha256": "1c946a1ba88d8d57eeb2950c5fe1dbeb40065622603afe63c9aacfa0f3a19b9d",
       "grading": [
         {
@@ -7030,7 +7030,7 @@
       "independent_answer": "相等，都是3",
       "expected_answer": "相等，都是 3",
       "basis": "open",
-      "reason": "x轴交点满足y=0，代入y=2x−6得到2x−6=0，其解x=3就是该交点横坐标，所以二者相等且都为3。",
+      "reason": "与x轴交点满足y=0，代入y=2x−6得到2x−6=0，解x=3；该解就是交点横坐标，二者相等且都是3。",
       "question_sha256": "07ba946fdf58f849b7e7b8596215369da6e21d382dce4f662baaf360437b3f35",
       "grading": [
         {
@@ -7179,7 +7179,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "个别极端高工资会拉高平均数；中位数主要由排序中间位置决定，更接近题目“一般员工”的典型集中位置。众数可能不唯一或不存在，故教材推荐B。",
+      "reason": "个别极端高工资会拉高均值，中位数主要由中间排序位置决定，更贴近题目“一般员工”的典型水平。众数可能多重或不存在，因此教材推荐B。",
       "question_sha256": "afc0b2a10d50dfc09a7b7a805c3eeb8341e974d01cf3d346926059e8de008e53",
       "corrected_fields": [
         "prompt"
@@ -7195,7 +7195,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "各尺码销量频数最大的尺码是众数，直接指出最畅销尺码；均值可能落在未销售尺码，中位数对应中间位置而非最大需求项，因此题目通常选C。",
+      "reason": "最大销售频数对应最畅销尺码，即众数；均值可能落在未销售尺码，中位数表示中间销售位置而非最大需求项，所以题目通常选C。",
       "question_sha256": "f8438e0a9e7a921a6412e2e625d5ce4c0abb18f0d4802096a9b394cd045974dd",
       "verify": null
     },
@@ -7262,7 +7262,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "跨各年级随机抽样较好覆盖全校；田径队、单年级和自愿者分别有群体限制或自选择机制。因此在调查人数相近且充分应答的题设下，A更能减少明显选择偏差。",
+      "reason": "跨各年级随机抽样较好覆盖全校；田径队、单年级和自愿者各有限制或自选择机制。在人数相近且充分应答的题设下，A更能减少明显选择偏差。",
       "question_sha256": "bfe19970ce42082f87c61f771cfa46c8cefb0c1031915b49d0c4ba8c53575a37",
       "verify": null
     },
@@ -7325,7 +7325,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "移项后3x²−6x=3x(x−2)=0，提公因式立即得到x=0或2，因式分解步骤简短。配方和公式法也能求同一根集；直接除以x会丢掉0，原式也不直接呈平方等于常数的形式。",
+      "reason": "移项并提公因式得3x(x−2)=0，立即给根0、2，因式分解步骤简短。配方与公式法也能得到同一根集；直接除以x会丢根0，原式也非直接平方等于常数的形式。",
       "question_sha256": "8494265d08f601205a807576a604098c4a205ab7a0c9bc8593c0a1fb1187f771",
       "verify": null,
       "catalogue_preview": {
@@ -7553,7 +7553,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "通常用旋转中心、方向、角度描述一个旋转，B符合教材三要素。A的半径、时间不能代替方向与角度；C用对称轴替代旋转中心；D的对应点和对称轴不是通常列举的三个要素。",
+      "reason": "教材把平面旋转描述为绕一个中心，按某一方向转过一个角度，因此B符合通常表述。半径随所选点变化，时间不决定几何旋转，对称轴也不是一般旋转的指定要素。",
       "question_sha256": "2b6c782ed14c6873af7150432bd300e73e84d66d4db4bef6f1bf740f0cb62f48",
       "verify": null
     },
@@ -8056,8 +8056,8 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "垂直于投影面的平行投影专称正投影，因此C正确。A是它所属的上位类别，B是光线共过有限中心的中心投影，D指投影线倾斜的平行情形。",
-      "question_sha256": "a062011703cb2d73c06e19c17cb25f944df56fb8c9f4e82013d27a3455763c6b",
+      "reason": "任意平面n·x=h与固定非零投影方向d的仿射投影为F(x)=Πx+b，Π=I−dnᵀ/(nᵀd)、b=dh/(nᵀd)。源条件d=λn、λ≠0给Π=I−nnᵀ/(n·n)，故Π²=Π、Πᵀ=Π、秩2，且Πb=0、n·F(x)=h，覆盖任意法向和偏移。自伴条件等价于dnᵀ=ndᵀ；利用法向某个非零分量消元，得d为n的非零倍数，正好等价于投影线垂直投影面。投影纤维彼此平行，而两条不同纤维不能有公共有限点，排除中心投影；自伴线性部分排除斜投影。A平行投影是成立的上位类型，C额外要求自伴，且合法斜投影矩阵[[1,0,−1],[0,1,0],[0,0,0]]属于A而不属于C，证明C是严格更专门的类型，因此按“专门称”选正投影。",
+      "question_sha256": "0f0b4feff70d6e64b0dc545855f3a88f1fb5facea957ddc12950f9676fe747c5",
       "corrected_fields": [
         "prompt"
       ],
@@ -8065,7 +8065,7 @@
         "question": "在平行投影中，投影线垂直于投影面的投影，专门称为什么？请选择。",
         "answer": "正投影"
       },
-      "verify": null
+      "verify": "model('cnm_282_q1')"
     },
     {
       "id": "cnm_282_q4",
@@ -8165,7 +8165,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "逐枚抛三枚硬币有三个阶段，树状图便于逐层分支；两枚骰子、先硬币后骰子以及放回后再摸球均按两阶段配对，常规二维表较直接，因此A最符合题意。",
+      "reason": "A逐枚抛三枚硬币有三个阶段；B的两枚骰子、C的硬币后骰子、D的放回再摸球均可按两个阶段配对。三阶段用树状图逐层分支通常更清晰，常规二维表则便于两阶段配对，因此A最符合题意。",
       "question_sha256": "5a92a8345b9cf83bb4aaf40ef2890333840fc528523ec13ff15cdf9052a55a3f",
       "verify": null
     },
@@ -8225,12 +8225,12 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "需要取得新型种子在规定条件下的实际发芽率时，实验可记录播种粒数与发芽粒数，C最直接。问卷不能直接测量种子发芽；不同品种或条件的资料也不能直接替代本次实测。",
-      "question_sha256": "bfa5199735b7a8b0ef911177ce998a98bdd6a3b2fcdcb0b37e0d37f54a826c20",
+      "reason": "没有可靠同品种、同条件资料而需要实测发芽率时，实验能在规定条件下记录播种数和发芽数，C最直接。问卷本身不能测量种子实际发芽，缺少适用资料时查阅也不能替代本次测量。",
+      "question_sha256": "19b9305a3a5d2c5f6f632f4e20c258ef05e7372777852dc5123e35493f56ffcb",
       "verify": null,
       "catalogue_preview": {
-        "question": "要了解一种新型种子的发芽率，宜用问卷调查、实验、查阅资料中的哪种方式收集数据？",
-        "answer": "实验（做发芽实验并记录发芽粒数）"
+        "question": "尚无这种新型种子在规定条件下的可靠发芽资料，现在需要实际测定它的发芽率。宜用问卷调查、实验、查阅资料中的哪种方式收集数据？",
+        "answer": "实验：在规定条件下做发芽实验并记录播种粒数与实际发芽粒数。"
       }
     },
     {
@@ -8238,7 +8238,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "最喜欢的读物是本班成员当前的主观偏好，问卷可以直接询问，故B合适。实验不能代替个人偏好回答，已有资料也未必记录这些学生当下的喜好。",
+      "reason": "本班学生当前最喜欢的读物是个人主观信息，问卷能直接向这些学生询问，故B合适。实验不能代替偏好回答，已有资料也未必反映本班当下的情况。",
       "question_sha256": "d27a576e67d53c5d532bf9f8f2307d131f2b94579ca2608301f53f3e61c8785c",
       "verify": null
     },
@@ -8247,7 +8247,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "官方年鉴通常已保存全国人口总数的连续历史记录，查阅比重新全面问卷更直接，A较方便可靠。实验不能重建历史人口总量，访谈10人也不能给出全国各年的总人数。",
+      "reason": "官方统计年鉴通常保存全国人口总数的历史序列，查阅比重新向每个家庭发问卷更直接，A较方便可靠。实验不适合重建历史人口总量，随机访谈10人也不能提供全国近十年的总人数。",
       "question_sha256": "8f417599ad393aad734688c7d155451ba6b547878c123abcb040a7249cf76474",
       "verify": null
     },
@@ -8256,7 +8256,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D以带价值判断的反问暗示玩游戏不值得，可能诱导学生压低报告。匿名、跨年级随机发放和清晰互斥区间通常有助减偏，所以D最明显具有诱导性。",
+      "reason": "D用带评价的反问暗示玩游戏很浪费时间，可能诱导学生压低报告。匿名、覆盖不同年级并合理抽取、清楚互斥的区间通常有助减偏，D因此最明显具有诱导性。",
       "question_sha256": "ba790d7781c6a969cead52d419f8f786cbe6fe3ac510fcce6c9282cb913f6f11",
       "verify": null
     },
@@ -8304,7 +8304,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "柱高编码数值时，零基线与线性均匀刻度保持高度比和数据比一致，故C合适。任意起点或不均匀刻度可能夸大差异或破坏比例，A、B不符合该编码目的。",
+      "reason": "普通条形图用柱高表示数值，零基线和均匀线性刻度能保持高度比与数据比一致，因此C合适。随意选择起点或忽大忽小的刻度可能夸大差异、破坏比例，不能仅以好看或突出重点为准。",
       "question_sha256": "c274f6bab1f52967a44430322a22c4b8bed061fdd23bdeaef38945aaac51fbcd",
       "verify": null
     },
@@ -8340,7 +8340,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "同样覆盖全校、采用相同随机设计且充分应答时，200人通常比20人抽样波动小；眼镜店门口和仅视力不合格者都限制了群体，因此C通常更可靠。",
+      "reason": "在覆盖全校、同类随机设计且充分应答的两个方案中，200人通常比20人抽样波动小。眼镜店门口和仅视力不合格者都限制了人群，容易引入选择偏差，因此C通常更可靠。",
       "question_sha256": "43bf474e7c8d414432463ffe8662f36ce3080013f9c4c11fdd81f9d06fbc934b",
       "verify": null
     },
@@ -8349,7 +8349,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "先明确问题，随后收集、整理、用图表描述、分析，最后给结论建议，A符合主要流程。B先收集后确定问题，C先整理后收集，D的次序和分析环节不完整。",
+      "reason": "先明确问题，再收集、整理、用图表描述、分析，最后得出结论和建议，A符合主要流程。B先收集后确定问题，C先整理后收集，D把整理置于收集前且未形成完整结论链。",
       "question_sha256": "5fb0d2e191720603055b5c5334067646906edcd2d1a7cb8ec0704200522e4a94",
       "verify": null,
       "catalogue_preview": {
@@ -8362,7 +8362,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "通常先确定研究问题，才能决定收集什么数据和如何描述，因此第一步是A；收集和画图应服务于研究目标。",
+      "reason": "通常先确定研究问题，才知道需要哪些数据以及如何收集和描述，故第一步选A。画图与收集数据应服务于已经明确的研究目标。",
       "question_sha256": "7806c16f04106f130a2c367566f6c209dc3e52d59476dd6642cc57aa5ee92368",
       "verify": null
     },
@@ -8371,7 +8371,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "划记分类计数并制表是在整理原始数据，选D。问卷设计与发放属于收集准备及实施，依据图表判断则属于分析。",
+      "reason": "划记分类、计数并制成统计表，是对原始数据作整理，故D正确。设计和发放问卷属于收集准备及实施；根据图表作判断则属于分析。",
       "question_sha256": "6440e701f9593723286853ea57ad8080fd24c52be4a8e15767b395b126ea6eaf",
       "verify": null
     },
@@ -8380,7 +8380,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "绘制折线图是在描述数据，判断哪天睡眠最少是在分析，提出建议属于结论与建议，三者依次对应A。",
+      "reason": "绘制折线图是在描述数据，依据走势判断哪天睡眠最少是在分析，最后提出建议属于结论与建议，所以三个动作依次对应A。",
       "question_sha256": "1ae20f3b66f55ca2177db75bcd8aa4512fdce468d4069ac45e0df3b7e537554d",
       "verify": null
     },
@@ -8398,7 +8398,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "覆盖全校的随机抽取较少受特定群体选择影响，D更能减少明显选择偏差。篮球队、单一年级或每班最高者都限制样本框，不能直接代表整个学校。",
+      "reason": "覆盖全校的随机抽取较少受特定群体限制，D更能减少明显选择偏差。篮球队、单一年级和每班最高者都限制样本框，不能直接代表整个学校的身高分布。",
       "question_sha256": "875b8c7fc3dc997eaa7bd9ed0807ae10484bf488f15a132394325b82c1a9178f",
       "verify": null
     },
@@ -8407,7 +8407,7 @@
       "independent_answer": "平均数20，中位数9；中位数更能代表一般员工水平",
       "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
       "basis": "open",
-      "reason": "五人总工资为100千元，均值为20千元；排序后的第三项是9千元，即中位数。多数工资在8至10千元，65千元把均值拉高，因此以一般员工的典型水平为目标时中位数9更贴切。",
+      "reason": "五人总工资100千元，均值为20千元；排序后第三项是9千元，即中位数。多数工资在8至10千元，65千元明显拉高均值，因此以一般员工的典型水平为目标时，中位数9更贴切。",
       "question_sha256": "d2dc815fc54f457b8cb2d01dd2439a7c401ae09b9fe2c37e130c4391d2324d31",
       "grading": [
         {
@@ -8622,7 +8622,7 @@
       "independent_answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。",
       "expected_answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。",
       "basis": "open",
-      "reason": "可把均匀转盘分成两个180°区域，分别对应两人，边界重转并设相同收益。理想均匀停向下双方概率均为1/2；大量独立同条件试验可以记录频率，检查实际装置是否明显偏离该模型。",
+      "reason": "可将均匀转盘分成两个180°区域，分别对应两人，边界重转且收益相同。理想均匀停向下双方获胜概率均为1/2；重复独立同条件试验可记录频率，观察实际装置是否明显偏离该模型。",
       "question_sha256": "b0b73edd4fef3bfce2ed806a29a1df8c79bfd76b599cea6b238e0da2d80d1f38",
       "grading": [
         {
@@ -8649,7 +8649,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "在独立公平模型中100次出现46:54可以来自随机波动，频率不相等不能单独证明游戏不公平，数据也不因此无效或必需改规则。大样本频率的典型波动会减小，但单条序列不保证单调接近1/2，因此C合理。",
+      "reason": "独立公平模型下，100次出现46:54可以来自随机波动，频率不等不能单独证明游戏不公平，也不直接意味着实验无效或必须补偿甲。大量同条件独立试验时频率的典型波动减小，但单条序列不保证单调接近1/2，所以C合理。",
       "question_sha256": "8dde2c4e7f09e7b087b8ad5ab30631d867c000f49f6c2b3407e7878df1bbd80c",
       "corrected_fields": [
         "choices",
@@ -8663,13 +8663,13 @@
     "summary": {
       "reviewed": 455,
       "outcomes": {
-        "model": 410,
-        "manual": 43,
+        "model": 412,
+        "manual": 41,
         "expression": 2
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 37
+        "choice": 35
       },
       "models_by_kind": {
         "numeric_relations": 12,
@@ -8777,6 +8777,7 @@
         "geometry_circle_intersections": 2,
         "g160_distance_minimum": 1,
         "g160_angle_bisector": 1,
+        "g43_angle_criterion_signature": 1,
         "g105_doubled_median": 1,
         "geometry_symmetry_axes": 2,
         "g160_symmetry_families": 1,
@@ -8855,6 +8856,7 @@
         "app105_ray_family_properties": 1,
         "app105_parallel_light_fields": 1,
         "app_positive_rational_sign": 1,
+        "g43_most_specific_projection": 1,
         "app_orthographic": 5,
         "app_probability": 7,
         "app_bernoulli_claims": 3,
@@ -8871,8 +8873,8 @@
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1
       },
-      "questions_corrected_or_clarified": 43,
-      "supporting_checks_not_counted_as_full_proofs": 24,
+      "questions_corrected_or_clarified": 46,
+      "supporting_checks_not_counted_as_full_proofs": 31,
       "catalogue_previews_synchronized": [
         "cnm_028",
         "cnm_050",
@@ -8881,11 +8883,13 @@
         "cnm_066",
         "cnm_072",
         "cnm_104",
+        "cnm_105",
         "cnm_107",
         "cnm_109",
         "cnm_218",
         "cnm_247",
-        "cnm_273"
+        "cnm_273",
+        "cnm_292"
       ]
     }
   },
@@ -8894,12 +8898,12 @@
     "summary": {
       "reviewed": 160,
       "outcomes": {
-        "manual": 43,
-        "model": 117
+        "manual": 41,
+        "model": 119
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 37
+        "choice": 35
       },
       "models_by_kind": {
         "f160_real_claims": 2,
@@ -8957,6 +8961,7 @@
         "g160_hl_claims": 1,
         "g160_distance_minimum": 1,
         "g160_angle_bisector": 1,
+        "g43_angle_criterion_signature": 1,
         "g105_doubled_median": 1,
         "g160_symmetry_families": 1,
         "g160_reflection_implications": 1,
@@ -8990,6 +8995,7 @@
         "app105_polygon_similarity_families": 1,
         "app105_ray_family_properties": 1,
         "app105_parallel_light_fields": 1,
+        "g43_most_specific_projection": 1,
         "linear_interval": 1,
         "app105_symmetric_game_conditions": 1,
         "app63_partition_table_audit": 1,
@@ -9000,8 +9006,8 @@
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1
       },
-      "repaired_questions": 39,
-      "component_checks": 24
+      "repaired_questions": 42,
+      "component_checks": 31
     }
   },
   "followup_105": {
@@ -9009,12 +9015,12 @@
     "summary": {
       "reviewed": 105,
       "outcomes": {
-        "manual": 43,
-        "model": 62
+        "manual": 41,
+        "model": 64
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 37
+        "choice": 35
       },
       "models_by_kind": {
         "f105_notation_format": 1,
@@ -9047,6 +9053,7 @@
         "g105_direct_angle_rule": 2,
         "g63_theorem_antecedent": 1,
         "g63_proof_evidence": 1,
+        "g43_angle_criterion_signature": 1,
         "g105_doubled_median": 1,
         "g63_metric_final_step": 1,
         "g63_process_argument": 1,
@@ -9063,6 +9070,7 @@
         "app105_polygon_similarity_families": 1,
         "app105_ray_family_properties": 1,
         "app105_parallel_light_fields": 1,
+        "g43_most_specific_projection": 1,
         "app105_symmetric_game_conditions": 1,
         "app63_partition_table_audit": 1,
         "app105_lottery_inclusion": 1,
@@ -9072,8 +9080,8 @@
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1
       },
-      "repaired_questions": 22,
-      "component_checks": 24
+      "repaired_questions": 26,
+      "component_checks": 31
     }
   },
   "followup_63": {
@@ -9081,12 +9089,12 @@
     "summary": {
       "reviewed": 63,
       "outcomes": {
-        "manual": 43,
-        "model": 20
+        "manual": 41,
+        "model": 22
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 37
+        "choice": 35
       },
       "models_by_kind": {
         "f63_basis_application": 3,
@@ -9098,16 +9106,44 @@
         "g63_histogram_height": 1,
         "g63_theorem_antecedent": 1,
         "g63_proof_evidence": 1,
+        "g43_angle_criterion_signature": 1,
         "g63_metric_final_step": 1,
         "g63_process_argument": 1,
         "g63_trimmed_mean_robustness": 1,
         "app63_direct_square_equations": 1,
         "app63_square_rotation_certificates": 1,
         "app63_central_symmetry_types": 1,
+        "g43_most_specific_projection": 1,
         "app63_partition_table_audit": 1
       },
-      "repaired_questions": 8,
-      "component_checks": 24
+      "repaired_questions": 12,
+      "component_checks": 31
+    }
+  },
+  "followup_43": {
+    "source": "data/answer_review_remaining_43.json",
+    "summary": {
+      "reviewed": 43,
+      "outcomes": {
+        "manual": 41,
+        "model": 2
+      },
+      "remaining_by_type": {
+        "self": 6,
+        "choice": 35
+      },
+      "models_by_kind": {
+        "g43_angle_criterion_signature": 1,
+        "g43_most_specific_projection": 1
+      },
+      "repaired_questions": 4,
+      "component_checks": 31,
+      "manual_gap_categories": {
+        "open_response": 6,
+        "comparative_criterion": 19,
+        "design_or_evidence": 9,
+        "curriculum_convention": 7
+      }
     }
   }
 }

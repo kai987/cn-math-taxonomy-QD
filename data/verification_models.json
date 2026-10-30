@@ -21395,6 +21395,305 @@
         ],
         "header": 40
       }
+    },
+    "cnm_129_q3": {
+      "question_sha256": "02b490edb193b17f1a3f793f7367ba5886619499adc07eaef35d731f9956e317",
+      "spec": {
+        "kind": "g43_angle_criterion_signature",
+        "context": {
+          "angle": [
+            "a",
+            "o",
+            "b"
+          ],
+          "point": "p",
+          "full_angle_domain": {
+            "kind": "open_interval",
+            "lower": 0,
+            "upper": 180
+          },
+          "point_region": "strict_interior",
+          "distance": "perpendicular_to_supporting_lines"
+        },
+        "theorem": {
+          "op": "implies",
+          "left": {
+            "op": "equal",
+            "left": {
+              "op": "distance_to_line",
+              "point": "p",
+              "line": [
+                "o",
+                "a"
+              ]
+            },
+            "right": {
+              "op": "distance_to_line",
+              "point": "p",
+              "line": [
+                "o",
+                "b"
+              ]
+            }
+          },
+          "right": {
+            "op": "member",
+            "point": "p",
+            "set": {
+              "op": "internal_angle_bisector",
+              "angle": [
+                "a",
+                "o",
+                "b"
+              ]
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "性质",
+            "signature": {
+              "op": "implies",
+              "left": {
+                "op": "member",
+                "point": "p",
+                "set": {
+                  "op": "internal_angle_bisector",
+                  "angle": [
+                    "a",
+                    "o",
+                    "b"
+                  ]
+                }
+              },
+              "right": {
+                "op": "equal",
+                "left": {
+                  "op": "distance_to_line",
+                  "point": "p",
+                  "line": [
+                    "o",
+                    "a"
+                  ]
+                },
+                "right": {
+                  "op": "distance_to_line",
+                  "point": "p",
+                  "line": [
+                    "o",
+                    "b"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "判定",
+            "signature": {
+              "op": "implies",
+              "left": {
+                "op": "equal",
+                "left": {
+                  "op": "distance_to_line",
+                  "point": "p",
+                  "line": [
+                    "o",
+                    "a"
+                  ]
+                },
+                "right": {
+                  "op": "distance_to_line",
+                  "point": "p",
+                  "line": [
+                    "o",
+                    "b"
+                  ]
+                }
+              },
+              "right": {
+                "op": "member",
+                "point": "p",
+                "set": {
+                  "op": "internal_angle_bisector",
+                  "angle": [
+                    "a",
+                    "o",
+                    "b"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "定义",
+            "signature": {
+              "op": "iff",
+              "left": {
+                "op": "member",
+                "point": "p",
+                "set": {
+                  "op": "internal_angle_bisector",
+                  "angle": [
+                    "a",
+                    "o",
+                    "b"
+                  ]
+                }
+              },
+              "right": {
+                "op": "equal",
+                "left": {
+                  "op": "angle",
+                  "points": [
+                    "a",
+                    "o",
+                    "p"
+                  ]
+                },
+                "right": {
+                  "op": "angle",
+                  "points": [
+                    "p",
+                    "o",
+                    "b"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_282_q1": {
+      "question_sha256": "0f0b4feff70d6e64b0dc545855f3a88f1fb5facea957ddc12950f9676fe747c5",
+      "spec": {
+        "kind": "g43_most_specific_projection",
+        "normal_domain": "all_nonzero_real_normals",
+        "direction": "nonzero_normal_multiple",
+        "plane_offset_domain": "all_real_offsets",
+        "options": [
+          {
+            "key": "A",
+            "text": "平行投影",
+            "requirements": [
+              {
+                "op": "matrix_equal",
+                "left": {
+                  "op": "multiply",
+                  "left": {
+                    "op": "linear_part"
+                  },
+                  "right": {
+                    "op": "linear_part"
+                  }
+                },
+                "right": {
+                  "op": "linear_part"
+                }
+              },
+              {
+                "op": "rank",
+                "value": 2
+              },
+              {
+                "op": "parallel_fibres"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "中心投影",
+            "requirements": [
+              {
+                "op": "finite_fibre_concurrency"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "正投影",
+            "requirements": [
+              {
+                "op": "matrix_equal",
+                "left": {
+                  "op": "multiply",
+                  "left": {
+                    "op": "linear_part"
+                  },
+                  "right": {
+                    "op": "linear_part"
+                  }
+                },
+                "right": {
+                  "op": "linear_part"
+                }
+              },
+              {
+                "op": "rank",
+                "value": 2
+              },
+              {
+                "op": "parallel_fibres"
+              },
+              {
+                "op": "matrix_equal",
+                "left": {
+                  "op": "transpose",
+                  "argument": {
+                    "op": "linear_part"
+                  }
+                },
+                "right": {
+                  "op": "linear_part"
+                }
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "斜投影",
+            "requirements": [
+              {
+                "op": "matrix_equal",
+                "left": {
+                  "op": "multiply",
+                  "left": {
+                    "op": "linear_part"
+                  },
+                  "right": {
+                    "op": "linear_part"
+                  }
+                },
+                "right": {
+                  "op": "linear_part"
+                }
+              },
+              {
+                "op": "rank",
+                "value": 2
+              },
+              {
+                "op": "parallel_fibres"
+              },
+              {
+                "op": "matrix_not_equal",
+                "left": {
+                  "op": "transpose",
+                  "argument": {
+                    "op": "linear_part"
+                  }
+                },
+                "right": {
+                  "op": "linear_part"
+                }
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }
