@@ -393,6 +393,19 @@ def main():
                 'note': '严格区分整题核验、开放题组件计算和语言/教学判断；未决模型不视为否定。',
             }
             errs.extend(issues)
+        from check_remaining_63 import PATH as FINAL_PATH, review_errors as final_errors
+        if FINAL_PATH.exists():
+            final = json.loads(FINAL_PATH.read_text(encoding='utf-8'))
+            issues = final_errors(questions, final, catalogue(), list(topics.values()))
+            report['followup_63'] = {
+                'source': str(FINAL_PATH.relative_to(ROOT)),
+                'reviewed': len(final['entries']),
+                'outcomes': final['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in final['entries']),
+                'review_errors': issues,
+                'note': '数学关系和定义级转译单独验证；情境与偏好不以固定答案映射冒充证明。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

@@ -19048,6 +19048,2353 @@
         ],
         "event_probability": "7/10"
       }
+    },
+    "cnm_054_q1": {
+      "question_sha256": "169635e164fc8b6e3910469b8c71cbc10f0e79b5b1c96ca7ad43e3d43624b170",
+      "spec": {
+        "kind": "f63_basis_application",
+        "problem": {
+          "objects": {
+            "A": "Point",
+            "B": "Point"
+          },
+          "assumptions": [
+            [
+              "distinct",
+              "A",
+              "B"
+            ]
+          ],
+          "goal": {
+            "quantifier": "unique",
+            "variable": [
+              "l",
+              "Line"
+            ],
+            "relation": [
+              "line_through",
+              "l",
+              "A",
+              "B"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "垂线段最短",
+            "certificate": "point_line_distance",
+            "problem": {
+              "objects": {
+                "P": "Point",
+                "l": "Line"
+              },
+              "assumptions": [
+                [
+                  "outside",
+                  "P",
+                  "l"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique_minimum",
+                "variable": [
+                  "H",
+                  "Point"
+                ],
+                "relation": [
+                  "closest_on_line",
+                  "H",
+                  "P",
+                  "l"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "两点确定一条直线",
+            "certificate": "line_through_two_points",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique",
+                "variable": [
+                  "l",
+                  "Line"
+                ],
+                "relation": [
+                  "line_through",
+                  "l",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "两点之间线段最短",
+            "certificate": "point_point_path",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "minimum",
+                "variable": [
+                  "g",
+                  "Path"
+                ],
+                "relation": [
+                  "shortest_connection",
+                  "g",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "过直线外一点有且只有一条直线与已知直线平行",
+            "certificate": "parallel_through_point",
+            "problem": {
+              "objects": {
+                "P": "Point",
+                "l": "Line"
+              },
+              "assumptions": [
+                [
+                  "outside",
+                  "P",
+                  "l"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique",
+                "variable": [
+                  "m",
+                  "Line"
+                ],
+                "relation": [
+                  "parallel_through",
+                  "m",
+                  "P",
+                  "l"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_054_q2": {
+      "question_sha256": "b2bd38a50fc27c59d5db6f61ad0a3f58e7d9e1c18bbcddadcdd782484e561e80",
+      "spec": {
+        "kind": "f63_basis_application",
+        "problem": {
+          "objects": {
+            "A": "Point",
+            "B": "Point"
+          },
+          "assumptions": [
+            [
+              "distinct",
+              "A",
+              "B"
+            ]
+          ],
+          "goal": {
+            "quantifier": "unique",
+            "variable": [
+              "l",
+              "Line"
+            ],
+            "relation": [
+              "line_through",
+              "l",
+              "A",
+              "B"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "用两个钉子把一根木条固定在墙上",
+            "certificate": "line_through_two_points",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique",
+                "variable": [
+                  "l",
+                  "Line"
+                ],
+                "relation": [
+                  "line_through",
+                  "l",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "把弯曲的河道改直，缩短航程",
+            "certificate": "point_point_path",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "minimum",
+                "variable": [
+                  "g",
+                  "Path"
+                ],
+                "relation": [
+                  "shortest_connection",
+                  "g",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "从教室门口走到讲台，沿直线走最近",
+            "certificate": "point_point_path",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "minimum",
+                "variable": [
+                  "g",
+                  "Path"
+                ],
+                "relation": [
+                  "shortest_connection",
+                  "g",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "测量跳远成绩时，量取落地点到起跳线的垂线段",
+            "certificate": "point_line_distance",
+            "problem": {
+              "objects": {
+                "P": "Point",
+                "l": "Line"
+              },
+              "assumptions": [
+                [
+                  "outside",
+                  "P",
+                  "l"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique_minimum",
+                "variable": [
+                  "H",
+                  "Point"
+                ],
+                "relation": [
+                  "closest_on_line",
+                  "H",
+                  "P",
+                  "l"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_054_q4": {
+      "question_sha256": "6b664a5140346cc50d97cec59e079f38b69f1c2e0c3c342c59bcbf18e019d0cb",
+      "spec": {
+        "kind": "f63_basis_application",
+        "problem": {
+          "objects": {
+            "A": "Point",
+            "B": "Point"
+          },
+          "assumptions": [
+            [
+              "distinct",
+              "A",
+              "B"
+            ]
+          ],
+          "goal": {
+            "quantifier": "minimum",
+            "variable": [
+              "g",
+              "Path"
+            ],
+            "relation": [
+              "shortest_connection",
+              "g",
+              "A",
+              "B"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "垂线段最短",
+            "certificate": "point_line_distance",
+            "problem": {
+              "objects": {
+                "P": "Point",
+                "l": "Line"
+              },
+              "assumptions": [
+                [
+                  "outside",
+                  "P",
+                  "l"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique_minimum",
+                "variable": [
+                  "H",
+                  "Point"
+                ],
+                "relation": [
+                  "closest_on_line",
+                  "H",
+                  "P",
+                  "l"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "两点确定一条直线",
+            "certificate": "line_through_two_points",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "unique",
+                "variable": [
+                  "l",
+                  "Line"
+                ],
+                "relation": [
+                  "line_through",
+                  "l",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "同角的补角相等",
+            "certificate": "same_angle_supplements",
+            "problem": {
+              "objects": {
+                "a": "Angle",
+                "b": "Angle",
+                "c": "Angle"
+              },
+              "assumptions": [
+                [
+                  "supplementary",
+                  "a",
+                  "c"
+                ],
+                [
+                  "supplementary",
+                  "b",
+                  "c"
+                ]
+              ],
+              "goal": {
+                "quantifier": "assert",
+                "relation": [
+                  "angle_equal",
+                  "a",
+                  "b"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "两点之间线段最短",
+            "certificate": "point_point_path",
+            "problem": {
+              "objects": {
+                "A": "Point",
+                "B": "Point"
+              },
+              "assumptions": [
+                [
+                  "distinct",
+                  "A",
+                  "B"
+                ]
+              ],
+              "goal": {
+                "quantifier": "minimum",
+                "variable": [
+                  "g",
+                  "Path"
+                ],
+                "relation": [
+                  "shortest_connection",
+                  "g",
+                  "A",
+                  "B"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_064_q2": {
+      "question_sha256": "8cc39f102ab4775c914a37a5c0b92f7f94ba509768c29f93614aa6acbf276580",
+      "spec": {
+        "kind": "f63_line_notation",
+        "symbols": {
+          "t": "real",
+          "p": "real",
+          "q": "real"
+        },
+        "lines": {
+          "a": {
+            "point": [
+              "0",
+              "0"
+            ],
+            "direction": [
+              "cos(t)",
+              "sin(t)"
+            ]
+          },
+          "b": {
+            "point": [
+              "p",
+              "q"
+            ],
+            "direction": [
+              "-sin(t)",
+              "cos(t)"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "a∥b",
+            "notation": "a∥b"
+          },
+          {
+            "key": "B",
+            "text": "a⊥b",
+            "notation": "a⊥b"
+          },
+          {
+            "key": "C",
+            "text": "a=b",
+            "notation": "a=b"
+          },
+          {
+            "key": "D",
+            "text": "a∠b",
+            "notation": "a∠b"
+          }
+        ]
+      }
+    },
+    "cnm_067_q2": {
+      "question_sha256": "2a7f54ee5b6287cde0195e112f0f8d09fcbd8604bdfc98a53790b280cd58d632",
+      "spec": {
+        "kind": "f63_line_notation",
+        "symbols": {
+          "t": "real",
+          "p": "real",
+          "h": "positive"
+        },
+        "lines": {
+          "a": {
+            "point": [
+              "0",
+              "0"
+            ],
+            "direction": [
+              "cos(t)",
+              "sin(t)"
+            ]
+          },
+          "b": {
+            "point": [
+              "p*cos(t)-h*sin(t)",
+              "p*sin(t)+h*cos(t)"
+            ],
+            "direction": [
+              "cos(t)",
+              "sin(t)"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "a⊥b",
+            "notation": "a⊥b"
+          },
+          {
+            "key": "B",
+            "text": "a=b",
+            "notation": "a=b"
+          },
+          {
+            "key": "C",
+            "text": "a∠b",
+            "notation": "a∠b"
+          },
+          {
+            "key": "D",
+            "text": "a∥b",
+            "notation": "a∥b"
+          }
+        ]
+      }
+    },
+    "cnm_070_q2": {
+      "question_sha256": "a6687aec1bf8aed85c7cc7a7a4016acc665944d3f22b332b420508854f0f477b",
+      "spec": {
+        "kind": "f63_angle_rule_application",
+        "query": "apply",
+        "context": {
+          "kind": "transversal",
+          "lines": [
+            "a",
+            "b"
+          ],
+          "angles": {
+            "i": {
+              "vertex": "upper",
+              "region": "interior",
+              "side": "right"
+            },
+            "j": {
+              "vertex": "lower",
+              "region": "exterior",
+              "side": "right"
+            }
+          }
+        },
+        "sequent": {
+          "given": [
+            {
+              "op": "parallel",
+              "args": [
+                "a",
+                "b"
+              ]
+            }
+          ],
+          "goal": {
+            "op": "angle_equal",
+            "args": [
+              "i",
+              "j"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "平行线的判定",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "angle_equal",
+                  "args": [
+                    "i",
+                    "j"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "parallel",
+                "args": [
+                  "a",
+                  "b"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "平行线的性质",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "parallel",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_equal",
+                "args": [
+                  "i",
+                  "j"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "邻补角的性质",
+            "context": {
+              "kind": "rays",
+              "rays": {
+                "u": [
+                  "1",
+                  "0"
+                ],
+                "v": [
+                  "cos(t*pi/180)",
+                  "sin(t*pi/180)"
+                ],
+                "w": [
+                  "-1",
+                  "0"
+                ]
+              },
+              "angles": {
+                "i": [
+                  "u",
+                  "v"
+                ],
+                "j": [
+                  "v",
+                  "w"
+                ]
+              },
+              "angle_forms": {
+                "i": "t",
+                "j": "180-t"
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "neighbor",
+                  "args": [
+                    "i",
+                    "j"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_supplementary",
+                "args": [
+                  "i",
+                  "j"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "对顶角相等",
+            "context": {
+              "kind": "rays",
+              "rays": {
+                "u": [
+                  "1",
+                  "0"
+                ],
+                "v": [
+                  "cos(t*pi/180)",
+                  "sin(t*pi/180)"
+                ],
+                "w": [
+                  "-1",
+                  "0"
+                ],
+                "x": [
+                  "-cos(t*pi/180)",
+                  "-sin(t*pi/180)"
+                ]
+              },
+              "angles": {
+                "i": [
+                  "u",
+                  "v"
+                ],
+                "j": [
+                  "w",
+                  "x"
+                ]
+              },
+              "angle_forms": {
+                "i": "t",
+                "j": "t"
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "vertical",
+                  "args": [
+                    "i",
+                    "j"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_equal",
+                "args": [
+                  "i",
+                  "j"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_070_q5": {
+      "question_sha256": "74b6bd0a0026f7e3bebfb75b429507652a90a6ae431902ef9dcd67b4c0aa48af",
+      "spec": {
+        "kind": "f63_angle_rule_application",
+        "query": "establish_line_from_angles",
+        "options": [
+          {
+            "key": "A",
+            "text": "因为 AB∥CD，所以 ∠1=∠2",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                },
+                "k": {
+                  "vertex": "lower",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "m": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "left"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "parallel",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_equal",
+                "args": [
+                  "i",
+                  "j"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "因为 AB∥CD，所以 ∠1+∠3=180°",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                },
+                "k": {
+                  "vertex": "lower",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "m": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "left"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "parallel",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_supplementary",
+                "args": [
+                  "i",
+                  "k"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "因为一对同位角 ∠1=∠2，所以 AB∥CD",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                },
+                "k": {
+                  "vertex": "lower",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "m": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "left"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "angle_equal",
+                  "args": [
+                    "i",
+                    "j"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "parallel",
+                "args": [
+                  "a",
+                  "b"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "因为 AB∥CD，所以 ∠3=∠4",
+            "context": {
+              "kind": "transversal",
+              "lines": [
+                "a",
+                "b"
+              ],
+              "angles": {
+                "i": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "j": {
+                  "vertex": "lower",
+                  "region": "exterior",
+                  "side": "right"
+                },
+                "k": {
+                  "vertex": "lower",
+                  "region": "interior",
+                  "side": "right"
+                },
+                "m": {
+                  "vertex": "upper",
+                  "region": "interior",
+                  "side": "left"
+                }
+              }
+            },
+            "sequent": {
+              "given": [
+                {
+                  "op": "parallel",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": {
+                "op": "angle_equal",
+                "args": [
+                  "k",
+                  "m"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_071_q2": {
+      "question_sha256": "465d4a11947a1b2cc1ba870acbd09803139ea78ea6014dc630de0d32a65c4fbb",
+      "spec": {
+        "kind": "f63_condition_of_sequent",
+        "context": {
+          "kind": "rays",
+          "rays": {
+            "u": [
+              "1",
+              "0"
+            ],
+            "v": [
+              "cos(t*pi/180)",
+              "sin(t*pi/180)"
+            ],
+            "w": [
+              "-1",
+              "0"
+            ],
+            "x": [
+              "-cos(t*pi/180)",
+              "-sin(t*pi/180)"
+            ]
+          },
+          "angles": {
+            "i": [
+              "u",
+              "v"
+            ],
+            "j": [
+              "w",
+              "x"
+            ]
+          },
+          "angle_forms": {
+            "i": "t",
+            "j": "t"
+          }
+        },
+        "sequent": {
+          "given": [
+            {
+              "op": "vertical",
+              "args": [
+                "i",
+                "j"
+              ]
+            }
+          ],
+          "goal": {
+            "op": "angle_equal",
+            "args": [
+              "i",
+              "j"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "两个角是对顶角",
+            "expression": {
+              "op": "vertical",
+              "args": [
+                "i",
+                "j"
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "这两个角相等",
+            "expression": {
+              "op": "angle_equal",
+              "args": [
+                "i",
+                "j"
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "对顶角",
+            "expression": {
+              "op": "predicate_symbol",
+              "name": "vertical"
+            }
+          },
+          {
+            "key": "D",
+            "text": "相等的角",
+            "expression": {
+              "op": "set_comprehension",
+              "predicate": {
+                "op": "angle_equal",
+                "args": [
+                  "i",
+                  "j"
+                ]
+              },
+              "bound": [
+                "i",
+                "j"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cnm_071_q3": {
+      "question_sha256": "430aaec1d7d44ef493cd094865aecf6c09be8aa23515b632147d9c9059ab30bd",
+      "spec": {
+        "kind": "f63_implication_rewrite",
+        "source": {
+          "angles": [
+            "a",
+            "b",
+            "c"
+          ],
+          "given": [
+            {
+              "op": "angle_supplementary",
+              "args": [
+                "a",
+                "c"
+              ]
+            },
+            {
+              "op": "angle_supplementary",
+              "args": [
+                "b",
+                "c"
+              ]
+            }
+          ],
+          "goal": [
+            {
+              "op": "angle_equal",
+              "args": [
+                "a",
+                "b"
+              ]
+            }
+          ]
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "如果两个角相等，那么它们是同一个角的补角",
+            "schema": {
+              "angles": [
+                "a",
+                "b",
+                "c"
+              ],
+              "given": [
+                {
+                  "op": "angle_equal",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": [
+                {
+                  "op": "angle_supplementary",
+                  "args": [
+                    "a",
+                    "c"
+                  ]
+                },
+                {
+                  "op": "angle_supplementary",
+                  "args": [
+                    "b",
+                    "c"
+                  ]
+                }
+              ],
+              "exists": [
+                "c"
+              ],
+              "witnesses": {
+                "c": "180-a"
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "如果两个角互补，那么这两个角相等",
+            "schema": {
+              "angles": [
+                "a",
+                "b"
+              ],
+              "given": [
+                {
+                  "op": "angle_supplementary",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "goal": [
+                {
+                  "op": "angle_equal",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ],
+              "counterexample": {
+                "a": 30,
+                "b": 150
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "如果有两个角，那么它们的补角相等",
+            "schema": {
+              "angles": [
+                "a",
+                "b"
+              ],
+              "given": [],
+              "goal": [
+                {
+                  "op": "linear_equal",
+                  "left": "180-a",
+                  "right": "180-b"
+                }
+              ],
+              "counterexample": {
+                "a": 30,
+                "b": 60
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "如果两个角是同一个角的补角，那么这两个角相等",
+            "schema": {
+              "angles": [
+                "a",
+                "b",
+                "c"
+              ],
+              "given": [
+                {
+                  "op": "angle_supplementary",
+                  "args": [
+                    "a",
+                    "c"
+                  ]
+                },
+                {
+                  "op": "angle_supplementary",
+                  "args": [
+                    "b",
+                    "c"
+                  ]
+                }
+              ],
+              "goal": [
+                {
+                  "op": "angle_equal",
+                  "args": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cnm_072_q2": {
+      "question_sha256": "8a052f6daf34160c68cdfe28e90d6d9d731a81bdef24a730a2d680c29ef11818",
+      "spec": {
+        "kind": "f63_translation_identifiability",
+        "options": [
+          {
+            "key": "A",
+            "text": "平移的方向和距离",
+            "symbols": {
+              "a": "real",
+              "d": "nonnegative"
+            },
+            "known_parameters": [
+              "a",
+              "d"
+            ],
+            "linear_part": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "offset": [
+              "d*cos(a)",
+              "d*sin(a)"
+            ],
+            "polar_parameters": [
+              "a",
+              "d"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "旋转中心和旋转角",
+            "symbols": {
+              "a": "real",
+              "c": "real",
+              "d": "real"
+            },
+            "known_parameters": [
+              "a",
+              "c",
+              "d"
+            ],
+            "linear_part": [
+              [
+                "cos(a)",
+                "-sin(a)"
+              ],
+              [
+                "sin(a)",
+                "cos(a)"
+              ]
+            ],
+            "offset": [
+              "(1-cos(a))*c+sin(a)*d",
+              "(1-cos(a))*d-sin(a)*c"
+            ],
+            "counterexample": {
+              "a": "pi/2",
+              "c": "0",
+              "d": "0"
+            }
+          },
+          {
+            "key": "C",
+            "text": "对称轴和对称点",
+            "symbols": {
+              "a": "real",
+              "h": "real"
+            },
+            "known_parameters": [
+              "a",
+              "h"
+            ],
+            "linear_part": [
+              [
+                "cos(2*a)",
+                "sin(2*a)"
+              ],
+              [
+                "sin(2*a)",
+                "-cos(2*a)"
+              ]
+            ],
+            "offset": [
+              "-2*h*sin(a)",
+              "2*h*cos(a)"
+            ],
+            "counterexample": {
+              "a": "0",
+              "h": "0"
+            }
+          },
+          {
+            "key": "D",
+            "text": "图形的形状和大小",
+            "symbols": {
+              "a": "positive",
+              "b": "real",
+              "c": "positive",
+              "u": "real",
+              "v": "real"
+            },
+            "known_parameters": [
+              "a",
+              "b",
+              "c"
+            ],
+            "linear_part": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ],
+            "offset": [
+              "u",
+              "v"
+            ],
+            "shape": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "a",
+                "0"
+              ],
+              [
+                "b",
+                "c"
+              ]
+            ],
+            "indistinguishable_parameters": [
+              {
+                "a": "1",
+                "b": "0",
+                "c": "1",
+                "u": "0",
+                "v": "0"
+              },
+              {
+                "a": "1",
+                "b": "0",
+                "c": "1",
+                "u": "1",
+                "v": "0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_107_q1": {
+      "question_sha256": "21ae590c1f65d8307b0da95b32cf58569109fd1e5ec3474aae0bf53ce976fb45",
+      "spec": {
+        "kind": "g63_histogram_height",
+        "construction": "frequency_rectangles",
+        "counterexample": {
+          "data": [
+            1,
+            1,
+            1,
+            6,
+            6
+          ],
+          "bins": [
+            [
+              0,
+              5
+            ],
+            [
+              5,
+              10
+            ]
+          ]
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "组距",
+            "quantity": "bin_width"
+          },
+          {
+            "key": "B",
+            "text": "数据总数",
+            "quantity": "total_count"
+          },
+          {
+            "key": "C",
+            "text": "该组的组中值",
+            "quantity": "bin_midpoint"
+          },
+          {
+            "key": "D",
+            "text": "该组的频数",
+            "quantity": "bin_frequency"
+          }
+        ]
+      }
+    },
+    "cnm_118_q2": {
+      "question_sha256": "5c4c08f2a30bf00723ad61f5331e05ef88a3cccf7124ac4cd64635958b0423d2",
+      "spec": {
+        "kind": "g63_theorem_antecedent",
+        "domain": "two_distinct_intersecting_lines",
+        "theorem": {
+          "premise": {
+            "op": "opposite_ray_angles",
+            "arguments": [
+              "a",
+              "b"
+            ]
+          },
+          "conclusion": {
+            "op": "equal_angles",
+            "arguments": [
+              "a",
+              "b"
+            ]
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "∠1=∠2",
+            "predicate": {
+              "op": "equal_angles",
+              "arguments": [
+                "a",
+                "b"
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "∠1 与 ∠2 是对顶角",
+            "predicate": {
+              "op": "opposite_ray_angles",
+              "arguments": [
+                "a",
+                "b"
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "对顶角互补",
+            "predicate": {
+              "op": "and",
+              "items": [
+                {
+                  "op": "opposite_ray_angles",
+                  "arguments": [
+                    "a",
+                    "b"
+                  ]
+                },
+                {
+                  "op": "supplementary_angles",
+                  "arguments": [
+                    "a",
+                    "b"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "∠1 与 ∠2 相等",
+            "predicate": {
+              "op": "equal_angles",
+              "arguments": [
+                "a",
+                "b"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cnm_118_q4": {
+      "question_sha256": "574dbc6e825fb7173ca73b189317a081002b7a09bad1b1bcc22b2ca75af8850c",
+      "spec": {
+        "kind": "g63_proof_evidence",
+        "options": [
+          {
+            "key": "A",
+            "text": "已知条件",
+            "evidence": "equality_certificate",
+            "hypotheses": [
+              [
+                "a",
+                "b"
+              ]
+            ],
+            "goal": [
+              "a",
+              "b"
+            ],
+            "proof": {
+              "rule": "hypothesis",
+              "statement": [
+                "a",
+                "b"
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "学过的定义、定理",
+            "evidence": "equality_certificate",
+            "hypotheses": [
+              [
+                "a",
+                "b"
+              ]
+            ],
+            "goal": [
+              "b",
+              "a"
+            ],
+            "proof": {
+              "rule": "symmetric",
+              "from": {
+                "rule": "hypothesis",
+                "statement": [
+                  "a",
+                  "b"
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "图形看起来相等",
+            "evidence": "quantized_observation",
+            "lengths": [
+              1,
+              "1001/1000"
+            ],
+            "resolution": "1/100"
+          },
+          {
+            "key": "D",
+            "text": "已经证明过的结论",
+            "evidence": "equality_certificate",
+            "hypotheses": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "c"
+              ]
+            ],
+            "goal": [
+              "a",
+              "c"
+            ],
+            "lemmas": {
+              "previous": {
+                "rule": "transitive",
+                "first": {
+                  "rule": "hypothesis",
+                  "statement": [
+                    "a",
+                    "b"
+                  ]
+                },
+                "second": {
+                  "rule": "hypothesis",
+                  "statement": [
+                    "b",
+                    "c"
+                  ]
+                }
+              }
+            },
+            "proof": {
+              "rule": "lemma",
+              "id": "previous"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_141_q2": {
+      "question_sha256": "25943bcb430e26f2e9ae07fca65852eb26e4888a29bfe6d03391d7dd4abda2e1",
+      "spec": {
+        "kind": "g63_metric_final_step",
+        "goal": {
+          "op": "le",
+          "left": {
+            "op": "distance",
+            "points": [
+              "a",
+              "b"
+            ]
+          },
+          "right": {
+            "op": "add",
+            "items": [
+              {
+                "op": "distance",
+                "points": [
+                  "a",
+                  "p"
+                ]
+              },
+              {
+                "op": "distance",
+                "points": [
+                  "p",
+                  "b"
+                ]
+              }
+            ]
+          }
+        },
+        "available_hypotheses": [],
+        "options": [
+          {
+            "key": "A",
+            "text": "垂线段最短",
+            "hypotheses": [
+              {
+                "op": "on_line",
+                "point": "q",
+                "line": "l"
+              }
+            ],
+            "conclusion": {
+              "op": "le",
+              "left": {
+                "op": "point_line_distance",
+                "point": "p",
+                "line": "l"
+              },
+              "right": {
+                "op": "distance",
+                "points": [
+                  "p",
+                  "q"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "三角形内角和等于 180°",
+            "hypotheses": [
+              {
+                "op": "nondegenerate_triangle",
+                "points": [
+                  "a",
+                  "b",
+                  "c"
+                ]
+              }
+            ],
+            "conclusion": {
+              "op": "eq",
+              "left": {
+                "op": "add",
+                "items": [
+                  {
+                    "op": "angle",
+                    "points": [
+                      "a",
+                      "b",
+                      "c"
+                    ]
+                  },
+                  {
+                    "op": "angle",
+                    "points": [
+                      "b",
+                      "c",
+                      "a"
+                    ]
+                  },
+                  {
+                    "op": "angle",
+                    "points": [
+                      "c",
+                      "a",
+                      "b"
+                    ]
+                  }
+                ]
+              },
+              "right": {
+                "op": "number",
+                "value": 180
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "等角对等边",
+            "hypotheses": [
+              {
+                "op": "nondegenerate_triangle",
+                "points": [
+                  "a",
+                  "b",
+                  "c"
+                ]
+              },
+              {
+                "op": "eq",
+                "left": {
+                  "op": "angle",
+                  "points": [
+                    "a",
+                    "b",
+                    "c"
+                  ]
+                },
+                "right": {
+                  "op": "angle",
+                  "points": [
+                    "b",
+                    "c",
+                    "a"
+                  ]
+                }
+              }
+            ],
+            "conclusion": {
+              "op": "eq",
+              "left": {
+                "op": "distance",
+                "points": [
+                  "a",
+                  "b"
+                ]
+              },
+              "right": {
+                "op": "distance",
+                "points": [
+                  "a",
+                  "c"
+                ]
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "两点之间，线段最短",
+            "hypotheses": [],
+            "conclusion": {
+              "op": "le",
+              "left": {
+                "op": "distance",
+                "points": [
+                  "a",
+                  "b"
+                ]
+              },
+              "right": {
+                "op": "add",
+                "items": [
+                  {
+                    "op": "distance",
+                    "points": [
+                      "a",
+                      "p"
+                    ]
+                  },
+                  {
+                    "op": "distance",
+                    "points": [
+                      "p",
+                      "b"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_194_q3": {
+      "question_sha256": "859302db59e952c17ee030355ff210c429fec2bfe86fdde1ef238df3e21c2128",
+      "spec": {
+        "kind": "g63_process_argument",
+        "family": "constant_outflow_reservoir",
+        "variables": {
+          "v": [
+            1,
+            0
+          ],
+          "t": [
+            0,
+            1
+          ]
+        },
+        "defined_symbol": "v",
+        "expression": {
+          "op": "subtract",
+          "left": {
+            "op": "constant",
+            "value": 100,
+            "dimension": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "op": "multiply",
+            "left": {
+              "op": "constant",
+              "value": 4,
+              "dimension": [
+                1,
+                -1
+              ]
+            },
+            "right": {
+              "op": "variable",
+              "symbol": "t"
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "V",
+            "quantity": {
+              "op": "variable",
+              "symbol": "v"
+            }
+          },
+          {
+            "key": "B",
+            "text": "100",
+            "quantity": {
+              "op": "constant",
+              "value": 100,
+              "dimension": [
+                1,
+                0
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "4",
+            "quantity": {
+              "op": "constant",
+              "value": 4,
+              "dimension": [
+                1,
+                -1
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "t",
+            "quantity": {
+              "op": "variable",
+              "symbol": "t"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_214_q3": {
+      "question_sha256": "1ce4f000f64c259b81def9c21c2f18c96654c079e00c15416b150fd37d874509",
+      "spec": {
+        "kind": "g63_trimmed_mean_robustness",
+        "operation": "remove_one_min_and_one_max",
+        "domain": "at_least_three_real_scores",
+        "options": [
+          {
+            "key": "A",
+            "text": "减小个别极端评分的影响",
+            "claim": "reduced_outward_extreme_influence"
+          },
+          {
+            "key": "B",
+            "text": "让总分变大",
+            "claim": "always_increases_total",
+            "counterexample": [
+              0,
+              1,
+              10
+            ]
+          },
+          {
+            "key": "C",
+            "text": "让评委人数变少",
+            "claim": "fewer_judges"
+          },
+          {
+            "key": "D",
+            "text": "使众数唯一",
+            "claim": "unique_mode",
+            "counterexample": [
+              0,
+              1,
+              1,
+              2,
+              2,
+              3
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_225_q3": {
+      "question_sha256": "59234e3a31c8581f97ce7ad0268cf44aa1675598930f1bc5cfb8bbb1323a9cf5",
+      "spec": {
+        "kind": "app63_direct_square_equations",
+        "options": [
+          {
+            "key": "A",
+            "text": "x²-4x=5",
+            "equation": [
+              "x**2-4*x",
+              "5"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "(2x-1)²=9",
+            "equation": [
+              "(2*x-1)**2",
+              "9"
+            ]
+          },
+          {
+            "key": "C",
+            "text": "x²+3x-1=0",
+            "equation": [
+              "x**2+3*x-1",
+              "0"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "x(x-2)=3x",
+            "equation": [
+              "x*(x-2)",
+              "3*x"
+            ]
+          }
+        ],
+        "variable": "x"
+      }
+    },
+    "cnm_247_q1": {
+      "question_sha256": "b86b9b0cbcd4a101675b671b2a0608a86122dec45a3be03033d0a54d3dfb3b94",
+      "spec": {
+        "kind": "app63_square_rotation_certificates",
+        "options": [
+          {
+            "key": "A",
+            "text": "过 A 作 EF 的垂线，证 △ABE≌△ADF",
+            "steps": [
+              {
+                "op": "perpendicular_foot",
+                "point": "A",
+                "line": [
+                  "E",
+                  "F"
+                ],
+                "name": "H"
+              },
+              {
+                "op": "congruent",
+                "triangles": [
+                  [
+                    "A",
+                    "B",
+                    "E"
+                  ],
+                  [
+                    "A",
+                    "D",
+                    "F"
+                  ]
+                ]
+              }
+            ],
+            "failure_witness": {
+              "a": 1,
+              "e": "1/2",
+              "f": "1/3"
+            }
+          },
+          {
+            "key": "B",
+            "text": "把点 D、F 绕 A 旋转 90°，使 D 与 B 重合，F 的像为 F′，证 △AEF≌△AEF′",
+            "steps": [
+              {
+                "op": "quarter_turn",
+                "center": "A",
+                "maps_from": "D",
+                "maps_to": "B",
+                "degrees": 90,
+                "point": "F",
+                "image": "Q"
+              },
+              {
+                "op": "congruent",
+                "triangles": [
+                  [
+                    "A",
+                    "E",
+                    "F"
+                  ],
+                  [
+                    "A",
+                    "E",
+                    "Q"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "连接 AC、BD，证 AC⊥BD",
+            "steps": [
+              {
+                "op": "perpendicular",
+                "segments": [
+                  [
+                    "A",
+                    "C"
+                  ],
+                  [
+                    "B",
+                    "D"
+                  ]
+                ]
+              }
+            ]
+          }
+        ],
+        "figure": "square_closed_edge_points_with_45_degree_angle",
+        "rules": "isometry_congruence_segment_addition",
+        "goal": {
+          "segment": [
+            "E",
+            "F"
+          ],
+          "sum": [
+            [
+              "B",
+              "E"
+            ],
+            [
+              "D",
+              "F"
+            ]
+          ]
+        }
+      }
+    },
+    "cnm_248_q3": {
+      "question_sha256": "fa47ffceca7a2b127cd030ae2c324f2cda3ea284391c8cdfa80c9c6917199082",
+      "spec": {
+        "kind": "app63_central_symmetry_types",
+        "options": [
+          {
+            "key": "A",
+            "text": "中心对称是两个图形之间的关系，中心对称图形是一个图形自身的性质",
+            "claim": "free_shape_arities",
+            "arities": [
+              2,
+              1
+            ]
+          },
+          {
+            "key": "B",
+            "text": "两者含义完全相同，没有区别",
+            "claim": "identical_predicates",
+            "counterexample_shape": [
+              [
+                0,
+                0
+              ],
+              [
+                3,
+                0
+              ],
+              [
+                0,
+                4
+              ]
+            ],
+            "half_turn_center": [
+              0,
+              0
+            ]
+          },
+          {
+            "key": "C",
+            "text": "中心对称图形是绕某点旋转 90° 后与自身重合的图形",
+            "claim": "equivalent_rotation_invariance",
+            "angles": [
+              180,
+              90
+            ],
+            "counterexample_shape": [
+              [
+                0,
+                0
+              ],
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                0,
+                1
+              ]
+            ]
+          }
+        ],
+        "relation_expression": {
+          "tag": "exists",
+          "variables": [
+            {
+              "name": "c",
+              "sort": "point"
+            }
+          ],
+          "body": {
+            "tag": "equal",
+            "left": {
+              "tag": "half_turn",
+              "center": {
+                "tag": "point",
+                "name": "c"
+              },
+              "shape": {
+                "tag": "shape",
+                "name": "S"
+              }
+            },
+            "right": {
+              "tag": "shape",
+              "name": "T"
+            }
+          }
+        },
+        "property_expression": {
+          "tag": "exists",
+          "variables": [
+            {
+              "name": "c",
+              "sort": "point"
+            }
+          ],
+          "body": {
+            "tag": "equal",
+            "left": {
+              "tag": "half_turn",
+              "center": {
+                "tag": "point",
+                "name": "c"
+              },
+              "shape": {
+                "tag": "shape",
+                "name": "S"
+              }
+            },
+            "right": {
+              "tag": "shape",
+              "name": "S"
+            }
+          }
+        }
+      }
+    },
+    "cnm_293_q3": {
+      "question_sha256": "a3b432beaa104b2c2b0d125ab7ea73c56ba588a5857759e442fc3299aae4db1e",
+      "spec": {
+        "kind": "app63_partition_table_audit",
+        "options": [
+          {
+            "key": "A",
+            "text": "表格正确，合计无误",
+            "claim": "valid_table"
+          },
+          {
+            "key": "B",
+            "text": "合计应改为 37，这样表格就对了",
+            "claim": "valid_after_header_edit",
+            "new_header": 37
+          },
+          {
+            "key": "C",
+            "text": "三类人数之和 37 与 40 不符，说明漏记或错记，需要重新核对",
+            "claim": "inconsistency_certificate",
+            "row_sum": 37,
+            "known_population": 40
+          }
+        ],
+        "classification": "one_category_per_person_exhaustive",
+        "population": 40,
+        "counts": [
+          15,
+          12,
+          10
+        ],
+        "header": 40
+      }
     }
   }
 }

@@ -35,6 +35,8 @@ const suspension = seedFor('cnm_119', question => question.id === 'cnm_119_q2');
 const histogramConvention = seedFor('cnm_107', question => question.id === 'cnm_107_q1');
 const daylightMaximum = seedFor('cnm_109', question => question.id === 'cnm_109_q1');
 const varianceInference = seedFor('cnm_306', question => question.id === 'cnm_306_q4');
+const explicitAnglePositions = seedFor('cnm_070', question => question.id === 'cnm_070_q5');
+const restrictedReadingSample = seedFor('cnm_104', question => question.id === 'cnm_104_q3');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -597,6 +599,29 @@ for (const [topic, item, wrong] of [
     await page.reload();
     await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
     await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await noHorizontalOverflow(page);
+  });
+}
+
+for (const [topic, item] of [
+  ['cnm_070', explicitAnglePositions], ['cnm_104', restrictedReadingSample]
+]) {
+  test('63-item reviewed wording ' + topic + ' keeps its selected answer and feedback after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+    await page.goto(targetURL(topic, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await activate(page, page.locator('#choice-A'));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toContainText('不正确');
+    await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+    const correct = page.locator('#choice-' + item.question.answer);
+    await activate(page, correct);
+    await page.reload();
+    await expect(correct).toHaveAttribute('aria-pressed', 'true');
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await page.reload();
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
     await noHorizontalOverflow(page);
   });
 }
