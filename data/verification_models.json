@@ -16178,6 +16178,2876 @@
           }
         ]
       }
+    },
+    "cnm_026_q3": {
+      "question_sha256": "edccd6c2b42ebc3e8891deb011cf32b1263704973717a8052d09111c8cbd022d",
+      "spec": {
+        "kind": "f105_notation_format",
+        "options": [
+          {
+            "key": "A",
+            "text": "4a",
+            "expression": "4a"
+          },
+          {
+            "key": "B",
+            "text": "a×4",
+            "expression": "a×4"
+          },
+          {
+            "key": "C",
+            "text": "1a",
+            "expression": "1a"
+          },
+          {
+            "key": "D",
+            "text": "a÷b",
+            "expression": "a÷b"
+          }
+        ]
+      }
+    },
+    "cnm_050_q1": {
+      "question_sha256": "184cafe12cc7e546944b8ff46ec26442604e01206a89fcaff5665d124000aaab",
+      "spec": {
+        "kind": "f105_cylinder_unroll",
+        "symbols": {
+          "r": "positive",
+          "h": "positive",
+          "w": "positive",
+          "a": "positive",
+          "u": "real",
+          "s": "real",
+          "z": "real"
+        },
+        "parameters": [
+          "s",
+          "z"
+        ],
+        "bounds": {
+          "s": [
+            "0",
+            "2*pi*r"
+          ],
+          "z": [
+            "0",
+            "h"
+          ]
+        },
+        "surface": [
+          "r*cos(s/r)",
+          "r*sin(s/r)",
+          "z"
+        ],
+        "radius": "r",
+        "seam": "separated_boundary_copies",
+        "options": [
+          {
+            "key": "A",
+            "text": "三角形",
+            "region": {
+              "kind": "polygon",
+              "vertices": [
+                [
+                  "0",
+                  "0"
+                ],
+                [
+                  "w",
+                  "0"
+                ],
+                [
+                  "u",
+                  "h"
+                ]
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "圆",
+            "region": {
+              "kind": "disk",
+              "center": [
+                "0",
+                "0"
+              ],
+              "radius": "r"
+            }
+          },
+          {
+            "key": "C",
+            "text": "长方形",
+            "region": {
+              "kind": "polygon",
+              "vertices": [
+                [
+                  "0",
+                  "0"
+                ],
+                [
+                  "w",
+                  "0"
+                ],
+                [
+                  "w",
+                  "h"
+                ],
+                [
+                  "0",
+                  "h"
+                ]
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "扇形",
+            "region": {
+              "kind": "sector",
+              "center": [
+                "0",
+                "0"
+              ],
+              "radius": "r",
+              "sweep": "2*pi*a/(1+a)"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_050_q2": {
+      "question_sha256": "179a4700cb8852c4f6636e4b20e5ad0331aa92c4f3da1535fd5e4ec598cddeda",
+      "spec": {
+        "kind": "f105_affine_dimensions",
+        "symbols": {
+          "r": "positive",
+          "w": "positive",
+          "h": "positive",
+          "b": "positive",
+          "u": "real"
+        },
+        "dimension": 3,
+        "options": [
+          {
+            "key": "A",
+            "text": "球",
+            "set": {
+              "kind": "linear_ball",
+              "radius": "r",
+              "basis": [
+                [
+                  "1",
+                  "0",
+                  "0"
+                ],
+                [
+                  "0",
+                  "1",
+                  "0"
+                ],
+                [
+                  "0",
+                  "0",
+                  "1"
+                ]
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "圆",
+            "set": {
+              "kind": "linear_ball",
+              "radius": "r",
+              "basis": [
+                [
+                  "1",
+                  "0"
+                ],
+                [
+                  "0",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "三角形",
+            "set": {
+              "kind": "convex_hull",
+              "vertices": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "w",
+                  "0",
+                  "0"
+                ],
+                [
+                  "u",
+                  "h",
+                  "0"
+                ]
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "梯形",
+            "set": {
+              "kind": "convex_hull",
+              "vertices": [
+                [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                [
+                  "w",
+                  "0",
+                  "0"
+                ],
+                [
+                  "u+b",
+                  "h",
+                  "0"
+                ],
+                [
+                  "u",
+                  "h",
+                  "0"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "cnm_051_q2": {
+      "question_sha256": "9a32b5949cb28912ff832e9de19ab75459b0460bb71188317c060d347d777bd6",
+      "spec": {
+        "kind": "f105_cylinder_projection",
+        "symbols": {
+          "r": "positive",
+          "h": "positive",
+          "w": "positive",
+          "a": "positive",
+          "u": "real",
+          "x": "real",
+          "y": "real",
+          "z": "real"
+        },
+        "radius": "r",
+        "height": "h",
+        "coordinates": [
+          "x",
+          "y",
+          "z"
+        ],
+        "axis": "z",
+        "radial": [
+          "x",
+          "y"
+        ],
+        "views": [
+          [
+            "x",
+            "z"
+          ],
+          [
+            "x",
+            "y"
+          ]
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "圆，长方形",
+            "regions": [
+              {
+                "kind": "disk",
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "r"
+              },
+              {
+                "kind": "polygon",
+                "vertices": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "h"
+                  ],
+                  [
+                    "0",
+                    "h"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "长方形，圆",
+            "regions": [
+              {
+                "kind": "polygon",
+                "vertices": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "h"
+                  ],
+                  [
+                    "0",
+                    "h"
+                  ]
+                ]
+              },
+              {
+                "kind": "disk",
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "r"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "长方形，长方形",
+            "regions": [
+              {
+                "kind": "polygon",
+                "vertices": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "h"
+                  ],
+                  [
+                    "0",
+                    "h"
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "vertices": [
+                  [
+                    "0",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "0"
+                  ],
+                  [
+                    "w",
+                    "h"
+                  ],
+                  [
+                    "0",
+                    "h"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "圆，圆",
+            "regions": [
+              {
+                "kind": "disk",
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "r"
+              },
+              {
+                "kind": "disk",
+                "center": [
+                  "0",
+                  "0"
+                ],
+                "radius": "r"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_052_q1": {
+      "question_sha256": "680f59c2ed750e287aac6d99810a98338db32514ae4123dfc6e652f7653964bf",
+      "spec": {
+        "kind": "f105_revolution",
+        "symbols": {
+          "r": "positive",
+          "h": "positive",
+          "z": "real"
+        },
+        "axis": "z",
+        "radial_profile": "r*(1-z/h)",
+        "axial_interval": [
+          "0",
+          "h"
+        ],
+        "turn_angle": "2*pi",
+        "options": [
+          {
+            "key": "A",
+            "text": "圆柱",
+            "solid": {
+              "kind": "disk_sections",
+              "radius_squared": "r**2",
+              "axial_interval": [
+                "0",
+                "h"
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "球",
+            "solid": {
+              "kind": "disk_sections",
+              "radius_squared": "r**2-(z-r)**2",
+              "axial_interval": [
+                "0",
+                "2*r"
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "圆锥",
+            "solid": {
+              "kind": "disk_sections",
+              "radius_squared": "(r*(1-z/h))**2",
+              "axial_interval": [
+                "0",
+                "h"
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "棱锥",
+            "solid": {
+              "kind": "polyhedral_sections"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_052_q2": {
+      "question_sha256": "d931d2ca4eba04501ae001c1afbccaad5239110ec1ad0a20c6e4962e1770ef2d",
+      "spec": {
+        "kind": "f105_sweep_dimensions",
+        "symbols": {
+          "t": "real"
+        },
+        "query": "classify",
+        "motion": {
+          "initial": {
+            "kind": "explicit",
+            "coordinates": [
+              "0",
+              "0",
+              "0"
+            ],
+            "parameters": [],
+            "bounds": {}
+          },
+          "sweep": {
+            "kind": "regular_curve",
+            "parameters": [
+              "t"
+            ],
+            "bounds": {
+              "t": [
+                "0",
+                "1"
+              ]
+            }
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "线动成面",
+            "dimensions": [
+              1,
+              2
+            ]
+          },
+          {
+            "key": "B",
+            "text": "点动成线",
+            "dimensions": [
+              0,
+              1
+            ]
+          },
+          {
+            "key": "C",
+            "text": "面动成体",
+            "dimensions": [
+              2,
+              3
+            ]
+          },
+          {
+            "key": "D",
+            "text": "体动成面",
+            "dimensions": [
+              3,
+              2
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_052_q4": {
+      "question_sha256": "df7db2d7b933662f08733a37612e824d22485dbbbcdd4b16fc61c5feee78466b",
+      "spec": {
+        "kind": "f105_sweep_dimensions",
+        "symbols": {
+          "r": "positive",
+          "h": "positive",
+          "a": "positive",
+          "u": "positive",
+          "v": "positive",
+          "t": "real"
+        },
+        "query": "select",
+        "dimensions": [
+          2,
+          3
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "将一个直角三角形绕直角边旋转一周，形成一个圆锥",
+            "motion": {
+              "initial": {
+                "kind": "explicit",
+                "coordinates": [
+                  "r*u/((1+u)*(1+v))",
+                  "0",
+                  "h*v/(1+v)"
+                ],
+                "parameters": [
+                  "u",
+                  "v"
+                ],
+                "bounds": {
+                  "u": [
+                    "0",
+                    "inf"
+                  ],
+                  "v": [
+                    "0",
+                    "inf"
+                  ]
+                }
+              },
+              "sweep": {
+                "kind": "explicit",
+                "coordinates": [
+                  "r*u*cos(t)/((1+u)*(1+v))",
+                  "r*u*sin(t)/((1+u)*(1+v))",
+                  "h*v/(1+v)"
+                ],
+                "parameters": [
+                  "u",
+                  "v",
+                  "t"
+                ],
+                "bounds": {
+                  "u": [
+                    "0",
+                    "inf"
+                  ],
+                  "v": [
+                    "0",
+                    "inf"
+                  ],
+                  "t": [
+                    "0",
+                    "2*pi"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "汽车的雨刷在挡风玻璃上扫出一个扇形区域",
+            "motion": {
+              "initial": {
+                "kind": "explicit",
+                "coordinates": [
+                  "r*u/(1+u)",
+                  "0",
+                  "0"
+                ],
+                "parameters": [
+                  "u"
+                ],
+                "bounds": {
+                  "u": [
+                    "0",
+                    "inf"
+                  ]
+                }
+              },
+              "sweep": {
+                "kind": "explicit",
+                "coordinates": [
+                  "r*u*cos(t)/(1+u)",
+                  "r*u*sin(t)/(1+u)",
+                  "0"
+                ],
+                "parameters": [
+                  "u",
+                  "t"
+                ],
+                "bounds": {
+                  "u": [
+                    "0",
+                    "inf"
+                  ],
+                  "t": [
+                    "0",
+                    "a"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "流星划过夜空留下一道亮线",
+            "motion": {
+              "initial": {
+                "kind": "explicit",
+                "coordinates": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "parameters": [],
+                "bounds": {}
+              },
+              "sweep": {
+                "kind": "regular_curve",
+                "parameters": [
+                  "t"
+                ],
+                "bounds": {
+                  "t": [
+                    "0",
+                    "1"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "用笔尖在纸上画出一条曲线",
+            "motion": {
+              "initial": {
+                "kind": "explicit",
+                "coordinates": [
+                  "0",
+                  "0",
+                  "0"
+                ],
+                "parameters": [],
+                "bounds": {}
+              },
+              "sweep": {
+                "kind": "regular_curve",
+                "parameters": [
+                  "t"
+                ],
+                "bounds": {
+                  "t": [
+                    "0",
+                    "1"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_056_q3": {
+      "question_sha256": "b0c3b52f791b1fd1ff256c3e6b741db636478b1b6a929363b60485c066b778e4",
+      "spec": {
+        "kind": "f105_first_collinearity",
+        "options": [
+          {
+            "key": "A",
+            "text": "直角",
+            "degrees": 90
+          },
+          {
+            "key": "B",
+            "text": "平角",
+            "degrees": 180
+          },
+          {
+            "key": "C",
+            "text": "周角",
+            "degrees": 360
+          },
+          {
+            "key": "D",
+            "text": "钝角",
+            "interval": [
+              90,
+              180
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_056_q5": {
+      "question_sha256": "971033debc361e9deb19125e88ba9b81ddda6d2cdc9b2dc9698ec2423ad708b9",
+      "spec": {
+        "kind": "f105_angle_notation",
+        "options": [
+          {
+            "key": "A",
+            "text": "∠AOB 与 ∠BOA 表示不同的两个角",
+            "claim": "different_named_angles",
+            "names": [
+              "AOB",
+              "BOA"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "无论顶点处有几个角，都可以用 ∠O 表示",
+            "claim": "all_single_vertex_names_unambiguous",
+            "counterexample": {
+              "points": {
+                "O": [
+                  "0",
+                  "0"
+                ],
+                "A": [
+                  "1",
+                  "0"
+                ],
+                "B": [
+                  "0",
+                  "1"
+                ],
+                "C": [
+                  "-1",
+                  "0"
+                ]
+              },
+              "names": [
+                "AOB",
+                "BOC"
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "∠1 是用三个大写字母记出的角",
+            "claim": "uppercase_count",
+            "notation": "∠1",
+            "count": 3
+          },
+          {
+            "key": "D",
+            "text": "∠AOB 中，中间的字母 O 表示角的顶点",
+            "claim": "vertex",
+            "name": "AOB",
+            "vertex": "O"
+          }
+        ]
+      }
+    },
+    "cnm_062_q2": {
+      "question_sha256": "dfcbf003cfc29ad9040a9df40a8faf970174f536fbf5b675748a11942720afd3",
+      "spec": {
+        "kind": "f105_adjacent_angle_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "邻补角相等",
+            "claim": "neighbor_relation",
+            "relation": "equal",
+            "counterexample_degrees": 30
+          },
+          {
+            "key": "B",
+            "text": "邻补角互补",
+            "claim": "neighbor_relation",
+            "relation": "supplementary"
+          },
+          {
+            "key": "C",
+            "text": "邻补角互余",
+            "claim": "neighbor_relation",
+            "relation": "complementary",
+            "counterexample_degrees": 30
+          },
+          {
+            "key": "D",
+            "text": "互补的两个角一定是邻补角",
+            "claim": "supplementary_implies_adjacent",
+            "counterexample": [
+              {
+                "vertex": [
+                  "0",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "1/2",
+                    "sqrt(3)/2"
+                  ]
+                ]
+              },
+              {
+                "vertex": [
+                  "2",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "-1/2",
+                    "sqrt(3)/2"
+                  ]
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_064_q3": {
+      "question_sha256": "1173c7486071f339ba4ba3cacdab20469ce12735d8606a0fa9299cad10cd3aaf",
+      "spec": {
+        "kind": "f105_ruler_construction",
+        "symbols": {
+          "p": "real",
+          "h": "positive",
+          "a": "positive",
+          "b": "positive"
+        },
+        "point": [
+          "p",
+          "h"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "使三角尺的一条直角边与 l 重合，沿 l 移动三角尺，使另一条直角边经过点 P，再沿这条直角边画直线",
+            "plan": "aligned_leg_slide",
+            "triangle": [
+              [
+                "0",
+                "0"
+              ],
+              [
+                "a",
+                "0"
+              ],
+              [
+                "0",
+                "b"
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "使三角尺的斜边与 l 重合，过点 P 沿斜边方向画直线",
+            "plan": "draw_in_aligned_hypotenuse_direction"
+          },
+          {
+            "key": "C",
+            "text": "任意过点 P 画一条直线，再用量角器量出它与 l 的夹角约为 90°",
+            "plan": "approximate_right_angle",
+            "tolerance_interval": [
+              "0",
+              "pi/180"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "使三角尺的一个锐角的顶点落在点 P 上，再沿斜边画直线",
+            "plan": "acute_vertex_draw_hypotenuse",
+            "counterexample": [
+              [
+                "p",
+                "h"
+              ],
+              [
+                "p+1",
+                "h"
+              ],
+              [
+                "p+1/2",
+                "h+1/2"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_065_q4": {
+      "question_sha256": "462fc5ce4aabccdf5a17e08322f593299e5549273150e8e3e1c9ecbd071a0ef1",
+      "spec": {
+        "kind": "f105_shortest_canal",
+        "symbols": {
+          "p": "real",
+          "h": "positive"
+        },
+        "point": [
+          "p",
+          "h"
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "沿任意方向修，长度都一样",
+            "plan": "all_endpoints_equal_length"
+          },
+          {
+            "key": "B",
+            "text": "沿平行于 l 的方向修",
+            "plan": "parallel_to_bank"
+          },
+          {
+            "key": "C",
+            "text": "过点 P 作 l 的垂线，沿垂线段修，依据是垂线段最短",
+            "plan": "orthogonal_projection"
+          },
+          {
+            "key": "D",
+            "text": "沿 P 与河岸上任意一点的连线修",
+            "plan": "arbitrary_endpoint_is_minimum"
+          }
+        ]
+      }
+    },
+    "cnm_071_q1": {
+      "question_sha256": "fcc6719b8fbfedff08501c8e0131aa813ec957744b4fe4e18817999be4129080",
+      "spec": {
+        "kind": "f105_equal_angle_converse",
+        "counterexample": [
+          {
+            "vertex": [
+              "0",
+              "0"
+            ],
+            "rays": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ]
+          },
+          {
+            "vertex": [
+              "2",
+              "0"
+            ],
+            "rays": [
+              [
+                "1",
+                "0"
+              ],
+              [
+                "0",
+                "1"
+              ]
+            ]
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "假命题，因为对顶角不相等",
+            "claim": "deny_using_vertical_inequality"
+          },
+          {
+            "key": "B",
+            "text": "假命题，如两个直角相等但不是对顶角",
+            "claim": "deny_with_right_angle_counterexample",
+            "counterexample": [
+              {
+                "vertex": [
+                  "0",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1"
+                  ]
+                ]
+              },
+              {
+                "vertex": [
+                  "2",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "真命题",
+            "claim": "equal_implies_vertical"
+          }
+        ]
+      }
+    },
+    "cnm_071_q4": {
+      "question_sha256": "b46ce2d89616495bf2681c77283ae2d9fb2c4400e4b5e1c9580dd3d4268f1a6e",
+      "spec": {
+        "kind": "f105_angle_propositions",
+        "statements": [
+          {
+            "claim": "vertical_equal"
+          },
+          {
+            "claim": "equal_implies_vertical",
+            "counterexample": [
+              {
+                "vertex": [
+                  "0",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1"
+                  ]
+                ]
+              },
+              {
+                "vertex": [
+                  "2",
+                  "0"
+                ],
+                "rays": [
+                  [
+                    "1",
+                    "0"
+                  ],
+                  [
+                    "0",
+                    "1"
+                  ]
+                ]
+              }
+            ]
+          },
+          {
+            "claim": "parallel_transversal",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "interior",
+                "side": "right"
+              }
+            ],
+            "relation": "supplementary"
+          },
+          {
+            "claim": "transversal",
+            "angles": [
+              {
+                "vertex": "upper",
+                "region": "interior",
+                "side": "right"
+              },
+              {
+                "vertex": "lower",
+                "region": "exterior",
+                "side": "right"
+              }
+            ],
+            "relation": "equal",
+            "counterexample": [
+              -20,
+              10
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_077_q4": {
+      "question_sha256": "1522038e19843f02702d0d7e2ad5be9998b934c7a6ed42546efc5021e5f0e1ac",
+      "spec": {
+        "kind": "f105_decimal_claims",
+        "base": 10,
+        "options": [
+          {
+            "key": "A",
+            "text": "无限小数都是无理数",
+            "claim": "all_infinite_decimals_irrational",
+            "counterexample": {
+              "integer": "0",
+              "prefix": "0",
+              "prefix_length": 0,
+              "period": "3",
+              "period_length": 1
+            }
+          },
+          {
+            "key": "B",
+            "text": "带根号的数都是无理数",
+            "claim": "all_radical_expressions_irrational",
+            "counterexample": "sqrt(4)"
+          },
+          {
+            "key": "C",
+            "text": "无理数都是无限不循环小数",
+            "claim": "irrationals_are_nonterminating_nonperiodic"
+          },
+          {
+            "key": "D",
+            "text": "两个无理数的和一定是无理数",
+            "claim": "irrational_addition_closed",
+            "counterexample": [
+              "sqrt(2)",
+              "-sqrt(2)"
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_078_q4": {
+      "question_sha256": "70a6a2d8a044c6b70181b4ea03a14c22d6ae3520d44f2fc27403596be3c3fe2e",
+      "spec": {
+        "kind": "f105_real_axis_claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "实数与数轴上的点一一对应",
+            "claim": "coordinate_bijection"
+          },
+          {
+            "key": "B",
+            "text": "数轴上的点都表示有理数",
+            "claim": "all_coordinates_rational",
+            "counterexample": "sqrt(2)"
+          },
+          {
+            "key": "C",
+            "text": "实数分为正实数和负实数两类",
+            "claim": "real_sign_partition",
+            "signs": [
+              1,
+              -1
+            ]
+          },
+          {
+            "key": "D",
+            "text": "0 既不是有理数也不是无理数",
+            "claim": "number_class",
+            "value": "0",
+            "number_class": "neither"
+          }
+        ]
+      }
+    },
+    "cnm_103_q1": {
+      "question_sha256": "4886db0e6006d0e3930d19a0ca9ca4bb5371ab99495e855b507ee18ee69af8ce",
+      "spec": {
+        "kind": "g105_observation_objects",
+        "design": {
+          "entity": "student",
+          "population_count": 500,
+          "selection": {
+            "method": "without_replacement",
+            "count": 50
+          },
+          "measurement": {
+            "kind": "scalar",
+            "quantity": "height",
+            "records_per_subject": 1,
+            "missing_subjects": 0
+          }
+        },
+        "query": "capacity"
+      }
+    },
+    "cnm_103_q2": {
+      "question_sha256": "2243a89f5c8024ae72be63f779fbd5c40a0cededa6b64546aa7d207a9a489f89",
+      "spec": {
+        "kind": "g105_observation_objects",
+        "design": {
+          "entity": "student",
+          "population_count": 800,
+          "selection": {
+            "method": "without_replacement",
+            "count": 80
+          },
+          "measurement": {
+            "kind": "scalar",
+            "quantity": "weight",
+            "records_per_subject": 1,
+            "missing_subjects": 0
+          }
+        },
+        "query": "identity",
+        "target": {
+          "op": "role",
+          "name": "sample"
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "该校 800 名学生",
+            "object": {
+              "op": "subjects",
+              "scope": "population"
+            }
+          },
+          {
+            "key": "B",
+            "text": "被抽取的 80 名学生的体重",
+            "object": {
+              "op": "observe",
+              "subjects": {
+                "op": "subjects",
+                "scope": "selected"
+              },
+              "quantity": "weight"
+            }
+          },
+          {
+            "key": "C",
+            "text": "每名学生的体重",
+            "object": {
+              "op": "datum",
+              "quantity": "weight"
+            }
+          },
+          {
+            "key": "D",
+            "text": "80",
+            "object": {
+              "op": "number",
+              "value": 80
+            }
+          }
+        ]
+      }
+    },
+    "cnm_103_q3": {
+      "question_sha256": "700432fecf9674a16f84a34eb759664a10b954f8ed721dde872fdf16a5c4bec4",
+      "spec": {
+        "kind": "g105_observation_objects",
+        "design": {
+          "entity": "student",
+          "population_count": 30000,
+          "selection": {
+            "method": "without_replacement",
+            "count": 1000
+          },
+          "measurement": {
+            "kind": "scalar",
+            "quantity": "fitness_score",
+            "records_per_subject": 1,
+            "missing_subjects": 0
+          }
+        },
+        "query": "claims",
+        "options": [
+          {
+            "key": "A",
+            "text": "总体是 1000 名学生的体能成绩",
+            "left": {
+              "op": "role",
+              "name": "population"
+            },
+            "right": {
+              "op": "observe",
+              "subjects": {
+                "op": "subjects",
+                "scope": "selected"
+              },
+              "quantity": "fitness_score"
+            }
+          },
+          {
+            "key": "B",
+            "text": "样本是被抽取的 1000 名学生",
+            "left": {
+              "op": "role",
+              "name": "sample"
+            },
+            "right": {
+              "op": "subjects",
+              "scope": "selected"
+            }
+          },
+          {
+            "key": "C",
+            "text": "个体是每名初三学生的体能成绩",
+            "left": {
+              "op": "role",
+              "name": "individual"
+            },
+            "right": {
+              "op": "datum",
+              "quantity": "fitness_score"
+            }
+          },
+          {
+            "key": "D",
+            "text": "样本容量是 3 万",
+            "left": {
+              "op": "role",
+              "name": "sample_capacity"
+            },
+            "right": {
+              "op": "number",
+              "value": 30000
+            }
+          }
+        ]
+      }
+    },
+    "cnm_104_q1": {
+      "question_sha256": "261d7545d82f8236a67383298170af06ed32a959a0e006352e49c6da5099f7d0",
+      "spec": {
+        "kind": "g105_sampling_guarantee",
+        "included_value": 200,
+        "excluded_value": 150,
+        "options": [
+          {
+            "key": "A",
+            "text": "不能保证，抽样范围只限篮球队队员，缺乏全校覆盖",
+            "claim": "not_guaranteed"
+          },
+          {
+            "key": "B",
+            "text": "能，篮球队员也是学校的学生",
+            "claim": "guaranteed_by_inclusion"
+          },
+          {
+            "key": "C",
+            "text": "能，只要调查的人数足够多",
+            "claim": "guaranteed_by_large_size"
+          }
+        ]
+      }
+    },
+    "cnm_106_q1": {
+      "question_sha256": "a32162d3876e07eae9bfcb5b3e148dee22f4c5f86000297e1170c083bf10ed20",
+      "spec": {
+        "kind": "g105_frequency_algorithm",
+        "observation_count": 20,
+        "bin_width": 5,
+        "counterexample": {
+          "data": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "bins": [
+            [
+              0,
+              5
+            ],
+            [
+              5,
+              10
+            ]
+          ]
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "把各组的组距加起来",
+            "algorithm": "sum_bin_widths"
+          },
+          {
+            "key": "B",
+            "text": "用最大值减最小值",
+            "algorithm": "data_range"
+          },
+          {
+            "key": "C",
+            "text": "数出落在各组内的数据个数",
+            "algorithm": "count_members_per_bin"
+          },
+          {
+            "key": "D",
+            "text": "把各组内的数据相加",
+            "algorithm": "sum_values_per_bin"
+          }
+        ]
+      }
+    },
+    "cnm_108_q1": {
+      "question_sha256": "d20aa848dd22d8eb156d9c2358b7656611b11aa3c9582c647377094fe2a1f8c9",
+      "spec": {
+        "kind": "g105_graph_order",
+        "positive": [
+          "t",
+          "v"
+        ],
+        "coordinate_step": [
+          "t",
+          "v"
+        ],
+        "axis_units": [
+          1,
+          1
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "随时间推移数值减小",
+            "comparison": "decreasing"
+          },
+          {
+            "key": "B",
+            "text": "随时间推移数值增大",
+            "comparison": "increasing"
+          },
+          {
+            "key": "C",
+            "text": "数值保持不变",
+            "comparison": "constant"
+          }
+        ]
+      }
+    },
+    "cnm_109_q1": {
+      "question_sha256": "ba0b2535cedb353f4df08bbe9a55d1dd4237387f8e7056a8e2133a22f3483710",
+      "spec": {
+        "kind": "g105_graph_extremum",
+        "vertical_scale": 1,
+        "vertical_offset": 0,
+        "options": [
+          {
+            "key": "A",
+            "text": "曲线达到最高值的位置（可以是峰值或最高平台的一部分）",
+            "interpretation": "upper_ordinate"
+          },
+          {
+            "key": "B",
+            "text": "曲线的最低点",
+            "interpretation": "lower_ordinate"
+          },
+          {
+            "key": "C",
+            "text": "曲线与横轴的交点",
+            "interpretation": "zero_ordinate"
+          }
+        ]
+      }
+    },
+    "cnm_115_q4": {
+      "question_sha256": "c40043a0ed734cbe5f8361afcb7b75eb1dea0fd6d4802fa45c525e8c54a5dbd9",
+      "spec": {
+        "kind": "g105_direct_angle_rule",
+        "given": "parallel",
+        "goal": "angle_equal",
+        "angles": [
+          {
+            "vertex": "upper",
+            "region": "interior",
+            "side": "left"
+          },
+          {
+            "vertex": "lower",
+            "region": "interior",
+            "side": "right"
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "两直线平行，内错角相等",
+            "theorem": "parallel_angles",
+            "angle_class": "alternate_interior",
+            "direction": "property",
+            "conclusion": "angle_equal"
+          },
+          {
+            "key": "B",
+            "text": "两直线平行，同旁内角互补",
+            "theorem": "parallel_angles",
+            "angle_class": "same_side_interior",
+            "direction": "property",
+            "conclusion": "angle_supplementary"
+          },
+          {
+            "key": "C",
+            "text": "对顶角相等",
+            "theorem": "vertical_angles"
+          },
+          {
+            "key": "D",
+            "text": "三角形的外角等于不相邻两内角之和",
+            "theorem": "triangle_exterior"
+          }
+        ]
+      }
+    },
+    "cnm_118_q3": {
+      "question_sha256": "c12c068861ef3a314bdf75d644d6d795baba6080bef0402819717b3078069335",
+      "spec": {
+        "kind": "g105_direct_angle_rule",
+        "given": "parallel",
+        "goal": "angle_equal",
+        "angles": [
+          {
+            "vertex": "upper",
+            "region": "interior",
+            "side": "left"
+          },
+          {
+            "vertex": "lower",
+            "region": "interior",
+            "side": "right"
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "两直线平行，内错角相等",
+            "theorem": "parallel_angles",
+            "angle_class": "alternate_interior",
+            "direction": "property",
+            "conclusion": "angle_equal"
+          },
+          {
+            "key": "B",
+            "text": "内错角相等，两直线平行",
+            "theorem": "parallel_angles",
+            "angle_class": "alternate_interior",
+            "direction": "criterion",
+            "conclusion": "angle_equal"
+          },
+          {
+            "key": "C",
+            "text": "两直线平行，同旁内角互补",
+            "theorem": "parallel_angles",
+            "angle_class": "same_side_interior",
+            "direction": "property",
+            "conclusion": "angle_supplementary"
+          },
+          {
+            "key": "D",
+            "text": "对顶角相等",
+            "theorem": "vertical_angles"
+          }
+        ]
+      }
+    },
+    "cnm_130_q1": {
+      "question_sha256": "1f967c0b433620a8bde0872e26bd3e3fbc2111b08a00ec94d43452c6f63a5dad",
+      "spec": {
+        "kind": "g105_doubled_median",
+        "options": [
+          {
+            "key": "A",
+            "text": "过 D 作 AD 的垂线，在该线上取辅助点，证两个直角三角形全等",
+            "construction": "perpendicular_through_midpoint"
+          },
+          {
+            "key": "B",
+            "text": "过 D 作 AB 的平行线，用同位角相等",
+            "construction": "parallel_ab_through_midpoint"
+          },
+          {
+            "key": "C",
+            "text": "取 AB 的中点 E，连接 DE，用三边关系",
+            "construction": "midpoint_ab"
+          },
+          {
+            "key": "D",
+            "text": "延长 AD 至 E 使 DE=AD，证 △ABD≌△ECD，再用三边关系",
+            "construction": "extend_median_equal_length"
+          }
+        ]
+      }
+    },
+    "cnm_216_q5": {
+      "question_sha256": "47470545c4107dd8c99e4a91e73b1f79f0e6c35036abf746ba55ef09813c4b3c",
+      "spec": {
+        "kind": "g105_quartile_width",
+        "options": [
+          {
+            "key": "A",
+            "text": "中间 50% 的数据越分散",
+            "claim": "central_width_increases"
+          },
+          {
+            "key": "B",
+            "text": "中间 50% 的数据越集中",
+            "claim": "central_width_decreases"
+          },
+          {
+            "key": "C",
+            "text": "数据的平均数越大",
+            "claim": "mean_increases",
+            "counterexample": [
+              [
+                10,
+                11,
+                11,
+                12
+              ],
+              [
+                0,
+                0,
+                2,
+                2
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_218_q1": {
+      "question_sha256": "5f8f34870291da020b033a3bfcb90f61ec1a038b367e0f008c1ed5e8450ef50e",
+      "spec": {
+        "kind": "g105_summary_sufficiency",
+        "options": [
+          {
+            "key": "A",
+            "text": "只比较各班的最高分",
+            "algorithms": [
+              "max"
+            ],
+            "counterexample": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                1,
+                1,
+                3
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "只比较各班的人数",
+            "algorithms": [
+              "count"
+            ],
+            "counterexample": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                1,
+                1,
+                3
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "用平均数比较整体水平，用方差比较整齐程度",
+            "algorithms": [
+              "mean",
+              "variance"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "只比较各班的最低分",
+            "algorithms": [
+              "min"
+            ],
+            "counterexample": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                1,
+                1,
+                3
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_253_q4": {
+      "question_sha256": "faebd762ac741301d56c19cedc391a27a9cbe4be06906d09e9db0be7f1db4d66",
+      "spec": {
+        "kind": "app105_inscribed_angle_relations",
+        "options": [
+          {
+            "key": "A",
+            "text": "圆周角等于它所对圆心角",
+            "left": "inscribed",
+            "op": "=",
+            "right": "central"
+          },
+          {
+            "key": "B",
+            "text": "同弦所对的圆周角都相等",
+            "left": "inscribed",
+            "op": "=",
+            "right": "opposite_arc"
+          },
+          {
+            "key": "C",
+            "text": "同弧或等弧所对的圆周角相等",
+            "left": "inscribed",
+            "op": "=",
+            "right": "same_arc_other"
+          }
+        ],
+        "circle_domain": "nondegenerate_inscribed_angles",
+        "counterexample_half_angle": "pi/3",
+        "counterexample_offset": "pi/6"
+      }
+    },
+    "cnm_264_q2": {
+      "question_sha256": "77cf2cc80c08f4490e5c034c7d80e6d8736bbf42ce7c54979c11fcfb12ac4299",
+      "spec": {
+        "kind": "app105_incenter_intersections",
+        "options": [
+          {
+            "key": "A",
+            "text": "三边垂直平分线的交点",
+            "intersection": "perpendicular_bisectors",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                4,
+                0
+              ],
+              [
+                0,
+                3
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "三条角平分线的交点",
+            "intersection": "internal_angle_bisectors"
+          },
+          {
+            "key": "C",
+            "text": "三条高的交点",
+            "intersection": "altitudes",
+            "counterexample": [
+              [
+                0,
+                0
+              ],
+              [
+                4,
+                0
+              ],
+              [
+                0,
+                3
+              ]
+            ]
+          }
+        ],
+        "family": "nondegenerate_triangle"
+      }
+    },
+    "cnm_266_q2": {
+      "question_sha256": "b4507f13c35d2ce882628621399dea1ba09b38b6deab796abf986b8bd9bc6416",
+      "spec": {
+        "kind": "app105_regular_polygon_metrics",
+        "options": [
+          {
+            "key": "A",
+            "text": "正多边形的边心距等于外接圆半径",
+            "left": "apothem",
+            "op": "=",
+            "right": "circumradius"
+          },
+          {
+            "key": "B",
+            "text": "正多边形的外接圆与内切圆是同心圆",
+            "left": "incenter",
+            "op": "=",
+            "right": "circumcenter"
+          },
+          {
+            "key": "C",
+            "text": "正多边形的中心角等于它的内角",
+            "left": "central_angle",
+            "op": "=",
+            "right": "interior_angle"
+          }
+        ],
+        "minimum_vertices": 3,
+        "counterexample_vertices": 3,
+        "counterexample_radius": 1
+      }
+    },
+    "cnm_270_q1": {
+      "question_sha256": "b65ba47164afa4cdcb17af434864cbe325284484ae32deb497507e5c944d8d8e",
+      "spec": {
+        "kind": "app105_similarity_metrics",
+        "options": [
+          {
+            "key": "A",
+            "text": "对应角相等，对应边相等",
+            "relations": [
+              {
+                "left": "image_cosine",
+                "op": "=",
+                "right": "original_cosine"
+              },
+              {
+                "left": "side_ratio",
+                "op": "=",
+                "right": "one"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "对应角相等，对应边成比例",
+            "relations": [
+              {
+                "left": "image_cosine",
+                "op": "=",
+                "right": "original_cosine"
+              },
+              {
+                "left": "side_ratio",
+                "op": "=",
+                "right": "scale"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "对应边成比例，周长相等",
+            "relations": [
+              {
+                "left": "side_ratio",
+                "op": "=",
+                "right": "scale"
+              },
+              {
+                "left": "perimeter_ratio",
+                "op": "=",
+                "right": "one"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "对应角互补，对应边成比例",
+            "relations": [
+              {
+                "left": "image_cosine",
+                "op": "=",
+                "right": "negative_original_cosine"
+              },
+              {
+                "left": "side_ratio",
+                "op": "=",
+                "right": "scale"
+              }
+            ]
+          }
+        ],
+        "counterexample_scale": 2,
+        "counterexample_triangle": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            "1/2",
+            "sqrt(3)/2"
+          ]
+        ]
+      }
+    },
+    "cnm_270_q3": {
+      "question_sha256": "acd68e97df00f7b3327c09910dc9a49972550b0628135de854423a5e06f5335e",
+      "spec": {
+        "kind": "app105_polygon_similarity_families",
+        "options": [
+          {
+            "key": "A",
+            "text": "所有的矩形都相似",
+            "family": "rectangle",
+            "counterexample": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "所有的菱形都相似",
+            "family": "rhombus",
+            "counterexample": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  0
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  3,
+                  4
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  5,
+                  0
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  0,
+                  5
+                ]
+              ]
+            ]
+          },
+          {
+            "key": "C",
+            "text": "所有的正方形都相似",
+            "family": "square"
+          },
+          {
+            "key": "D",
+            "text": "各角分别相等的两个多边形都相似",
+            "family": "equiangular",
+            "counterexample": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  2,
+                  0
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ],
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  3,
+                  0
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  0,
+                  1
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_281_q1": {
+      "question_sha256": "956cd5bc4b77815a68cf7fa0387ff961f5dcec030e3b478c0cc2ffd6bc85f381",
+      "spec": {
+        "kind": "app105_ray_family_properties",
+        "options": [
+          {
+            "key": "A",
+            "text": "平行投影光线交于一点，中心投影光线平行",
+            "properties": [
+              {
+                "family": "parallel_projection",
+                "property": "concurrent"
+              },
+              {
+                "family": "central_projection",
+                "property": "parallel"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "平行投影光线平行，中心投影光线交于一点",
+            "properties": [
+              {
+                "family": "parallel_projection",
+                "property": "parallel"
+              },
+              {
+                "family": "central_projection",
+                "property": "concurrent"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "两者的光线都平行",
+            "properties": [
+              {
+                "family": "parallel_projection",
+                "property": "parallel"
+              },
+              {
+                "family": "central_projection",
+                "property": "parallel"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "两者的光线都交于一点",
+            "properties": [
+              {
+                "family": "parallel_projection",
+                "property": "concurrent"
+              },
+              {
+                "family": "central_projection",
+                "property": "concurrent"
+              }
+            ]
+          }
+        ],
+        "families": {
+          "parallel_projection": "fixed_direction",
+          "central_projection": "point_source"
+        }
+      }
+    },
+    "cnm_281_q2": {
+      "question_sha256": "fc728f7bb592983c8b5f2f1029632a3e9fa7570439c8a1150cc995847927f139",
+      "spec": {
+        "kind": "app105_parallel_light_fields",
+        "options": [
+          {
+            "key": "A",
+            "text": "路灯下的影子",
+            "ray_field": "point_source"
+          },
+          {
+            "key": "B",
+            "text": "台灯下的影子",
+            "ray_field": "point_source"
+          },
+          {
+            "key": "C",
+            "text": "太阳光下的影子",
+            "ray_field": "fixed_direction"
+          },
+          {
+            "key": "D",
+            "text": "手电筒照射形成的影子",
+            "ray_field": "point_source"
+          }
+        ]
+      }
+    },
+    "cnm_289_q2": {
+      "question_sha256": "92e477c84ecd6cd60a864c4344423a52d8e16e85af0989ccb9d566317bed26be",
+      "spec": {
+        "kind": "app105_symmetric_game_conditions",
+        "options": [
+          {
+            "key": "A",
+            "text": "参加游戏的人数相同",
+            "conclusions": [
+              {
+                "left": "n",
+                "op": "=",
+                "right": "m"
+              }
+            ],
+            "counterexample": {
+              "p": "1/2",
+              "q": "1/2",
+              "n": 1,
+              "m": 2
+            }
+          },
+          {
+            "key": "B",
+            "text": "双方获胜的概率相等",
+            "conclusions": [
+              {
+                "left": "p",
+                "op": "=",
+                "right": "q"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "双方都有可能获胜",
+            "conclusions": [
+              {
+                "left": "p",
+                "op": ">",
+                "right": "0"
+              },
+              {
+                "left": "q",
+                "op": ">",
+                "right": "0"
+              }
+            ],
+            "counterexample": {
+              "p": 0,
+              "q": 0,
+              "n": 1,
+              "m": 1
+            }
+          },
+          {
+            "key": "D",
+            "text": "游戏一定以平局结束",
+            "conclusions": [
+              {
+                "left": "p",
+                "op": "=",
+                "right": "0"
+              },
+              {
+                "left": "q",
+                "op": "=",
+                "right": "0"
+              }
+            ],
+            "counterexample": {
+              "p": "1/2",
+              "q": "1/2",
+              "n": 1,
+              "m": 1
+            }
+          }
+        ],
+        "payoffs": [
+          [
+            "r",
+            "-l",
+            "0"
+          ],
+          [
+            "-l",
+            "r",
+            "0"
+          ]
+        ]
+      }
+    },
+    "cnm_298_q2": {
+      "question_sha256": "5b795826dcdf18eaf993af82be9f2c26a4b42625106468dd8423915ad213e74a",
+      "spec": {
+        "kind": "app105_lottery_inclusion",
+        "options": [
+          {
+            "key": "A",
+            "text": "与编号大小有关",
+            "op": "!=",
+            "quantifier": "some_ordered_labels"
+          },
+          {
+            "key": "B",
+            "text": "相等",
+            "op": "=",
+            "quantifier": "all_labels"
+          },
+          {
+            "key": "C",
+            "text": "不相等",
+            "op": "!=",
+            "quantifier": "all_labels"
+          }
+        ],
+        "mechanism": "uniform_fixed_size_subsets",
+        "sample_range": "1<=k<=n"
+      }
+    },
+    "cnm_306_q4": {
+      "question_sha256": "c124e06326b38a0e70a5493e024d9105daa2895b9a4acc12d04eb123fe3cb48c",
+      "spec": {
+        "variance_divisor": "n",
+        "sampling": "uniform_subsets",
+        "observed": [
+          {
+            "count": 2,
+            "variance": "1/100"
+          },
+          {
+            "count": 50,
+            "variance": "1/50"
+          }
+        ],
+        "countermodels": [
+          {
+            "populations": [
+              {
+                "values": [
+                  "99.9",
+                  "100.1"
+                ],
+                "sample_indices": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "values": [
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)"
+                ],
+                "sample_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49
+                ]
+              }
+            ]
+          },
+          {
+            "populations": [
+              {
+                "values": [
+                  "99.9",
+                  "100.1",
+                  "1000"
+                ],
+                "sample_indices": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "values": [
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100-sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)",
+                  "100+sqrt(1/50)"
+                ],
+                "sample_indices": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12,
+                  13,
+                  14,
+                  15,
+                  16,
+                  17,
+                  18,
+                  19,
+                  20,
+                  21,
+                  22,
+                  23,
+                  24,
+                  25,
+                  26,
+                  27,
+                  28,
+                  29,
+                  30,
+                  31,
+                  32,
+                  33,
+                  34,
+                  35,
+                  36,
+                  37,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  44,
+                  45,
+                  46,
+                  47,
+                  48,
+                  49
+                ]
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "能，因为 0.01<0.02",
+            "claim": "guaranteed_population_order",
+            "relation": "<"
+          },
+          {
+            "key": "B",
+            "text": "不能，仅凭这两个样本方差不足以可靠断定总体稳定性",
+            "claim": "nonidentifiability"
+          },
+          {
+            "key": "C",
+            "text": "不能，因为乙的方差小",
+            "claim": "nonidentifiability_with_observed_reason",
+            "processes": [
+              1,
+              0
+            ],
+            "relation": "<"
+          }
+        ],
+        "kind": "stats105_variance_identifiability"
+      }
+    },
+    "cnm_309_q2": {
+      "question_sha256": "7300803b57b60359afb4f01376e76158d95cf3f0a969b313436265c8dd37abf8",
+      "spec": {
+        "kind": "app105_uniformity_guarantees",
+        "options": [
+          {
+            "key": "A",
+            "text": "抛一枚图钉，钉尖朝上或朝下",
+            "outcomes": 2,
+            "counterexample": [
+              "1/3",
+              "2/3"
+            ]
+          },
+          {
+            "key": "B",
+            "text": "某射手射击，中靶或不中靶",
+            "outcomes": 2,
+            "counterexample": [
+              "1/3",
+              "2/3"
+            ]
+          },
+          {
+            "key": "C",
+            "text": "明天下雨或不下雨",
+            "outcomes": 2,
+            "counterexample": [
+              "1/3",
+              "2/3"
+            ]
+          },
+          {
+            "key": "D",
+            "text": "掷一枚均匀的骰子，点数为 1～6",
+            "outcomes": 6,
+            "equal_mass_pairs": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_309_q4": {
+      "question_sha256": "0accdbcd56ef806fc29f55790b178ddecc7b86a67734d5908e6f041da3baea64",
+      "spec": {
+        "kind": "app105_classical_sample_spaces",
+        "options": [
+          {
+            "key": "A",
+            "text": "从写有 1～10、除数字外完全相同的十张卡片中充分搅匀后随机抽一张，抽到偶数",
+            "sample_space": "finite",
+            "outcomes": 10,
+            "equal_mass_pairs": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                7,
+                8
+              ],
+              [
+                8,
+                9
+              ]
+            ]
+          },
+          {
+            "key": "B",
+            "text": "抛一枚图钉，钉尖朝上",
+            "sample_space": "finite",
+            "outcomes": 2,
+            "counterexample": [
+              "1/3",
+              "2/3"
+            ]
+          },
+          {
+            "key": "C",
+            "text": "从所有正整数中任取一个数，是偶数",
+            "sample_space": "positive_integers"
+          },
+          {
+            "key": "D",
+            "text": "某运动员投篮，命中",
+            "sample_space": "finite",
+            "outcomes": 2,
+            "counterexample": [
+              "1/3",
+              "2/3"
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_310_q3": {
+      "question_sha256": "5a8462c82ff1c8ee9d5af55969df38b198aec7a16ce0563a421b79162d10a962",
+      "spec": {
+        "kind": "app105_replacement_protocols",
+        "options": [
+          {
+            "key": "A",
+            "text": "从袋中一次同时摸出两个球",
+            "possible_returns_between_draws": [
+              0
+            ],
+            "simultaneous_draw_size": 2
+          },
+          {
+            "key": "B",
+            "text": "摸出一个球，记录颜色后放回，再摸一个",
+            "possible_returns_between_draws": [
+              1
+            ]
+          },
+          {
+            "key": "C",
+            "text": "每次摸球后都把球放回袋中并搅匀",
+            "possible_returns_between_draws": [
+              1
+            ]
+          },
+          {
+            "key": "D",
+            "text": "先后两次摸球，每次摸球前袋中的球数都相同",
+            "possible_returns_between_draws": [
+              0,
+              1
+            ],
+            "equal_pre_draw_counts": true
+          }
+        ],
+        "allowed_actions": [
+          "draw",
+          "return_same_ball"
+        ],
+        "population_lower_bound": 2
+      }
+    },
+    "cnm_314_q2": {
+      "question_sha256": "a47260df2917f78291344dba9756b5723833d24a6299a4a6ab96a4d69d9c8d93",
+      "spec": {
+        "kind": "app105_precipitation_interpretations",
+        "options": [
+          {
+            "key": "A",
+            "text": "明天 70% 的时间在下雨",
+            "claim": "fixed_realized_fraction",
+            "fraction": "7/10",
+            "counterexample_fractions": [
+              1,
+              0
+            ]
+          },
+          {
+            "key": "B",
+            "text": "明天 70% 的地区会下雨",
+            "claim": "fixed_realized_fraction",
+            "fraction": "7/10",
+            "counterexample_fractions": [
+              1,
+              0
+            ]
+          },
+          {
+            "key": "C",
+            "text": "明天下雨的可能性较大，但不一定下雨",
+            "claim": "probability_bounds",
+            "lower": "1/2",
+            "upper": 1
+          },
+          {
+            "key": "D",
+            "text": "明天一定会下雨",
+            "claim": "certain_event"
+          }
+        ],
+        "event_probability": "7/10"
+      }
     }
   }
 }

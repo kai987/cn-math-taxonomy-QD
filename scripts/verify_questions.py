@@ -367,6 +367,19 @@ def main():
                 'note': '模型核验依赖题干到结构化输入的人工翻译；计算组件不计为整道开放题自动核验。',
             }
             errs.extend(issues)
+        from check_remaining_105 import PATH as LATEST_PATH, review_errors as latest_errors
+        if LATEST_PATH.exists():
+            latest = json.loads(LATEST_PATH.read_text(encoding='utf-8'))
+            issues = latest_errors(questions, latest, catalogue(), list(topics.values()))
+            report['followup_105'] = {
+                'source': str(LATEST_PATH.relative_to(ROOT)),
+                'reviewed': len(latest['entries']),
+                'outcomes': latest['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in latest['entries']),
+                'review_errors': issues,
+                'note': '保留完整题意推导和判题边界；概念的固定映射/答案快照不计为数学证明。',
+            }
+            errs.extend(issues)
         from check_manual_review import PATH as MANUAL_PATH, review_errors as manual_errors
         if MANUAL_PATH.exists():
             manual = json.loads(MANUAL_PATH.read_text(encoding='utf-8'))

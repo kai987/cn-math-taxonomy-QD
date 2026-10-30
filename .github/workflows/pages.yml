@@ -37,6 +37,7 @@ jobs:
           python3 scripts/check_answer_review.py
           python3 scripts/check_remaining_review.py
           python3 scripts/check_manual_review.py
+          python3 scripts/check_remaining_105.py
           python3 -m unittest discover -s tests -p 'test_*.py'
           npm test
       - name: Install Chromium and WebKit

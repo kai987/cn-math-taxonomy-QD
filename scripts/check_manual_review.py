@@ -38,10 +38,11 @@ def check_supporting_proof(proof):
         raise ValueError('component result disagrees with its independent reference')
 
 
-def review_errors(questions, review, records, topics=None):
-    errors = validate_review(questions, review, records, scope_count=160, scope_sha256=SCOPE_SHA256)
-    if review.get('baseline_commit') != BASELINE or review.get('scope_count') != 160:
-        errors.append('160-question baseline or declared scope changed')
+def review_errors(questions, review, records, topics=None, *, scope_count=160,
+                  scope_sha256=SCOPE_SHA256, baseline=BASELINE):
+    errors = validate_review(questions, review, records, scope_count=scope_count, scope_sha256=scope_sha256)
+    if review.get('baseline_commit') != baseline or review.get('scope_count') != scope_count:
+        errors.append('%s-question baseline or declared scope changed' % scope_count)
     by_id = {question['id']: question for question in questions}
     by_topic = {topic['id']: topic for topic in topics} if topics is not None else None
     entries = review.get('entries', [])
@@ -79,7 +80,7 @@ def review_errors(questions, review, records, topics=None):
                         ('remaining_by_type', dict(remaining)), ('models_by_kind', dict(kinds)),
                         ('repaired_questions', repairs), ('component_checks', components)):
         if summary.get(key) != actual:
-            errors.append('160-question summary disagrees with entries: ' + key)
+            errors.append('%s-question summary disagrees with entries: %s' % (scope_count, key))
     return errors
 
 

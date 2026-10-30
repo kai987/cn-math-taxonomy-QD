@@ -396,9 +396,9 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "4a按系数在前、省略乘号的教材约定书写；a×4虽数值等价但次序与乘号不规范，1a应省略1，a÷b应改为分式。只有A符合本题排版约定。",
-      "question_sha256": "ed6f63f94b33e47a8dd3980b4be886ed43b4888ef6e0ce5666c0c5bc04cc8256",
-      "verify": null
+      "reason": "按本题明确的书写约定，通用格式化器把数字系数前置并省乘号，a×4规范为4a；系数1省略，1a规范为a；a÷b规范为a/b。4a本身已是规范打印结果，只有A符合，不能因四式代数可用而都判对。",
+      "question_sha256": "edccd6c2b42ebc3e8891deb011cf32b1263704973717a8052d09111c8cbd022d",
+      "verify": "model('cnm_026_q3')"
     },
     {
       "id": "cnm_026_q4",
@@ -895,34 +895,34 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "圆柱面可用弧长s与高度z参数化，0≤s≤2πr、0≤z≤h；沿母线剪开后两坐标独立，方向正交，故展开域为长方形，不是三角形、圆或扇形。",
-      "question_sha256": "706462b3c5204ced3bd2e4440f9a30ad97d33b38cc5b5810f1e8179bbf985555",
+      "reason": "圆柱侧面参数X(s,z)=(r cos(s/r),r sin(s/r),z)，r,h>0，0≤s≤2πr、0≤z≤h。两切向量内积矩阵为I，且角速度恒为1/r、全宽恰为一周，剪开的母线两边分开，所以展开是四条直边且四角直角的参数矩形。三角形只有三边；圆和任意非退化扇形均有非零曲率弧，只有C。",
+      "question_sha256": "184cafe12cc7e546944b8ff46ec26442604e01206a89fcaff5665d124000aaab",
       "corrected_fields": [
         "prompt"
       ],
       "catalogue_preview": {
-        "question": "圆柱的侧面展开后是什么平面图形？（沿一条母线剪开并展开）",
+        "question": "圆柱的侧面展开后是什么平面图形？（沿一条母线剪开并展开）（本题圆柱为直圆柱。）",
         "answer": "长方形"
       },
-      "verify": null
+      "verify": "model('cnm_050_q1')"
     },
     {
       "id": "cnm_050_q2",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "球体占据三维区域，例如单位球内含四个仿射独立点；圆、三角形、梯形均在一个平面内。故球是本题唯一立体图形。",
-      "question_sha256": "6b74beef6ffa5b98bc2f4f50c14498262d74823e806cbfccdff81f0de1f1a1aa",
-      "verify": null
+      "reason": "球体是三维开球的闭包，原点及三个独立方向r/2处的内点给出仿射秩3，整个集合又在R³中，故仿射包恰三维。圆面在z=0平面且含两个独立方向，三角形/梯形的整个凸包都在顶点仿射包中，秩均2，只有A不包含于平面。",
+      "question_sha256": "179a4700cb8852c4f6636e4b20e5ad0331aa92c4f3da1535fd5e4ec598cddeda",
+      "verify": "model('cnm_050_q2')"
     },
     {
       "id": "cnm_051_q2",
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "直立实心圆柱满足x²+y²≤r²及0≤z≤h。消去y的正面投影为-r≤x≤r且0≤z≤h的矩形；消去z的俯视投影为x²+y²≤r²的圆面，故B。其余项方向或形状错误。",
-      "question_sha256": "f440556b7325f84588ec5751d1c54b642bae0de57bb1de463721b1cf7288db6e",
-      "verify": null
+      "reason": "实心直立圆柱由x²+y²≤r²、0≤z≤h描述。保留x,z时，由y²≥0得到|x|≤r，反向取y=0证明每个矩形点均能补全；保留x,y时，径向不等式保留且可取z=0补全，恰为圆盘。因而轮廓依次为长方形、圆，只有B。",
+      "question_sha256": "9a32b5949cb28912ff832e9de19ab75459b0460bb71188317c060d347d777bd6",
+      "verify": "model('cnm_051_q2')"
     },
     {
       "id": "cnm_051_q4",
@@ -939,11 +939,11 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "以一条直角边为z轴，另一直角边长R、高H，则每个z截面的旋转半径为R(1-z/H)，0≤z≤H，得到圆锥；柱半径不变、球半径为非线性半圆剖面、棱锥截面边界不圆，均不符。",
-      "question_sha256": "9966782f735d1d9e7a82c06bc2d562f5814c6af15dc12278cfa979038f2c7ee9",
-      "verify": null,
+      "reason": "绕直角边作一周旋转时，三角形在高度z的半径上界为R(z)=r(1-z/h)，0≤z≤h。旋转映射(ρ cosθ,ρ sinθ,z)覆盖且只覆盖x²+y²≤R(z)²，得到完整圆锥。圆柱截面半径不变；球截面半径平方的z²系数为-1而本题为正r²/h²；棱锥的内截面有直线边，而本题圆截面处处有正曲率，均不符。",
+      "question_sha256": "680f59c2ed750e287aac6d99810a98338db32514ae4123dfc6e652f7653964bf",
+      "verify": "model('cnm_052_q1')",
       "catalogue_preview": {
-        "question": "直角三角形绕一条直角边旋转一周得到什么几何体？",
+        "question": "直角三角形绕一条直角边旋转一周得到什么几何体？（三角形按包含内部的平面区域理解。）",
         "answer": "圆锥"
       }
     },
@@ -952,18 +952,18 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "将笔尖理想化为点，点在纸上连续运动留下线状轨迹，所以是点动成线。没有线段整体扫出区域，也没有面整体扫出体积，A/C/D不符。",
-      "question_sha256": "99ac41de308ae41de8ffce68b6f69a574a74355403ef216bb7a28709d42fdf77",
-      "verify": null
+      "reason": "把笔尖理想化为点，其初始参数空间没有自由坐标，维数0。非退化光滑轨迹局部可选一个变化坐标t为参数，写成(t,f(t),g(t))；雅可比第一分量为1，秩恰1，因此点运动形成线状轨迹。A/C/D给的起止维数与0→1不同，B唯一。",
+      "question_sha256": "d931d2ca4eba04501ae001c1afbccaad5239110ec1ad0a20c6e4962e1770ef2d",
+      "verify": "model('cnm_052_q2')"
     },
     {
       "id": "cnm_052_q4",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A的三角形是二维面，旋转扫出三维圆锥；雨刷可理想化为线扫面，流星和笔尖理想化为点扫线，故A唯一体现面动成体。",
-      "question_sha256": "95e18de1d3dd369c8b902e72ec5bea796603369edfafa5712b7445f4943801e0",
-      "verify": null
+      "reason": "A的直角三角形内部用正参数u,v完整参数化，初始雅可比秩2；加入旋转角后有处处非零的三阶子式，扫掠集合含三维内点，故2→3。雨刷线段为秩1，旋转后秩2，属于1→2；流星和笔尖作为点沿正则轨迹均0→1，所以只有A。",
+      "question_sha256": "df7db2d7b933662f08733a37612e824d22485dbbbcdd4b16fc61c5feee78466b",
+      "verify": "model('cnm_052_q4')"
     },
     {
       "id": "cnm_053_q1",
@@ -1059,18 +1059,18 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "从0°起沿同一方向作非零旋转，终边与始边第一次反向共线发生在180°，叫平角；直角为90°、周角为360°、钝角严格介于90°与180°。",
-      "question_sha256": "807218f5d920bf218f5379ac68d41eb91e907cf10282711f5937845e5db86d32",
-      "verify": null
+      "reason": "把始边取为(1,0)，旋转终边为(cosθ,sinθ)，共线条件为叉积sinθ=0。精确求解在0<θ<π没有根，而θ=π有根，所以第一次非零共线角是180°平角，不是90°、360°或严格钝角区间。",
+      "question_sha256": "b0c3b52f791b1fd1ff256c3e6b741db636478b1b6a929363b60485c066b778e4",
+      "verify": "model('cnm_056_q3')"
     },
     {
       "id": "cnm_056_q5",
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "普通角由同顶点的两条射线确定，交换A、B不改变∠AOB；顶点存在多个角时∠O有歧义；∠1为数字记法，不是三个大写字母；三字母记法的中间O才是顶点，故D。",
-      "question_sha256": "19fa87d7ecf4257ab5e0ae2e9ee1ac325464de280af83033fa4728d67b51a90d",
-      "verify": null
+      "reason": "三字母角的对象为中间顶点与两条无序边：AOB与BOA给出同一对象，A错。坐标反例在O处有AOB与BOC两个不同角对象，使单写∠O有歧义，反驳B；∠1没有三个大写字母，C错；中间字母O是顶点，D唯一。",
+      "question_sha256": "971033debc361e9deb19125e88ba9b81ddda6d2cdc9b2dc9698ec2423ad708b9",
+      "verify": "model('cnm_056_q5')"
     },
     {
       "id": "cnm_058_q3",
@@ -1126,9 +1126,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "邻补角共顶点共一边，另两边是相反射线，因此角和180°，B必真。30°和150°邻补而不相等，也不互余；位于不同顶点的60°与120°互补却不邻接，反驳D。",
-      "question_sha256": "07710b4af358d8005f45f82212146e6bf7e1a73534c0ecd62db112c8ea8e8a5c",
-      "verify": null
+      "reason": "共边与另两边反向使相邻角的普通主值分别为θ与180°-θ，因此恒互补，B真。取θ=30°得到30°/150°，反驳恒相等和互余；另在不同顶点构造60°/120°，余弦互为相反数而顶点不同，说明互补不必邻接，D错。",
+      "question_sha256": "dfcbf003cfc29ad9040a9df40a8faf970174f536fbf5b675748a11942720afd3",
+      "verify": "model('cnm_062_q2')"
     },
     {
       "id": "cnm_063_q2",
@@ -1165,9 +1165,9 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A把一条直角边贴住l，沿l平移保留直角，令另一条直角边经过P后沿其作线，恰同时满足垂直且过P。B沿斜边方向仍平行l，C只有约90°不保证精确，D无方向保障。",
-      "question_sha256": "49f88cd4423660562d6928947ed6b4f5037d17c6911120f4f566983c8c2c6ef0",
-      "verify": null
+      "reason": "在l为x轴、P=(p,h),h>0的任意标准框架中，A的直角尺两边方向(a,0),(0,b)点积0；沿l滑动至t=p时另一边所在直线经过P，故满足两条件。B画向仍与l平行；C任意正容差都允许非90°方向；D的合法直角三角尺反例使锐角顶点为P而斜边水平，不能保证垂直。",
+      "question_sha256": "1173c7486071f339ba4ba3cacdab20469ce12735d8606a0fa9299cad10cd3aaf",
+      "verify": "model('cnm_064_q3')"
     },
     {
       "id": "cnm_064_q4",
@@ -1201,9 +1201,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "取河岸l的垂足H，任何Q∈l都有PQ²=PH²+HQ²≥PH²，等号只在Q=H，所以应从P沿垂线段修渠，C。平行方向不能连接河岸，任意方向/任意点通常更长。",
-      "question_sha256": "05c2dcf1b0d7d73238607c65f701152a400253b48c0dfceff482fe7dd179b4d8",
-      "verify": null
+      "reason": "把河岸置为y=0、村庄P=(p,h),h>0，任意岸上端点Q=(t,0)满足PQ²=h²+(t-p)²。垂足(t=p)达到全局下界h²，故C；A/D取合法端点t=p+1即比垂足平方长度多1，B的平行线始终y=h而到不了河岸。",
+      "question_sha256": "462fc5ce4aabccdf5a17e08322f593299e5549273150e8e3e1c9ecbd071a0ef1",
+      "verify": "model('cnm_065_q4')"
     },
     {
       "id": "cnm_066_q1",
@@ -1330,7 +1330,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "C从明确的一对同位角相等推出AB∥CD，属于判定；A/B/D都以平行为前提出发推出角关系，属于性质方向。C的角对条件已补足，不能把任意两个相等角都用于判平行。",
+      "reason": "C从明确的一对同位角相等推出AB∥CD，属于判定；A/B/D都以平行为前提出发推出角关系，属于性质方向。同位角这一位置条件必不可少，任意两个角相等不足以判定平行。",
       "question_sha256": "374d88f608578164ca0d1a62482258a445f3277bec37985012a2d5e336e187e0",
       "corrected_fields": [
         "choices"
@@ -1342,9 +1342,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "不同顶点O=(0,0)、P=(2,0)处各作一对水平/竖直射线，两角均90°但顶点不同，绝非对顶角，故原命题假且B给出有效反例。A虽说假却以“对顶角不相等”为错误理由，C被反例推翻。",
-      "question_sha256": "5c341375ac658433732c6ff9b6e2b01a9e51c174ea4da45b881d0693f56fb7be",
-      "verify": null,
+      "reason": "两个不同顶点处用水平/竖直射线构造的角余弦都为0，确为两个相等的直角；顶点不同不可能是对顶角，因此原逆命题假，B的理由有效。对顶角同时反转两条射线，内积和长度均不变，恒等角，A给的“不相等”理由错误，C的真命题断言被反例推翻。",
+      "question_sha256": "fcc6719b8fbfedff08501c8e0131aa813ec957744b4fe4e18817999be4129080",
+      "verify": "model('cnm_071_q1')",
       "catalogue_preview": {
         "question": "“相等的角是对顶角”是真命题吗？",
         "answer": "假命题，如两个直角相等但不是对顶角"
@@ -1373,9 +1373,9 @@
       "independent_answer": "2",
       "expected_answer": "2",
       "basis": "definition",
-      "reason": "①由两条直线的相反射线角关系得对顶角相等；②被不同顶点的两个直角反驳；③由平行线同旁内角和180°为真；④未给平行，取两线方向角不同即可使同位角不等。因此恰有①③两项真，共2。",
-      "question_sha256": "1efc4f8d33424e960bff2783b2c121dc9cccb0f3bb4e8321a8156f126faafd6b",
-      "verify": null
+      "reason": "①同时反向两射线保持内积与长度，故对顶角恒等；②不同顶点的两个直角是经过坐标验证的反例；③方向角p=q时同旁内角(90+p)+(90-q)=180恒成立；④无平行条件时取p=-20,q=10，同位角为70°和100°不等。逐条计算后恰有①③两项真。",
+      "question_sha256": "b46ce2d89616495bf2681c77283ae2d9fb2c4400e4b5e1c9580dd3d4268f1a6e",
+      "verify": "model('cnm_071_q4')"
     },
     {
       "id": "cnm_071_q5",
@@ -1494,9 +1494,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "1/3=0.333…为无限但有理小数，√4=2带根号却有理，√2+(-√2)=0为两个无理数之和却有理，所以A/B/D均错。C是有理数与最终循环小数等价定理的逆否表述，正确。",
-      "question_sha256": "9e5827302ce228bbed57cdb363294323cd85e3417784cadb1234935a77154f1c",
-      "verify": null
+      "reason": "任意最终循环的十进制展开等于I+F/10^m+P/[10^m(10^k-1)]，m≥0,k≥1为整数，几何级数尾项趋0且表达式必有理；有限小数是P=0特例。因此无理数的展开既不终止也不最终循环，C成立。0.333…=1/3严格不终止却有理，√4=2有理，两个无理数√2与-√2之和为0，分别反驳A/B/D。",
+      "question_sha256": "1522038e19843f02702d0d7e2ad5be9998b934c7a6ed42546efc5021e5f0e1ac",
+      "verify": "model('cnm_077_q4')"
     },
     {
       "id": "cnm_078_q1",
@@ -1525,9 +1525,9 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "数轴模型的每个点有唯一实数坐标且每个实数有相应点，这是A。B被√2位置反驳；C漏0；D忽略0=0/1本身有理，故仅A。",
-      "question_sha256": "196116a9b403761442b2105f00f4d2958e4e219aeb63850ec1734a4c53b397f9",
-      "verify": null
+      "reason": "任意原点o、单位方向d=(cosθ,sinθ)、单位长度u>0定义完整数轴点o+u s d,s∈R；投影逆式((点-o)·d)/u严格恢复s，故每实数与每轴点一一对应。s=√2是实的无理坐标反驳B；C漏掉0；D的0=0/1本身有理，故A唯一。",
+      "question_sha256": "70a6a2d8a044c6b70181b4ea03a14c22d6ae3520d44f2fc27403596be3c3fe2e",
+      "verify": "model('cnm_078_q4')"
     },
     {
       "id": "cnm_079_q3",
@@ -1917,9 +1917,9 @@
       "independent_answer": "50",
       "expected_answer": "50",
       "basis": "definition",
-      "reason": "抽取50次个体身高测量，样本容量计个体数量而不是总体500或身高数值，故50。",
-      "question_sha256": "e51d7ad48475d1aefcb9239fd7f7346b3644ebd99aec63f6bdf5e00588fb9a2f",
-      "verify": null,
+      "reason": "总体主体域P有500名学生，抽样索引域D通过无放回单射s:D→P选择50个不同学生；每人恰有一条完整标量身高观测，构成带索引族f∘s。样本容量是该观测族的索引基数|D|=50，不是总体人数500、身高数值总和或不同身高值的个数。模型先构造主体域与观测族，再取其基数。",
+      "question_sha256": "4886db0e6006d0e3930d19a0ca9ca4bb5371ab99495e855b507ee18ee69af8ce",
+      "verify": "model('cnm_103_q1')",
       "catalogue_preview": {
         "question": "从 500 名学生中抽取 50 名测身高，样本容量是多少？",
         "answer": "50"
@@ -1930,26 +1930,26 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "总体研究属性为体重，样本是实际抽到80人的80个体重数据。A是总体人群且缺研究属性，C是个体而非样本集合，D仅容量，只有B符合。",
-      "question_sha256": "274e4fdab69dd8212f9ef45b60d7cd57e382633e9e87678e7f4ad96c81d3b134",
-      "verify": null
+      "reason": "研究量为学生体重，样本由被抽80名学生的带索引体重观测组成。A是800个学生主体而非体重观测；B是测量函数作用于抽样主体域的观测族，恰与定义样本相同；C是单个泛指学生的体重观测而非观测族；D只是族的容量80。以主体、族、单值、基数四种不同数学类型逐项排除，唯一B。",
+      "question_sha256": "2243a89f5c8024ae72be63f779fbd5c40a0cededa6b64546aa7d207a9a489f89",
+      "verify": "model('cnm_103_q2')"
     },
     {
       "id": "cnm_103_q3",
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "个体是一名学生的一项体能成绩，C正确。总体应为全部30000成绩，A错；样本应为1000成绩不是1000学生，B错；容量为1000而非30000，D错。",
-      "question_sha256": "97f1a790402a9babbf73f6a491d4ba60742e935bc13247996edf5772b52529e5",
-      "verify": null
+      "reason": "总体是30000项带学生索引的体能成绩；A右侧只有被抽1000项成绩，索引域不同。样本应是1000项成绩，B右侧只有1000个学生主体，缺少观测量，类型不同。个体为一名学生的一项体能成绩，C两侧同为单个标量观测。容量是观测族的1000个主体索引，不是30000，D错误。唯一C。",
+      "question_sha256": "700432fecf9674a16f84a34eb759664a10b954f8ed721dde872fdf16a5c4bec4",
+      "verify": "model('cnm_103_q3')"
     },
     {
       "id": "cnm_104_q1",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "篮球队是全校的受限子群，入队选择可能与身高相关；对象属于总体不等于全覆盖，增加同一受限子群样本量也不能消除抽样框偏差。应说“不能保证代表全校”，而不是推断每次篮球队样本必然与全校统计量不同。B/C均把不足条件误当保证。",
-      "question_sha256": "b894d898e09a3038df0f000bbbef2c89ae68f971a1edfbe17b27d7d768bdfb78",
+      "reason": "构造完全合法的受限调查族：全校有n名篮球队员和n名非队员，队员身高均200、非队员均150，n为任意正整数；调查全部n名队员。样本均值200，全校均值(200n+150n)/(2n)=175，偏差恒25，既是总体子集，又能有任意大的样本容量，却仍有明显偏差。因此B的子集理由、C的大样本理由都不能保证代表性，A“不能保证”由该反例族成立。",
+      "question_sha256": "261d7545d82f8236a67383298170af06ed32a959a0e006352e49c6da5099f7d0",
       "grading": [
         {
           "input": "A",
@@ -1967,7 +1967,7 @@
       "corrected_fields": [
         "explanation"
       ],
-      "verify": null,
+      "verify": "model('cnm_104_q1')",
       "catalogue_preview": {
         "question": "只调查校篮球队队员的身高能代表全校吗？",
         "answer": "不能保证，抽样范围只限篮球队队员，缺乏全校覆盖"
@@ -1978,7 +1978,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "全校名单内随机抽取可让各类学生有入样机会，D最合理。A只选班长、B只选篮球队、C只选七年级，分别按身份、运动特征、年级限制样本，均不能覆盖总体。",
+      "reason": "全校名单随机抽100覆盖所有学生；班长、篮球队、单年级均限制抽样框，可能与身高相关。D是教材中最合理设计，但只知抽样框不能计算任一实际样本的偏差或证明其必然最接近总体。",
       "question_sha256": "8841c4bcf46299861fa35fc2cbc460405c886e068fc9ebd4fee3011f009642c5",
       "grading": [
         {
@@ -2008,7 +2008,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "抽样框限于图书馆读者，即使在门口随机拦人，也未覆盖不来图书馆的市民；这些人通常更爱阅读，可能高估阅读时间。A容量大小不是主要问题，C混淆局部随机与总体随机，D仍偏，选B。",
+      "reason": "目标总体是全市市民，实际抽样框是图书馆访客，门口随机不等于全市随机；访客可能更爱阅读，因此B提出合理的高估风险。A没有人数过大的依据，C漏掉抽样框限制，D只老人同样限制总体。",
       "question_sha256": "f12a1c18d656c0bf94c6ef5baf23333f06406d93a3ae883ea54e8162283c3231",
       "grading": [
         {
@@ -2039,7 +2039,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "合理随机抽样和适当容量通常能较好反映总体，A是统计意义的合理结论，并非保证每次样本无偏差。B忽略抽样方法，C用熟人便利样本均不能保证代表性。",
+      "reason": "A把合理随机、适当容量与“通常较好”结合；B声称容量能无条件保证代表性，受限框反例可否定；C只以熟人方便为理由，未给覆盖与入选概率。",
       "question_sha256": "d762c7cf597293819541845b8bcb1bb38993ba501deb52d976e7ec44e17557c6",
       "grading": [
         {
@@ -2066,7 +2066,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "一年气温随月份或日期变化，折线图突出相邻时点的增减趋势，故A最合适。扇形图表示整体构成，条形图更着重类别数量对比，不如折线图突出连续趋势。",
+      "reason": "横轴是一年中的时间，关注气温随时间的变化，折线图对相邻时点趋势连接最直接。扇形强调部分占比，条形更直接比较离散类别数量。",
       "question_sha256": "ae1b765ff4a0702edb12d0f26e6d2bace3d5def2572d8523349c22763733a62f",
       "grading": [
         {
@@ -2093,7 +2093,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "题目关注各球类人数占全班的百分比，是整体中的组成比例，扇形图最合适。条形图偏重数量比较，折线图偏重随序列变化趋势，选C。",
+      "reason": "四种球类相对全班的百分比是部分与整体的关系，扇形直观呈现各部分占比；条形可以比较但不直接表示一个完整圆的分割，折线暗示连续顺序。",
       "question_sha256": "1320145ef660c1c154ba9c40656aeb60365330c01e0cacd7494872f86fc21bea",
       "grading": [
         {
@@ -2116,8 +2116,8 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "频数定义为数据落在某组区间内的个数，应逐个计数。组距之和、极差、各组数值之和都不是该组数据个数，故仅C正确；20和组距5不改变定义。",
-      "question_sha256": "b31b5c0ee9134347ec8c5c25c0b42b67583c8676ab21310c18b440dc394f8e1e",
+      "reason": "每个分组G的频数按定义为Σ_i 1{x_i∈G}，即带索引观测的计数测度，C的“数出落入各组的个数”对任意数据都实现这个求和。A/B/D以合法20个数据(8个2、12个7)、组距5、组[0,5)与[5,10)反驳：实际频数(8,12)，组距和为10、极差5、组内数值和(16,84)，均不能替代频数。",
+      "question_sha256": "a32162d3876e07eae9bfcb5b3e148dee22f4c5f86000297e1170c083bf10ed20",
       "grading": [
         {
           "input": "A",
@@ -2136,7 +2136,7 @@
           "result": "wrong"
         }
       ],
-      "verify": null,
+      "verify": "model('cnm_106_q1')",
       "catalogue_preview": {
         "question": "把 20 个数据按组距 5 分组，怎样得到频数？",
         "answer": "数落在各组内的个数"
@@ -2147,8 +2147,8 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "按初中常用的等组距频数分布直方图约定，横向区间是分组，纵向高度表示该组频数。组距、总数、组中值分别是宽度、全样本数、区间中心，不是该柱高度，选D。",
-      "question_sha256": "d633d03dbb119b375d18cfff2811de7ec57dc678a3d9c8322dcb28e1d5383e96",
+      "reason": "既定画法的纵轴为频数，矩形高度是该组频数；宽度表示组距，组中值是横轴位置，总样本数为各组频数之和。仅“组距相等”不能自动排除频数密度或相对频率纵轴，故题干明确了画法约定。",
+      "question_sha256": "a1638a338e45348828aad6189af9f4842fe4c602b26d55f570dd163eb06655b1",
       "grading": [
         {
           "input": "A",
@@ -2169,7 +2169,7 @@
       ],
       "verify": null,
       "catalogue_preview": {
-        "question": "直方图中小长方形的高表示什么？",
+        "question": "在初中常用的频数分布直方图中，各组组距相等，纵轴明确标为“频数”。小长方形的高表示什么？（区别于纵轴为频数密度的画法）",
         "answer": "该组的频数"
       }
     },
@@ -2178,7 +2178,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "频数分布直方图按数据所在区间分组，横轴排列各组，纵轴标频数。A把轴交换，C、D分别混入总数组距或频率组数，不符合题目所指频数图，选B。",
+      "reason": "频数分布直方图的教材画法按横轴区间分组，每个区间对应一个小矩形，纵轴读取频数，B符合。A交换轴，C/D分别改成总数/组距或频率/组数，不是所约定画法。",
       "question_sha256": "a3cef2595c9c6ebdc774bf3d3e80ef4ab28d0516653a6ea678e878b8f911e6ad",
       "grading": [
         {
@@ -2205,8 +2205,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "横轴为时间、纵轴为数值时，折线从左到右上升意味着后时刻数值大于前时刻，即随时间增大。A为下降、C为水平的含义，故B唯一。",
-      "question_sha256": "342222656893829187c7f8b9d0874784bbdc3d8e4675fafda437b26a62335900",
+      "reason": "把所说的上升折线段表示为从左向右的位移(Δ横坐标,Δ纵坐标)=(t,v)，t,v>0；横轴按正向时间、纵轴按正向数值标度，故Δ时间=t>0、Δ数值=v>0，斜率v/t>0，唯一对应随时间数值增大，B正确。负斜率或零斜率分别对应A/C，均与这个上升段相反。",
+      "question_sha256": "d20aa848dd22d8eb156d9c2358b7656611b11aa3c9582c647377094fe2a1f8c9",
       "grading": [
         {
           "input": "A",
@@ -2221,7 +2221,7 @@
           "result": "wrong"
         }
       ],
-      "verify": null,
+      "verify": "model('cnm_108_q1')",
       "catalogue_preview": {
         "question": "折线上升说明什么？",
         "answer": "随时间推移数值增大"
@@ -2259,8 +2259,8 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "纵轴为昼长，某天昼长达到全年最大，图上相应纵坐标最高，表现为最高点或最高水平段，A符合。最低点表示最短，横轴交点表示昼长为0，均不符。",
-      "question_sha256": "9f6ff5178bd5ebb5a5d541a482877d1fe9b4448f392214efef796687a09cc7e3",
+      "reason": "由题目给定的季节变化和最大昼长，可把昼长取值域写作[p,p+g]，p>0、g>0，夏至达到上端。正向纵轴的上、下端坐标差为g>0，故最大昼长对应最高纵坐标A，而非最低点。最高昼长p+g>0，不是横轴零点。无需假设最高值只在一个日期达到。",
+      "question_sha256": "ba0b2535cedb353f4df08bbe9a55d1dd4237387f8e7056a8e2133a22f3483710",
       "grading": [
         {
           "input": "A",
@@ -2275,10 +2275,10 @@
           "result": "wrong"
         }
       ],
-      "verify": null,
+      "verify": "model('cnm_109_q1')",
       "catalogue_preview": {
-        "question": "北半球夏至日昼最长，这一点在趋势图上表现为什么？",
-        "answer": "曲线的最高点（峰值）"
+        "question": "某北半球非极圈、昼长随季节变化的城市，夏至日昼长达到全年最大值。这一点在趋势图上如何表现？（纵轴为昼长，横轴为日期）",
+        "answer": "曲线达到最高值的位置（可以是峰值或最高平台的一部分）"
       }
     },
     {
@@ -2579,8 +2579,8 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "常规证法过A作BC平行线，把B、C两角分别转移为A处的内错角，再与∠A拼成平角，直接主要依据是平行线内错角相等，选A。C不是该转移依据，D通常是内角和的推论，B不直接对应此标准作法。",
-      "question_sha256": "c214848548eb8b8c817d07ced8da4e5f7bfc6841947ec48233c2f745af2a36c2",
+      "reason": "两待比较角位于截线两侧、两平行线之间且在不同交点，结构上是内错角。用两交点方向参数p=q表示平行，两内错角表达式同为90−p与90−q，故相等。只有“已知平行→内错角相等”的性质规则同时匹配几何前提和本步等角目标。同旁内角互补针对另一角型；对顶角要求同一顶点；外角定理给三角和式；反向由等角判平行也不是本步方向。",
+      "question_sha256": "c40043a0ed734cbe5f8361afcb7b75eb1dea0fd6d4802fa45c525e8c54a5dbd9",
       "grading": [
         {
           "input": "A",
@@ -2602,7 +2602,7 @@
       "corrected_fields": [
         "prompt"
       ],
-      "verify": null
+      "verify": "model('cnm_115_q4')"
     },
     {
       "id": "cnm_116_q3",
@@ -2663,7 +2663,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "证明命题应明确题设的已知条件、需要证成的结论、以及有依据的证明过程，故C。A是尺规作图报告常见结构，B、D是探索或测量过程，不能替代命题证明。",
+      "reason": "几何命题证明书写区分已知条件、待证结论和从条件到结论的论证，C完整。A是尺规作图格式，B是探究活动，D依靠图与测量不能保证一般证明。",
       "question_sha256": "ac4a36674090d007b17b59132c00e33b6361b4b51ddbd080cd78ec2aa526fbf0",
       "grading": [
         {
@@ -2694,7 +2694,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "命题“对顶角相等”的题设是∠1和∠2为一对对顶角，结论才是它们相等。A、D把结论当已知，C另加互补且不普遍成立，只有B合适。",
+      "reason": "命题“对顶角相等”形式是“若两角互为对顶角，则这两角相等”；B给出前提，A/D是结论，C换成互补而非原命题前提。",
       "question_sha256": "0a0ac0353defa92485499e17cab5c4d39ec6c6e9e5d4f90f90dc99b8b6aad850",
       "grading": [
         {
@@ -2721,8 +2721,8 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "已知AB∥CD且所标两角为内错角，推出两角相等用平行线的性质，选A。B是由角相等反推平行的判定，C针对同旁内角，D针对两相交直线，均不是这里的已知结构。",
-      "question_sha256": "2b619c456c68b2bbae28309c8a8c211f21bbb66f3b12e18e00c6f6842060c161",
+      "reason": "两待比较角位于截线两侧、两平行线之间且在不同交点，结构上是内错角。用两交点方向参数p=q表示平行，两内错角表达式同为90−p与90−q，故相等。只有“已知平行→内错角相等”的性质规则同时匹配几何前提和本步等角目标。同旁内角互补针对另一角型；对顶角要求同一顶点；外角定理给三角和式；反向由等角判平行也不是本步方向。",
+      "question_sha256": "c12c068861ef3a314bdf75d644d6d795baba6080bef0402819717b3078069335",
       "grading": [
         {
           "input": "A",
@@ -2741,14 +2741,14 @@
           "result": "wrong"
         }
       ],
-      "verify": null
+      "verify": "model('cnm_118_q3')"
     },
     {
       "id": "cnm_118_q4",
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "已知、已经证明的结论、定义和定理都能作为严格证明依据；“看起来相等”依赖示意图外观，不保证精确相等，不能作为依据，所以C唯一。",
+      "reason": "已知条件、已经证明的结论和可用定义定理都可作演绎依据；图形外观不能保证真实的等量关系，所以C不能作一般推理依据。",
       "question_sha256": "3c21a3d7240caeeddaa9e590d0af4276d88ca10c39b1b3b0a7c87a485b813724",
       "grading": [
         {
@@ -3731,7 +3731,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "题述由到两边距离相等反推出在角平分线上，方向是判定定理B。性质方向相反，即从位于角平分线推出距离相等；它也不是直接给角平分线的定义。",
+      "reason": "由角平分线上的点推出到两边等距是性质；题目反向由角内等距推出位于平分线，是判定。它不是重新定义角平分线。",
       "question_sha256": "b7ee75c50bb2c2ed9133f00e206da8a53604a423dde5d2252777c98fde6d1477",
       "grading": [
         {
@@ -3781,8 +3781,8 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "倍长AD至E令DE=AD，结合中线BD=DC与对顶角可用SAS证△ABD≌△ECD，从而CE=AB且AE=2AD。△ACE中AC+CE>AE便得AB+AC>2AD，故D；其余作法不直接实现所问倍长中线模型。",
-      "question_sha256": "dd66a273208c319433031049b6478d8c8221e137fb3fbfa4dc6050d719cdafdb",
+      "reason": "归一化D=(0,0)、B=(−b,0)、C=(b,0)、A=(x,y)，b,y>0。倍长中线的端点必须是E=2D−A=(−x,−y)，即绕D半转A→E、B→C，故AB²=CE²，且AE²=4AD²。三角形ACE两段向量u=C−A、v=E−C的行列式为−2by≠0；Lagrange恒等式|u|²|v|²−(u·v)²=(2by)²>0给严格三角不等式AC+CE>AE，所以AB+AC>2AD。D完成构造与证明链。A的垂线不含E，B的平行线不含E，C的AB中点y/2不等于E的−y，均不能实现所要求的倍长中线辅助构造。",
+      "question_sha256": "1f967c0b433620a8bde0872e26bd3e3fbc2111b08a00ec94d43452c6f63a5dad",
       "grading": [
         {
           "input": "A",
@@ -3801,7 +3801,7 @@
           "result": "correct"
         }
       ],
-      "verify": null,
+      "verify": "model('cnm_130_q1')",
       "catalogue_preview": {
         "question": "已知 AD 为 △ABC 中线，如何用倍长中线证明 AB+AC>2AD？",
         "answer": "延长 AD 至 E 使 DE=AD，证 △ABD≌△ECD，再用三边关系"
@@ -3812,7 +3812,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "要把a=b+c等线段和差转成相等关系，通常在长线段上截取一段或延长较短线段补齐，再配合全等，称截长补短C。倍长中线、作高、作角平分线各有专门结构，不是此类和差的一般直接方法。",
+      "reason": "截长把长段的一部分取成另一段，补短把两短段拼成待比较的长段，直接将a=b+c这类和差关系化为线段相等；其他辅助方法各有用途但不普遍直接表达此结构。",
       "question_sha256": "ce9418ecdd70e66d4ed5bfd6eab1d71f1808fead352a831758eae6c9f3f34873",
       "grading": [
         {
@@ -4460,7 +4460,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "轴对称先把折线路程转成同端点的折线长度，再以两点之间线段最短求极小值，核心是D。垂线段最短对应点到直线距离，不能直接代替这里的两段路程问题；B、C也不是长度极值依据。",
+      "reason": "轴反射保持PA=PA′，把PA+PB变成A′P+PB；最后由折线长不小于两端点线段长得最小值，所用基本事实为D。垂线最短解决点到直线的单端距离，不直接表达两固定端点总路程；其余两定理不提供该下界。",
       "question_sha256": "cb44b27c2575e05519545e8cb5cadc3a8a5d344841dcbf1d91a73f87ae2831b7",
       "grading": [
         {
@@ -6752,7 +6752,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "过程把放水时间t作为输入，V=100−4t为输出，且理想放水持续到排空时0≤t≤25；100初始水量与4放水速率固定。V随t变化，故自变量t。单凭可逆方程也能反求t=(100−V)/4，自变量角色来自物理过程叙述而非方程代数形式。",
+      "reason": "物理过程把放水时间t作为输入，V=100−4t为输出；初始水量100与速率4固定。排空条件V≥0给0≤t≤25。虽可代数反求t=(100−V)/4，输入角色仍来自过程叙述而非方程是否可逆。",
       "question_sha256": "3c33d0d01055cbf714522fa93f3edba8d5819c7e8ff8649999385a36ca9989d8",
       "verify": null
     },
@@ -6824,7 +6824,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "列表把每个列出的自变量与对应函数值成对展示，B是主要直接优点。A变化趋势是图象更直观；C在有限定义域且全部列举时可以成立，却不是列表法普遍能力；D一般须解析式或完整规则，有限表不能推出任意x的值。",
+      "reason": "列表直接展示每个列出自变量和函数值的具体配对，B是主要直接优点。A趋势通常图象更直观；C在有限定义域全部列完时可以成立，但不是列表普遍能力；D一般要解析式或完整规则，有限表不能推出任意x。",
       "question_sha256": "d846d5a2b399d13083f3d9b36d8b255b9d3f519b82032458a3cdcab85f2836b0",
       "verify": null,
       "catalogue_preview": {
@@ -6837,7 +6837,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "图象以点的位置和走势直接显示上升、下降及极值，C最合适；列表只列部分数值，解析式及文字通常还需计算或分析才看出整体趋势。",
+      "reason": "图象把自变量和函数值空间化，随横坐标观察高低最易直观看上升、下降和极值；列表突出具体配对，解析式便于精确计算但需推导，文字也可描述却非最直观。",
       "question_sha256": "685bd620a6ca08f92c414be453d76255614d6aa42e77d5da30a7046bac2f87fc",
       "verify": null
     },
@@ -7179,7 +7179,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "少量极端高工资会把算术平均数显著上拉；中位数主要由排序中间位置决定，更贴近多数普通员工的典型集中位置。众数可能多重或不存在，未必有代表性。因此在题目“一般员工工资水平”的目标下选B。",
+      "reason": "少量极端高工资会拉高算术均值；中位数由排序中间位置决定，更贴合题目“一般员工”的典型集中位置。众数可能多重或不存在，不一定代表典型水平，因此教材推荐B。",
       "question_sha256": "afc0b2a10d50dfc09a7b7a805c3eeb8341e974d01cf3d346926059e8de008e53",
       "corrected_fields": [
         "prompt"
@@ -7195,7 +7195,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "进货要优先知道哪种尺码需求最多，即销量最高尺码对应的众数。平均尺码和中位尺码不能直接识别最畅销尺码，因此A、B不如C适合。 本轮完整性边界：“最需要关注”涉及需求目标与库存决策，未给各尺码数据、缺货损失或成本；可证明众数标识最高频尺码，但不能以一个预置决策rubric代替整题判断。并列众数可能存在，仍需完整销量分布安排数量。",
+      "reason": "尺码的销售频数最大项给最畅销尺码，即众数，直接服务于备货。尺码均值可能落在未销售尺码，中位数给中间销售位置但不一定是最大需求项。",
       "question_sha256": "f8438e0a9e7a921a6412e2e625d5ce4c0abb18f0d4802096a9b394cd045974dd",
       "verify": null
     },
@@ -7204,7 +7204,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "删去最高、最低两个极端值再平均可减小异常评分对结果的影响。剩余人数减少是操作结果而非主要统计目的，平均数或总分不保证增大，众数是否唯一也没有保证，故只有A。 本轮完整性边界：“主要目的”是评价操作意图而非给定数列计算；删去极值的人数效应是结果而非目的，平均数/总分可升可降，众数唯一性无保证。没有污染机制与评分数据，不能自动量化“影响减少”覆盖所有评分场景。",
+      "reason": "去掉一个最高和一个最低分后求平均，旨在减弱个别极端评分对结果的影响。结果不必变大，如0、1、10原均值11/3、截尾均值1；评委实体人数并未减少，只少用两条评分；1、1、2、2中有双众数，截尾也不保证唯一众数。",
       "question_sha256": "fd7388b832cdc19034c5f1da32f886db2e3e839f2e0051eb607c14d980773877",
       "verify": null
     },
@@ -7222,9 +7222,9 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "四分位距Q3−Q1衡量中间50%数据的跨度，跨度大表示越分散。B与定义相反；整体平移可以改变平均数却不改变四分位距，故C不成立。 本轮完整性边界：IQR=Q3−Q1定义中间50%跨度，A是该尺度的语言解释。若把“分散”定义成IQR本身即可变成循环判断；本题未给实际四分位数，不能借固定语义标签算整题。中位部分跨度不决定均值或全部尾部离散。",
-      "question_sha256": "9001268d6d061637a3244482861b70a8622a39035d35ed4e7c46efae15095b97",
-      "verify": null
+      "reason": "四分位距为Q3−Q1，正好是中间50%数据所在四分位区间的宽度。比较宽度w与w+d，w,d>0，后者多d，故A表示中间一半的覆盖区间更宽，B集中方向相反。反例数据(10,11,11,12)与(0,0,2,2)，按上下半部中位数取四分位数，其四分位距由1增到2，而均值从11降到1，否定C的均值必增。",
+      "question_sha256": "47470545c4107dd8c99e4a91e73b1f79f0e6c35036abf746ba55ef09813c4b3c",
+      "verify": "model('cnm_216_q5')"
     },
     {
       "id": "cnm_217_q1",
@@ -7249,11 +7249,11 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "均值描述两班整体分数水平，方差描述各班成绩相对均值的离散程度，二者结合较全面。只看最高、最低都以个别人代替全班，只看人数也不能比较成绩。 本轮完整性边界：均值和方差分别描述位置与离散，但“怎样比较体质”包含多维评价目标；未给成绩量纲/数据和权重。当前解析“两者结合才能全面比较”过强：两数也不完全决定分布或所有体质维度。",
-      "question_sha256": "7f23e7529662fd274c6f722abe525544bdca48d4c44d65affc0a94ff3df821ed",
-      "verify": null,
+      "reason": "把“整体水平”和“整齐程度”分别形式化为均值μ=Σx_i/n与方差σ²=Σ(x_i−μ)²/n，C显式计算并提供两者。A/B/D的信息均不足：两个合法成绩组(1,2,3)和(1,1,3)有相同最高分3、人数3、最低分1，却有不同均值2与5/3、方差2/3与8/9，故任何一项单独都不能确定这两方面。唯一C同时提供所需统计量。",
+      "question_sha256": "5f8f34870291da020b033a3bfcb90f61ec1a038b367e0f008c1ed5e8450ef50e",
+      "verify": "model('cnm_218_q1')",
       "catalogue_preview": {
-        "question": "怎样比较两个班的体质测试成绩？",
+        "question": "比较两个班体质测试成绩的整体水平和整齐程度，下列方案中哪一个能同时提供这两方面的信息？",
         "answer": "用平均数比较整体水平，用方差比较整齐程度"
       }
     },
@@ -7262,7 +7262,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "各年级随机抽取能覆盖年级差异并减少主观选择偏差，A最有代表性。田径队偏向体质较好，只七年级漏其它年级，自愿报名会有自选择偏差。 本轮完整性边界：A覆盖年级且随机，相比队员/单年级/自愿者更少明显选择偏差；但“若干”未给分配比例与样本量，不能保证未经加权的均值无偏或代表性必然成立。数学设计方差需完整入样概率。",
+      "reason": "跨各年级随机抽样较好覆盖全校，田径队/仅七年级/自愿报名各有明显限制或自选择机制；在人数相近且充分应答的条件下A更能减少明显的选择偏差。",
       "question_sha256": "bfe19970ce42082f87c61f771cfa46c8cefb0c1031915b49d0c4ba8c53575a37",
       "verify": null
     },
@@ -7325,7 +7325,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "移项提公因式得3x(x−2)=0，马上得到0、2，因式分解最简。公式法及配方法虽可求解但更繁，原式并非平方等于常数的直接开平方形式；不能直接约去x漏掉0。 本轮完整性边界：四种方法均可解，最合适取决于约定的步骤成本；移项3x(x−2)=0直接给0,2，而除x会漏0。可核验根与因式分解，但不能把偏好分数当独立数学模型。",
+      "reason": "3x²=6x移项得3x²−6x=0，提公因式3x(x−2)=0立即给根0、2，因式分解最省步骤。配方与公式法也能得到同样根；直接除以x会丢根0，原式也不直接呈(x−h)²=k形式。",
       "question_sha256": "8494265d08f601205a807576a604098c4a205ab7a0c9bc8593c0a1fb1187f771",
       "verify": null,
       "catalogue_preview": {
@@ -7338,7 +7338,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "B已经是一个一次式的平方等于正数，可直接令2x−1=±3。A、C须先配方或用公式，D宜移项后因式分解，故B最直接。 本轮完整性边界：B原式已是完整平方=非负常数，直接开方最短；其它三式也能经变形求解。“最适合”取决于原式结构与教学成本而非可解/不可解的真值。",
+      "reason": "B已经是(2x−1)²=9，可直接开平方得2x−1=±3，两根为2、−1。A需要先配成(x−2)²=9，C需要配方或求根公式，D移项后可提因式x(x−5)=0，因此按原式结构，B最适合直接开平方法。",
       "question_sha256": "ee1ab7fd6790b1258fa09695851e368e34af919ff19b7aa9e5080ffda57f3bf1",
       "verify": null
     },
@@ -7553,7 +7553,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "给定旋转中心、方向和角度即可确定平面上每一点的像。旋转半径随点变化，时间与几何变换无关；对称轴属于轴对称而非旋转要素，因此只有B。 本轮完整性边界：这是描述旋转的术语参数化；标准说中心、方向、角度，若用带符号角则方向包含在角中。0°/360°恒等旋转的中心不唯一，因此解析“缺一不可”不宜当绝对数学唯一性定理。",
+      "reason": "教材通常以旋转中心、方向、角度描述旋转，B符合这一表述。A的半径和时间不能代替方向与角度；C的对称轴不是旋转中心；D的对应点、对称轴不是教材所列的三项要素。",
       "question_sha256": "95397eeeb4a204c0fdd3c5c152c0558fc2f65a86893800decf3e6bf8efb06a4b",
       "verify": null
     },
@@ -7611,8 +7611,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "把ADF绕A旋转至ABF′，则B、E、F′共线且EF′=BE+BF′=BE+DF，AF′=AF。由∠BAD=90°和∠EAF=45°得∠EAF′=45°，配合公共边AE用SAS证AEF≌AEF′，得EF=EF′。A的两三角形未必全等，C仅对角线垂直不足以推出目标。 本轮完整性边界：B是完整证明策略，需要F′、B、E的共线次序、夹角45°与SAS的链条。坐标可推出a²−ef=a(e+f)，进而EF²=(e+f)²；这只是支撑，不会自动验证任意中文证明策略是否说明齐全。A两三角形一般不全等，C的对角线垂直不能推出目标长度。",
-      "question_sha256": "a65cd9db5308f12bf5e06f7d35f75a1e7471e699fbbd6e707d9effb2dd513fa3",
+      "reason": "令A=(0,0),B=(a,0),E=(a,e),F=(f,a)，a>0且0≤e,f≤a。45°条件给a²−ef=a(e+f)。旋转点D、F使D落B、F落F′=(a,−f)，则AF=AF′，AE公共，角分解给∠EAF′=∠EAF=45°。SAS推出△AEF≌△AEF′，所以EF=EF′=e+f=BE+DF，B提供完整链条。A要求的一般全等可被e≠f的合法配置反驳；C的对角线垂直虽真，却没有完成目标长度的推理。",
+      "question_sha256": "eea6a1018492ddb7d832ed3acb1709b732ddd58c6574dc8192602546cbddb8c3",
       "verify": null,
       "catalogue_preview": {
         "question": "正方形 ABCD 中点 E、F 分别在 BC、CD 上，∠EAF=45°，如何证 EF=BE+DF？",
@@ -7633,7 +7633,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "中心对称指一个图形半周旋转后与另一个图形重合的对应关系，中心对称图形是自身半周旋转不变。B混淆对象，C的90°并非定义中的180°，所以A。 本轮完整性边界：关系与单图性质是定义层级，不能通过固定中文类别映射冒充计算。两者均用180°，并非90°；某图90°对称可能进一步蕴含180°对称，但90°不是中心对称的定义角。",
+      "reason": "中心对称描述两个图形经某点180°旋转相互重合；中心对称图形描述一个图形经该旋转与自身重合，故A正确，B混淆了关系与自身性质。2×1矩形能作180°自身对称却不能作90°自身对称，说明C不能作为中心对称图形的定义。",
       "question_sha256": "ae1ce86b659d91c95021b33fd0308772d85cf268e3f5d5b8572a5671928d4e21",
       "verify": null
     },
@@ -7691,9 +7691,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "圆周角等于其所对弧圆心角的一半，因此同弧/等弧给相等圆周角。A漏一半；同弦两侧的圆周角一般互补而非都相等，所以B不能普遍成立。 本轮完整性边界：需分析“同弦”与“同弧”及圆周点所在两侧的量词。半角定理给圆周角=同弧圆心角的一半；同弦两侧可为60°与120°，同弧才相等。本次未把定理结论作为模型输入来直接选项。",
-      "question_sha256": "85ab1e5859242f988fb9e02561f56ea52577d3ecc1e974f37b9204d69f467128",
-      "verify": null
+      "reason": "令圆半径归一为1，A=(1,0)、B=(cos2t,sin2t)，0<t<π。补弧上任意顶点C=(cos2(t+s),sin2(t+s))可由0<s<π−t表示。两弦向量长度为2sin(t+s)、2sin(s)，点积为4sin(t+s)sin(s)cos(t)，故夹角余弦为cos(t)，在(0,π)上唯一给圆周角t，且与s无关。相同弧及等弧具有相同t，证明C。A圆心角为2t而非t；B换顶点到另一弧得到π−t，取t=π/3即60°与120°不等，故只有C。",
+      "question_sha256": "faebd762ac741301d56c19cedc391a27a9cbe4be06906d09e9db0be7f1db4d66",
+      "verify": "model('cnm_253_q4')"
     },
     {
       "id": "cnm_254_q4",
@@ -7824,9 +7824,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "角平分线上的点到角两边距离相等，三条内角平分线交点因此到三边等距，是内切圆圆心。垂直平分线交点为外心，高交点为垂心。 本轮完整性边界：考中心名称的定义及内角平分线等距定理。内角平分线内点到两边距离相等，三线交点在三角形内且到三边等距；垂直平分线交外心，三高交垂心。没有坐标输入，不以定义名称查表制造自动通过。",
-      "question_sha256": "0918114b03761d3f500d1367c9b8b4ea05b88a99be880bb90d8f89f58cfe51f1",
-      "verify": null
+      "reason": "任意非退化三角形边长可完整写成a=x+y,b=x+z,c=y+z，x,y,z>0。置A=(0,0),B=(c,0),C=(u,v)，u=(b²+c²−a²)/(2c)、v=2√(xyz(x+y+z))/c。由正边长加权得I=(aA+bB+cC)/(a+b+c)。模型逐顶点构造两单位边方向之和，验证I在三个内角平分射线上且乘子为正；前两射线方向行列式严格正保证唯一交点。I的三个正重心权保证在内部，三边垂距平方都为xyz/(x+y+z)>0，所以它是内切圆心。A/C取3-4-5直角三角形，外心(2,3/2)位于边界、垂心(0,0)在顶点，均非等正垂距内部点，故唯一B。",
+      "question_sha256": "77cf2cc80c08f4490e5c034c7d80e6d8736bbf42ce7c54979c11fcfb12ac4299",
+      "verify": "model('cnm_264_q2')"
     },
     {
       "id": "cnm_265_q1",
@@ -7851,12 +7851,12 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "正n边形的中心到各顶点等距、到各边等距，外接圆和内切圆共用中心，B正确。边心距r=Rcos(π/n)<R否定A；中心角360°/n与内角180°−360°/n仅n=4时相等，C不是普遍性质。 本轮完整性边界：可从正n边形旋转对称证明内外心相同，但整题涵盖任意整数n≥3及角公式。边心距Rcos(π/n)<R，中心角360/n与内角180−360/n仅n=4相等；有限枚举n不能证明全称，因此保留逐项一般证明。",
-      "question_sha256": "0cf283204a36050d47c6a8e1786bb65ee8137da767d97ba917f16aaf1aed22e4",
+      "reason": "令α=π/n，整数n≥3给0<α≤π/3。任意顶点范数为R；相邻顶点的单位法向量在半角α处，与两端点点积都为Rcosα，故每边到原点距离相同且为正。前三边的单位法向量及常数列行列式化为8cosα sin³α>0，等内侧垂距中心唯一；所有边半平面都包含原点，所以内心为原点。三非共线顶点范数R又确定唯一外心为原点，证明B。A中cosα<1，正三角形反例边心距R/2≠R；C的中心角2π/n和内角π−2π/n在n=3时120°与60°不等，只有n=4特例相等。",
+      "question_sha256": "b4507f13c35d2ce882628621399dea1ba09b38b6deab796abf986b8bd9bc6416",
       "corrected_fields": [
         "explanation"
       ],
-      "verify": null
+      "verify": "model('cnm_266_q2')"
     },
     {
       "id": "cnm_268_q2",
@@ -7881,9 +7881,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "相似多边形的定义是对应角相等且对应边成同一个比例，B完整。A只描述全等特例，不能作为所有相似的等边性质；C周长通常按比例变化，D角不应互补。 本轮完整性边界：该题考相似的定义，不用给“相似”标签回传固定属性作模型。相似比可不为1，周长同比而非必相等；非直角时对应角相等一般不互补。",
-      "question_sha256": "c316d4c3d65fc3471ea5eceac246e0e95f9b2add4d8ea1e5af96114cadbe4e45",
-      "verify": null,
+      "reason": "任意平面相似的线性部分可写成kQ，k>0、Q为含任意旋转角和两种定向的正交矩阵。模型计算Gram矩阵(kQ)ᵀ(kQ)=k²I，因此边长乘k、点积乘k²，标准化夹角余弦不变；所有边同乘k也使周长乘k，唯一B。取正三角形放大2倍，边长和周长都不相等，否定A/C；60°对应角仍60°，非120°，否定D互补。",
+      "question_sha256": "b65ba47164afa4cdcb17af434864cbe325284484ae32deb497507e5c944d8d8e",
+      "verify": "model('cnm_270_q1')",
       "catalogue_preview": {
         "question": "相似多边形有哪两条特征？",
         "answer": "对应角相等，对应边成比例"
@@ -7894,12 +7894,12 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "任意两个正方形的四角均为90°且各对应边比相同，故都相似。矩形长宽比可不同，菱形角度可不同；一般多边形仅对应角相等仍可有不同边比（如非相似矩形），所以A、B、D不成立。 本轮完整性边界：需要类别级全称证明：任意正方形可经比例缩放及刚体变换重合。反例为1×2与1×3矩形、60°与90°菱形；等角四边形不一定边成比例。仅几个数值样例不能证明“所有正方形”。",
-      "question_sha256": "64dc8d635f9b463c56848d4ddb5f2d8b82e2e9512663370856a72666bc3f67b0",
+      "reason": "所有正方形经刚体变换均可规范为(0,0),(a,0),(a,a),(0,a)，a>0；两边长a,b之间矩阵(b/a)I逐顶点映射且Gram为(b/a)²I，所以任意两正方形相似，C成立。A/D取1×2与1×3矩形，两者四角都直角却不相似；B取边长5的非正方菱形与边长5正方形。模型检查各反例严格凸、满足所给图形类，并枚举全部24个顶点双射，以精确仿射Gram及全点匹配排除任何重新对应的相似。",
+      "question_sha256": "acd68e97df00f7b3327c09910dc9a49972550b0628135de854423a5e06f5335e",
       "corrected_fields": [
         "explanation"
       ],
-      "verify": null
+      "verify": "model('cnm_270_q3')"
     },
     {
       "id": "cnm_271_q1",
@@ -8022,9 +8022,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "平行投影用相互平行的投影线，中心投影用从同一中心发出的射线。A把两者对调，C、D把区别抹掉，只有B对应定义。 本轮完整性边界：这是光线场的几何定义，不存在给定射线坐标可求；平行投影各线方向一致，中心投影共过光源点。将两个术语映射到预置答案是语义rubric，故人工。",
-      "question_sha256": "0d26578c509440f8ea45fd6305249fe3b9e47f75944a602ab319d688762ed2ba",
-      "verify": null,
+      "reason": "将投影面规范为z=0。固定方向场的光线为(u,v,0)+t(0,0,−1)，任意两方向叉积恒0，而公共点条件对独立u,v不可能同时满足，故平行而不共有限点。点光源场为L+t((u,v,0)−L)，L=(0,0,h),h>0；对任意u,v均经过L，比较不同目标方向叉积可非零，因此共点而不全平行。逐项计算得只有B同时符合两族。",
+      "question_sha256": "956cd5bc4b77815a68cf7fa0387ff961f5dcec030e3b478c0cc2ffd6bc85f381",
+      "verify": "model('cnm_281_q1')",
       "catalogue_preview": {
         "question": "平行投影与中心投影的光线有何区别？",
         "answer": "平行投影光线平行，中心投影光线交于一点"
@@ -8035,9 +8035,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "通常几何模型把远处太阳光近似为平行光，所成影子属平行投影。路灯、台灯和普通手电筒按附近点光源建模，投影线从灯的位置发散，属中心投影。 本轮完整性边界：太阳光是远场平行近似，普通点灯为中心投影；真实手电可能准直，不能仅靠光源名称严格决定射线场。需要明确教材采用的理想模型，不能从名称自动判物理事实。",
-      "question_sha256": "fc1e379ef1700b8fc2bb3740dd298774faa6f8f6e4a3b9a45bf053f7cda1b25b",
-      "verify": null
+      "reason": "按题干已经明确的理想模型，太阳对应固定方向光线场，方向向量与目标点无关，任意方向叉积恒0。其余三项为同一有限点L发出的光线，随平面目标(u,v)变化的方向向量并不全平行，例如目标(0,0,0)和(1,0,0)方向叉积非零，所以只有C。",
+      "question_sha256": "fc728f7bb592983c8b5f2f1029632a3e9fa7570439c8a1150cc995847927f139",
+      "verify": "model('cnm_281_q2')"
     },
     {
       "id": "cnm_281_q4",
@@ -8056,7 +8056,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "投影线垂直投影面是正投影的专门定义。正投影属于平行投影，A虽是上位类别但不是所问的专门名称；中心投影线共点，斜投影线与面不垂直，故B、D错。宜强调专门名称以免混同上位类别。 本轮完整性边界：题干已明确问专称，正投影同时是平行投影的子类。A作为上位类别也成立但不是专门名称；这属于概念层级辨析，不能仅用正交向量计算代替中文专称。",
+      "reason": "在平行投影中，投影线垂直投影面的情形专称正投影，选C。A是它所属的上位类别而非专称；B是光线共过有限中心的中心投影，D则是投影线倾斜于投影面的情形。",
       "question_sha256": "a062011703cb2d73c06e19c17cb25f944df56fb8c9f4e82013d27a3455763c6b",
       "corrected_fields": [
         "prompt"
@@ -8165,7 +8165,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "连续抛三枚硬币有三个有随机结果的步骤，树状图可逐层列出8种序列；普通二维列表更适合两步。B、C均两次随机结果；D的放回是确定操作，只有两次摸球随机步骤，所以A。 本轮完整性边界：逐枚抛三枚是三阶段，其余两阶段；不过三阶段仍可用复合标签二维表或多张表列全结果。树状图“通常更清晰”是方法可读性偏好，不能按阶段数声称数学上禁止列表。",
+      "reason": "A逐枚抛三枚硬币有三个阶段；B两枚骰子、C硬币后骰子、D放回后再摸球各有两个阶段。常规二维表便于配对两个阶段，树状图能更清楚逐层表示三个阶段，故选A。",
       "question_sha256": "5a92a8345b9cf83bb4aaf40ef2890333840fc528523ec13ff15cdf9052a55a3f",
       "verify": null
     },
@@ -8183,12 +8183,12 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "在双方奖励、代价相同的通常公平游戏模型下，公平指双方获胜机会相等。人数相同、双方有机会或必平局都不是等机会的定义。为排除收益不对等的歧义，宜明确奖励和失败代价相同。 本轮完整性边界：公平按相同收益规则比较期望，而“总是平局”只是使两胜率都0的充分特例，不是必要条件。改题干明确问必须的胜率关系，完整语言等价性仍人工，期望差的符号恒等式单独支撑。",
-      "question_sha256": "40ca844f6a0756edcfd135612aaff177a2529d5dab5b898f6a425ad52137776a",
+      "reason": "将三种互斥结果按甲胜、乙胜、平局排列，双方收益分别(r,−l,0)、(−l,r,0)，r,l>0。模型从收益矩阵计算期望差(r+l)(p−q)，正系数给公平充要关系p=q，再以精确线性蕴含验证必要条件。A取p=q=1/2、人数1和2，公平并不要求人数相等；C取p=q=0全平局依然公平，两人未必有正胜率；D取p=q=1/2无平局也是公平，因此总平局不是必要条件。只有B必需。",
+      "question_sha256": "92e477c84ecd6cd60a864c4344423a52d8e16e85af0989ccb9d566317bed26be",
       "corrected_fields": [
         "prompt"
       ],
-      "verify": null
+      "verify": "model('cnm_289_q2')"
     },
     {
       "id": "cnm_289_q3",
@@ -8225,7 +8225,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "新种子的实际发芽率要控制条件进行发芽实验、计数并估计比例。问卷不能直接观测种子的发芽，已有资料不能保证适用于该新种子，所以C最合适。 本轮完整性边界：新品种发芽率需在明确条件下实测或利用已存在的可靠同条件实验资料；问卷不能直接测生物发芽。收集方法最适合是设计语境判断，成本/资料可用性未给，不能把方法标签当模型。",
+      "reason": "要取得新型种子在规定条件下的实际发芽率，应进行发芽实验，记录播种数和发芽数，C最直接。问卷不能直接测量生物发芽；已有资料若并非同品种、同条件，也不能替代本次测量。",
       "question_sha256": "bfa5199735b7a8b0ef911177ce998a98bdd6a3b2fcdcb0b37e0d37f54a826c20",
       "verify": null,
       "catalogue_preview": {
@@ -8238,7 +8238,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "最喜欢的读物是学生本人的偏好，直接用问卷逐人收集最适合。实验不适合测偏好，资料难以包含本班此时的个人选择，故B优于A、C。 本轮完整性边界：偏好是本班成员主观信息，问卷能直接询问；实验与既有资料不能直接替代当下个人偏好。仍需问卷选择设计与响应率，无法由数值推导唯一的“最适合”。",
+      "reason": "最喜欢的课外读物是本班成员当前的主观偏好，问卷能直接向这些成员询问，因此B最合适。实验不能替代个人偏好的回答，已有资料也未必反映本班当下情况。",
       "question_sha256": "d27a576e67d53c5d532bf9f8f2307d131f2b94579ca2608301f53f3e61c8785c",
       "verify": null
     },
@@ -8247,7 +8247,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "统计年鉴等官方资料已经按年份系统公布总体人口，查阅最方便且可信。全户问卷成本极高，人口总数不能靠实验产生，10人访谈也不能可靠推断全国逐年总量。 本轮完整性边界：历史全国人口总量已由官方统计记录，查年鉴通常最方便；仍需核对年份、口径、覆盖和修订。实际来源质量与获取成本未给，无法证明所有情境下“最可靠”。",
+      "reason": "官方统计年鉴通常已有全国人口总数的连续历史记录，查阅可直接取得近十年序列，A较方便可靠。重新向每个家庭发问卷成本高，实验不适合重建历史总量，随机访谈10人也不能提供全国各年人口总数。",
       "question_sha256": "8f417599ad393aad734688c7d155451ba6b547878c123abcb040a7249cf76474",
       "verify": null
     },
@@ -8256,7 +8256,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D用“难道不认为”以及“浪费”进行价值引导，会诱使受访者少报或迎合提问者。匿名、分年级随机取样、互斥清晰区间分别减少社会压力、样本偏差与填答歧义。 本轮完整性边界：D的反问附带价值倾向可诱导回答，是自然语言偏差机制。匿名、随机跨年级与清晰互斥区间通常减偏，却不能保证零偏差；没有回答生成模型不能计算偏差量。",
+      "reason": "D把“玩游戏很浪费时间”的价值判断放进反问，可能诱导被调查者压低报告，因此最可能产生偏差。匿名、跨年级随机发放和清晰互斥的选项区间通常有助于减偏，故不如D具有明显诱导性。",
       "question_sha256": "ba790d7781c6a969cead52d419f8f786cbe6fe3ac510fcce6c9282cb913f6f11",
       "verify": null
     },
@@ -8265,7 +8265,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "calculation",
-      "reason": "15+12+10=37而调查对象40人，差3人，必须回看是否漏了类别或人数记错。A的合计不符；B擅自把已知总体40改成37，不能据此认定原记录完整正确。 本轮完整性边界：能计算净差3，但核心处置是回查原始记录，不能从差值识别错误条数、类别或唯一修复。C承认漏记或错记；B仅改总计会掩盖已知40人。整题不以sum计算替代审计判断。",
+      "reason": "现有三类人数为15+12+10=37，与已知调查40人不符，A不能成立。只把总计改成37不能解释其余3人的记录，B也不足；C承认可能漏记、漏类或错计并要求核对原始记录，最合理。",
       "question_sha256": "23bda368080542fdb321c26637c61ecd7c207ed4c58bbebb22a69ee0bd52cf52",
       "corrected_fields": [
         "explanation"
@@ -8304,7 +8304,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "条形图用柱长表示数值，通常须从0起且等距刻度，才能保持长度比例与数值比例一致。A任意截断和B不均匀刻度都会扭曲比较。 本轮完整性边界：条形图柱长以零为基线并保持线性等间隔，才能让高度比反映数值比；作为一般制图规范仍需理解视觉编码语义。不是所有图形都一律禁止截轴，折线图另有语境。",
+      "reason": "条形图以柱高表示数值，零基线和线性均匀刻度能保持柱高比与数值比一致，故选C。随意起点可能夸大差异，忽大忽小的刻度也会破坏视觉比例，A、B不符合这一编码目的。",
       "question_sha256": "c274f6bab1f52967a44430322a22c4b8bed061fdd23bdeaef38945aaac51fbcd",
       "verify": null
     },
@@ -8331,16 +8331,16 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "规范抽签用同样纸签并充分搅匀，使编号仅用于识别、不影响被选机会；每人机会相同。A给编号引入偏好，C否认等可能条件。 本轮完整性边界：在纸签同质、充分混匀、随机抽取、样本框全覆盖条件下，由置换对称每人入样机会相同，n抽N给n/N。题干没有N,n和具体机制参数，不能造一个样本的等概率冒充任意抽签法全称。",
-      "question_sha256": "743e6f7bea72ae04e8e52a09f8fbc02959f3f393a952915a28f4bf155a8a8899",
-      "verify": null
+      "reason": "总体n人、不放回等机会抽取k人，1≤k≤n。全部k元子集有C(n,k)个；含任意指定编号i的有C(n−1,k−1)个，因此其入样概率为C(n−1,k−1)/C(n,k)=k/n。符号阶乘约分对整个合法整数域成立，式中不含编号i；任意两编号概率之差恒0，既不会随编号大小变化，也不彼此不等，故B。",
+      "question_sha256": "5b795826dcdf18eaf993af82be9f2c26a4b42625106468dd8423915ad213e74a",
+      "verify": "model('cnm_298_q2')"
     },
     {
       "id": "cnm_299_q4",
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "在同样随机、无偏的抽样条件下，200人比20人通常有较小抽样误差；眼镜店门口和仅视检不合格者均人为富集近视样本。故C相对最可靠，不代表任何一次200人样本都必比20人更接近真值。 本轮完整性边界：在同样覆盖全校、同一随机设计与应答机制下，200人通常比20人抽样误差小；眼镜店/不合格者选择偏差可能很大。题设未给各组真实分布和应答概率，不能定量保证任一实际抽样结果总是更准。",
+      "reason": "两个覆盖全校的随机方案采用相同设计且充分应答，200人通常比20人有较小抽样误差。眼镜店门口和仅视力不合格者都偏向特定群体，因此在给定候选中C通常更可靠。",
       "question_sha256": "43bf474e7c8d414432463ffe8662f36ce3080013f9c4c11fdd81f9d06fbc934b",
       "verify": null
     },
@@ -8349,7 +8349,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "须先确定研究睡眠的问题，再据此收集、分类整理，用图表描述后分析并提出结论建议。B把收集放到确定问题之前，C、D在取得数据之前整理，均不合适。 本轮完整性边界：主流程为研究问题→收集→整理→描述→分析→结论建议，真实研究可迭代。选项是方法论依赖而非数值公式，不能输入一张预置顺序表再自证同一顺序。",
+      "reason": "先明确研究问题，再收集数据，随后整理、用图表描述、分析，最后得出结论与建议，A符合主要活动依赖。B先取数后定问题，C先整理后收集，D缺少必要分析且次序不完整。",
       "question_sha256": "5fb0d2e191720603055b5c5334067646906edcd2d1a7cb8ec0704200522e4a94",
       "verify": null,
       "catalogue_preview": {
@@ -8362,7 +8362,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "统计活动先明确研究什么及对象、指标，之后才能有针对性收集和画图。B、C是后续工作而非通常的第一步。 本轮完整性边界：通常先明确问题才能决定收集与绘图；探索既有数据可来回修订问题。标准活动步骤是定义性方法论，不以固定步骤名称映射计整题自动。",
+      "reason": "通常先确定研究问题，才知道要收集哪些数据以及采用何种图表，故A是第一步；收集数据与画图应服务于已明确的研究目标。",
       "question_sha256": "7806c16f04106f130a2c367566f6c209dc3e52d59476dd6642cc57aa5ee92368",
       "verify": null
     },
@@ -8371,7 +8371,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "划记计数并制表是把已有原始数据分类汇总，属于整理。A为设计收集工具，B为收集，C从图表形成判断属于分析，故只有D。 本轮完整性边界：划记计数制表是整理原始数据，问卷设计/发放是收集，读图判断是分析。分类需要动作语义，没有数学数据可让计算独立得出步骤名。",
+      "reason": "用划记法分类计数并制表，是把原始数据整理成有结构的统计结果，故D属于整理。A设计问卷、B发放问卷属于收集准备与实施；C根据图表作判断属于分析。",
       "question_sha256": "6440e701f9593723286853ea57ad8080fd24c52be4a8e15767b395b126ea6eaf",
       "verify": null
     },
@@ -8380,7 +8380,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "画折线图是描述数据，读走势找最少的日期是分析，提出建议是形成结论与建议，故A。B把绘图归整理且各步后移，C把首两步倒置，末项也不是收集。 本轮完整性边界：绘图描述、据图判断分析、建议结论这三个动作需要语义解释；即使能算最少睡眠日，也未验证另外两个过程分类，因此保留整题人工。",
+      "reason": "画折线图是在描述数据，根据走势判断最少睡眠日是在分析，提出建议属于结论与建议，三者依次对应A。B、C把画图或读图判断归入了不相应的阶段。",
       "question_sha256": "1ae20f3b66f55ca2177db75bcd8aa4512fdce468d4069ac45e0df3b7e537554d",
       "verify": null
     },
@@ -8398,7 +8398,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "估计全校平均身高要覆盖全体的随机样本，D减少选择偏差。篮球队及每班最高者偏高，仅七年级漏其它年龄层，A、B、C均缺代表性。 本轮完整性边界：全校随机抽取避免队员、单年级、每班最高的系统偏样；仍需足够样本量、完整样本框和响应控制。随机性不保证每一份实际样本都代表总体，不把“随机”字样直接当精度保证。",
+      "reason": "覆盖全校的随机抽取较少受到特定群体选择的影响，D更能减少明显选择偏差。篮球队、单一年级或每班最高者都限制了样本框，不能直接代表全校身高分布。",
       "question_sha256": "875b8c7fc3dc997eaa7bd9ed0807ae10484bf488f15a132394325b82c1a9178f",
       "verify": null
     },
@@ -8407,7 +8407,7 @@
       "independent_answer": "平均数20，中位数9；中位数更能代表一般员工水平",
       "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
       "basis": "open",
-      "reason": "总工资8+8+9+10+65=100，除5得20千元；已排序的第三个数为9千元。65是远高于其余员工的极端值，把均值拉到20，中位数9更接近一般员工的工资。 本轮完整性边界：整题还需解释什么是“一般员工”的目标；均值20、中位数9能自动算，65拉高均值的解释和目标适切性不能由两个数代替。",
+      "reason": "总工资为100千元，均值100/5=20千元；排序后第三项为9千元，即中位数。多数工资在8至10千元，65千元拉高均值，所以以一般员工的典型水平为目标时，中位数9更贴切。",
       "question_sha256": "d2dc815fc54f457b8cb2d01dd2439a7c401ae09b9fe2c37e130c4391d2324d31",
       "grading": [
         {
@@ -8484,9 +8484,9 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "甲只抽2个，样本方差的偶然波动很大，不能仅凭0.01<0.02就可靠断定总体甲更稳定。乙样本较大但其方差0.02其实不比甲小，故C理由错误，B最恰当。 本轮完整性边界：小样本方差可波动很大；只给n=2,50与方差0.01,0.02，未给总体分布、估计量定义或置信水平，无法可靠断定总体方差顺序，也不能断言乙必更稳。C连样本大小比较的理由都写反。",
-      "question_sha256": "e2e6a7cad2f373a0c0f4cbb441b34163906aa56d11a3bc5120609ab06d1164cb",
-      "verify": null
+      "reason": "构造两种均满足样本信息的有限总体。乙总体由25个100−√(1/50)和25个100+√(1/50)组成，抽取全体50个，其样本和总体方差均为1/50。第一种甲总体仅有99.9、100.1，抽两项得样本及总体方差1/100，确比乙小。第二种甲总体为99.9、100.1、1000，仍以正概率1/3抽到前两项而得到同样的样本方差1/100，但总体方差为27000001/150，远大于乙。两个合法随机抽样世界具有相同已知信息而总体方差排序相反，故A不能由观测推出，B正确；C的理由也错，乙的已知样本方差0.02大于甲0.01。",
+      "question_sha256": "c124e06326b38a0e70a5493e024d9105daa2895b9a4acc12d04eb123fe3cb48c",
+      "verify": "model('cnm_306_q4')"
     },
     {
       "id": "cnm_307_q1",
@@ -8564,40 +8564,40 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "均匀骰子明示对称等可能条件，六个点数各1/6。图钉两姿态、射手中否、天气雨否即使都列两种结果，也没有概率各半的保证，故A、B、C不能据此判等可能。 本轮完整性边界：未知二分结果可能恰各1/2，故A/B/C不能被一概判不等概率；只有D明确给均匀性。题干修为“根据已知条件可以确定”，避免必要/已知条件与偶然可能性的混淆。",
-      "question_sha256": "63e0b22c22cbfca4300f1e2996a6054ad04eb3ee055c3f825da37bdebb19669b",
-      "verify": null
+      "reason": "对有限基本结果建非负、和为1的概率向量。图钉/射击/天气没有给等质量约束，合法向量(1/3,2/3)说明“等可能”不被已知信息强制；这不声称实际一定非均匀。均匀骰子给六个质量成连通等式链，所有质量相同，再由总和1得每个1/6，因此D可以确定。",
+      "question_sha256": "7300803b57b60359afb4f01376e76158d95cf3f0a969b313436265c8dd37abf8",
+      "verify": "model('cnm_309_q2')"
     },
     {
       "id": "cnm_309_q4",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "古典概率m/n要求有限且等可能结果；十张相同卡片均匀随机抽取可数n=10、偶数m=5，A可直接套用。图钉、投篮不具已知等可能；所有正整数无法构造这种有限均匀样本空间。为明确条件，宜补卡片除数字外完全相同。 本轮完整性边界：A有有限十种且明确同质混匀；B/D未保证等可能，C没有所有正整数上的均匀概率。可枚举A的5个偶数，但该计算没有证明其余抽样机制的充分条件，整题仍人工检查假设。",
-      "question_sha256": "198346c2876f31c5696ffe86c8cc7a38f44b2375d7922a0b43d32b6242751190",
+      "reason": "A十张卡的同质混匀假设给十个等质量结果，连通等式链及归一化可推出各1/10，故可用m/n。B/D未给等可能，向量(1/3,2/3)是合法反模型，无法仅按两个结果各占1/2。C结果集合为全部正整数，不是有限样本空间；若硬给每数相同质量p，p>0时前N项和Np无界，p=0时总和0，均不能归一为1。只有A满足有限且可确定等可能。",
+      "question_sha256": "0accdbcd56ef806fc29f55790b178ddecc7b86a67734d5908e6f041da3baea64",
       "corrected_fields": [
         "choices",
         "explanation"
       ],
-      "verify": null
+      "verify": "model('cnm_309_q4')"
     },
     {
       "id": "cnm_310_q3",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "同时取两个球保证它们是两颗不同的实物，相当于连续取而不放回，A符合。B、C明确放回；D两次前球数相同不符合通常只取不补的不放回模型。 本轮完整性边界：A同时取两球等价不放回的无序结果；B/C明确放回。D若允许补球、替换或不同袋，球数相同不必是同一球放回，题干需限定同袋且只作题述取放，无额外操作。程序语言的解释不拿固定关键词rubric自动判。",
-      "question_sha256": "55b44c02f80637dbc4673751d587ff3ccf5241d986422da1912438f3b3391c4e",
-      "verify": null
+      "reason": "令初始球数为任意N≥2。首次摸出一球后为N−1，在第二次摸前若归还r∈{0,1}球则为N−1+r；无额外增减/替换条件下不放回恰为r=0。A同时摸出的两球是不同物理球，等价r=0；B/C明确r=1；D要求两次摸前球数相同，方程N−1+r=N唯一给r=1。故只有A。",
+      "question_sha256": "5a8462c82ff1c8ee9d5af55969df38b198aec7a16ce0563a421b79162d10a962",
+      "verify": "model('cnm_310_q3')"
     },
     {
       "id": "cnm_314_q2",
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "70%描述降水事件发生机会较大，但仍有不降水可能。它不是下雨时长比例或地区覆盖比例，也不是必然发生，所以A、B、D均误读概率。 本轮完整性边界：70%表示明确定义的降水事件可能性，既非确定发生，也非时间/地区占比。未指定预报区域、时段和阈值时只可作教材概率解释，不能自动验证真实气象预报口径。",
-      "question_sha256": "3590e48da4f3a377b440732080bad91fe2ebc3ade3da743a2390b93e462545ef",
-      "verify": null
+      "reason": "概率7/10大于不降水概率3/10且严格小于1，所以“较大但不一定”成立。对A/B构造满足同一预报概率的两点模型：下雨情形质量7/10且时间/地区覆盖分数为1，不下雨情形质量3/10且分数为0。降水事件恰为分数>0，但两种情形都不是固定7/10，说明事件概率不能推出某天的时空占比。D要求事件概率1，与7/10不等，因此唯一C。",
+      "question_sha256": "a47260df2917f78291344dba9756b5723833d24a6299a4a6ab96a4d69d9c8d93",
+      "verify": "model('cnm_314_q2')"
     },
     {
       "id": "cnm_314_q3",
@@ -8622,7 +8622,7 @@
       "independent_answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。",
       "expected_answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。",
       "basis": "open",
-      "reason": "等面积扇区只在转动停止方向均匀的模型下给等概率，理论上180/360=1/2才是公平性依据；试验提供检验机械偏差的经验资料。须明确有限样本频率可能偏离甚至暂时远离1/2，不能用“做100次接近0.5”作为数学证明。 本轮完整性边界：任意转盘设计是开放回答；需看等概率机制、收益、边界及独立同条件试验说明。180°/360°与波动可算，但不能自动判任意物理装置均匀或整份设计论证完整。",
+      "reason": "可将均匀转盘分成两个180°区域，分别对应两人，边界重转并设置相同输赢收益。理想均匀停向模型下双方概率都是180/360=1/2。重复独立同条件试验可记录胜次和频率，以观察装置是否明显偏离模型。",
       "question_sha256": "b0b73edd4fef3bfce2ed806a29a1df8c79bfd76b599cea6b238e0da2d80d1f38",
       "grading": [
         {
@@ -8649,7 +8649,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "理论均为1/2时，100次甲胜46的频率0.46与0.5相差0.04，可属正常随机波动，不能因两频率不相等就判不公平或修改规则。原C末句“次数增加会更接近”有单调保证的歧义，应改为大量试验通常更稳定但不保证每次更接近。 本轮完整性边界：能算公平模型下46:54的概率或尾概率，但“合理/正常”的证据解释及改规则判断没有给定显著性标准。正概率不等于无偏差证据，频率不等也不逻辑推出不公平；不以一个人为阈值强行给整题自动结论。",
+      "reason": "在双方理论概率均为1/2的独立模型下，100次出现46:54可以由随机波动产生，频率不相等不能单独证明游戏不公平。数据因此并非无效，也不能直接要求改规则补偿甲。大量同条件试验时频率的典型波动减小，但单条试验序列不保证单调接近1/2，所以C合理。",
       "question_sha256": "8dde2c4e7f09e7b087b8ad5ab30631d867c000f49f6c2b3407e7878df1bbd80c",
       "corrected_fields": [
         "choices",
@@ -8663,14 +8663,13 @@
     "summary": {
       "reviewed": 455,
       "outcomes": {
-        "model": 348,
-        "manual": 105,
+        "model": 390,
+        "manual": 63,
         "expression": 2
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 97,
-        "numeric": 2
+        "choice": 57
       },
       "models_by_kind": {
         "numeric_relations": 12,
@@ -8690,6 +8689,7 @@
         "scientific_notation": 2,
         "commutative_identity": 1,
         "expression_kind": 7,
+        "f105_notation_format": 1,
         "f160_polygon_quantity": 1,
         "monomial_pairs": 2,
         "f160_monomial_claims": 1,
@@ -8699,29 +8699,43 @@
         "equation_classification": 1,
         "f160_degree_parameter_condition": 1,
         "linear_interval": 13,
+        "f105_cylinder_unroll": 1,
+        "f105_affine_dimensions": 1,
+        "f105_cylinder_projection": 1,
         "cube_net": 1,
+        "f105_revolution": 1,
+        "f105_sweep_dimensions": 2,
         "f160_primitive_claims": 3,
         "two_focus_minimum": 1,
         "f160_affine_order": 1,
         "angle_vertex": 1,
+        "f105_first_collinearity": 1,
+        "f105_angle_notation": 1,
         "linear_implications": 3,
         "f160_affine_reasoning": 1,
+        "f105_adjacent_angle_claims": 1,
         "vertical_angle_pairs": 1,
         "symbolic_affine_incidence": 3,
+        "f105_ruler_construction": 1,
         "f160_line_relation_family": 2,
         "point_line_distance": 1,
         "distance_bound": 1,
+        "f105_shortest_canal": 1,
         "f160_angle_slot_classification": 2,
         "f160_parallel_axiom_claims": 1,
         "f160_numeric_angle_lines": 1,
         "f160_parallel_angle_claims": 2,
         "f160_supplementary_quad": 1,
+        "f105_equal_angle_converse": 1,
+        "f105_angle_propositions": 1,
         "f160_translation_relations": 1,
         "translation_equal_length": 1,
         "real_root_sets": 2,
         "symbolic_identity": 12,
         "f160_cubic_root_counts": 1,
+        "f105_decimal_claims": 1,
         "f160_pi_location": 1,
+        "f105_real_axis_claims": 1,
         "positive_sqrt_compare": 1,
         "coordinate_equality": 1,
         "coordinate_value": 1,
@@ -8734,9 +8748,15 @@
         "g160_inequality_objects": 1,
         "positive_factor_inequality": 1,
         "window_empty_parameter": 1,
+        "g105_observation_objects": 3,
+        "g105_sampling_guarantee": 1,
+        "g105_frequency_algorithm": 1,
+        "g105_graph_order": 1,
+        "g105_graph_extremum": 1,
         "geometry_triangle": 5,
         "geometry_altitudes": 3,
         "geometry_affine": 4,
+        "g105_direct_angle_rule": 2,
         "geometry_linear_identity": 1,
         "g160_localization_rank": 1,
         "geometry_correspondence": 3,
@@ -8748,6 +8768,7 @@
         "geometry_circle_intersections": 2,
         "g160_distance_minimum": 1,
         "g160_angle_bisector": 1,
+        "g105_doubled_median": 1,
         "geometry_symmetry_axes": 2,
         "g160_symmetry_families": 1,
         "g160_reflection_implications": 1,
@@ -8787,8 +8808,10 @@
         "app_monomial_product": 1,
         "g160_weighted_influence": 1,
         "app_statistics": 8,
+        "g105_quartile_width": 1,
         "app_weighted_mean_formula": 1,
         "app_grouping_error": 1,
+        "g105_summary_sufficiency": 1,
         "app_quadratic": 8,
         "app_growth_equation": 1,
         "app_inverse": 6,
@@ -8799,32 +8822,51 @@
         "app_central_symmetry": 1,
         "app160_relation_proofs": 4,
         "app160_circle_pairs": 2,
+        "app105_inscribed_angle_relations": 1,
         "app160_circumcircle_chord": 1,
         "app160_cone_development": 1,
         "app_circle_position": 5,
         "app160_tangent_conditions": 2,
+        "app105_incenter_intersections": 1,
         "app_equidistant_point": 1,
         "app160_obtuse_circumcenter": 1,
+        "app105_regular_polygon_metrics": 1,
         "app_proportions": 1,
         "app_rational_identity": 1,
+        "app105_similarity_metrics": 1,
+        "app105_polygon_similarity_families": 1,
         "app_triangle_similarity": 4,
         "app_trig": 4,
+        "app105_ray_family_properties": 1,
+        "app105_parallel_light_fields": 1,
         "app_positive_rational_sign": 1,
         "app_orthographic": 5,
         "app_probability": 7,
         "app_bernoulli_claims": 3,
+        "app105_symmetric_game_conditions": 1,
         "app_symbolic_ratio": 1,
         "app_sampling": 1,
+        "app105_lottery_inclusion": 1,
+        "stats105_variance_identifiability": 1,
         "app_probability_number": 1,
-        "app_identifiability": 1
+        "app_identifiability": 1,
+        "app105_uniformity_guarantees": 1,
+        "app105_classical_sample_spaces": 1,
+        "app105_replacement_protocols": 1,
+        "app105_precipitation_interpretations": 1
       },
-      "questions_corrected_or_clarified": 24,
-      "supporting_checks_not_counted_as_full_proofs": 19,
+      "questions_corrected_or_clarified": 37,
+      "supporting_checks_not_counted_as_full_proofs": 20,
       "catalogue_previews_synchronized": [
         "cnm_028",
+        "cnm_050",
+        "cnm_052",
         "cnm_066",
         "cnm_072",
         "cnm_104",
+        "cnm_107",
+        "cnm_109",
+        "cnm_218",
         "cnm_273"
       ]
     }
@@ -8834,40 +8876,61 @@
     "summary": {
       "reviewed": 160,
       "outcomes": {
-        "manual": 105,
-        "model": 55
+        "manual": 63,
+        "model": 97
       },
       "remaining_by_type": {
         "self": 6,
-        "choice": 97,
-        "numeric": 2
+        "choice": 57
       },
       "models_by_kind": {
         "f160_real_claims": 2,
         "f160_missing_axis_parameter": 1,
         "f160_reciprocal_claims": 1,
+        "f105_notation_format": 1,
         "f160_polygon_quantity": 1,
         "f160_monomial_claims": 1,
         "f160_degree_parameter_condition": 1,
+        "f105_cylinder_unroll": 1,
+        "f105_affine_dimensions": 1,
+        "f105_cylinder_projection": 1,
+        "f105_revolution": 1,
+        "f105_sweep_dimensions": 2,
         "f160_primitive_claims": 3,
         "f160_affine_order": 1,
+        "f105_first_collinearity": 1,
+        "f105_angle_notation": 1,
         "f160_affine_reasoning": 1,
+        "f105_adjacent_angle_claims": 1,
+        "f105_ruler_construction": 1,
         "f160_line_relation_family": 2,
+        "f105_shortest_canal": 1,
         "f160_angle_slot_classification": 2,
         "f160_parallel_axiom_claims": 1,
         "f160_numeric_angle_lines": 1,
         "f160_parallel_angle_claims": 2,
         "f160_supplementary_quad": 1,
+        "f105_equal_angle_converse": 1,
+        "f105_angle_propositions": 1,
         "f160_translation_relations": 1,
         "f160_cubic_root_counts": 1,
+        "f105_decimal_claims": 1,
         "f160_pi_location": 1,
+        "f105_real_axis_claims": 1,
         "g160_inequality_objects": 1,
+        "g105_observation_objects": 3,
+        "g105_sampling_guarantee": 1,
+        "g105_frequency_algorithm": 1,
+        "g105_graph_order": 1,
+        "g105_graph_extremum": 1,
+        "g105_direct_angle_rule": 2,
         "g160_localization_rank": 1,
         "g160_congruence_invariants": 1,
         "g160_ssa_claims": 1,
         "g160_hl_claims": 1,
         "g160_distance_minimum": 1,
         "g160_angle_bisector": 1,
+        "g105_doubled_median": 1,
         "g160_symmetry_families": 1,
         "g160_reflection_implications": 1,
         "g160_symbolic_claims": 2,
@@ -8878,17 +8941,89 @@
         "g160_regular_polygon_claims": 1,
         "g160_quadrilateral_quantifiers": 1,
         "g160_weighted_influence": 1,
+        "g105_quartile_width": 1,
+        "g105_summary_sufficiency": 1,
         "rotation160_right_angle_construction": 1,
         "app160_relation_proofs": 4,
         "app160_circle_pairs": 2,
+        "app105_inscribed_angle_relations": 1,
         "app160_circumcircle_chord": 1,
         "app160_cone_development": 1,
         "app160_tangent_conditions": 2,
+        "app105_incenter_intersections": 1,
         "app160_obtuse_circumcenter": 1,
-        "linear_interval": 1
+        "app105_regular_polygon_metrics": 1,
+        "app105_similarity_metrics": 1,
+        "app105_polygon_similarity_families": 1,
+        "app105_ray_family_properties": 1,
+        "app105_parallel_light_fields": 1,
+        "linear_interval": 1,
+        "app105_symmetric_game_conditions": 1,
+        "app105_lottery_inclusion": 1,
+        "stats105_variance_identifiability": 1,
+        "app105_uniformity_guarantees": 1,
+        "app105_classical_sample_spaces": 1,
+        "app105_replacement_protocols": 1,
+        "app105_precipitation_interpretations": 1
       },
-      "repaired_questions": 20,
-      "component_checks": 19
+      "repaired_questions": 33,
+      "component_checks": 20
+    }
+  },
+  "followup_105": {
+    "source": "data/answer_review_remaining_105.json",
+    "summary": {
+      "reviewed": 105,
+      "outcomes": {
+        "manual": 63,
+        "model": 42
+      },
+      "remaining_by_type": {
+        "self": 6,
+        "choice": 57
+      },
+      "models_by_kind": {
+        "f105_notation_format": 1,
+        "f105_cylinder_unroll": 1,
+        "f105_affine_dimensions": 1,
+        "f105_cylinder_projection": 1,
+        "f105_revolution": 1,
+        "f105_sweep_dimensions": 2,
+        "f105_first_collinearity": 1,
+        "f105_angle_notation": 1,
+        "f105_adjacent_angle_claims": 1,
+        "f105_ruler_construction": 1,
+        "f105_shortest_canal": 1,
+        "f105_equal_angle_converse": 1,
+        "f105_angle_propositions": 1,
+        "f105_decimal_claims": 1,
+        "f105_real_axis_claims": 1,
+        "g105_observation_objects": 3,
+        "g105_sampling_guarantee": 1,
+        "g105_frequency_algorithm": 1,
+        "g105_graph_order": 1,
+        "g105_graph_extremum": 1,
+        "g105_direct_angle_rule": 2,
+        "g105_doubled_median": 1,
+        "g105_quartile_width": 1,
+        "g105_summary_sufficiency": 1,
+        "app105_inscribed_angle_relations": 1,
+        "app105_incenter_intersections": 1,
+        "app105_regular_polygon_metrics": 1,
+        "app105_similarity_metrics": 1,
+        "app105_polygon_similarity_families": 1,
+        "app105_ray_family_properties": 1,
+        "app105_parallel_light_fields": 1,
+        "app105_symmetric_game_conditions": 1,
+        "app105_lottery_inclusion": 1,
+        "stats105_variance_identifiability": 1,
+        "app105_uniformity_guarantees": 1,
+        "app105_classical_sample_spaces": 1,
+        "app105_replacement_protocols": 1,
+        "app105_precipitation_interpretations": 1
+      },
+      "repaired_questions": 15,
+      "component_checks": 20
     }
   }
 }
