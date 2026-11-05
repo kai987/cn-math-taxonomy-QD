@@ -49,7 +49,7 @@ class Remaining63Tests(unittest.TestCase):
     def test_open_response_or_note_cannot_be_promoted_to_mathematical_proof(self):
         for mutation in ('status', 'note'):
             review = copy.deepcopy(self.review)
-            entry = next(e for e in review['entries'] if e['id'] == 'cnm_315_q1')
+            entry = next(e for e in review['entries'] if e['status'] == 'manual')
             if mutation == 'status': entry['status'] = 'model'
             else: entry.setdefault('supporting_proofs', []).append({'meaning': 'not executable'})
             with self.subTest(mutation=mutation):

@@ -451,6 +451,20 @@ def main():
                 'note': '专用模型可核验完整开放题参考，但学生自由作答仍自评；组件与完整题意严格区分。',
             }
             errs.extend(issues)
+        from check_remaining_36 import PATH as REVIEW36_PATH, review_errors as review36_errors
+        if REVIEW36_PATH.exists():
+            review36 = json.loads(REVIEW36_PATH.read_text(encoding='utf-8'))
+            issues = review36_errors(questions, review36, catalogue(), list(topics.values()))
+            report['followup_36'] = {
+                'source': str(REVIEW36_PATH.relative_to(ROOT)),
+                'reviewed': len(review36['entries']),
+                'outcomes': review36['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review36['entries']),
+                'self_reference_models': review36['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '完整参考模型、数学组件和情境/教材判断分别记录；所有开放题学生作答仍自评。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

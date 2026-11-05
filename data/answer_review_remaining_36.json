@@ -1,0 +1,1181 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-05",
+  "baseline_commit": "2f620c3e98736bda012f5ca1d5c714d6606ce29c",
+  "scope_count": 36,
+  "method": "逐题复核固定36道参考答案、数学推导与判题边界；完整数学参考可由专用严格解析模型核验，学生开放作答仍自评。",
+  "limits": [
+    "题意转译和复核由AI完成，没有教师审核。",
+    "参考模型只核验经审查的形式化输入与完整参考含义，不自动理解任意学生文字。",
+    "方法偏好、情境证据、开放设计与数学组件分开；缺前提或未决必须拒绝。"
+  ],
+  "summary": {
+    "reviewed": 36,
+    "outcomes": {
+      "model": 3,
+      "manual": 33
+    },
+    "remaining_by_type": {
+      "choice": 32,
+      "self": 1
+    },
+    "models_by_kind": {
+      "f36_tank_outflow_reference": 1,
+      "app36_statistical_action_signatures": 1,
+      "app36_spinner_reference": 1
+    },
+    "repaired_questions": 1,
+    "component_checks": 34,
+    "manual_gap_categories": {
+      "comparative_criterion": 19,
+      "design_or_evidence": 8,
+      "curriculum_convention": 5,
+      "open_response": 1
+    },
+    "self_reference_models": 2
+  },
+  "entries": [
+    {
+      "id": "cnm_028_q1",
+      "status": "model",
+      "derivation": "选择一个只有恒定出流的水箱作为100−5t的可能解释。将表达式精确化为V(t)=b−qt，得到b=100、q=5；V以L计、t以分钟计，因此b的量纲为体积、q的量纲为体积/时间，qt仍为体积。V(0)=100，且对每个实数t都有V(t)+5t=100的收支恒等式。t≥0、V(t)≥0且q>0等价于0≤t≤100/5=20；端点水量分别100L与0L，最大物理时间段闭合且非退化。完整参考解析器逐一验证水箱、初有/流出/剩余的角色、初值和速率的单位换算、式子输出单位、三处同一变量、时间单位及上下界，不再只核验100、5、20三个数。",
+      "boundary": "仅离线核验这一个合法参考示例，不把水箱故事当作本题唯一可能解释或自动批改学生故事。物理构造明确采用恒定单向出流且无其他流量、t从初始状态计时，数学域由非负时间与非负剩量共同推出。参考支持严格整句的有限语法及一致量纲换算；少任一语义槽位、改流入/流出方向、错时间或输出单位、改边界、数字兼容字符误写或附加断言均拒绝。源式保守支持四则多项式运算和非零常数除法，幂与变量分母须拒绝以保留原定义域。模型不独立验证真实水箱设备、任意复杂流量或任意自然语言；本题type仍self，学生grading全部manual。",
+      "question_sha256": "88aefb4917d3fcea83294beb305c8bb9866e888ca8ad1575160719640766d6f2",
+      "supporting_notes": {
+        "initial": 100,
+        "rate": 5,
+        "remaining_expression": "100-5*t",
+        "physical_time_domain": "0<=t<=20",
+        "note": "Only verifies this concrete water-tank example, not all valid open responses."
+      },
+      "catalogue_preview": {
+        "question": "说明 100-5t 在“用水量问题”里可能的含义。",
+        "answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）"
+      },
+      "grading": [
+        {
+          "input": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）",
+          "result": "manual"
+        },
+        {
+          "input": "水箱原有100L，每分钟流出5L，t分钟后剩余100-5t L。",
+          "result": "manual"
+        }
+      ],
+      "expected_answer": "如：水箱原有 100 L 水，每分钟流出 5 L，t 分钟后剩余的水量（L）。（此例中 0≤t≤20，t 的单位为分钟。）",
+      "model_kind": "f36_tank_outflow_reference",
+      "model_sha256": "bd98d90298c6324c2cbcf825fd12f12c6efcac7a8138b640be2f1c8b8afc95a3",
+      "reference_only": true,
+      "component_checks_before_full_model": [
+        {
+          "expression": "100/5",
+          "value": 20
+        },
+        {
+          "expression": "100-5*20",
+          "value": 0
+        },
+        {
+          "expression": "100-5*0",
+          "value": 100
+        },
+        {
+          "expression": "poly('(100-5*t)+5*t')",
+          "value": "100",
+          "comparison": "polynomial",
+          "meaning": "水箱示例在恒定5L/分钟流率下的全参数水量收支守恒；不检查自然语言角色与单位。"
+        }
+      ]
+    },
+    {
+      "id": "cnm_061_q4",
+      "status": "manual",
+      "derivation": "同形平行跑道的直道长度相同，两段半圆的总弧长为2πr。外道半径多d>0，整圈多2πd；若前移弧长δ，剩余路程之差为2πd−δ，所以等路程充要条件为δ=2πd，且前移量唯一。D陈述了这一几何平衡，B说外道直道更短与构造不符。A体能与C美观没有给出和路径长度的关系，不能由弧长推导为外道前移的物理原因。",
+      "boundary": "等路程任务确能唯一推出δ=2πd，两个全参数恒等组件核验这一几何部分；但题干问主要原因，并含体能、美观的动机说法，没有将候选的解释充分性定义为形式化约束蕴含。若只按某个新定义把未知动机排除，就引入了未给的判断标准。当前保留人工，不据此声称运动员体能或设计者美观动机在现实中已被证明为假。",
+      "question_sha256": "049335799112a06fe9096d750e6595a548314f7926b4b1edb5a5a6c8d79994dd",
+      "expected_answer": "D",
+      "supporting_proofs": [
+        {
+          "expression": "poly('(2*s+2*p*(r+d))-(2*s+2*p*r)')",
+          "value": "2*p*d",
+          "comparison": "polynomial"
+        },
+        {
+          "expression": "poly('2*s+2*p*(r+d)-2*p*d')",
+          "value": "2*s+2*p*r",
+          "comparison": "polynomial"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "路径约束可推出唯一等程前移量，但未给体能、美观等解释与设计目标的可检验关系，无法从几何恒等式自动判定主要动机。",
+        "revisit_if": "若明确以等程要求作为解释任务的判准，并将每个候选转为已审查的约束或机制，可核验解释是否充分；不得仅把无量化动机标签设为错误或为覆盖率改成另一题。"
+      }
+    },
+    {
+      "id": "cnm_085_q1",
+      "status": "manual",
+      "derivation": "共同使用旗杆或校门等易识别位置并标明统一单位，通常便于交流校园景点坐标，B符合课堂建议。A未标单位，C各自使用坐标框需要额外转换，D仅左右不足以直接给统一数值位置；但已知坐标框与转换时，C也可能无损定位。",
+      "boundary": "题目比较方便程度，没有校园地图、定位误差、沟通成本或转换信息。平移逆变换组件证明已知原点时不同坐标框并不必然丢失位置，不能由此决定哪一方案最方便。",
+      "question_sha256": "691602b668885f1d3afb934b22305110fbf2d85b41fa143cc3c3469ff2a74a6d",
+      "catalogue_preview": {
+        "question": "为描述校园景点位置，如何选择原点更方便？",
+        "answer": "可选择旗杆或校门等明显处，并标明单位"
+      },
+      "expected_answer": "B",
+      "supporting_proofs": [
+        {
+          "expression": "poly('(x-a)+a')",
+          "value": "x",
+          "comparison": "polynomial",
+          "meaning": "方向和单位相同、原点横坐标a已知时，局部横坐标x-a可无损还原x；仅为转换可行性组件。"
+        },
+        {
+          "expression": "poly('(y-b)+b')",
+          "value": "y",
+          "comparison": "polynomial",
+          "meaning": "方向和单位相同、原点纵坐标b已知时，局部纵坐标y-b可无损还原y；不比较沟通或读图成本。"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "未给地图、方向约定、坐标框之间已知关系以及识别/转换成本；统一坐标可行性不能等同方便程度。",
+        "revisit_if": "若给出候选坐标框、必要转换及明确读图或沟通成本，可比较便利性；不以显眼地标或有单位的标签直接预置最优。"
+      }
+    },
+    {
+      "id": "cnm_089_q5",
+      "status": "manual",
+      "derivation": "首式y的系数为1，直接得y=7-3x，A避免引入分数；第二式也可等价改写为B的x=(1+3y)/2或C的y=(2x-1)/3。三项重排均满足对应原式，方程组的共同解为x=2、y=1；A符合通常优先避免分数的操作习惯。",
+      "boundary": "重排与共同解组件核验代数正确性，不能证明唯一最便于的方法。完整比较需要题干明确允许的变形、运算代价与并列规则；不自行采用分母、步数或认知负担评分强行选A。",
+      "question_sha256": "6eed09f729736c5088f4d842d3970d802ad675110762a43eda13c28285bab454",
+      "expected_answer": "A",
+      "supporting_proofs": [
+        {
+          "expression": "poly('3*x+(7-3*x)')",
+          "value": "7",
+          "comparison": "polynomial"
+        },
+        {
+          "expression": "poly('2*((1+3*y)/2)-3*y')",
+          "value": "1",
+          "comparison": "polynomial"
+        },
+        {
+          "expression": "poly('2*x-3*((2*x-1)/3)')",
+          "value": "1",
+          "comparison": "polynomial"
+        },
+        {
+          "expression": "solve2(3,1,7,2,-3,1)",
+          "value": [
+            2,
+            1
+          ],
+          "meaning": "独立解出两个原方程的共同解，仅核验代数内容，不评方法便利性。"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "三种做法代数上均有效，题干没有规定引入分数、操作步骤或错误风险的比较口径。",
+        "revisit_if": "若明确代入程序、成本及并列取舍，可验证该口径下的最优；目前恒等式和解的组件不构成便捷性证明。"
+      }
+    },
+    {
+      "id": "cnm_102_q1",
+      "status": "manual",
+      "derivation": "全国中学生人数多，代表性抽样通常能较节约地估计视力情况，A是教材建议。普查需逐个覆盖且工作量大，通常不视为与抽样同样合适；但是否采用它仍取决于调查目标和资源。",
+      "boundary": "未给人数、预算、误差容限、测量/应答机制及是否需要个体覆盖，无法计算样本量或证明某方式统一最优。不能用全国这一名称或自设规模阈值替代决策条件。",
+      "question_sha256": "26f17be9dcb072d1ec9bcfe20978d599a33e85c539ee56cc83d05fdf7414ef73",
+      "catalogue_preview": {
+        "question": "了解全国中学生视力情况宜用哪种调查？",
+        "answer": "抽样调查"
+      },
+      "grading": [
+        {
+          "input": "A",
+          "result": "correct"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "A",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "总体规模、预算、容许误差和覆盖目标未指定；常规推荐不能推出所有调查目标下抽样均最优。",
+        "revisit_if": "若明确资源与个体覆盖硬约束、估计目标及精度风险，可计算可行性或比较调查方式；还需具体抽样和应答设计。"
+      }
+    },
+    {
+      "id": "cnm_102_q2",
+      "status": "manual",
+      "derivation": "某班45人体重通常可无损逐个测量，B适合全面调查。灯泡寿命测试消耗对象；全国影评对象多；长江水质随时空变化，后三类通常抽样。仅凭名称不能证明其预算与总体边界。",
+      "boundary": "需要各总体的时段、成员/时空边界、访问方式、允许损耗、费用和精度，才能形式化比较。45这一人数说明有限易覆盖的课堂情境，并非普查适用的统一数学门限。",
+      "question_sha256": "287c1aa29cb83d5bc887cedda461b9fbcae7da53cdbfc745f6fb6a0e64dc445e",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "B",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "候选总体、检测损耗、成本、可访问性与精度尚未完整给出，缺少普查适用性的可检验准则。",
+        "revisit_if": "若明确每个方案允许的损毁、保留量、个体覆盖要求及预算，可比较可行性；不把场景名称映射为调查方式。"
+      }
+    },
+    {
+      "id": "cnm_102_q3",
+      "status": "manual",
+      "derivation": "检测炮弹杀伤半径通常要引爆样品，逐个检测会耗尽这一批待用对象，D宜抽样。飞船零部件检查、新生体检、班长选举各有逐个对象覆盖的实际目的，构成教材选择其余方式的依据。",
+      "boundary": "抽样与全面的选择依赖允许损耗、必须保留量、个体安全/健康/投票覆盖要求和风险；题干没给完整约束。不能由安全或破坏性的语义标签直接计算最适合，也不能宣称现实飞船每一项检查都必须普查。",
+      "question_sha256": "a25a2c3dfd79dc36451e705238a63a9d50212d4b44b294251d96062c3966a75e",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "correct"
+        }
+      ],
+      "expected_answer": "D",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "未明示检测破坏程度、必须保留的炮弹数或各调查的个体覆盖与风险要求，缺完整可行性模型。",
+        "revisit_if": "若明确引爆损耗、保留量以及安全/体检/投票的覆盖硬约束，再给预算和精度，可核验允许的调查策略。"
+      }
+    },
+    {
+      "id": "cnm_102_q4",
+      "status": "manual",
+      "derivation": "A把精度和普查推荐都作绝对断言，缺条件；合法反例中真值0、2、4的普查测量全偏高1，测得均值3反而不如正确抽到中间值2。B也被总体0、2而样本仅0的例子推翻。C是对象多或检测破坏性时的常见建议；D仅3人通常可逐个了解，故教材选C。",
+      "boundary": "两个反例只否定普查必更准、抽样必完全一致，不比较C/D的应然最优。普查反例显式允许测量误差，未假定普查获取了无误真值；不能外推所有普查都较差或所有样本都偏。",
+      "question_sha256": "af1a93759a1a356dc5d221b03b953f20644c74ab31650f56c922608bf5906e84",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "C",
+      "supporting_proofs": [
+        {
+          "expression": "Fraction(0)-Fraction(0+2,2)",
+          "value": 0,
+          "comparison": "lt"
+        },
+        {
+          "expression": "[mean([1,3,5])-mean([0,2,4]),mean([2])-mean([0,2,4])]",
+          "value": [
+            1,
+            0
+          ],
+          "meaning": "真值总体0、2、4的均值为2；若普查各测量偏高1，普查均值误差为1，而准确测到中间成员的单个样本均值2恰无误差，反驳未排除测量误差时普查必更准确。"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "可反驳绝对精度保证，但宜采用仍缺预算、损毁代价、个体覆盖和容许误差标准。",
+        "revisit_if": "若给出调查成本、误差、损耗和覆盖目标，可比较策略；准确性反例只说明全称断言过强，不替代整题建议的决策模型。"
+      }
+    },
+    {
+      "id": "cnm_104_q2",
+      "status": "manual",
+      "derivation": "D从全校名单随机抽100人，设计框覆盖目标总体；A只取班长、B篮球队、C单年级均限制框，教材因此推荐D。N=101且100人身高150、1人200时，合法随机样本可能全为150而低估；按100人SRS的两类样本概率加权，均值期望仍等于总体15200/101，说明设计无偏不保证每次最近。",
+      "boundary": "组件仅验证一个N≥100总体的实际低估与SRS期望，不宣称所有总体的最合理性。需要完整总体/框、入样概率、应答、估计量及覆盖/期望损失/实际误差的比较目标；不自行补其他框的规模和身高分布。",
+      "question_sha256": "8841c4bcf46299861fa35fc2cbc460405c886e068fc9ebd4fee3011f009642c5",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "correct"
+        }
+      ],
+      "expected_answer": "D",
+      "supporting_proofs": [
+        {
+          "expression": "150-Fraction(100*150+200,101)",
+          "value": 0,
+          "comparison": "lt"
+        },
+        {
+          "expression": "Fraction(1,101)*150+Fraction(100,101)*Fraction(99*150+200,100)",
+          "value": "15200/101",
+          "comparison": "equal"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "最合理未定义目标，其他框和入样机制不完整；覆盖、设计无偏和一次误差是不同性质。",
+        "revisit_if": "若给出总体名单与各候选的选择概率、估计量和损失准则，可核验对应性质；即使设计无偏也不能保证每份随机样本更准确。"
+      }
+    },
+    {
+      "id": "cnm_104_q3",
+      "status": "manual",
+      "derivation": "目标总体是全市，随机拦截只在图书馆访客框发生，B正确指出可能的选择偏差。A无100人过大的依据，C忽略框限制，D只老人仍限制总体。假设十万人中一千访客每天读1小时其余0，则访客均值高估总体；若访客0其余1则低估，地点本身不决定偏差方向。",
+      "boundary": "两个人工构造总体仅证明偏差方向不确定，不是实测城市数据。核验代表性或实际偏差须给总体/访客框、入样机制及阅读量分布；主要问题的语言分类也未由两个数值反例自动完成。",
+      "question_sha256": "750faef604b3d87fcc87185f7a252e6b6ec8c511d38a83611494e1248315bdbb",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "B",
+      "supporting_proofs": [
+        {
+          "expression": "Fraction(1000,100000)-1",
+          "value": 0,
+          "comparison": "lt"
+        },
+        {
+          "expression": "0-Fraction(99000,100000)",
+          "value": 0,
+          "comparison": "lt"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "已知调查框受限但没有实际覆盖、入样机制和联合阅读分布，不能量化或定向偏差，也未给主要问题的形式分类标准。",
+        "revisit_if": "若给出总体与入样机制可计算偏差或设计覆盖；还需明确主要问题判据，不能用假想高低估总体替代城市数据或整题语义核验。"
+      }
+    },
+    {
+      "id": "cnm_104_q4",
+      "status": "manual",
+      "derivation": "A用合理随机、适当容量和通常，未保证每份样本都等于总体，符合教学建议。B的必然保证被合法受限框反例推翻：总体1000人中500值0、500值2，仅在500个0中抽样，样本从10增到400均值仍0而总体均值1。C的熟人便利性也不保证代表性。",
+      "boundary": "组件只反驳大样本必消除框偏差；不能由此断言所有大样本或熟人样本必偏。合理、适当、通常未给总体范围、估计量、误差与置信目标，尚不能形成A的完整概率保证。",
+      "question_sha256": "d762c7cf597293819541845b8bcb1bb38993ba501deb52d976e7ec44e17557c6",
+      "grading": [
+        {
+          "input": "A",
+          "result": "correct"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "A",
+      "supporting_proofs": [
+        {
+          "expression": "Fraction(10*0,10)-Fraction(500*0+500*2,1000)",
+          "value": -1,
+          "comparison": "equal"
+        },
+        {
+          "expression": "Fraction(400*0,400)-Fraction(500*0+500*2,1000)",
+          "value": -1,
+          "comparison": "equal"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "代表性未指定估计目标、总体分布、入样机制、误差界与置信标准，样本量大小不能单独给保证。",
+        "revisit_if": "若明确随机设计、目标量及误差风险，可求概率或方差保证；不能设置自定义人数门限来判代表性。"
+      }
+    },
+    {
+      "id": "cnm_105_q1",
+      "status": "manual",
+      "derivation": "按时间连接气温观测点的折线图通常便于观察上升下降趋势，A符合题干已明确的表达重点。条形图也能正确显示各时点气温，扇形图主要展示部分整体比例；图表能否表示数据与视觉上通常优先使用是不同判断。",
+      "boundary": "当前已说明强调时间趋势，仍未给候选图形编码、读图任务、误差或可读性指标。不能用时间标签自动推A，也不能把有效条形图判为数学上不能展示气温。",
+      "question_sha256": "e30601f4c9351346563da801c8ba182784c5a4cfe6add6b1cbe86fe56c7d7495",
+      "grading": [
+        {
+          "input": "A",
+          "result": "correct"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        }
+      ],
+      "catalogue_preview": {
+        "question": "想表示某城市一年中气温变化，应选择哪种图？（问突出时间变化趋势时通常优先的图形表达，不表示其他图形不能展示气温。）",
+        "answer": "折线图"
+      },
+      "expected_answer": "A",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "展示重点已给但视觉比较准则、具体编码和读图目标没有量化；折线与条形都可保留这些数值。",
+        "revisit_if": "若明确时间邻接连线等必须满足的图形约束，或给出读图任务与评价指标，可核验满足性或比较效果；不为唯一答案人为排除有效图表。"
+      }
+    },
+    {
+      "id": "cnm_105_q2",
+      "status": "manual",
+      "derivation": "把全班人数N视为整体，若每人只选一个最喜欢的球类，各类人数nᵢ对应份额nᵢ/N、圆心角360°nᵢ/N，扇形图直接编码部分与整体，C符合本题目的。条形图也可标百分比而正确表达同一数据，所以A不是数学上无法使用；折线图通常还会暗示四个类别间的次序。若四类未穷尽全班，必须保留其他类，不能把四类人数除以四类合计后冒充全班百分比。",
+      "boundary": "原恒等式只证明四个份额及余量的角度和为360°；它不能保证份额非负、类别互斥、余量非负或展示最优。题目未给实际分类与视觉误差/操作成本准则，不把扇形图偏好当作唯一正确编码的定理。",
+      "question_sha256": "c21069b85da043e524e8f6ebb0a25f7a0c1a2db1f90669214094ab007eeae4e0",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        }
+      ],
+      "expected_answer": "C",
+      "supporting_proofs": [
+        {
+          "expression": "poly('360*a+360*b+360*c+360*d+360*(1-a-b-c-d)')",
+          "value": "360",
+          "comparison": "polynomial"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "扇形适合部分整体但视觉优劣无统一判准，且题目未给实际分类覆盖与份额，不能仅凭总角公式完整核验图形选择。",
+        "revisit_if": "若给出互斥分类、整体覆盖与比例编码，可核验图形有效性；最适合还需展示任务和可读性/误差准则，不能否定有效百分比条形图。"
+      }
+    },
+    {
+      "id": "cnm_107_q3",
+      "status": "manual",
+      "derivation": "本课的等组距、频数高度画法把每组[aᵢ,aᵢ₊₁)放在横坐标区间，矩形高度就是该组数据个数fᵢ；因此横轴为数据分组、纵轴为频数，B符合该约定。A把坐标角色颠倒；C的数据总数/组距与D的频率/组数均不是这两个坐标所承载的量。",
+      "boundary": "当前题干已明确等组距且以频数作为矩形高度，因此本课构造下B成立。其它画法可采用频率或密度高度，不能把本题结论推广到所有直方图。本轮尚未建立独立的坐标轴构造与完整标签语义模型，概念对应仍保留人工依据，不以题干刚补出的词语匹配冒充独立证明。",
+      "question_sha256": "dd2cc5217e866a8b99a02ca29857faa706b2bc5297ad7f7fd0148b93fc070d78",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "B",
+      "automation_gap": {
+        "category": "curriculum_convention",
+        "missing_basis": "等组距与频数高度的题设已经明确；尚缺经审查的坐标轴构造及全部候选轴描述的完整语义核验，面积或计数组件不能代替概念对应。",
+        "revisit_if": "若有保留分组坐标与频数的可执行构造，并对候选轴描述完成严格语义转译，可核验这一本课画法；仍须分别处理频率和密度画法。"
+      },
+      "corrected_fields": [
+        "explanation",
+        "prompt"
+      ]
+    },
+    {
+      "id": "cnm_118_q1",
+      "status": "manual",
+      "derivation": "已知交代前提、求证指明目标、证明给出从前提到目标的演绎过程，C符合常见几何证明书写格式。A是作图问题的求作/作法格式；B是猜想与验证的探究流程；D只画图测量不能以有限实例证明所有三角形。对非退化欧氏三角形，在每个顶点各取一个相邻外角，三外角和=3×180°−内角和180°=360°，但结论计算不规定段落标题。",
+      "boundary": "参考答案是本课书写规范，并非所有有效证明都必须显式列出这三个固定标题；连续文字也可完整交代前提、目标与论证。保留人工格式核验，外角和的数学组件不代表整道格式选择题已自动证明。",
+      "question_sha256": "ac4a36674090d007b17b59132c00e33b6361b4b51ddbd080cd78ec2aa526fbf0",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "catalogue_preview": {
+        "question": "证明“三角形的外角和为 360°”需要写出哪几部分？",
+        "answer": "已知、求证、证明"
+      },
+      "expected_answer": "C",
+      "supporting_proofs": [
+        {
+          "meaning": "非退化欧氏三角形各顶点取一个相邻外角：只核对外角和，不核验书写格式选项",
+          "expression": "3*180-180",
+          "value": 360
+        }
+      ],
+      "automation_gap": {
+        "category": "curriculum_convention",
+        "missing_basis": "已知、求证、证明是课堂书写格式，而非所有数学证明都必须采用的唯一语法。",
+        "revisit_if": "若指定正式书写协议或格式规范，可验证段落完整性；这仍与证明结论本身的数学正确性分开。"
+      }
+    },
+    {
+      "id": "cnm_130_q4",
+      "status": "manual",
+      "derivation": "在长段a上截去一段b后，剩余长为a−b，需证剩余等于c；或将b与c首尾拼接后证总长为a，这正是C截长补短。两个目标的代数残差相同：(a−b)−c=a−(b+c)。线段构造还要求长度非负且截取时a≥b；A倍长中线、B作高、D作角平分线可在某些特定图形中间接帮助，但不直接表达这次分拆/拼接。",
+      "boundary": "残差恒等式对任意实a,b,c成立；几何可实现性需上述长度前提，恒等式本身不能证明每个和差题都应选同一种辅助线。没有完整图形、已知关系和构造成功准则，“常用”仍是课堂策略比较，继续人工。",
+      "question_sha256": "ce9418ecdd70e66d4ed5bfd6eab1d71f1808fead352a831758eae6c9f3f34873",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "C",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "常用辅助线没有覆盖所有证明任务的唯一最优规则，具体等式与已知图形未给。",
+        "revisit_if": "若给出具体图形、目标与允许构造及成功条件，可验证一份证明；不能按“和差关系”统一选择方法。"
+      },
+      "supporting_proofs": [
+        {
+          "expression": "poly('(a-b)-c')",
+          "value": "a-(b+c)",
+          "comparison": "polynomial",
+          "meaning": "截长后的等长目标与补短目标有同一残差，对任意实a,b,c恒等；几何截取另需a>=b和长度非负，不证明所有图形应选该策略"
+        }
+      ]
+    },
+    {
+      "id": "cnm_198_q1",
+      "status": "manual",
+      "derivation": "列表将已经列出的每个x及其y并排配对，因此B所说的具体对应数值可直接查阅。A的趋势也可能从有序表读出但不总是直观；C在有限定义域被完整列出时可以为真，不能绝对否定。对于未列出的输入，只靠有限表通常不能确定其函数值，因此D的任意x承诺一般不成立。",
+      "boundary": "“主要优点”取决于读取任务、定义域规模及表达设计。题干未给具体函数表或阅读成本，不能把可查数值的定义性质直接扩张为对一切函数与任务的唯一最佳表示；保留人工教学比较。",
+      "question_sha256": "d846d5a2b399d13083f3d9b36d8b255b9d3f519b82032458a3cdcab85f2836b0",
+      "catalogue_preview": {
+        "question": "举例说明用列表表示函数的优点。",
+        "answer": "直观看出具体数值，适合离散数据"
+      },
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "B",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "列表可直接读数，但趋势、全部取值和表示效率依赖定义域规模、实际表格及任务。",
+        "revisit_if": "若指定有限表、定义域与读取任务，可验证信息是否足够；不能在未给定义域时绝对否定表格覆盖全部取值。"
+      }
+    },
+    {
+      "id": "cnm_198_q2",
+      "status": "manual",
+      "derivation": "图象把y的大小编码为纵向位置，把x的次序编码为横向位置，通常有利于直接观察曲线上升、下降与高低极值，故教材推荐C。列表、解析式和文字也可以包含全部增减与极值信息；例如简单解析式不画图也能判趋势，所以A/B/D并非数学上不能使用。",
+      "boundary": "没有具体函数、图表分辨率、读者能力或误差/耗时指标，“最直观”不是可独立验证的全称最优命题。不能预设图象法得分最高，再把同一排名作为证明，继续人工。",
+      "question_sha256": "685bd620a6ca08f92c414be453d76255614d6aa42e77d5da30a7046bac2f87fc",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "C",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "直观看趋势属于表示任务与读图成本，未给具体函数、图表精度或效果指标。",
+        "revisit_if": "若明确输入表示、要求判断的性质及误差或步数口径，可比较可完成性；不同表示均可能支持正确分析。"
+      }
+    },
+    {
+      "id": "cnm_214_q1",
+      "status": "manual",
+      "derivation": "若样本量足够且某个极大工资不占中间排序位置，进一步增加它δ>0会使均值增加δ/n，而中位数保持不变；这说明个别高值通常会把均值拉离大多数人的集中区域，所以B适合本题的一般员工典型水平目的。A仍适合人均工资成本等目标；C众数可能并列或不能概括中间位置。",
+      "boundary": "题干没有给工资分布、样本量或代表性的损失函数；n=2时均值和中位数甚至相同。不能把中位数的条件性稳健性当成对所有数据、所有工资决策唯一最优，保留人工目标判断。",
+      "question_sha256": "afc0b2a10d50dfc09a7b7a805c3eeb8341e974d01cf3d346926059e8de008e53",
+      "catalogue_preview": {
+        "question": "某组工资数据含个别极端高工资。若要表示一般员工的工资水平，下列哪一种统计量更合适？",
+        "answer": "中位数，平均数受极端值影响大"
+      },
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        }
+      ],
+      "expected_answer": "B",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "一般员工水平未定义损失函数或目标位置参数，也未给完整分布，中位数的课堂建议不是普遍最优定理。",
+        "revisit_if": "若明确以绝对误差等损失或中间位置为目标，可验证相应统计量；若目标是总工资成本则均值有其它用途。"
+      }
+    },
+    {
+      "id": "cnm_214_q2",
+      "status": "manual",
+      "derivation": "按每次售出尺码计数，频数最大的尺码就是众数，故教材以最畅销尺码为关注点推荐C。均值可落在不存在的尺码之间，中位数是销量展开后的中间顺序位置，两者都不直接给出频数峰值。",
+      "boundary": "实际采购比例还依赖库存、利润、缺货代价、需求变化等。源题既未规定这些决策目标，也未保证众数唯一；历史最畅销这一描述性定义不能证明众数单独决定最优进货方案，仍人工。",
+      "question_sha256": "f8438e0a9e7a921a6412e2e625d5ce4c0abb18f0d4802096a9b394cd045974dd",
+      "expected_answer": "C",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "correct"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "进货最需关注什么取决于库存、利润、缺货代价与需求分布，不是由销量众数单独决定的最优策略。",
+        "revisit_if": "若给出库存决策目标与成本，可比较方案；众数只表明出现最多的尺码，不自动确定全部进货比例。"
+      }
+    },
+    {
+      "id": "cnm_218_q4",
+      "status": "manual",
+      "derivation": "A覆盖各年级并在各年级内随机抽取，比只取田径队、只取七年级或自愿报名者更能避免明显群体限制，符合课堂选择A。若将两个总体层的份额记w、1−w，层均值记u、v，未加权样本两层份额为p、1−p，则其期望与总体均值之差为(p−w)(u−v)：覆盖两层本身不能保证无偏，比例或权重仍重要。",
+      "boundary": "这个全参数偏差恒等式只针对明确的两层内随机、未加权样本均值模型；它说明覆盖不等于无偏，不证明所有抽样方案的严格优劣。题干未指定层人数、入样率、估计量或可靠性目标，A也不保证每份样本都最接近总体，因此整题保留人工设计比较。",
+      "question_sha256": "bfe19970ce42082f87c61f771cfa46c8cefb0c1031915b49d0c4ba8c53575a37",
+      "expected_answer": "A",
+      "grading": [
+        {
+          "input": "A",
+          "result": "correct"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "各年级覆盖不自动保证比例分配、权重或无应答处理正确，题干未完整指定抽样与估计机制。",
+        "revisit_if": "若明确分层入样概率、权重与总体目标，可验证设计偏差或方差；不把覆盖各年级等同每次结果准确。"
+      },
+      "supporting_proofs": [
+        {
+          "expression": "poly('p*u+(1-p)*v-(w*u+(1-w)*v)')",
+          "value": "(p-w)*(u-v)",
+          "comparison": "polynomial",
+          "meaning": "两层均值u,v、总体份额w与样本份额p下，层内随机且采用未加权样本均值的期望偏差恒等式；对全部参数精确成立，不证明源题全部方案最优"
+        }
+      ]
+    },
+    {
+      "id": "cnm_225_q1",
+      "status": "manual",
+      "derivation": "移项得3x²−6x=0；通用恒等式a x²−b x=x(a x−b)给出3x(x−2)=0。零乘积定理得到全部实根0、2；直接除以x会丢掉0。因式分解A步骤简短；原式不直接是平方等于常数，配方C可得(x−1)²=1，公式法D也得到相同根集，故二者不是数学错误。",
+      "boundary": "通用提公因式恒等式和根集组件完整核验代数内容，但“最合适”仍涉及算法简便性的教学取舍。没有统一操作成本与方法规范，不能把另外两种有效方法判成不能解，也不据因式分解可行就计为整题独立最优证明。",
+      "question_sha256": "8494265d08f601205a807576a604098c4a205ab7a0c9bc8593c0a1fb1187f771",
+      "catalogue_preview": {
+        "question": "解方程 3x²=6x，选用什么方法？",
+        "answer": "因式分解法：3x(x-2)=0，x=0 或 2"
+      },
+      "supporting_proofs": [
+        {
+          "meaning": "根为0、2；不能由根算式评定“最合适的方法”",
+          "expression": "roots2(3,-6,0)",
+          "value": [
+            0,
+            2
+          ]
+        },
+        {
+          "expression": "poly('a*x*x-b*x')",
+          "value": "x*(a*x-b)",
+          "comparison": "polynomial",
+          "meaning": "一般提公因式恒等式，对全部实a,b,x成立；本题a=3,b=6，独立验证因式分解的合法性，不判断方法偏好"
+        }
+      ],
+      "expected_answer": "A",
+      "grading": [
+        {
+          "input": "A",
+          "result": "correct"
+        },
+        {
+          "input": "B",
+          "result": "wrong"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "因式分解简洁但配方、公式等也能正确求根，缺少统一的方法成本与允许操作准则。",
+        "revisit_if": "若明确必须利用零常数项提公因式的程序或固定成本口径，可检验程序；所有合法方法的根仍须保留0与2。"
+      }
+    },
+    {
+      "id": "cnm_244_q2",
+      "status": "manual",
+      "derivation": "按教材通常描述，旋转由中心、方向和角度表述，B符合。设相对中心坐标为(u,v)，转角余弦c、正弦s，旋转后为(cu−sv,su+cv)，平方距离变为(c²+s²)(u²+v²)，结合c²+s²=1得各点保持各自半径；半径不是整个平面旋转统一的额外参数，时间也不决定几何角度。A缺少角度/方向，C的对称轴不确定旋转中心，D用对应点与对称轴代替本课的方向与角度，不是教材通常的三要素名称。",
+      "boundary": "矩阵保距恒等式是数学组件，不决定参数命名或证明最少参数数目。有向角可合并方向与角度；0°/整周时中心不唯一，180°时方向冗余。若D的“对应点”理解为一对已知非中心点及其像，配合中心也能反推有向角，不能将D说成数学上绝不可能确定旋转；本题只按教材通常表述选B，仍人工。",
+      "question_sha256": "2b6c782ed14c6873af7150432bd300e73e84d66d4db4bef6f1bf740f0cb62f48",
+      "expected_answer": "B",
+      "grading": [
+        {
+          "input": "A",
+          "result": "wrong"
+        },
+        {
+          "input": "B",
+          "result": "correct"
+        },
+        {
+          "input": "C",
+          "result": "wrong"
+        },
+        {
+          "input": "D",
+          "result": "wrong"
+        }
+      ],
+      "automation_gap": {
+        "category": "curriculum_convention",
+        "missing_basis": "三要素是教材常用参数表述，带符号角可合并方向，恒等旋转的中心也不唯一。",
+        "revisit_if": "若给定参数化规范，可核验描述是否完整；不能把三个独立参数缺一不可当作所有旋转的数学事实。"
+      },
+      "supporting_proofs": [
+        {
+          "expression": "poly('(c*u-s*v)**2+(s*u+c*v)**2')",
+          "value": "(c*c+s*s)*(u*u+v*v)",
+          "comparison": "polynomial",
+          "meaning": "旋转线性部分的全参数平方距离恒等式；再结合余弦正弦c²+s²=1得保距，仅数学组件，不证明教材三个要素的唯一命名"
+        }
+      ]
+    },
+    {
+      "id": "cnm_287_q4",
+      "status": "manual",
+      "derivation": "A逐枚抛三枚硬币是三个二分阶段，按顺序共有2³=8条结果路径，符合题目三个阶段的限制。B把两枚骰子作为两个结果坐标，有6²=36对；C硬币后骰子有2×6=12对；D放回后再摸是两个抽取阶段。树状图逐层分支通常更便于展现A的三步结构，所以教材选A。",
+      "boundary": "三个阶段的形式结果仍可先将前两次合成4个行标签，再与第三次的2个列标签配成二维表，或用多张表完整列出8条路径。原有结果数组件核对通常各次结果可自由组合的试验空间大小，均匀性本身并不额外证明独立性；它们也不量化表示便利性。“更适合”的清晰度没有成本准则，不能证明列表数学上不可用或树状图唯一最优。",
+      "question_sha256": "5a92a8345b9cf83bb4aaf40ef2890333840fc528523ec13ff15cdf9052a55a3f",
+      "expected_answer": "A",
+      "supporting_proofs": [
+        {
+          "meaning": "三枚硬币的有序结果数；不证明树状图视觉上最适合",
+          "expression": "2**3",
+          "value": 8
+        },
+        {
+          "meaning": "两枚骰子的有序结果数",
+          "expression": "6**2",
+          "value": 36
+        },
+        {
+          "meaning": "一枚硬币后掷一枚骰子的有序结果数",
+          "expression": "2*6",
+          "value": 12
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "阶段数可以计算，但树状图与复合二维表都能穷尽三阶段结果，“更适合”缺视觉或操作成本标准。",
+        "revisit_if": "若明确列表规则和复杂度或可读性目标，可比较表示；不能把三阶段一概判为无法列表。"
+      }
+    },
+    {
+      "id": "cnm_292_q2",
+      "status": "manual",
+      "derivation": "当前问题是全班个人偏好，向这些学生直接询问能得到所需自报，B符合通常调查情境。实验不直接给出喜好回答，资料未必覆盖本班当前偏好。",
+      "boundary": "问卷是否最适合还依赖现存记录、应答、真实性和成本；没有这些条件，不能证明问卷在所有情形中唯一最优，也不自动核实真实问卷质量。",
+      "question_sha256": "d27a576e67d53c5d532bf9f8f2307d131f2b94579ca2608301f53f3e61c8785c",
+      "expected_answer": "B",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "缺少现存资料、调查成本、应答率及可靠性的比较准则；直接询问偏好的适用性不等于所有情形的唯一最优。",
+        "revisit_if": "给出允许来源、现存记录与问卷协议、明确目标或比较准则后可核验满足性。"
+      }
+    },
+    {
+      "id": "cnm_292_q3",
+      "status": "manual",
+      "derivation": "全国近十年人口总量需要逐年、全国覆盖且口径可比的历史序列；官方统计年鉴通常提供这种记录，A最直接。重新逐户问卷不保证重建历史总量，实验不能重做过去人口，10人访谈也不能提供全国逐年总人数。",
+      "boundary": "方便可靠没有量化目标；仍须核实具体年份、口径、修订、来源可得性和成本。没有实际资料，官方标签本身不能自动证明质量或最优化。",
+      "question_sha256": "8f417599ad393aad734688c7d155451ba6b547878c123abcb040a7249cf76474",
+      "expected_answer": "A",
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "方便可靠依赖具体年鉴覆盖、口径、可得性与成本，没有实际来源质量模型。",
+        "revisit_if": "提供目标年份口径及候选资料的可得性、覆盖和质量后可核验适用性。"
+      }
+    },
+    {
+      "id": "cnm_292_q4",
+      "status": "manual",
+      "derivation": "D通过带评价的反问暗示游戏浪费时间，可能诱导少报。匿名可减轻顾虑，清楚互斥的区间可减少理解错误，跨年级随机发放有助覆盖，故D是明显的诱导措辞。",
+      "boundary": "实际偏差的概率和大小需要应答模型或对照数据。匿名不保证真实，跨年级也须合理分配与充分应答；不能把语言关键词评分当作偏差的统计证明。",
+      "question_sha256": "d68017da7b09114999b8d8aaabf94bc7610bce4e8c2b923d4ee7a6bbe5dfcc0d",
+      "expected_answer": "D",
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "诱导措辞及偏差大小依赖语言语用与应答机制，未给行为模型或对照数据。",
+        "revisit_if": "给出明确应答生成机制或实验对照及目标偏差指标后可估计；语义诱导仍须人工转译审查。"
+      }
+    },
+    {
+      "id": "cnm_296_q2",
+      "status": "manual",
+      "derivation": "普通条形图以柱高编码数值。h(x)=ax（a>0）保持比例；若h(x)=a(x-b)，则h(x)y-h(y)x=ab(x-y)，要对全部数值保比例须b=0。C的零基线和均匀刻度符合该原则，随意起点或不均匀尺度不能保证它。",
+      "boundary": "组件核验的是明确仿射编码下的全域比例恒等式。“一般应”仍依赖图种、正负数据、断轴和任务；零基线也不能排除所有误导方式，所以整题保留规范判断。",
+      "question_sha256": "c274f6bab1f52967a44430322a22c4b8bed061fdd23bdeaef38945aaac51fbcd",
+      "expected_answer": "C",
+      "supporting_proofs": [
+        {
+          "expression": "poly('a*(x-b)*y-a*(y-b)*x')",
+          "value": "a*b*(x-y)",
+          "comparison": "polynomial",
+          "meaning": "普通均匀刻度条形图若柱高h(x)=a(x-b)，此交叉乘差对全部x,y恒等于a*b*(x-y)。a>0时要对所有数值保比例必须b=0；这是明确仿射映射下的全域成分，不是所有制图规范的完整证明。"
+        }
+      ],
+      "automation_gap": {
+        "category": "comparative_criterion",
+        "missing_basis": "代数可证明柱高的比例编码条件，但题目一般应遵循的制图规范没有被完整定义为单个数学指标。",
+        "revisit_if": "明确限定非负柱高仿射编码、要求对全部数值保比例时，可核验零基线与均匀尺度这一精确定义。"
+      }
+    },
+    {
+      "id": "cnm_299_q4",
+      "status": "manual",
+      "derivation": "在同总体SRS不放回、充分应答并用样本比例估计时，方差为p(1-p)(N-n)/(n(N-1))。n<m时方差差的规模因子m(N-n)-n(N-m)=N(m-n)非负，因此200人的典型波动不大于20人。眼镜店与视力不合格框可能选择偏，C通常更可靠。",
+      "boundary": "题面没有完整SRS、估计量、受限框和可靠性损失指标；条件性方差不承担全部候选最优证明。p为0或1时方差可同为0，较大样本的单次估计不保证更近，样本多也不消除框偏差。",
+      "question_sha256": "43bf474e7c8d414432463ffe8662f36ce3080013f9c4c11fdd81f9d06fbc934b",
+      "expected_answer": "C",
+      "supporting_proofs": [
+        {
+          "expression": "poly('m*(t-n)-n*(t-m)')",
+          "value": "t*(m-n)",
+          "comparison": "polynomial",
+          "meaning": "同总体SRS不放回样本比例方差之差，除以共同正分母n*m*(t-1)前的规模因子为m*(t-n)-n*(t-m)=t*(m-n)。当t>=m>n>0、t>1时非负，再乘p*(1-p)仍非负；这是明确SRS前提下的全域代数成分，不证明源题全部方法的最优性。"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "随机方式、估计量、受限框分布及可靠性目标不完整；条件性SRS方差不等于全部候选的最佳性。",
+        "revisit_if": "给出完整抽样设计、总体或设计性质、估计量和方差/MSE等明确比较指标后可建完整模型。"
+      }
+    },
+    {
+      "id": "cnm_300_q1",
+      "status": "manual",
+      "derivation": "A先明确问题，再收集、分类整理、图示、分析并形成结论建议，符合本课主要流程。B在确定问题前收集，C在收集前整理，D也先整理且未形成完整结论建议链，都不符合这一标准顺序。",
+      "boundary": "真实研究可能预调查后改问题、利用既有资料或反复画图分析；源题未给初始资源和正式依赖。不能把课堂的一种主要线性顺序当作所有统计活动唯一的数学定理。",
+      "question_sha256": "5fb0d2e191720603055b5c5334067646906edcd2d1a7cb8ec0704200522e4a94",
+      "catalogue_preview": {
+        "question": "为了解同学们每天的睡眠时间并提出建议，请按先后顺序写出统计活动的主要步骤。",
+        "answer": "确定问题→收集数据→整理数据→用图表描述→分析数据→得出结论与建议"
+      },
+      "expected_answer": "A",
+      "automation_gap": {
+        "category": "curriculum_convention",
+        "missing_basis": "标准线性步骤是本课主要流程；没有初始资料、迭代许可和完成条件来排除其它统计流程。",
+        "revisit_if": "明确从何种空白状态开始及各步骤输入输出和依赖后，可核验给定有限流程，而不排除其它合理活动。"
+      }
+    },
+    {
+      "id": "cnm_300_q2",
+      "status": "manual",
+      "derivation": "本课从问题出发的活动通常先确定研究目标，才据此选择对象、变量和收集方式，所以A为第一步。画图需要资料，收集也应服务于目标，B与C不是该标准流程的起点。",
+      "boundary": "探索现存数据或预调查可以有不同起点；“通常”没有规定所有活动的初始状态。缺少正式目标与资源状态时，固定步骤名的顺序匹配不能算独立数学证明。",
+      "question_sha256": "7806c16f04106f130a2c367566f6c209dc3e52d59476dd6642cc57aa5ee92368",
+      "expected_answer": "A",
+      "automation_gap": {
+        "category": "curriculum_convention",
+        "missing_basis": "通常的第一步依赖活动起点；没有定义所有探索性或既有数据工作的起始状态。",
+        "revisit_if": "给出活动初始状态和任务依赖后可推导可执行的第一步。"
+      }
+    },
+    {
+      "id": "cnm_300_q4",
+      "status": "model",
+      "derivation": "把原始数值行编码为折线点列时，横坐标图例唯一标识日期，纵坐标ay+b（a>0）可由(y-b)/a精确还原，故是对原数据的保真表达。随后解码全部日期、求完整最小值日期集合（保留并列）得到由数据蕴含的断言；最后构造以该断言和全部最少日为依据的行动建议对象。三步分别满足可逆表示、数据导出断言、依赖断言的建议这三种有类型定义，A逐项匹配；B和C各有输入输出关系不符，不能完整匹配。",
+      "boundary": "完整核验人工审查后的动作及阶段定义转译，不自动理解中文，也不主张所有统计活动只有这一流程。记录只是操作执行样例，不是题设真实睡眠数据；保真来自全x可逆恒等式，最少日来自遍历所有记录并验证完整集合。建议对象必须引用实际分析断言，不预置目标日、不遗漏并列；只证明它是有事实依据的建议对象，不评价内容是否最佳或必须执行。未知动作、错类型、缺前提与不一致定义直接拒绝。",
+      "question_sha256": "c24716622074ec62e0bed854bfcdfff53eb54372c44f3943264e374441417072",
+      "expected_answer": "A",
+      "model_kind": "app36_statistical_action_signatures",
+      "model_sha256": "67750412f6298f2b6af685b41d1703b2ac7e2c90d2a1abf969879fd8e7538e47"
+    },
+    {
+      "id": "cnm_302_q4",
+      "status": "manual",
+      "derivation": "篮球队、七年级和各班最高者限制样本框，可能系统偏离全校身高；D覆盖完整全校名单并随机抽取，较少受这些限制。在SRS且充分应答下，每人入样概率n/N使样本均值设计无偏；已有有限例子分别展示无偏机制和受限高个框的可能偏差。",
+      "boundary": "没有给完整随机机制、估计量和“最能”的损失目标，设计无偏不等于任意意义下最佳。旧有限例子只证明其总体中的结论与可能偏差，不证明所有学校或每一份实际样本都无误差。",
+      "question_sha256": "875b8c7fc3dc997eaa7bd9ed0807ae10484bf488f15a132394325b82c1a9178f",
+      "expected_answer": "D",
+      "supporting_proofs": [
+        {
+          "expression": "mean([Fraction([150,160,170,180][i]+[150,160,170,180][j],2) for i in range(4) for j in range(i+1,4)])",
+          "value": 165,
+          "meaning": "四人总体不放回等机会抽二人的全部子集均值平均等于总体均值；仅为SRS设计无偏的有限核验示例，非最佳方案整题证明"
+        },
+        {
+          "expression": "mean([180,180])-mean([150,150,180,180])",
+          "value": 15,
+          "meaning": "只调查身高180的受限两人框，在一个合法有限总体中产生15的均值选择偏差；这是可能偏差的反例，不声称真实学校必如此"
+        }
+      ],
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "缺少完整抽样机制、估计量和选择偏差最优化目标；设计无偏不等于任意意义下最优。",
+        "revisit_if": "明确等概率设计及比较目标后可计算设计偏差；有限示例不升级为全部学校的最优性证明。"
+      }
+    },
+    {
+      "id": "cnm_303_q1",
+      "status": "manual",
+      "derivation": "总工资为100千元，均值100/5=20千元；排序后第三项为9千元，即中位数。四人在8至10千元，65将均值拉高，因此若一般水平指多数员工的典型月薪，中位数更贴近。",
+      "boundary": "均值和中位数有独立数值组件，但一般水平没有唯一损失定义。整份开放回答还须检查单位、未颠倒数值、极端值解释和代表性目的，不能凭20与9判断全文完整；学生作答始终self。",
+      "question_sha256": "d2dc815fc54f457b8cb2d01dd2439a7c401ae09b9fe2c37e130c4391d2324d31",
+      "grading": [
+        {
+          "input": "平均20，中位数9；中位数更合适",
+          "result": "manual"
+        },
+        {
+          "input": "平均9，中位数20",
+          "result": "manual"
+        }
+      ],
+      "supporting_notes": [
+        {
+          "expression": "mean([8,8,9,10,65])",
+          "result": 20
+        },
+        {
+          "expression": "median([8,8,9,10,65])",
+          "result": 9
+        }
+      ],
+      "supporting_proofs": [
+        {
+          "meaning": "均值20",
+          "expression": "mean([8,8,9,10,65])",
+          "value": 20
+        },
+        {
+          "meaning": "中位数9",
+          "expression": "median([8,8,9,10,65])",
+          "value": 9
+        }
+      ],
+      "catalogue_preview": {
+        "question": "某公司 5 人月薪（千元）为 8、8、9、10、65，平均数与中位数各是多少？哪个更能代表一般员工的水平？",
+        "answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高"
+      },
+      "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
+      "automation_gap": {
+        "category": "open_response",
+        "missing_basis": "混合数值与代表性解释，任意文字的单位、因果说明、目的和完整性不能由数值组件全部核验。",
+        "revisit_if": "若限定参考解释的正式结构和代表性目标，可核验该参考；学生任意自由答仍需自评或人工审查。"
+      }
+    },
+    {
+      "id": "cnm_315_q1",
+      "status": "model",
+      "derivation": "参考给出的两片连通180°扇区无重叠覆盖整圆；均匀连续停向使双方获胜概率均为180/360=1/2，有限边界为零测且按规则重转。同奖惩给双方相同期望收益。试验协议逐次记录赢家、保留两方零胜次并除以全部次数；iid下由E[(∑Xᵢ)²]=np+n(n−1)p²推得频率方差p(1-p)/n，Chebyshev界给典型波动减小。对任意有限n及0<=k<=n，公平模型与一个合法偏置连续密度模型的序列似然都严格为正，因此有限频率接近1/2不能逻辑证明实际装置公平；先各赢一次再一方赢的正概率路径使偏差从0增至1/6，反驳逐次单调逼近。",
+      "boundary": "仅核验这份已规范化、全部五句被消费的参考设计与解释，学生任意开放设计保持self，所有grading仍manual。均匀停向和iid同条件是理想模型与协议前提，不由一次物理试验保证；有限证据的非识别性针对实际装置可能偏离理想分布，并不否认统计证据或检验。全n正似然论证承担有限证据边界，三次路径仅反驳单调保证。未知、漏句、重复句、额外断言、错误对象和数字均拒绝。",
+      "question_sha256": "aaa92de5604c874c55c57aa4a87acb131fb296af2f124893746605a10934b2dd",
+      "grading": [
+        {
+          "input": "各分180度，理论各1/2；多次独立试验观察频率但有限次不能证明公平",
+          "result": "manual"
+        },
+        {
+          "input": "做100次频率各0.5就证明公平",
+          "result": "manual"
+        }
+      ],
+      "supporting_notes": [
+        {
+          "expression": "Fraction(180,360)",
+          "result": "1/2"
+        },
+        {
+          "expression": "comb(100,50)*Fraction(1,2)**100",
+          "meaning": "100次恰好各赢50次的概率严格小于1，不能要求有限试验频率完全相等"
+        }
+      ],
+      "catalogue_preview": {
+        "question": "设计一个转盘游戏使两人获胜的概率相等，并说明如何用试验检验。",
+        "answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。"
+      },
+      "expected_answer": "把均匀转盘分为两个相等的180°扇区，分别标甲、乙。指针落在哪一区就由对应的人获胜，落在边界则重转，双方奖励和失败代价相同。在指针停止方向均匀的理想模型下，两人获胜概率都为180°/360°=1/2，所以理论上公平。可做大量同条件独立试验，记录甲、乙胜次并计算频率，以观察是否在1/2附近波动。试验只能提供经验依据，有限次频率接近1/2不能证明公平，也不保证每增加一次试验都更接近1/2。",
+      "model_kind": "app36_spinner_reference",
+      "model_sha256": "e6f03d6ec973ea812bf97d786893e41f88c7b93374642ab8b9fe278ee6405efc",
+      "reference_only": true,
+      "component_checks_before_full_model": [
+        {
+          "meaning": "等角且均匀理想模型的单方理论概率1/2",
+          "expression": "Fraction(180,360)",
+          "value": "1/2"
+        },
+        {
+          "meaning": "100次恰好各赢50次的概率小于1，不要求有限试验恰等",
+          "expression": "comb(100,50)*Fraction(1,2)**100",
+          "value": 1,
+          "comparison": "lt"
+        }
+      ]
+    },
+    {
+      "id": "cnm_315_q4",
+      "status": "manual",
+      "derivation": "独立公平模型下46:54有二项概率，频率不等不逻辑排除公平；双侧偏离至少4次的尾概率可精确计算。频率方差1/(4n)体现典型波动减小，而46/100后甲再负使偏差增23/5050，说明不保证单调。C保留这些限制，A的必然不公平、B的必须无效和D的改规则均无充分依据。",
+      "boundary": "“正常”与应否改规则仍需要显著性、实际装置模型和决策目标。正概率不等于没有反对公平的证据，不能自造阈值裁定全部合理性措辞；尾概率与非单调路径保持组件，整题人工。",
+      "question_sha256": "8dde2c4e7f09e7b087b8ad5ab30631d867c000f49f6c2b3407e7878df1bbd80c",
+      "supporting_proofs": [
+        {
+          "meaning": "独立公平二项模型双侧尾概率；没有给定显著性决策阈值，不据此单独升级整题自动",
+          "expression": "sum(comb(100,k)*Fraction(1,2)**100 for k in range(101) if abs(k-50)>=4)",
+          "value": "19177906174713165934291688285/39614081257132168796771975168"
+        },
+        {
+          "expression": "abs(Fraction(46,101)-Fraction(1,2))-abs(Fraction(46,100)-Fraction(1,2))",
+          "value": "23/5050",
+          "meaning": "甲46/100后下一次甲负的合法独立公平路径，使偏离1/2增加23/5050；该有限路径有正概率，反驳每增加一次试验都更接近，不据此裁定显著性或全部合理性措辞。"
+        }
+      ],
+      "expected_answer": "C",
+      "automation_gap": {
+        "category": "design_or_evidence",
+        "missing_basis": "正常波动、无效与改规则涉及未给显著性、实际模型及决策目标；正概率不是没有反对证据的证明。",
+        "revisit_if": "明确检验假设、观测模型及显著性/决策规则后可核验统计决策，同时保留非单调边界。"
+      }
+    }
+  ]
+}

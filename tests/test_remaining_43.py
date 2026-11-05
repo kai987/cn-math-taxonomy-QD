@@ -46,10 +46,10 @@ class Remaining43Tests(unittest.TestCase):
                 self.assertTrue(review_errors(self.questions, self.review, records))
                 break
 
-    def test_free_design_or_nonexecuted_notes_are_not_full_proofs(self):
+    def test_partial_evidence_or_nonexecuted_notes_are_not_full_proofs(self):
         for mutation in ('status', 'note'):
             review = copy.deepcopy(self.review)
-            entry = next(e for e in review['entries'] if e['id'] == 'cnm_315_q1')
+            entry = next(e for e in review['entries'] if e['status'] == 'manual')
             if mutation == 'status': entry['status'] = 'model'
             else: entry.setdefault('supporting_proofs', []).append({'meaning': 'not an executable proof'})
             with self.subTest(mutation=mutation):

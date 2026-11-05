@@ -42,6 +42,8 @@ const measuredGermination = seedFor('cnm_292', question => question.id === 'cnm_
 const linearMonotonicity = seedFor('cnm_203', question => question.id === 'cnm_203_q1');
 const linearIntercept = seedFor('cnm_206', question => question.id === 'cnm_206_q1');
 const dataOrganization = seedFor('cnm_300', question => question.id === 'cnm_300_q3');
+const histogramAxisConvention = seedFor('cnm_107', question => question.id === 'cnm_107_q3');
+const spinnerDesign = seedFor('cnm_315', question => question.id === 'cnm_315_q1');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -699,4 +701,43 @@ test('41-item data organization distinguishes counting from inference after refr
   await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
   await expect(page.locator('#explain')).toContainText(dataOrganization.question.explanation);
   await noHorizontalOverflow(page);
+});
+
+test('36-item histogram wording states the frequency-height convention and keeps feedback after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+  await page.goto(targetURL('cnm_107', histogramAxisConvention.seed));
+  await expect(page.locator('#q-text')).toHaveText(histogramAxisConvention.question.prompt);
+  await expect(page.locator('#q-text')).toContainText(/等组距|组距相等/);
+  await activate(page, page.locator('#choice-A'));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+  await activate(page, page.locator('#choice-' + histogramAxisConvention.question.answer));
+  await activate(page, page.locator('#btn-submit'));
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(histogramAxisConvention.question.prompt);
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await expect(page.locator('#explain')).toContainText(histogramAxisConvention.question.explanation);
+  await noHorizontalOverflow(page);
+});
+
+test('36-item spinner reference retains trial limits and student self assessment after refresh', async ({ page }) => {
+  await page.goto(targetURL('cnm_315', spinnerDesign.seed));
+  await expect(page.locator('#q-text')).toHaveText(spinnerDesign.question.prompt);
+  await page.locator('textarea#ans').fill(spinnerDesign.question.answer);
+  await activate(page, page.locator('#btn-peek'));
+  await expect(page.locator('.refans')).toContainText(spinnerDesign.question.answer);
+  await expect(page.locator('.refans')).toContainText('有限');
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByText('你的答案：' + spinnerDesign.question.answer, { exact: true })).toBeVisible();
+  expect((await savedSession(page)).draft.answer).toBe(spinnerDesign.question.answer);
+  await expect(page.locator('.refans')).toContainText(spinnerDesign.question.answer);
+  await expect(page.locator('#explain')).toContainText(spinnerDesign.question.explanation);
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await noHorizontalOverflow(page);
+  await activate(page, page.locator('#btn-right'));
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await page.reload();
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
 });

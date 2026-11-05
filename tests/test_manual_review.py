@@ -45,9 +45,9 @@ class ManualReviewTests(unittest.TestCase):
             with self.subTest(mutation=mutation):
                 self.assertTrue(review_errors(questions, self.review, records))
 
-    def test_self_components_cannot_promote_whole_question_to_automatic(self):
+    def test_partial_components_cannot_promote_whole_reference_to_automatic(self):
         review = copy.deepcopy(self.review)
-        entry = next(e for e in review['entries'] if e['id'] == 'cnm_315_q1')
+        entry = next(e for e in review['entries'] if e['status'] == 'manual')
         entry['status'] = 'model'
         self.assertTrue(review_errors(self.questions, review, self.records))
 

@@ -22003,6 +22003,226 @@
           }
         ]
       }
+    },
+    "cnm_028_q1": {
+      "question_sha256": "88aefb4917d3fcea83294beb305c8bb9866e888ca8ad1575160719640766d6f2",
+      "spec": {
+        "kind": "f36_tank_outflow_reference",
+        "reference_only": true,
+        "quantity_function": {
+          "variable": "t",
+          "expression": "100-5*t",
+          "output_unit": "L",
+          "input_unit": "minute"
+        },
+        "interpretation": {
+          "system": "tank",
+          "quantity": "remaining_volume",
+          "flows": "single_constant_outflow",
+          "time_origin": "initial_state",
+          "domain": "maximal_nonnegative_time_and_volume"
+        }
+      }
+    },
+    "cnm_300_q4": {
+      "question_sha256": "c24716622074ec62e0bed854bfcdfff53eb54372c44f3943264e374441417072",
+      "spec": {
+        "kind": "app36_statistical_action_signatures",
+        "records": [
+          {
+            "day": "Mon",
+            "hours": 7
+          },
+          {
+            "day": "Tue",
+            "hours": 6
+          },
+          {
+            "day": "Wed",
+            "hours": 8
+          }
+        ],
+        "actions": [
+          {
+            "op": "line_plot",
+            "input": {
+              "op": "observed_rows"
+            },
+            "scale": 2,
+            "offset": 1
+          },
+          {
+            "op": "argmin",
+            "input": {
+              "op": "previous",
+              "index": 0
+            }
+          },
+          {
+            "op": "propose",
+            "input": {
+              "op": "previous",
+              "index": 1
+            },
+            "action": "review_routine",
+            "targets": {
+              "op": "claim_subjects"
+            }
+          }
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "描述数据；分析数据；得出结论与建议",
+            "signatures": [
+              {
+                "relation": "reversible_encoding",
+                "inputs": [
+                  "observations"
+                ],
+                "output": "representation"
+              },
+              {
+                "relation": "entailed_assertion",
+                "inputs": [
+                  "observations",
+                  "representation"
+                ],
+                "output": "proposition"
+              },
+              {
+                "relation": "depends_on_assertion",
+                "inputs": [
+                  "proposition"
+                ],
+                "output": "prescription"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "整理数据；描述数据；分析数据",
+            "signatures": [
+              {
+                "relation": "partition_aggregate",
+                "inputs": [
+                  "observations"
+                ],
+                "output": "frequency_table"
+              },
+              {
+                "relation": "reversible_encoding",
+                "inputs": [
+                  "observations"
+                ],
+                "output": "representation"
+              },
+              {
+                "relation": "entailed_assertion",
+                "inputs": [
+                  "observations",
+                  "representation"
+                ],
+                "output": "proposition"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "分析数据；描述数据；收集数据",
+            "signatures": [
+              {
+                "relation": "entailed_assertion",
+                "inputs": [
+                  "observations",
+                  "representation"
+                ],
+                "output": "proposition"
+              },
+              {
+                "relation": "reversible_encoding",
+                "inputs": [
+                  "observations"
+                ],
+                "output": "representation"
+              },
+              {
+                "relation": "new_observations",
+                "inputs": [
+                  "instrument"
+                ],
+                "output": "observations"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_315_q1": {
+      "question_sha256": "aaa92de5604c874c55c57aa4a87acb131fb296af2f124893746605a10934b2dd",
+      "spec": {
+        "kind": "app36_spinner_reference",
+        "reference_only": true,
+        "spinner": {
+          "radius": 1,
+          "angle_unit": "degree",
+          "law": {
+            "kind": "uniform_continuous_angle",
+            "start": 0,
+            "period": 360
+          },
+          "sectors": [
+            {
+              "start": 0,
+              "end": 180,
+              "winner": "甲"
+            },
+            {
+              "start": 180,
+              "end": 360,
+              "winner": "乙"
+            }
+          ],
+          "boundary": "respin"
+        },
+        "payoffs": [
+          {
+            "player": "甲",
+            "win_reward": 1,
+            "loss_cost": 1
+          },
+          {
+            "player": "乙",
+            "win_reward": 1,
+            "loss_cost": 1
+          }
+        ],
+        "trial_protocol": {
+          "sampling": {
+            "op": "product_law",
+            "base": "spinner",
+            "conditions": "fixed"
+          },
+          "record": {
+            "op": "count",
+            "input": {
+              "op": "winner_events"
+            }
+          },
+          "report": {
+            "op": "divide",
+            "numerator": {
+              "op": "counts"
+            },
+            "denominator": {
+              "op": "length",
+              "input": {
+                "op": "winner_events"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

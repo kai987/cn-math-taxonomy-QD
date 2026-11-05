@@ -44,7 +44,7 @@ class Remaining105Tests(unittest.TestCase):
     def test_unchecked_partial_notes_or_open_prose_cannot_be_full_proofs(self):
         for mutation in ('whole', 'partial'):
             review = copy.deepcopy(self.review)
-            entry = next(e for e in review['entries'] if e['id'] == 'cnm_315_q1')
+            entry = next(e for e in review['entries'] if e['status'] == 'manual')
             if mutation == 'whole': entry['status'] = 'model'
             else: entry.setdefault('supporting_proofs', []).append({'verify': '3+4', 'meaning': '7'})
             with self.subTest(mutation=mutation):
