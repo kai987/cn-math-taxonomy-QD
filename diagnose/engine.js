@@ -4,7 +4,7 @@
  *         createSession(graph, targets, {limit, seed, avoid}) -> session   （会话是可 JSON 序列化的纯数据）
  *         nextQuestion(graph, session) -> topicId | null     （下一个要考的知识点）
  *         nextItem(graph, session) -> {topicId, question, attempt} | null   （要出的具体题目；attempt 为 1 或 2）
- *         applyAnswer(graph, session, id, 'correct'|'wrong'|'skip', {text}) -> 新 session（不修改入参）
+ *         applyAnswer(graph, session, id, 'correct'|'wrong'|'skip', {text, assessment?}) -> 新 session（不修改入参）
  *         summarize(graph, session) -> 结果（根因、学习路径、掌握/不稳/薄弱/未测）
  *         layout(graph, session, summary) -> 路径图的分层布局
  *         judgeQuestion(question, userText) -> {verdict:'correct'|'wrong'|'manual', reason}
@@ -135,6 +135,23 @@
     return (list || []).find(function (q) { return q.id === qid; }) || null;
   }
 
+  // 只接受题库显式启用的选择题策略；不从 verify 是否存在推断学生评分方式。
+  function assessmentRule(question) {
+    if (!question || typeof question !== 'object' || !('self_assess' in question)) return '';
+    return Object.prototype.hasOwnProperty.call(question, 'self_assess') &&
+      question.type === 'choice' && question.self_assess === true ? 'self' : 'invalid';
+  }
+
+  function assessmentPresent(record) {
+    return !!record && typeof record === 'object' && 'assessment' in record;
+  }
+
+  function validAssessment(record) {
+    return !assessmentPresent(record) ||
+      (Object.prototype.hasOwnProperty.call(record, 'assessment') &&
+        (record.assessment === 'self' || record.assessment === 'automatic'));
+  }
+
   /* ------------------------------------------------------------------ 会话 */
 
   const RESULTS = { correct: 1, wrong: 1, skip: 1 };
@@ -243,10 +260,12 @@
    *  - 第二题 wrong/skip：薄弱，并把其先修（hard 先、soft 后）压到出题栈顶。
    * 直接作答（direct）的判定不会被推断（inferred）覆盖。extra.text 是用户输入的答案；
    * extra.qid 用于重放实际答过的题目，不能把旧作答重新分配给另一道题。
+   * extra.assessment 显式记录 self / automatic；需自评选择题的对错只能来自 self。
    */
   function applyAnswer(graph, session, id, result, extra) {
     if (!Object.prototype.hasOwnProperty.call(RESULTS, result)) throw new Error('作答结果必须是 correct / wrong / skip');
     if (!graph.byId[id]) throw new Error('未知知识点：' + id);
+    if (!validAssessment(extra)) throw new Error('评分来源必须是 self / automatic');
     const s = cloneSession(session);
     if (s.status[id]) { delete s.status[id]; s.attempts[id] = []; } // 对已有结论的点重新作答 = 重新开始
     const prev = s.attempts[id] || [];
@@ -254,8 +273,14 @@
     if (extra && extra.qid && (!q || q.topicId !== id || prev.some(function (a) { return a.qid === q.id; }))) {
       throw new Error('无法记录该题的作答：' + extra.qid);
     }
+    const rule = assessmentRule(q);
+    if (result !== 'skip' && rule === 'invalid') throw new Error('题目的自评规则无效');
+    if (result !== 'skip' && rule === 'self' && (!assessmentPresent(extra) || extra.assessment !== 'self')) {
+      throw new Error('该题必须由用户自评后记录对错');
+    }
     const rec = { id: id, qid: q ? q.id : null, result: result };
     if (extra && extra.text != null && extra.text !== '') rec.text = String(extra.text);
+    if (assessmentPresent(extra)) rec.assessment = extra.assessment;
     s.answers.push(rec);
     s.attempts[id] = prev.concat([{ qid: rec.qid, result: result }]);
     const nth = s.attempts[id].length;
@@ -310,19 +335,32 @@
     answers.forEach(function (a, index) {
       let reason = '';
       const item = nextItem(graph, s);
+      // 已保存题号优先于新随机题。即使其后路径已变化，也不能把旧的机器
+      // 对错静默当作当前自评；缺题号时只能对当前题应用兼容的种子回放。
+      const question = a && a.qid ? questionById(graph, a.qid) :
+        (item && a && a.id === item.topicId ? item.question : null);
+      const rule = question && a && question.topicId === a.id ? assessmentRule(question) : '';
       if (broken) reason = 'after-invalid-record';
       else if (!a || !Object.prototype.hasOwnProperty.call(RESULTS, a.result) || !graph.byId[a.id]) { reason = 'invalid-record'; broken = true; }
+      else if (!validAssessment(a)) { reason = 'invalid-record'; broken = true; }
+      else if (a.result !== 'skip' && rule === 'invalid') { reason = 'invalid-assessment-rule'; broken = true; }
+      else if (a.result !== 'skip' && rule === 'self' && a.assessment !== 'self') {
+        reason = 'assessment-review-required'; broken = true;
+      }
       else if (!item) reason = 'complete-or-limit';
       else if (a.id !== item.topicId) reason = 'out-of-path';
       else if (a.qid) {
-        const question = questionById(graph, a.qid);
         if (!question || question.topicId !== a.id) { reason = 'missing-question'; broken = true; }
         else if ((s.attempts[a.id] || []).some(function (old) { return old.qid === a.qid; })) {
           reason = 'duplicate-question'; broken = true;
         }
       }
       if (reason) dropped.push({ index: index, reason: reason });
-      else s = applyAnswer(graph, s, a.id, a.result, { text: a.text, qid: a.qid });
+      else {
+        const extra = { text: a.text, qid: a.qid };
+        if (assessmentPresent(a)) extra.assessment = a.assessment;
+        s = applyAnswer(graph, s, a.id, a.result, extra);
+      }
     });
     return { session: s, dropped: dropped };
   }
@@ -884,6 +922,9 @@
 
   /** 按题型判题：choice 比字母（或选项文字）；numeric 数值等价；short 规范化精确匹配 + accept；self 永远自评。 */
   function judgeQuestion(q, user) {
+    const rule = assessmentRule(q);
+    if (rule === 'invalid') return { verdict: 'manual', reason: 'invalid-assessment-rule' };
+    if (rule === 'self') return { verdict: 'manual', reason: 'self-assessment-required' };
     switch (q.type) {
       case 'choice': return judgeChoice(user, q);
       case 'numeric': return judgeNumeric(user, q);

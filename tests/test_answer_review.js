@@ -20,10 +20,10 @@ for (const item of review.entries) {
   const q = questions.get(item.id);
   assert.ok(q, item.id);
   check(q, '', 'manual');
-  check(q, item.expected_answer, q.type === 'self' ? 'manual' : 'correct');
+  check(q, item.expected_answer, q.type === 'self' || q.self_assess === true ? 'manual' : 'correct');
   if (q.type === 'choice') {
     for (const choice of q.choices) {
-      const result = choice.key === item.expected_answer ? 'correct' : 'wrong';
+      const result = q.self_assess === true ? 'manual' : choice.key === item.expected_answer ? 'correct' : 'wrong';
       for (const input of [choice.key, choice.key.toLowerCase(),
         String.fromCharCode(choice.key.charCodeAt(0) + 0xfee0)]) check(q, input, result);
       // A bare valid letter is always an option key (e.g. algebra text "a"
@@ -61,11 +61,12 @@ for (const item of [...read('answer_review_remaining_455.json').entries,
   ...read('answer_review_remaining_29.json').entries,
   ...read('answer_review_remaining_25.json').entries,
   ...read('answer_review_remaining_20.json').entries,
-  ...read('answer_review_remaining_16.json').entries]) {
+  ...read('answer_review_remaining_16.json').entries,
+  ...read('answer_review_remaining_13.json').entries]) {
   for (const grading of item.grading || []) {
     if (!seen.has(JSON.stringify([item.id, grading.input, grading.result]))) {
       check(questions.get(item.id), grading.input, grading.result);
     }
   }
 }
-console.log('PASS: 532 reviewed questions, 455, 160, 105, 63, 43, 41, 36, 33, 29, 25, 20 and 16 follow-up records; ' + assertions + ' answer grading assertions');
+console.log('PASS: 532 reviewed questions, 455, 160, 105, 63, 43, 41, 36, 33, 29, 25, 20, 16 and 13 follow-up records; ' + assertions + ' answer grading assertions');

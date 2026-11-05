@@ -70,6 +70,69 @@ const earlierSpinnerQuestions = questions.filter(question => question.topicId ==
 const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
+const selfAssessmentIds = [
+  'cnm_085_q1', 'cnm_102_q1', 'cnm_102_q2', 'cnm_102_q3',
+  'cnm_105_q1', 'cnm_105_q2', 'cnm_130_q4', 'cnm_198_q2',
+  'cnm_292_q2', 'cnm_292_q3', 'cnm_292_q4'
+];
+
+function forceQuestion(id) {
+  const question = questions.find(question => question.id === id);
+  if (!question) throw new Error('Missing reviewed question ' + id);
+  const avoid = questions.filter(other => other.topicId === question.topicId && other.id !== id).map(other => other.id);
+  return { ...seedFor(question.topicId, candidate => candidate.id === id, avoid), avoid };
+}
+
+const selfAssessmentTasks = selfAssessmentIds.map(forceQuestion);
+
+async function preferUnseenQuestion(page, item) {
+  await page.addInitScript(ids => {
+    if (!localStorage.getItem('cnmDiagnose.seen.v1')) localStorage.setItem('cnmDiagnose.seen.v1', JSON.stringify(ids));
+  }, item.avoid);
+}
+
+async function oldAutomaticQuestionBank(page) {
+  const handler = async route => {
+    const response = await route.fetch();
+    const bank = await response.json();
+    for (const question of bank) delete question.self_assess;
+    await route.fulfill({ response, body: JSON.stringify(bank) });
+  };
+  await page.route('**/data/questions.json*', handler);
+  return () => page.unroute('**/data/questions.json*', handler);
+}
+
+async function upgradeLegacySave(page, { oldQuestion = null, omitQuestionId = false, omitAnswer = false, earlierDraftBackup = null } = {}) {
+  await page.addInitScript(({ key, question, omitQuestionId, omitAnswer, earlierDraftBackup }) => {
+    const marker = 'browser.assessment-upgrade.v1';
+    if (localStorage.getItem(marker)) return;
+    const saved = JSON.parse(localStorage.getItem(key));
+    if (!saved) throw new Error('Missing legacy session');
+    for (const record of saved.answers) delete record.assessment;
+    if (omitQuestionId && saved.answers[0]) delete saved.answers[0].qid;
+    if (omitAnswer && saved.answers[0]) delete saved.answers[0].text;
+    if (earlierDraftBackup) saved.draftBackup = earlierDraftBackup;
+    if (question && saved.draft) saved.draft.questionFingerprint = JSON.stringify([
+      question.type, question.prompt, question.choices || [], question.answer,
+      question.accept || [], question.unit || '', !!question.unordered, question.variables || []
+    ]);
+    localStorage.setItem(key, JSON.stringify(saved));
+    localStorage.setItem(marker, '1');
+  }, { key: sessionKey, question: oldQuestion, omitQuestionId, omitAnswer, earlierDraftBackup });
+}
+
+async function selfAssessmentFeedback(page, item, selected) {
+  await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+  await expect(page.locator('#assessment-notice')).toBeVisible();
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await expect(page.getByText('你的答案：' + selected.key + '. ' + selected.text, { exact: true })).toBeVisible();
+  await expect(page.locator('.refans')).toContainText('参考建议');
+  await expect(page.locator('.refans')).toContainText(item.question.choices.find(option => option.key === item.question.answer).text);
+  await expect(page.locator('#explain')).toContainText(item.question.explanation);
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await noHorizontalOverflow(page);
+}
 
 test.beforeEach(async ({ page }) => {
   page.__runtimeErrors = [];
@@ -225,7 +288,7 @@ test('correcting the first answer recalculates the result and drops obsolete fol
   await expect(page.locator('#summary')).toBeVisible();
 });
 
-for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank', 'invalid-question-id']) {
+for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank', 'invalid-question-id', 'self-assess-false']) {
   test('unavailable question bank ' + failure + ' blocks diagnosis and retries without clearing progress', async ({ page }) => {
     const url = targetURL('cnm_p001', numeric.seed);
     await page.goto(url);
@@ -237,7 +300,8 @@ for (const failure of ['404', 'invalid-json', 'network', 'incomplete-bank', 'inv
       if (!fail) return route.continue();
       if (failure === 'network') return route.abort();
       const body = failure === '404' ? '{}' : failure === 'incomplete-bank' ? JSON.stringify(questions.slice(0, 1))
-        : failure === 'invalid-question-id' ? JSON.stringify(questions.map((question, index) => index ? question : { ...question, id: 'invalid-id' })) : '{broken-json';
+        : failure === 'invalid-question-id' ? JSON.stringify(questions.map((question, index) => index ? question : { ...question, id: 'invalid-id' }))
+          : failure === 'self-assess-false' ? JSON.stringify(questions.map(question => question.id === selfAssessmentIds[0] ? { ...question, self_assess: false } : question)) : '{broken-json';
       await route.fulfill({ status: failure === '404' ? 404 : 200, contentType: 'application/json', body });
     });
     await page.reload();
@@ -910,6 +974,18 @@ test('25-item salary interpretation remains self assessed with its draft and ref
   const draft = '平均数20，中位数9；代表性还需要说明比较目标。';
   expect(salaryJudgment.question.type).toBe('self');
   expect(salaryJudgment.question.verify).toBeUndefined();
+  expect(salaryJudgment.question.answer).toContain('千元');
+  expect(salaryJudgment.question.answer).toContain('若');
+  const preview = topics.find(topic => topic.id === 'cnm_303').diagnostic_question;
+  expect(preview.answer).toBe(salaryJudgment.question.answer);
+  await page.goto(siteURL('/#cnm_303'));
+  await expect(page.locator('#main .q > div')).toHaveText(preview.question);
+  await activate(page, page.locator('#main details.ans > summary'));
+  await expect(page.locator('#main details.ans > div')).toHaveText(preview.answer);
+  await page.reload();
+  await activate(page, page.locator('#main details.ans > summary'));
+  await expect(page.locator('#main details.ans > div')).toHaveText(preview.answer);
+  await noHorizontalOverflow(page);
   await page.goto(targetURL('cnm_303', salaryJudgment.seed));
   await expect(page).toHaveTitle(/数学知识点诊断/);
   await expect(page.locator('#q-text')).toHaveText(salaryJudgment.question.prompt);
@@ -931,6 +1007,316 @@ test('25-item salary interpretation remains self assessed with its draft and ref
   await expect(page.locator('#btn-right')).toBeVisible();
   await expect(page.locator('#btn-wrong')).toBeVisible();
   await noHorizontalOverflow(page);
+});
+
+for (const item of selfAssessmentTasks) {
+  test('explicit self assessment ' + item.question.id + ' keeps a nonreference selection pending until human confirmation', { tag: '@grading-contract' }, async ({ page }) => {
+    expect(item.question.type).toBe('choice');
+    expect(item.question.self_assess).toBe(true);
+    const selected = item.question.choices.find(option => option.key !== item.question.answer);
+    await preferUnseenQuestion(page, item);
+    await page.goto(targetURL(item.question.topicId, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await activate(page, page.locator('#choice-' + selected.key));
+    await activate(page, page.locator('#btn-submit'));
+    await selfAssessmentFeedback(page, item, selected);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    await page.reload();
+    await selfAssessmentFeedback(page, item, selected);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+
+    // A different choice is not automatically a weakness: the learner confirms
+    // their own reasoned understanding after reading the conditional advice.
+    await activate(page, page.locator('#btn-right'));
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    expect((await savedSession(page)).answers).toEqual([
+      expect.objectContaining({ qid: item.question.id, text: selected.key, result: 'correct', assessment: 'self' })
+    ]);
+    await page.reload();
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    expect((await savedSession(page)).answers).toHaveLength(1);
+    await expect(page.locator('#assessment-review-notice')).toHaveCount(0);
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('contextual questionnaire choices retain selection, advice and an explicit wrong self assessment on every layout', async ({ page }, info) => {
+  const item = selfAssessmentTasks.find(item => item.question.id === 'cnm_292_q4');
+  const selected = item.question.choices.find(option => option.key === 'A');
+  await preferUnseenQuestion(page, item);
+  await page.goto(targetURL(item.question.topicId, item.seed));
+  await activate(page, page.locator('#choice-A'));
+  await page.reload();
+  await expect(page.locator('#choice-A')).toHaveAttribute('aria-pressed', 'true');
+  expect((await savedSession(page)).answers).toHaveLength(0);
+  await activate(page, page.locator('#btn-submit'));
+  await selfAssessmentFeedback(page, item, selected);
+  await page.reload();
+  await selfAssessmentFeedback(page, item, selected);
+  if (info.project.name.includes('phone')) {
+    for (const viewport of [{ width: 320, height: 568 }, { width: 844, height: 390 }]) {
+      await page.setViewportSize(viewport);
+      await noHorizontalOverflow(page);
+      await expect(page.locator('#btn-wrong')).toBeVisible();
+    }
+  }
+  await page.screenshot({ path: info.outputPath('choice-self-assessment.png') });
+  await activate(page, page.locator('#btn-wrong'));
+  expect((await savedSession(page)).answers).toEqual([
+    expect.objectContaining({ qid: item.question.id, text: selected.key, result: 'wrong', assessment: 'self' })
+  ]);
+  await page.reload();
+  expect((await savedSession(page)).answers).toHaveLength(1);
+  expect((await savedSession(page)).answers[0].assessment).toBe('self');
+  await expect(page.locator('#assessment-review-notice')).toHaveCount(0);
+  await noHorizontalOverflow(page);
+});
+
+for (const legacyFields of [8, 9]) {
+  test('an old ' + (legacyFields === 8 ? 'eight-field' : 'nine-field policy-only') + ' automatic feedback draft becomes self assessment without losing the selected alternative', async ({ page }) => {
+    const item = selfAssessmentTasks.find(item => item.question.id === 'cnm_292_q2');
+    const selected = item.question.choices.find(option => option.key === 'C');
+    await preferUnseenQuestion(page, item);
+    const restoreCurrentBank = await oldAutomaticQuestionBank(page);
+    await page.goto(targetURL(item.question.topicId, item.seed));
+    await activate(page, page.locator('#choice-' + selected.key));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    if (legacyFields === 9) {
+      const fingerprint = JSON.parse((await savedSession(page)).draft.questionFingerprint);
+      expect(fingerprint).toHaveLength(9);
+      expect(fingerprint[8]).toBe(false);
+    }
+    await upgradeLegacySave(page, { oldQuestion: legacyFields === 8 ? item.question : null });
+    await restoreCurrentBank();
+    await page.reload();
+    await selfAssessmentFeedback(page, item, selected);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    expect((await savedSession(page)).draft.answer).toBe(selected.key);
+    await expect(page.locator('#draft-backup')).toHaveCount(0);
+    await page.reload();
+    await selfAssessmentFeedback(page, item, selected);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+  });
+}
+
+for (const omitQuestionId of [false, true]) {
+  test('legacy completed history ' + (omitQuestionId ? 'without an old question id' : 'with question ids') + ' pauses at each changed policy and restores the valid tail after confirmation', async ({ page }) => {
+    const targets = ['cnm_085', 'cnm_225', 'cnm_292'];
+    const qids = ['cnm_085_q1', 'cnm_225_q1', 'cnm_292_q2'];
+    const avoid = questions.filter(question => targets.includes(question.topicId) && !qids.includes(question.id)).map(question => question.id);
+    await page.addInitScript(ids => {
+      if (!localStorage.getItem('cnmDiagnose.seen.v1')) localStorage.setItem('cnmDiagnose.seen.v1', JSON.stringify(ids));
+    }, avoid);
+    const restoreCurrentBank = await oldAutomaticQuestionBank(page);
+    const seed = 'browser-legacy-assessment';
+    const legacyGraph = E.buildGraph(topics, read('dependencies'), questions.map(question => {
+      const copy = { ...question }; delete copy.self_assess; return copy;
+    }));
+    let modeled = E.createSession(legacyGraph, targets, { seed, avoid });
+    const sequence = [];
+    await page.goto(targetURL(targets.join(','), seed));
+    for (let item; (item = E.nextItem(legacyGraph, modeled));) {
+      sequence.push(item.question);
+      await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+      await answerCorrectly(page, item);
+      modeled = E.applyAnswer(legacyGraph, modeled, item.topicId, 'correct', { text: item.question.answer });
+    }
+    expect(sequence.map(question => question.id)).toEqual(['cnm_292_q2', 'cnm_225_q1', 'cnm_085_q1']);
+    await expect(page.locator('#summary')).toBeVisible();
+    const legacyAnswers = (await savedSession(page)).answers.map(record => {
+      const copy = { ...record }; delete copy.assessment; return copy;
+    });
+    if (omitQuestionId) delete legacyAnswers[0].qid;
+    await upgradeLegacySave(page, { omitQuestionId });
+    await restoreCurrentBank();
+    await page.reload();
+
+    const first = { question: sequence[0] };
+    const firstChoice = first.question.choices.find(option => option.key === first.question.answer);
+    await expect(page.locator('#assessment-review-notice')).toBeVisible();
+    await selfAssessmentFeedback(page, first, firstChoice);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+    await activate(page, page.locator('#assessment-history-backup summary'));
+    await expect(page.locator('#assessment-history-backup')).toBeVisible();
+    await noHorizontalOverflow(page);
+    await page.reload();
+    await selfAssessmentFeedback(page, first, firstChoice);
+    expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+
+    await activate(page, page.locator('#btn-right'));
+    const final = { question: sequence[2] };
+    const finalChoice = final.question.choices.find(option => option.key === final.question.answer);
+    await expect(page.locator('#assessment-review-notice')).toBeVisible();
+    await selfAssessmentFeedback(page, final, finalChoice);
+    expect((await savedSession(page)).answers).toEqual([
+      expect.objectContaining({ qid: sequence[0].id, result: 'correct', assessment: 'self' }),
+      expect.objectContaining({ qid: sequence[1].id, result: 'correct' })
+    ]);
+    expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+    await page.reload();
+    await selfAssessmentFeedback(page, final, finalChoice);
+    expect((await savedSession(page)).answers).toHaveLength(2);
+    expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+
+    await activate(page, page.locator('#btn-right'));
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    expect((await savedSession(page)).answers.map(record => record.qid)).toEqual(sequence.map(question => question.id));
+    expect((await savedSession(page)).answers.filter(record => record.assessment === 'self')).toHaveLength(2);
+    await page.reload();
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    await expect(page.locator('#assessment-review-notice')).toHaveCount(0);
+    expect((await savedSession(page)).answers).toHaveLength(3);
+    expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('changing a legacy self assessment excludes an obsolete follow-up while preserving the complete history backup', async ({ page }) => {
+  const first = selfAssessmentTasks.find(item => item.question.id === 'cnm_102_q1');
+  const followUp = { question: questions.find(question => question.id === 'cnm_102_q2') };
+  const selected = first.question.choices.find(option => option.key === 'B');
+  await preferUnseenQuestion(page, first);
+  const restoreCurrentBank = await oldAutomaticQuestionBank(page);
+  await page.goto(targetURL(first.question.topicId, first.seed));
+  await activate(page, page.locator('#choice-' + selected.key));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.locator('#btn-next'));
+  await expect(page.locator('#q-text')).toHaveText(followUp.question.prompt);
+  await answerCorrectly(page, followUp);
+  await expect(page.locator('#summary')).toBeVisible();
+  const legacyAnswers = (await savedSession(page)).answers.map(record => {
+    const copy = { ...record }; delete copy.assessment; return copy;
+  });
+  expect(legacyAnswers.map(record => record.qid)).toEqual([first.question.id, followUp.question.id]);
+  await upgradeLegacySave(page);
+  await restoreCurrentBank();
+  await page.reload();
+  await selfAssessmentFeedback(page, first, selected);
+  await expect(page.locator('#assessment-review-notice')).toBeVisible();
+  expect((await savedSession(page)).answers).toHaveLength(0);
+  expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+
+  await activate(page, page.locator('#btn-right'));
+  // Policy review is required even for this now obsolete record. Reviewing it
+  // must not reintroduce a second attempt after the first is self-assessed right.
+  const followUpChoice = followUp.question.choices.find(option => option.key === followUp.question.answer);
+  await selfAssessmentFeedback(page, followUp, followUpChoice);
+  await expect(page.locator('#assessment-review-notice')).toBeVisible();
+  expect((await savedSession(page)).answers).toEqual([
+    expect.objectContaining({ qid: first.question.id, text: selected.key, result: 'correct', assessment: 'self' })
+  ]);
+  expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+  await page.reload();
+  await selfAssessmentFeedback(page, followUp, followUpChoice);
+  expect((await savedSession(page)).answers).toHaveLength(1);
+  expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+  await activate(page, page.locator('#btn-right'));
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await expect(page.locator('#log tbody tr')).toHaveCount(1);
+  expect((await savedSession(page)).answers.map(record => record.qid)).toEqual([first.question.id]);
+  expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+  await page.reload();
+  await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+  await expect(page.locator('#assessment-review-notice')).toHaveCount(0);
+  expect((await savedSession(page)).answers.map(record => record.qid)).toEqual([first.question.id]);
+  expect((await savedSession(page)).assessmentHistoryBackup).toEqual(legacyAnswers);
+  await noHorizontalOverflow(page);
+});
+
+test('assessment migration retains both an earlier backup and the displaced current draft across repeated refreshes', async ({ page }) => {
+  const targets = ['cnm_085', 'cnm_225', 'cnm_292'];
+  const selectedIds = ['cnm_085_q1', 'cnm_225_q1', 'cnm_292_q2'];
+  const avoid = questions.filter(question => targets.includes(question.topicId) && !selectedIds.includes(question.id)).map(question => question.id);
+  await page.addInitScript(ids => {
+    if (!localStorage.getItem('cnmDiagnose.seen.v1')) localStorage.setItem('cnmDiagnose.seen.v1', JSON.stringify(ids));
+  }, avoid);
+  const restoreCurrentBank = await oldAutomaticQuestionBank(page);
+  await page.goto(targetURL(targets.join(','), 'browser-legacy-assessment'));
+  const first = { question: questions.find(question => question.id === 'cnm_292_q2') };
+  await expect(page.locator('#q-text')).toHaveText(first.question.prompt);
+  await answerCorrectly(page, first);
+  await expect(page.locator('#q-text')).toHaveText(factorizationTask.question.prompt);
+  const currentSelection = factorizationTask.question.choices.find(option => option.key === 'B');
+  await activate(page, page.locator('#choice-' + currentSelection.key));
+  const displacedDraft = (await savedSession(page)).draft;
+  expect(displacedDraft.questionId).toBe(factorizationTask.question.id);
+  expect(displacedDraft.answer).toBe(currentSelection.key);
+  const earlierDraft = {
+    key: numeric.question.topicId + '#1', questionId: numeric.question.id,
+    prompt: numeric.question.prompt, answer: '更早题目更新前保留的计算：123 + 7', phase: 'ask'
+  };
+  await upgradeLegacySave(page, { earlierDraftBackup: earlierDraft });
+  await restoreCurrentBank();
+  await page.reload();
+  for (let refresh = 0; refresh < 3; refresh++) {
+    await expect(page.locator('#assessment-review-notice')).toBeVisible();
+    await expect(page.locator('#q-text')).toHaveText(first.question.prompt);
+    const saved = await savedSession(page);
+    expect(saved.answers).toHaveLength(0);
+    expect(saved.draftBackup).toEqual(displacedDraft);
+    expect(saved.draftBackupHistory).toEqual([earlierDraft]);
+    await activate(page, page.locator('#draft-backup summary'));
+    await expect(page.locator('#draft-backup p')).toHaveText(displacedDraft.prompt);
+    await expect(page.locator('#draft-backup pre')).toHaveText(currentSelection.key);
+    await activate(page, page.locator('#draft-backup-history summary'));
+    await expect(page.locator('#draft-backup-history')).toContainText(earlierDraft.prompt);
+    await expect(page.locator('#draft-backup-history')).toContainText(earlierDraft.answer);
+    await noHorizontalOverflow(page);
+    if (refresh < 2) await page.reload();
+  }
+});
+
+for (const omitAnswer of [false, true]) {
+  test('legacy automatic wrong ' + (omitAnswer ? 'without a saved selection' : 'with a saved alternative') + ' is excluded until explicit self assessment', { tag: '@grading-contract' }, async ({ page }) => {
+    const item = selfAssessmentTasks.find(item => item.question.id === 'cnm_292_q2');
+    const selected = item.question.choices.find(option => option.key === 'C');
+    await preferUnseenQuestion(page, item);
+    const restoreCurrentBank = await oldAutomaticQuestionBank(page);
+    await page.goto(targetURL(item.question.topicId, item.seed));
+    await activate(page, page.locator('#choice-' + selected.key));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+    await activate(page, page.locator('#btn-next'));
+    expect((await savedSession(page)).answers).toHaveLength(1);
+    await upgradeLegacySave(page, { omitAnswer });
+    await restoreCurrentBank();
+    await page.reload();
+    await expect(page.locator('#assessment-review-notice')).toBeVisible();
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(page.locator('.verdict')).toHaveCount(0);
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    if (omitAnswer) {
+      expect((await savedSession(page)).draft.answer).toBe('');
+      await expect(page.getByText('你的答案：' + selected.key + '. ' + selected.text, { exact: true })).toHaveCount(0);
+    } else await selfAssessmentFeedback(page, item, selected);
+    await page.reload();
+    await expect(page.locator('#assessment-review-notice')).toBeVisible();
+    expect((await savedSession(page)).answers).toHaveLength(0);
+    expect((await savedSession(page)).assessmentHistoryBackup).toHaveLength(1);
+    await activate(page, page.locator('#btn-right'));
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    expect((await savedSession(page)).answers).toEqual([
+      expect.objectContaining({ qid: item.question.id, result: 'correct', assessment: 'self' })
+    ]);
+    await page.reload();
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    await expect(page.locator('#assessment-review-notice')).toHaveCount(0);
+    expect((await savedSession(page)).answers).toHaveLength(1);
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('classroom format retains fixed-key automatic grading and the self assessment scope stays explicit', { tag: '@grading-contract' }, async ({ page }) => {
+  expect(questions.filter(question => question.self_assess === true).map(question => question.id).sort()).toEqual([...selfAssessmentIds].sort());
+  const item = forceQuestion('cnm_118_q1');
+  expect(item.question.self_assess).toBeUndefined();
+  await preferUnseenQuestion(page, item);
+  await reviewedChoiceAfterRefresh(page, { topic: item.question.topicId, item, wrong: 'A', conditions: [] });
+  await expect(page.locator('#assessment-notice')).toHaveCount(0);
 });
 
 for (const example of [

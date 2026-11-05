@@ -892,18 +892,18 @@ test('题库：q1 由 diagnostic_question 迁移（题干以原题开头，或�
   });
 });
 
-test('题库：判题器接受每道题自己的参考答案（self 一律自评）', () => {
+test('题库：自动题接受自己的参考答案，self 与显式自评选择题等待自评', () => {
   const bad = [];
   questions.forEach((q) => {
     const v = E.judgeQuestion(q, q.type === 'choice' ? q.answer : q.answer).verdict;
-    const want = q.type === 'self' ? 'manual' : 'correct';
+    const want = q.type === 'self' || q.self_assess === true ? 'manual' : 'correct';
     if (v !== want) bad.push(q.id + ':' + v);
     if (q.type === 'choice') {
       const text = q.choices.find((c) => c.key === q.answer).text;
       // 选项文字本身是单个字母（如 x、D）时和选项字母无法区分，按字母处理；界面里选择题是点选项，不受影响
-      if (!/^[A-Za-z]$/.test(text.trim()) && E.judgeQuestion(q, text).verdict !== 'correct') bad.push(q.id + ':text');
+      if (!/^[A-Za-z]$/.test(text.trim()) && E.judgeQuestion(q, text).verdict !== want) bad.push(q.id + ':text');
       q.choices.filter((c) => c.key !== q.answer).forEach((c) => {
-        if (E.judgeQuestion(q, c.key).verdict !== 'wrong') bad.push(q.id + ':wrong-' + c.key);
+        if (E.judgeQuestion(q, c.key).verdict !== (q.self_assess === true ? 'manual' : 'wrong')) bad.push(q.id + ':wrong-' + c.key);
       });
     }
     if (q.type === 'numeric' && !q.unordered && E.judgeQuestion(q, '999999').verdict === 'correct') bad.push(q.id + ':999999');
@@ -930,7 +930,9 @@ function simulateBank(targets, known, flaky, limit, seed) {
     let r = 'wrong';
     if (known.has(it.topicId)) r = 'correct';
     else if (flaky.has(it.topicId)) r = it.attempt === 1 ? 'wrong' : 'correct';
-    s = E.applyAnswer(RGQ, s, it.topicId, r);
+    // This helper explicitly simulates the student's final self judgement;
+    // it does not treat the recommendation's key as an automatic grade.
+    s = E.applyAnswer(RGQ, s, it.topicId, r, it.question.self_assess === true ? { assessment: 'self' } : undefined);
   }
   return { s: s, asked: asked };
 }
@@ -1071,7 +1073,8 @@ test('带题库：重测时避开已出过的题（avoid 里的题尽量不再�
       assert.strictEqual(fresh.length, 0, it.topicId + ' 还有没出过的题却重复了');
       repeats++;
     }
-    s = E.applyAnswer(RGQ, s, it.topicId, known.has(it.topicId) ? 'correct' : 'wrong');
+    s = E.applyAnswer(RGQ, s, it.topicId, known.has(it.topicId) ? 'correct' : 'wrong',
+      it.question.self_assess === true ? { assessment: 'self' } : undefined);
   }
   assert.ok(total > 0);
 });
@@ -1083,7 +1086,8 @@ test('真实更正：第一题改对后丢弃第二题与不再需要的先修�
   let s = E.createSession(RGQ, ['cnm_221'], { seed: 'review' });
   for (const result of ['wrong', 'wrong', 'correct']) {
     const item = E.nextItem(RGQ, s);
-    s = E.applyAnswer(RGQ, s, item.topicId, result, { text: '原始输入' });
+    s = E.applyAnswer(RGQ, s, item.topicId, result,
+      item.question.self_assess === true ? { text: '原始输入', assessment: 'self' } : { text: '原始输入' });
   }
   const original = JSON.stringify(s);
   const corrected = s.answers.map((a, i) => i === 0 ? { ...a, result: 'correct' } : a);
@@ -1286,9 +1290,9 @@ test('short文字列表与坐标序列保持题目次序，不能靠集合重排
   assert.strictEqual(E.judgeAnswer('乙，甲', '甲，乙').verdict, 'manual');
 });
 
-test('choice全库正确文字与全角key可识别，文字/key歧义仍按有效key优先', () => {
+test('自动choice全库正确文字与全角key可识别，文字/key歧义仍按有效key优先', () => {
   let checked = 0, collisions = 0;
-  for (const q of questions.filter(question => question.type === 'choice')) {
+  for (const q of questions.filter(question => question.type === 'choice' && question.self_assess !== true)) {
     const text = q.choices.find(choice => choice.key === q.answer).text;
     const keyMatch = /^[(（]?([a-z])[)）.．、:：]?$/.exec(E.normalizeText(text));
     if (keyMatch && q.choices.some(choice => choice.key === keyMatch[1].toUpperCase())) {
@@ -1355,6 +1359,212 @@ test('所有Unicode上标保留幂语义，不把指数变成普通数字或多�
   }
   assert.strictEqual(E.normalizeText('x¹²'), 'x^12');
   assert.strictEqual(E.normalizeText('x²⁴'), 'x^24');
+});
+
+/* ------------------------------------------------------------ 明确的选择题自评与历史来源 */
+console.log('选择题自评规则、评分来源与旧存档复核');
+
+const SELF_ASSESS_CHOICE_IDS = [
+  'cnm_085_q1', 'cnm_102_q1', 'cnm_102_q2', 'cnm_102_q3',
+  'cnm_105_q1', 'cnm_105_q2', 'cnm_130_q4', 'cnm_198_q2',
+  'cnm_292_q2', 'cnm_292_q3', 'cnm_292_q4'
+];
+
+function assessmentGraph(policyExtra) {
+  const ts = ['A', 'B', 'C'].map(id => mk(id, { diagnostic_question: undefined }));
+  const qs = ts.map(t => mq(t.id, 1, 'b', {
+    type: 'choice', answer: 'B', choices: [{ key: 'A', text: '另一建议' }, { key: 'B', text: '参考建议' }],
+    ...(t.id === 'B' ? { self_assess: true, ...(policyExtra || {}) } : {})
+  }));
+  return E.buildGraph(ts, [], qs);
+}
+
+test('精确11题以显式self_assess启用，不从缺verify或题型名单泛化策略', () => {
+  assert.deepStrictEqual(sorted(questions.filter(q => Object.prototype.hasOwnProperty.call(q, 'self_assess')).map(q => q.id)), sorted(SELF_ASSESS_CHOICE_IDS));
+  SELF_ASSESS_CHOICE_IDS.forEach(id => {
+    const q = questions.find(q => q.id === id);
+    assert.strictEqual(q.type, 'choice', id);
+    assert.strictEqual(q.self_assess, true, id);
+  });
+  const ordinary = { type: 'choice', answer: 'A', choices: [{ key: 'A', text: '约定格式' }, { key: 'B', text: '其它格式' }] };
+  assert.strictEqual(E.judgeQuestion(ordinary, 'A').verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion(ordinary, 'B').verdict, 'wrong');
+  const format = questions.find(q => q.id === 'cnm_118_q1');
+  assert.strictEqual(format.verify, undefined);
+  assert.strictEqual(E.judgeQuestion(format, format.answer).verdict, 'correct');
+  assert.strictEqual(E.judgeQuestion(format, 'A').verdict, 'wrong');
+  assert.deepStrictEqual(E.judgeQuestion({ ...ordinary, verify: '1', self_assess: true }, 'A'), { verdict: 'manual', reason: 'self-assessment-required' });
+});
+
+test('需自评选择题的任何key、文字、空输入和自由输入都不由参考建议代判', () => {
+  for (const id of SELF_ASSESS_CHOICE_IDS) {
+    const q = { ...questions.find(q => q.id === id), self_assess: true };
+    const inputs = ['', null, undefined, 'Z', '我有不同的合理条件', 'x'.repeat(5000), {},
+      ...q.choices.flatMap(c => [c.key, c.key.toLowerCase(), c.text])];
+    for (const input of inputs) assert.deepStrictEqual(E.judgeQuestion(q, input), { verdict: 'manual', reason: 'self-assessment-required' }, id);
+  }
+});
+
+test('非法self_assess值或非choice类型不能退回自动判题，原self保持自评', () => {
+  const base = { type: 'choice', answer: 'A', choices: [{ key: 'A', text: '参考' }] };
+  for (const flag of [false, 'true', 1, 0, null, undefined, {}, []]) {
+    assert.deepStrictEqual(E.judgeQuestion({ ...base, self_assess: flag }, 'A'), { verdict: 'manual', reason: 'invalid-assessment-rule' });
+  }
+  for (const type of ['numeric', 'short', 'self', 'legacy']) {
+    assert.deepStrictEqual(E.judgeQuestion({ type, answer: '1', self_assess: true }, '1'), { verdict: 'manual', reason: 'invalid-assessment-rule' });
+  }
+  assert.deepStrictEqual(E.judgeQuestion(Object.assign(Object.create({ self_assess: true }), base), 'A'), { verdict: 'manual', reason: 'invalid-assessment-rule' });
+  questions.filter(q => q.type === 'self').forEach(q => {
+    assert.deepStrictEqual(E.judgeQuestion(q, q.answer), { verdict: 'manual', reason: 'self' });
+  });
+});
+
+test('待自评结果不进入applyAnswer，未确认的正确或错误均不能改变会话', () => {
+  const graph = assessmentGraph();const session = E.createSession(graph, ['B']);
+  const original = JSON.stringify(session);
+  assert.strictEqual(E.judgeQuestion(E.nextItem(graph, session).question, 'A').verdict, 'manual');
+  for (const result of ['correct', 'wrong']) {
+    assert.throws(() => E.applyAnswer(graph, session, 'B', result));
+    assert.throws(() => E.applyAnswer(graph, session, 'B', result, { assessment: 'automatic' }));
+  }
+  assert.throws(() => E.applyAnswer(graph, session, 'B', 'manual', { assessment: 'self' }));
+  assert.strictEqual(JSON.stringify(session), original);
+  assert.strictEqual(E.statusOf(session, 'B'), 'unknown');
+  assert.strictEqual(session.answers.length, 0);
+});
+
+test('明确self确认才记录对错与来源，主动skip仍兼容且不会伪装确认', () => {
+  const graph = assessmentGraph();const session = E.createSession(graph, ['B']);
+  for (const result of ['correct', 'wrong']) {
+    const saved = E.applyAnswer(graph, session, 'B', result, { assessment: 'self', text: 'A' });
+    assert.strictEqual(saved.answers[0].assessment, 'self');
+    assert.strictEqual(saved.answers[0].result, result);
+    assert.strictEqual(saved.answers[0].text, 'A');
+    assert.strictEqual(E.statusOf(saved, 'B'), result === 'correct' ? 'mastered' : 'weak');
+  }
+  const skipped = E.applyAnswer(graph, session, 'B', 'skip');
+  assert.strictEqual(skipped.answers[0].result, 'skip');
+  assert.ok(!Object.prototype.hasOwnProperty.call(skipped.answers[0], 'assessment'));
+});
+
+test('所有显式assessment值严格校验，原型来源不能充当用户确认', () => {
+  const graph = assessmentGraph();const session = E.createSession(graph, ['C']);
+  for (const assessment of [null, undefined, true, false, 0, 'SELF', '', '__proto__', {}, []]) {
+    for (const result of ['correct', 'wrong', 'skip']) {
+      assert.throws(() => E.applyAnswer(graph, session, 'C', result, { assessment }));
+    }
+  }
+  assert.throws(() => E.applyAnswer(graph, session, 'C', 'correct', Object.create({ assessment: 'self' })));
+  assert.throws(() => E.applyAnswer(graph, E.createSession(graph, ['B']), 'B', 'correct', Object.create({ assessment: 'self' })));
+  for (const assessment of ['self', 'automatic']) {
+    assert.strictEqual(E.applyAnswer(graph, session, 'C', 'correct', { assessment }).answers[0].assessment, assessment);
+  }
+});
+
+test('评分来源经JSON存档和replay完整保存，普通题legacy仍无需新增字段', () => {
+  const graph = assessmentGraph();let session = E.createSession(graph, ['A', 'B', 'C']);
+  session = E.applyAnswer(graph, session, 'C', 'correct', { assessment: 'automatic', text: 'B' });
+  session = E.applyAnswer(graph, session, 'B', 'wrong', { assessment: 'self', text: '另一建议' });
+  session = E.applyAnswer(graph, session, 'A', 'correct');
+  const report = E.replayWithReport(graph, session.targets, JSON.parse(JSON.stringify(session.answers)), { seed: session.seed });
+  assert.deepStrictEqual(report.dropped, []);
+  assert.deepStrictEqual(report.session, session);
+  assert.ok(!Object.prototype.hasOwnProperty.call(report.session.answers[2], 'assessment'));
+});
+
+test('旧policy判分缺self或来自automatic时停在首题，前缀状态保留且尾部不沿用', () => {
+  const graph = assessmentGraph();
+  for (const result of ['correct', 'wrong']) for (const source of [{}, { assessment: 'automatic' }]) {
+    const answers = [
+      { id: 'C', qid: 'C_q1', result: 'correct', assessment: 'automatic', text: '原前缀' },
+      { id: 'B', qid: 'B_q1', result, ...source },
+      { id: 'A', qid: 'A_q1', result: 'correct' }
+    ];
+    const original = JSON.stringify(answers);
+    const report = E.replayWithReport(graph, ['A', 'B', 'C'], answers);
+    assert.deepStrictEqual(report.session.answers, answers.slice(0, 1));
+    assert.deepStrictEqual(report.dropped, [{ index: 1, reason: 'assessment-review-required' }, { index: 2, reason: 'after-invalid-record' }]);
+    assert.strictEqual(E.statusOf(report.session, 'C'), 'mastered');
+    assert.strictEqual(E.statusOf(report.session, 'B'), 'unknown');
+    assert.strictEqual(E.statusOf(report.session, 'A'), 'unknown');
+    assert.strictEqual(E.nextItem(graph, report.session).question.id, 'B_q1');
+    assert.strictEqual(JSON.stringify(answers), original);
+  }
+});
+
+test('待复核记录与后尾dropped保留原数组index，不因较早离路记录重编号', () => {
+  const graph = assessmentGraph();
+  const answers = [
+    { id: 'A', qid: 'A_q1', result: 'correct' },
+    { id: 'C', qid: 'C_q1', result: 'correct' },
+    { id: 'B', qid: 'B_q1', result: 'wrong' },
+    { id: 'A', qid: 'A_q1', result: 'correct' }
+  ];
+  const report = E.replayWithReport(graph, ['A', 'B', 'C'], answers);
+  assert.deepStrictEqual(report.session.answers, [answers[1]]);
+  assert.deepStrictEqual(report.dropped, [{ index: 0, reason: 'out-of-path' },
+    { index: 2, reason: 'assessment-review-required' }, { index: 3, reason: 'after-invalid-record' }]);
+});
+
+test('缺qid旧记录用实际种子题识别policy，skip和正常legacy仍兼容', () => {
+  const graph = assessmentGraph();
+  const answers = [{ id: 'C', result: 'correct' }, { id: 'B', result: 'wrong' }, { id: 'A', result: 'correct' }];
+  const pending = E.replayWithReport(graph, ['A', 'B', 'C'], answers);
+  assert.deepStrictEqual(pending.dropped.map(a => a.reason), ['assessment-review-required', 'after-invalid-record']);
+  assert.strictEqual(pending.session.answers.length, 1);
+  answers[1].assessment = 'self';
+  const confirmed = E.replayWithReport(graph, ['A', 'B', 'C'], answers);
+  assert.deepStrictEqual(confirmed.dropped, []);
+  assert.strictEqual(confirmed.session.answers[1].assessment, 'self');
+  delete answers[1].assessment;answers[1].result = 'skip';
+  const skipped = E.replayWithReport(graph, ['A', 'B', 'C'], answers);
+  assert.deepStrictEqual(skipped.dropped, []);
+  assert.strictEqual(skipped.session.answers[1].result, 'skip');
+});
+
+test('历史qid的策略优先于新随机题，不能改用未标记题绕过旧policy复核', () => {
+  const graph = E.buildGraph([mk('M', { diagnostic_question: undefined })], [], [
+    mq('M', 1, 'b', { type: 'choice', self_assess: true, answer: 'A', choices: [{ key: 'A', text: '建议' }] }),
+    mq('M', 2, 'b')
+  ]);
+  const automaticSeed = Array.from({ length: 100 }, (_, i) => 'seed'+i).find(seed =>
+    E.nextItem(graph, E.createSession(graph, ['M'], { seed })).question.id === 'M_q2');
+  assert.ok(automaticSeed);
+  const old = [{ id: 'M', qid: 'M_q1', result: 'correct' }];
+  const pending = E.replayWithReport(graph, ['M'], old, { seed: automaticSeed });
+  assert.deepStrictEqual(pending.dropped, [{ index: 0, reason: 'assessment-review-required' }]);
+  old[0].assessment = 'self';
+  const confirmed = E.replayWithReport(graph, ['M'], old, { seed: automaticSeed });
+  assert.deepStrictEqual(confirmed.session.answers, old);
+  assert.deepStrictEqual(confirmed.dropped, []);
+  const policySeed = Array.from({ length: 100 }, (_, i) => 'seed'+i).find(seed =>
+    E.nextItem(graph, E.createSession(graph, ['M'], { seed })).question.id === 'M_q1');
+  const automatic = [{ id: 'M', qid: 'M_q2', result: 'correct' }];
+  assert.deepStrictEqual(E.replayWithReport(graph, ['M'], automatic, { seed: policySeed }).session.answers, automatic);
+});
+
+test('已有明确policy题号的旧机器判分即使离路也先停，不能悄然继续尾部', () => {
+  const graph = assessmentGraph();
+  const report = E.replayWithReport(graph, ['A', 'B', 'C'], [
+    { id: 'B', qid: 'B_q1', result: 'wrong', assessment: 'automatic' },
+    { id: 'C', qid: 'C_q1', result: 'correct' }
+  ]);
+  assert.deepStrictEqual(report.session.answers, []);
+  assert.deepStrictEqual(report.dropped, [{ index: 0, reason: 'assessment-review-required' }, { index: 1, reason: 'after-invalid-record' }]);
+});
+
+test('非法题目规则或损坏评分来源在apply和replay都拒绝，普通self无需新元数据', () => {
+  for (const policyExtra of [{ self_assess: false }, { type: 'numeric' }]) {
+    const graph = assessmentGraph(policyExtra);const session = E.createSession(graph, ['B']);
+    assert.throws(() => E.applyAnswer(graph, session, 'B', 'correct', { assessment: 'self' }));
+    const report = E.replayWithReport(graph, ['B'], [{ id: 'B', qid: 'B_q1', result: 'correct', assessment: 'self' }]);
+    assert.deepStrictEqual(report.dropped, [{ index: 0, reason: 'invalid-assessment-rule' }]);
+  }
+  const graph = assessmentGraph();
+  const report = E.replayWithReport(graph, ['C'], [{ id: 'C', qid: 'C_q1', result: 'correct', assessment: 'unknown' }]);
+  assert.deepStrictEqual(report.dropped, [{ index: 0, reason: 'invalid-record' }]);
+  const selfGraph = E.buildGraph([mk('S', { diagnostic_question: undefined })], [], [mq('S', 1, 'b', { type: 'self' })]);
+  assert.strictEqual(E.applyAnswer(selfGraph, E.createSession(selfGraph, ['S']), 'S', 'correct').answers.length, 1);
 });
 
 console.log('\n' + passed + ' passed, ' + failed + ' failed');

@@ -220,7 +220,7 @@ python3 scripts/verify_questions.py   # 自动核验，写 data/verification_rep
 python3 scripts/validate.py           # 含题库格式检查与题量统计
 ```
 
-全库当前（2026-11-06，`verify_questions.py`）：参考答案 auto_verified **2258 / 2271**，mismatch **0**，unverifiable **13**（choice 12、self 1）。最新一轮已逐题复核此前剩余的 16 题，补充 3 个完整模型；保留人工项均记录推导、判题边界与缺失依据。全部 6 道 self 的学生作答仍自评。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
+全库当前（2026-11-06，`verify_questions.py`）：参考答案 auto_verified **2258 / 2271**，mismatch **0**，unverifiable **13**（choice 12、self 1）。最新一轮逐题复核这 13 题，执行 26 项组件检查，完善推导、判题边界与缺失依据，未新增完整模型。11 道依赖比较标准或情境证据的选择题改为明确自评，旧自动判定需复核并保留原始备份；全部 6 道 self 也继续自评。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
 
 ## 已知局限
 

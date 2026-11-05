@@ -42,6 +42,28 @@ class QuestionSchemaTests(unittest.TestCase):
                 self.assertTrue(any('unit' in error for error in self.errors({**source, 'unit': unit})))
         self.assertTrue(any('unit' in error for error in self.errors({**source, 'type': 'short'})))
 
+    def test_choice_can_explicitly_require_self_assessment(self):
+        source = next(question for question in QUESTIONS if question['type'] == 'choice')
+        self.assertEqual(self.errors({**source, 'self_assess': True}), [])
+        # The field is an explicit grading policy; omitting it keeps ordinary
+        # choice questions valid regardless of reference verification coverage.
+        self.assertEqual(self.errors({key: value for key, value in source.items()
+                                      if key != 'self_assess'}), [])
+
+    def test_self_assessment_requires_literal_true_not_falsy_or_truthy_values(self):
+        source = next(question for question in QUESTIONS if question['type'] == 'choice')
+        for value in (False, None, 0, 1, 1.0, 'true', 'false', [], {}, [True]):
+            with self.subTest(value=value):
+                self.assertTrue(any('self_assess' in error for error in
+                                    self.errors({**source, 'self_assess': value})))
+
+    def test_self_assessment_is_reserved_for_choice_not_other_answer_types(self):
+        for typ in ('numeric', 'short', 'self'):
+            source = next(question for question in QUESTIONS if question['type'] == typ)
+            with self.subTest(type=typ):
+                self.assertTrue(any('self_assess' in error for error in
+                                    self.errors({**source, 'self_assess': True})))
+
 
 if __name__ == '__main__':
     unittest.main()

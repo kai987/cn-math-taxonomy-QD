@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T04:28:44",
+  "generated_at": "2026-11-06T05:13:31",
   "source": "data/questions.json",
   "total_questions": 2271,
   "by_type": {
@@ -294,5 +294,17 @@
     "self_reference_models": 0,
     "review_errors": [],
     "note": "明确的资源、信息与统计设计目标独立核验；偏好、未给证据和开放解释保留人工边界。"
+  },
+  "followup_13": {
+    "source": "data/answer_review_remaining_13.json",
+    "reviewed": 13,
+    "outcomes": {
+      "manual": 13
+    },
+    "scope_auto_verified": 0,
+    "self_reference_models": 0,
+    "self_assessed_choices": 11,
+    "review_errors": [],
+    "note": "13题保留人工参考依据；11道条件性选择题需学生明确自评，参考核验与作答评分分别记录。"
   }
 }

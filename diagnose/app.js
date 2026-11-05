@@ -29,6 +29,10 @@
   let seedParam = null;    // URL 参数 seed：固定选题的随机种子
   let sessionNotice = '';
   let draftBackup = null;
+  let draftBackupHistory = []; // 多次题目/判题更新时保留更早的原稿
+  let assessmentReview = null;   // 完整历史待复核工作副本，不以旧自动判定更新诊断
+  let assessmentReviewIndex = null;
+  let assessmentHistoryBackup = null; // 原记录只读备份，刷新后仍保留
   const touchInput = window.matchMedia('(pointer: coarse)');
   const dataVersion = document.querySelector('meta[name="app-version"]').content;
   const assetsBase = new URL(document.querySelector('meta[name="app-assets-base"]').content, document.baseURI);
@@ -93,6 +97,21 @@
   function newSeed() { return seedParam != null ? seedParam : Math.random().toString(36).slice(2, 10); }
   function resetUi() { ui = { key: null, phase: 'ask', answer: '', verdict: null, picked: null }; }
   function clearRoot() { while (root.firstChild) root.removeChild(root.firstChild); }
+  function assessmentReviewItem() {
+    if (!assessmentReview || assessmentReviewIndex == null) return null;
+    const old = assessmentReview[assessmentReviewIndex];
+    const fallback = old && !old.qid ? E.nextItem(D.graph, session) : null;
+    const question = old && (old.qid ? E.questionById(D.graph, old.qid) : fallback && fallback.topicId === old.id ? fallback.question : null);
+    return question ? { topicId: old.id, question: question, attempt: (session.attempts[old.id] || []).length + 1, reviewing: true } : null;
+  }
+  function currentItem() { return assessmentReviewItem() || E.nextItem(D.graph, session); }
+  function backupDraft(draft) {
+    if (draftBackup && JSON.stringify(draftBackup) !== JSON.stringify(draft) &&
+        !draftBackupHistory.some(function (old) { return JSON.stringify(old) === JSON.stringify(draftBackup); })) {
+      draftBackupHistory.push(draftBackup);
+    }
+    draftBackup = draft;
+  }
   function show(node) {
     clearRoot();
     if (sessionNotice) {
@@ -104,6 +123,25 @@
           h('pre', { text: draftBackup.answer || '未填写' })) : null,
         h('button', { 'aria-label': '关闭诊断提示', onclick: function () { sessionNotice = ''; draftBackup = null; save(); notice.remove(); } }, '关闭'));
       root.append(notice);
+    }
+    if (draftBackupHistory.length) {
+      root.append(h('details', { class: 'card no-print', id: 'draft-backup-history' },
+        h('summary', null, '查看更早的草稿备份（' + draftBackupHistory.length + ' 份）'),
+        h('ol', null, draftBackupHistory.map(function (draft) {
+          return h('li', null, draft.prompt || draft.questionId || '旧题草稿',
+            h('div', { class: 'muted small' }, '原答案：' + draft.answer));
+        }))));
+    }
+    if (assessmentHistoryBackup) {
+      root.append(h('details', { class: 'card no-print', id: 'assessment-history-backup' },
+        h('summary', null, '查看旧版答题记录备份（' + assessmentHistoryBackup.length + ' 条）'),
+        h('p', { class: 'muted small' }, '原记录已完整保留供核对，不将待复核的旧自动判定计入当前诊断。题目按当前题库显示，原答案和结果按存档保留。'),
+        h('ol', null, assessmentHistoryBackup.map(function (a) {
+          a = a && typeof a === 'object' ? a : {};
+          const q = E.questionById(D.graph, a.qid);
+          return h('li', null, nameOf(a.id), q ? '：' + q.prompt : '：' + (a.qid || '原题号未保存'),
+            h('div', { class: 'muted small' }, '原结果：' + (RESULT_LABEL[a.result] || '未知') + '；原答案：' + (a.text == null || a.text === '' ? '未保存' : String(a.text))));
+        }))));
     }
     root.append(node);
     window.scrollTo(0, 0);
@@ -149,6 +187,7 @@
           !q.choices.some(function (c) { return c.key === q.answer; }))) throw bankError('题库包含无效的选择题。');
       if (q.unit !== undefined && (q.type !== 'numeric' || typeof q.unit !== 'string' || !q.unit.trim())) throw bankError('题库包含无效的单位设置。');
       if (q.unordered !== undefined && (q.type !== 'numeric' || q.unordered !== true)) throw bankError('题库包含无效的答案顺序设置。');
+      if (Object.prototype.hasOwnProperty.call(q, 'self_assess') && (q.type !== 'choice' || q.self_assess !== true)) throw bankError('题库包含无效的自评设置。');
       if (q.accept !== undefined && (!Array.isArray(q.accept) || q.accept.some(function (answer) { return typeof answer !== 'string' || !answer.trim(); }))) throw bankError('题库包含无效的可接受答案。');
       if (q.variables !== undefined && (q.type !== 'numeric' || q.unordered || !Array.isArray(q.variables) || !q.variables.length ||
           q.variables.length !== q.answer.split(/[，,]/).length ||
@@ -179,37 +218,49 @@
 
   /* ------------------------------------------------------------ 会话 */
   function questionFingerprint(question) {
-    return JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '', !!question.unordered, question.variables || []]);
+    return JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '', !!question.unordered, question.variables || [], question.self_assess === true]);
   }
   function matchesQuestionFingerprint(fingerprint, question) {
     if (fingerprint === questionFingerprint(question)) return true;
-    // Older drafts saved the first six fields. Re-judge any restored feedback
-    // against current rules, while preserving input for an unchanged question.
-    return fingerprint === JSON.stringify([question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '']);
+    // Old six/eight-field drafts keep their input; feedback is always judged
+    // against the current rule, including a new requirement for self assessment.
+    const base = [question.type, question.prompt, question.choices || [], question.answer, question.accept || [], question.unit || '', !!question.unordered, question.variables || []];
+    if (fingerprint === JSON.stringify(base) || fingerprint === JSON.stringify(base.slice(0, 6))) return true;
+    try {
+      const old = JSON.parse(fingerprint);
+      return Array.isArray(old) && old.length === 9 && typeof old[8] === 'boolean' && JSON.stringify(old.slice(0, 8)) === JSON.stringify(base);
+    } catch (error) { return false; }
   }
   function save() {
     if (demo || !session) return;
-    const item = E.nextItem(D.graph, session);
+    const item = currentItem();
     const draft = item && ui.key === item.topicId + '#' + item.attempt && ui.questionId === item.question.id
       ? { key: ui.key, questionId: ui.questionId, questionFingerprint: questionFingerprint(item.question), prompt: item.question.prompt,
           answer: ui.answer, picked: ui.picked, phase: ui.phase } : null;
     lsSet(LS_SESSION, {
       v: 2, targets: session.targets, limit: session.limit, label: sessionMeta.label, answers: session.answers,
-      seed: session.seed, avoid: session.avoid, draft: draft, draftBackup: draftBackup, savedAt: new Date().toISOString()
+      seed: session.seed, avoid: session.avoid, draft: draft, draftBackup: draftBackup, draftBackupHistory: draftBackupHistory,
+      assessmentReview: assessmentReview, assessmentHistoryBackup: assessmentHistoryBackup, savedAt: new Date().toISOString()
     });
   }
 
-  function reportReplay(report) {
+  function reportReplay(report, originalAnswers) {
     session = report.session;
-    if (report.dropped.length) sessionNotice = '已重新计算诊断，移除了 ' + report.dropped.length + ' 条不再适用的答题记录；未完成部分会按新流程继续提问。';
+    const pending = report.dropped.find(function (entry) { return entry.reason === 'assessment-review-required'; });
+    assessmentReviewIndex = pending ? pending.index : null;
+    assessmentReview = pending ? originalAnswers.slice() : null;
+    if (pending) {
+      if (!assessmentHistoryBackup) assessmentHistoryBackup = JSON.parse(JSON.stringify(originalAnswers));
+      sessionNotice = '部分旧版选择题现在需要自评。原答题记录已完整备份，待复核判定及其后续路径暂不计入；确认后会继续恢复仍适用的记录。';
+    } else if (report.dropped.length) sessionNotice = '已重新计算诊断，移除了 ' + report.dropped.length + ' 条不再适用的答题记录；未完成部分会按新流程继续提问。';
   }
   function restoreDraft(draft) {
-    const item = E.nextItem(D.graph, session);
+    const item = currentItem();
     if (!draft || typeof draft.answer !== 'string') return;
     if (!item || draft.key !== item.topicId + '#' + item.attempt || draft.questionId !== item.question.id ||
         !matchesQuestionFingerprint(draft.questionFingerprint, item.question)) {
       if (draft.answer) {
-        draftBackup = draft;
+        backupDraft(draft);
         sessionNotice = '题目或诊断流程已更新，旧草稿已保留供核对，未自动填入新题。';
       }
       return;
@@ -224,6 +275,7 @@
     else if (draft.phase === 'auto' && ui.answer.trim()) {
       ui.verdict = E.judgeQuestion(item.question, ui.answer.trim());
       ui.phase = ui.verdict.verdict === 'manual' ? 'self' : 'auto';
+      if (item.question.self_assess) sessionNotice = '本题现在需要结合理由自评，已保留原选择，尚未把它计入诊断。';
     }
   }
   window.addEventListener('pagehide', save);
@@ -232,7 +284,7 @@
   function startSession(targets, label, limit) {
     session = E.createSession(D.graph, targets, { limit: limit || getSettings().limit, seed: newSeed(), avoid: seenList() });
     sessionMeta = { label: label };
-    sessionNotice = ''; draftBackup = null;
+    sessionNotice = ''; draftBackup = null; draftBackupHistory = []; assessmentReview = null; assessmentReviewIndex = null; assessmentHistoryBackup = null;
     resetUi();
     save();
     render();
@@ -240,8 +292,11 @@
 
   function restoreSession(saved) {
     try {
-      reportReplay(E.replayWithReport(D.graph, saved.targets, saved.answers, { limit: saved.limit, seed: saved.seed, avoid: saved.avoid }));
+      assessmentHistoryBackup = Array.isArray(saved.assessmentHistoryBackup) ? saved.assessmentHistoryBackup : null;
+      const answers = Array.isArray(saved.assessmentReview) ? saved.assessmentReview : saved.answers;
+      reportReplay(E.replayWithReport(D.graph, saved.targets, answers, { limit: saved.limit, seed: saved.seed, avoid: saved.avoid }), answers);
       sessionMeta = { label: saved.label || saved.targets.map(nameOf).join('、') };
+      draftBackupHistory = Array.isArray(saved.draftBackupHistory) ? saved.draftBackupHistory.filter(function (draft) { return draft && typeof draft.answer === 'string'; }) : [];
       draftBackup = saved.draftBackup && typeof saved.draftBackup.answer === 'string' ? saved.draftBackup : null;
       if (draftBackup && !sessionNotice) sessionNotice = '题目或诊断流程已更新，旧草稿已保留供核对，未自动填入新题。';
       resetUi();
@@ -252,15 +307,26 @@
   }
 
   function restart() {
-    session = null; demo = null; sessionNotice = ''; draftBackup = null;
+    session = null; demo = null; sessionNotice = ''; draftBackup = null; draftBackupHistory = []; assessmentReview = null; assessmentReviewIndex = null; assessmentHistoryBackup = null;
     lsDel(LS_SESSION);
     if (location.search) history.replaceState(null, '', location.pathname);
     render();
   }
 
-  function commit(result) {
-    const item = E.nextItem(D.graph, session);
-    session = E.applyAnswer(D.graph, session, item.topicId, result, { text: ui.answer });
+  function commit(result, assessment) {
+    const item = currentItem();
+    const source = assessment || (ui.phase === 'auto' ? 'automatic' : 'self');
+    if (item.reviewing) {
+      const revised = assessmentReview.map(function (a, index) {
+        return index === assessmentReviewIndex ? Object.assign({}, a, { qid: item.question.id, result: result, text: ui.answer, assessment: 'self' }) : a;
+      });
+      const report = E.replayWithReport(D.graph, session.targets, revised, { limit: session.limit, seed: session.seed, avoid: session.avoid });
+      reportReplay(report, revised);
+      if (!assessmentReview) sessionNotice = '旧版判定已完成复核，仍适用的作答已恢复；原记录备份保留供核对。' +
+        (report.dropped.length ? '其中 ' + report.dropped.length + ' 条记录不再适用当前路径，仅保存在备份中。' : '');
+    } else {
+      session = E.applyAnswer(D.graph, session, item.topicId, result, { text: ui.answer, qid: item.question.id, assessment: source });
+    }
     markSeen(item.question.id);
     resetUi();
     save();
@@ -270,7 +336,7 @@
   function rebuild(answers, limit) {
     reportReplay(E.replayWithReport(D.graph, session.targets, answers, {
       limit: limit == null ? session.limit : limit, seed: session.seed, avoid: session.avoid
-    }));
+    }), answers);
     resetUi();
     save();
     render();
@@ -303,7 +369,7 @@
     while (n < steps) {
       const item = E.nextItem(D.graph, session);
       if (!item) break;
-      session = E.applyAnswer(D.graph, session, item.topicId, demo.oracle(item.topicId, item.attempt));
+      session = E.applyAnswer(D.graph, session, item.topicId, demo.oracle(item.topicId, item.attempt), { assessment: 'self' });
       n++;
     }
   }
@@ -311,7 +377,7 @@
   /* ------------------------------------------------------------ 渲染入口 */
   function render() {
     if (!session) return renderStart();
-    const item = E.nextItem(D.graph, session);
+    const item = currentItem();
     if (item) renderQuestion(item); else renderResult();
   }
 
@@ -442,7 +508,7 @@
 
   function feedbackBlock(q) {
     return h('div', { class: 'feedback' },
-      h('div', { class: 'refans' }, h('b', null, '参考答案：'), answerText(q)),
+      h('div', { class: 'refans' }, h('b', null, q.self_assess ? '参考建议：' : '参考答案：'), answerText(q)),
       q.explanation ? h('div', { class: 'explain', id: 'explain' }, h('b', null, '解析：'), q.explanation) : null);
   }
 
@@ -451,22 +517,38 @@
     const q = item.question;
     const t = D.graph.byId[id];
     const key = id + '#' + item.attempt;
-    if (ui.key !== key || ui.questionId !== q.id) ui = { key: key, questionId: q.id, phase: 'ask', answer: '', verdict: null, picked: null };
+    if (ui.key !== key || ui.questionId !== q.id) {
+      const old = item.reviewing ? assessmentReview[assessmentReviewIndex] : null;
+      const answer = old && typeof old.text === 'string' ? old.text : '';
+      const picked = (q.choices || []).find(function (c) { return c.key === answer; });
+      ui = { key: key, questionId: q.id, phase: old ? 'self' : 'ask', answer: answer, verdict: null, picked: picked ? picked.key : null };
+    }
     const n = session.answers.length;
     const card = h('div', { class: 'card question-card' });
     card.append(
       h('div', { class: 'question-meta' },
         h('span', { class: 'muted' }, '目标：' + sessionMeta.label),
         h('span', { class: 'grow' }),
-        h('span', { class: 'muted' }, '第 ' + (n + 1) + ' 题 / 上限 ' + session.limit)),
+        h('span', { class: 'muted' }, item.reviewing ? '旧版记录复核 / 已确认 ' + n + ' 题' : '第 ' + (n + 1) + ' 题 / 上限 ' + session.limit)),
       h('div', { class: 'progress', role: 'progressbar', 'aria-label': '诊断进度', 'aria-valuenow': n, 'aria-valuemin': 0, 'aria-valuemax': session.limit }, h('i', { style: 'width:' + Math.round(n / session.limit * 100) + '%' })),
       h('h2', { class: 'q-title' }, t.name, ' ', h('span', { class: 'tag', text: t.chapter })),
       h('div', { class: 'row small', style: 'margin:2px 0' },
         h('span', { class: 'tag diff-' + q.difficulty, text: DIFF_LABEL[q.difficulty] || q.difficulty }),
         h('span', { class: 'tag', text: TYPE_LABEL[q.type] || q.type }),
+        q.self_assess ? h('span', { class: 'tag', text: '需自评' }) : null,
         h('span', { class: 'tag', text: '本知识点第 ' + item.attempt + ' 题' })),
       h('div', { class: 'reason', text: reasonFor(item) }),
       h('div', { class: 'q-text', id: 'q-text', text: q.prompt }));
+
+    if (q.self_assess) card.append(h('div', { class: 'notice', id: 'assessment-notice' },
+      '本题需结合条件和理由判断。选择后对照参考建议自评，确认前不会将该选择记为对或错。'));
+    if (item.reviewing) {
+      const old = assessmentReview[assessmentReviewIndex];
+      card.append(h('div', { class: 'banner', id: 'assessment-review-notice', role: 'status' },
+        '复核旧版记录：原结果为“' + (RESULT_LABEL[old.result] || '未知') + '”，该判定尚未计入当前诊断。',
+        old.qid ? '' : '原题号未保存，已按原选题种子恢复题目，请核对。',
+        typeof old.text === 'string' && old.text ? '' : '旧版未保存原选择，请根据题目与解析自评，或重新作答。'));
+    }
 
     if (ui.phase === 'ask') {
       if (q.type === 'choice') {
@@ -498,7 +580,7 @@
         }));
       }
       card.append(h('div', { class: 'row answer-actions', style: 'margin-top:10px' },
-        q.type === 'self' ? null : h('button', { class: 'primary', id: 'btn-submit', disabled: q.type === 'choice' && !ui.answer, onclick: function () { judgeAndGo(item); } }, '提交答案'),
+        q.type === 'self' ? null : h('button', { class: 'primary', id: 'btn-submit', disabled: q.type === 'choice' && !ui.answer, onclick: function () { judgeAndGo(item); } }, q.self_assess ? '提交选择并自评' : '提交答案'),
         q.type === 'choice' ? null : h('button', { id: 'btn-peek', onclick: function () { ui.phase = 'self'; ui.verdict = null; renderQuestion(item); } }, '看参考答案并自评'),
         h('button', { id: 'btn-skip', onclick: function () { ui.phase = 'skip'; renderQuestion(item); } }, '不会')));
     } else if (ui.phase === 'auto') {
@@ -509,7 +591,7 @@
         feedbackBlock(q),
         h('div', { class: 'row answer-actions' },
           h('button', { class: 'primary', id: 'btn-next', onclick: function () { commit(ok ? 'correct' : 'wrong'); } }, '下一题'),
-          h('button', { id: 'btn-flip', onclick: function () { commit(ok ? 'wrong' : 'correct'); } }, ok ? '判错了，我其实没做对' : '判错了，我其实做对了'),
+          h('button', { id: 'btn-flip', onclick: function () { commit(ok ? 'wrong' : 'correct', 'self'); } }, ok ? '判错了，我其实没做对' : '判错了，我其实做对了'),
           h('button', { onclick: function () { ui.phase = 'ask'; renderQuestion(item); } }, '重新作答')));
     } else if (ui.phase === 'skip') {
       card.append(
@@ -518,19 +600,23 @@
         h('div', { class: 'row answer-actions' }, h('button', { class: 'primary', id: 'btn-next', onclick: function () { commit('skip'); } }, '下一题')));
     } else {
       card.append(
-        ui.answer ? h('div', { class: 'muted' }, '你的答案：' + ui.answer) : null,
+        ui.answer ? h('div', { class: 'muted' }, '你的答案：' + (q.type === 'choice' ? answerOfKey(q, ui.answer) : ui.answer)) : null,
         q.type === 'self' ? h('div', { class: 'muted' }, '开放题：请对照参考答案自己判断。')
-          : (ui.verdict ? h('div', { class: 'muted' }, '这道题的答案无法被自动可靠地判定，请对照参考答案自己判断。') : null),
+          : (q.self_assess ? h('div', { class: 'muted' }, '参考选项是常见建议，请结合你的理由、题目条件和解析自评。')
+            : ui.verdict ? h('div', { class: 'muted' }, '这道题的答案无法被自动可靠地判定，请对照参考答案自己判断。') : null),
         feedbackBlock(q),
         h('div', { class: 'row answer-actions' },
           h('button', { class: 'good', id: 'btn-right', onclick: function () { commit('correct'); } }, '对（我做对了）'),
           h('button', { class: 'bad', id: 'btn-wrong', onclick: function () { commit('wrong'); } }, '不对'),
-          h('button', { id: 'btn-skip2', onclick: function () { commit('skip'); } }, '不会')));
+          h('button', { id: 'btn-skip2', onclick: function () { commit('skip'); } }, '不会'),
+          q.self_assess ? h('button', { id: 'btn-reanswer', onclick: function () { ui.phase = 'ask'; ui.verdict = null; renderQuestion(item); } }, '重新作答') : null));
     }
 
-    card.append(h('div', { class: 'notice' }, '提示：自动判题只是近似的（数字、分数、多个答案会做规范化后比较），一切以参考答案为准；判错了可以手动更正。'));
+    card.append(h('div', { class: 'notice' }, q.self_assess || q.type === 'self'
+      ? '提示：请结合题意、参考建议或示例和解析自评，确认后才计入诊断；其他合理表达或方法应结合理由判断。'
+      : '提示：自动判题只是近似的（数字、分数、多个答案会做规范化后比较），一切以参考答案为准；判错了可以手动更正。'));
     card.append(h('div', { class: 'row no-print', style: 'margin-top:12px' },
-      n > 0 ? h('button', { class: 'small', onclick: function () { rebuild(session.answers.slice(0, -1)); } }, '撤销上一题') : null,
+      n > 0 ? h('button', { class: 'small', disabled: !!assessmentReview, onclick: function () { rebuild(session.answers.slice(0, -1)); } }, '撤销上一题') : null,
       h('button', { class: 'small', onclick: function () { if (confirm('确定放弃当前诊断并回到开始页吗？')) restart(); } }, '重新开始')));
     const page = h('div');
     if (demo) page.append(demoBanner());
@@ -711,7 +797,7 @@
       const sel = h('select', {
         'aria-label': '更正第 ' + (i + 1) + ' 题的结果',
         onchange: function (e) {
-          const next = session.answers.map(function (x, j) { return j === i ? Object.assign({}, x, { result: e.target.value }) : x; });
+          const next = session.answers.map(function (x, j) { return j === i ? Object.assign({}, x, { result: e.target.value, assessment: 'self' }) : x; });
           rebuild(next);
         }
       }, ['correct', 'wrong', 'skip'].map(function (r) { return h('option', { value: r, selected: r === a.result }, RESULT_LABEL[r]); }));
@@ -779,7 +865,7 @@
     });
     const out = {
       tool: 'cn-math-taxonomy/diagnose', version: 2, generatedAt: new Date().toISOString(),
-      note: '自动判题是近似的，以参考答案为准；数据为 AI 生成的草稿。',
+      note: '自动判题是近似的；标记需自评的选择题和开放作答由用户结合题意、参考建议及解析自评。数据为 AI 生成的草稿。',
       label: sessionMeta.label,
       targets: session.targets.map(brief),
       limit: session.limit, seed: session.seed, asked: sum.asked, finished: sum.finished, limitReached: sum.limitReached,
@@ -788,6 +874,7 @@
         return {
           order: i + 1, topicId: a.id, name: nameOf(a.id), questionId: a.qid, difficulty: q.difficulty, type: q.type,
           prompt: q.prompt, userAnswer: a.text == null ? null : a.text, result: a.result,
+          assessment: a.assessment || (q.type === 'self' ? 'self' : 'legacy'),
           referenceAnswer: q.answer, explanation: q.explanation || ''
         };
       }),

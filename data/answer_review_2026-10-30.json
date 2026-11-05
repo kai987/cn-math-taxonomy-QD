@@ -1639,13 +1639,47 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "B给出醒目地标与单位，通常方便校园交流；完整坐标还须约定轴的方向。A虽缺单位而不满足统一定量描述，但偏远原点本身并不使坐标错误；C若各坐标框的原点、方向和尺度关系已知，仍能换算；D单说左右通常没有唯一数值位置，已知参照与距离时却也可作局部描述。平移逆变换可还原各点，共同平移不改变平方距离；旋转编码的平方距离等于(c²+s²)倍原距离，c²+s²=1时同样不变。因此参考B是使用情境中的通常建议，不是原点唯一性的数学定理。",
-      "question_sha256": "ea4ab976ff434e597b66ce276b61f539380d6747a5ae39191bdf985f409d2116",
+      "reason": "B的醒目参照、共同单位和已约定轴方向通常方便交流，是本题参考建议。A不标单位会留下物理尺度歧义，偏远原点本身却仍数学合法；C若各框的位置、方向和尺度关系已知，仍可换算；D只说左右通常不能唯一确定数值位置，但可用作有参照的局部说明。四个已核恒等式证明平移可逆、平移保距以及旋转/缩放差的因子c²+s²；当c²+s²>0时该特殊线性变换可逆，等于1时才保距，c=s=0则把所有点压到一处。数学可换算性与哪处地标更方便是不同性质。",
+      "question_sha256": "de14f9c3ac3dfd03bca6163dea910423bfd138661eae256d028f1a221ff0b5a4",
       "verify": null,
       "catalogue_preview": {
         "question": "为描述校园景点位置，如何选择原点更方便？",
         "answer": "可选择旗杆或校门等明显处，并标明单位"
-      }
+      },
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "选最偏远的角落作原点，不标单位",
+          "result": "manual"
+        },
+        {
+          "input": "选旗杆或校门等明显处作原点，并标明单位长度",
+          "result": "manual"
+        },
+        {
+          "input": "每个景点各建一个自己的坐标系",
+          "result": "manual"
+        },
+        {
+          "input": "不建坐标系，只用“左边、右边”描述",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_087_q1",
@@ -1877,31 +1911,125 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A是为估计全国中学生总体视力状况时的常见资源选择：合理抽样通常减少逐人检查的工作。B若目标是建立每人的健康记录或既有条件允许普查，也有不同用途；C的同样合适不能脱离调查目标和约束确定。假设总体近视指示0、0、1、1，全部六个等机会不放回二人样本的比例均值为1/2，却有单次比例0和1，故设计无偏不等于每次精确，也不是全国人群的实际证据。",
-      "question_sha256": "26f17be9dcb072d1ec9bcfe20978d599a33e85c539ee56cc83d05fdf7414ef73",
+      "reason": "A在只需估计总体视力状况、又希望减少逐人工作量的常见课堂情境下通常被推荐。B也可承担逐人建立检查记录等任务；C的两种同样合适同样需要任务与资源依据，不能由总体名称直接判断。明确假设总体二元值0、0、1、1、均匀不放回抽二人时，全部六个样本比例为0、1/2、1/2、1/2、1/2、1：期望1/2等于总体比例，均方误差1/12，而误差绝对值至少1/2的概率为1/3。这把无偏、单次风险和策略推荐区分开来。",
+      "question_sha256": "9192dbd2d59039da1385e91c194d11dabcdf888e0ec14b73f6d0e736d1044313",
       "verify": null,
       "catalogue_preview": {
         "question": "了解全国中学生视力情况宜用哪种调查？",
         "answer": "抽样调查"
-      }
+      },
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "抽样调查",
+          "result": "manual"
+        },
+        {
+          "input": "全面调查",
+          "result": "manual"
+        },
+        {
+          "input": "两种调查同样合适",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_102_q2",
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "B的45名同学通常易逐人接触，体重测量一般不毁损对象，符合教材全面了解班级的情境。A的灯泡寿命试验会消耗被测品，但若允许整批耗尽也可全测；C的全国观众范围大却仍须明确目标人群和时间；D的水质先需划定地点、时段和测量单元，不能仅凭河流名称说数学上无法全面调查。作为覆盖组件，若另假设在45人中均匀不放回抽44人，某指定学生入样概率C(44,43)/C(45,44)=44/45，漏测概率1/45；这说明这种真子样本不保证逐个人都有直接记录。",
-      "question_sha256": "d52515c898b0397d0c560c12efcad35579f2613fef7f2f142a6c0157aecf1527",
-      "verify": null
+      "reason": "B的45名同学通常可逐个接触，体重测量一般无破坏性，符合课堂全面了解班级的情境。A若还须保留未测灯泡，寿命试验的耗损会限制全测；允许整批试验品耗尽时则不被这一约束禁止。C须界定观众总体和时点，D须界定水质的地点、时间与测量单元，不能只由场景名称排除全面调查。若另设45人均匀不放回抽44人，指定成员入样/漏测概率为44/45、1/45；已知44人总和s而第45人可能为u或v时，总体均值差为(u−v)/45，说明没有其它信息时完整个体记录与总体精确均值仍可能未确定。",
+      "question_sha256": "9af6181e6b9d42a4fb8a4b909ab17e81b0d43e0940d8a14980910f40a3f06a03",
+      "verify": null,
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "了解一批灯泡的使用寿命",
+          "result": "manual"
+        },
+        {
+          "input": "了解某班 45 名同学的体重",
+          "result": "manual"
+        },
+        {
+          "input": "了解全国观众对某部电影的评价",
+          "result": "manual"
+        },
+        {
+          "input": "了解长江的水质",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_102_q3",
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D的产品破坏性检测在还要保留未检品时常采用抽样：N件逐个检测k件后余N−k件，要求余量≥R便有k≤N−R。R≥1才排除k=N；若R=N，则仅k=0可行，不能进一步保证存在非空抽样；R=0时全测并未被保留约束禁止。A发射确认、B个体健康记录、C合资格成员参与的通常目的可能重视逐人/逐项覆盖，但场景名本身没有给出完整安全、健康或选举规则。组件在假设N=10时执行全部k=0…10的容量约束，R=0、3、10的最大可行k分别为10、7、0。",
-      "question_sha256": "ca428bb012852c063348d88a3af2be0132b9713fb47ebb99b5bd56c54d67aa5f",
-      "verify": null
+      "reason": "D在检测逐件消耗样品、又须保留未检测产品的常见情境下通常抽样。对N件逐个检测k件，余量N−k；要求至少保留R件给出0≤k≤N−R。R≥1排除全测，R=N只剩k=0，R=0不排除全测；若实际任务另要求至少m≥1次有效测试，存在合法k当且仅当m+R≤N。已有N=10、R=0/3/10的全部容量枚举给最大k=10/7/0。A、B、C的常见安全检查、个体健康记录和有资格成员参与目标可能强调覆盖，但具体检测项目、记录和参与规则仍需明示，不能仅由名称推出全检或抽样的唯一最优性。",
+      "question_sha256": "db0a56e353e2894f501320c6ed4781259f58768364e7a403c0d8cb4572e3af5b",
+      "verify": null,
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "飞船发射前检查各零部件",
+          "result": "manual"
+        },
+        {
+          "input": "入学时对新生体检",
+          "result": "manual"
+        },
+        {
+          "input": "班级选举班长",
+          "result": "manual"
+        },
+        {
+          "input": "检测一批炮弹的杀伤半径",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_102_q4",
@@ -2066,20 +2194,32 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "折线图把按时间排列的气温观测点相连，通常便于观察相邻点的升降，A符合题干已明确的常见趋势表达目的。条形图C同样可准确标出每个时点气温；扇形图B通常编码非负部分占整体的份额，跨时点温度一般不是这类组成量。有限端点观测不决定间隔内真实变化：在归一化时间t∈[0,1]上，连续曲线20和20+4t(1−t)端点都为20，中点却分别为20与21。",
-      "question_sha256": "e30601f4c9351346563da801c8ba182784c5a4cfe6add6b1cbe86fe56c7d7495",
+      "reason": "折线图A按时间顺序把相邻观测值连成线，连线斜率的正负可显示相邻已知值的升降，符合本题通常突出时间趋势的教学用途。条形图C也能按同一时序准确表示每个观测值；扇形图B通常表示非负且可相加的部分占整体份额，跨时点气温并非通常的组成量，摄氏温度还可能为负。归一化时间t∈[0,1]上的连续曲线20与20+4t(1−t)在两端都为20，中点分别为20与21，因此两个端点不唯一决定实际过程。",
+      "question_sha256": "089b09019e834c78c7d2572c4b61eac97aad73ba243ad1e0ae2afe8914ae70a1",
       "grading": [
         {
           "input": "A",
-          "result": "correct"
+          "result": "manual"
         },
         {
           "input": "B",
-          "result": "wrong"
+          "result": "manual"
         },
         {
           "input": "C",
-          "result": "wrong"
+          "result": "manual"
+        },
+        {
+          "input": "折线图",
+          "result": "manual"
+        },
+        {
+          "input": "扇形图",
+          "result": "manual"
+        },
+        {
+          "input": "条形图",
+          "result": "manual"
         }
       ],
       "verify": null,
@@ -2093,20 +2233,32 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "全班人数N>0且每人只归一类时，份额pᵢ=nᵢ/N可编码为扇区角度360pᵢ，C突出部分整体。原总角恒等式把四类及其他类余量合为360°；各类不穷尽时必须保留其他，重叠分类不能直接分成不交扇区。A的百分比条形高度100pᵢ也能准确表示相同份额：从角度除以360、从百分数高度除以100都精确还原pᵢ。B折线通常会额外暗示类别有顺序。",
-      "question_sha256": "c21069b85da043e524e8f6ebb0a25f7a0c1a2db1f90669214094ab007eeae4e0",
+      "reason": "若全班N>0、每位同学按唯一偏好归入一个类别，则nᵢ/N为合法份额pᵢ；四类未穷尽时还须保留其他类p₀=1−Σpᵢ≥0。扇形图C可用θᵢ=360pᵢ表示部分与整体，全部扇区合为360°。A的百分比条形高度hᵢ=100pᵢ也可准确保留这些份额，分别以θᵢ/360和hᵢ/100解码。B折线可编码各已知值，但类别次序与相邻连线未获题意上的自然依据。总角恒等式不校验份额域：a=b=3/4、c=d=0时其他份额为−1/2，角度270、270、0、0、−180仍合360，却不是合法扇区划分。",
+      "question_sha256": "8fe7146dcd6b430e0e90f870cf38609bc33513a8385285cd23ef372c1e4e509c",
       "grading": [
         {
           "input": "A",
-          "result": "wrong"
+          "result": "manual"
         },
         {
           "input": "B",
-          "result": "wrong"
+          "result": "manual"
         },
         {
           "input": "C",
-          "result": "correct"
+          "result": "manual"
+        },
+        {
+          "input": "条形图",
+          "result": "manual"
+        },
+        {
+          "input": "折线图",
+          "result": "manual"
+        },
+        {
+          "input": "扇形图",
+          "result": "manual"
         }
       ],
       "verify": null
@@ -2663,7 +2815,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "C用已知交代前提、求证列目标、证明列推理，符合题干已明确的本课通常格式。A的求作/作法属于常见作图书写；B的猜想、验证、结论是探究式组织，若验证包含严格演绎也可能写出有效证明；D只有有限画图测量不能推出全部三角形的结论。数学上非退化欧氏三角形内角a+b+c=180°，各顶点选一个相邻补角，则三外角和540°−(a+b+c)=360°；此结论与必须出现哪三个中文标题是不同问题。",
+      "reason": "C的已知、求证、证明对应前提、目标和演绎步骤，符合题面已经指定的本课格式。A是常见作图组织，B是探究组织且验证若含演绎仍可成为有效证明，D单靠有限作图和测量并不能一般推出定理。数学组件用内角和180°与每顶点一个相邻补角得到外角和360°，没有推出标题名字。另有f(t)=t(t−1)(t−2)，t=0、1、2时都等于0，t=3却为6，具体反驳只检有限样例就能证明任意全称断言这一推理规则；它不构造外角和不是360°的欧氏三角形。",
       "question_sha256": "29a9bee96bc975817ad578f2fb4e05580e0f9c4552478edc503e4c8e0a6f5893",
       "grading": [
         {
@@ -3812,24 +3964,40 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "截长时AB=a，在射线AB上取AT=b，须先由已知保证0≤b≤a，才能T在AB内且TB=a−b；补短则将b与c同向首尾接出b+c，不需先假定a≥b。两目标残差(a−b)−c=a−(b+c)，故C直接对应和差转等长的常用策略。其它候选各有合法线段和实例：A把三角形中线AM倍长至E，有AE=AM+ME；B在锐角三角形作内高AD，有BC=BD+DC；D作内角平分线AD交BC，也有BC=BD+DC。这些例子中a,b,c分别绑定不同线段，并不是说A/B/D都能证明同一道未给图形的目标。",
-      "question_sha256": "6025b8cdf8f8ccc590522a56900bdef4d9f72468d3d160a5ccd70398f11d7bf2",
+      "reason": "截长时令AB=a，在射线AB上取AT=b；先由已知保证0≤b≤a，才有T在线段AB上且TB=a−b，再证TB=c等价a=b+c。补短把b与c同向首尾相接得到b+c，再与a比较，不需先假定a≥b。C对应这种和差转等长的常用策略。A/B/D也各有合法加法实例：取非退化锐角等腰三角形A=(0,4)、B=(−3,0)、C=(3,0)，底边中点M=D=(0,0)，将AM倍长到E=(0,−4)，则AE=AM+ME=8；AD是内高和内角平分线，BC=BD+DC=6。三内角相邻边向量点积为7、18、18而均锐，AB=AC=5；AD所在竖直线垂直BC，且两单位边向量和=(0,−8/5)与AD同向，所以两项构造均合法。这些等式的a,b,c绑定不同线段，不是A/B/D都能解决同一道未给图形的目标。",
+      "question_sha256": "b038d23621b65962b478536855b09527649f35064cc3733cd65a1a171e7cb0fd",
       "grading": [
         {
           "input": "A",
-          "result": "wrong"
+          "result": "manual"
         },
         {
           "input": "B",
-          "result": "wrong"
+          "result": "manual"
         },
         {
           "input": "C",
-          "result": "correct"
+          "result": "manual"
         },
         {
           "input": "D",
-          "result": "wrong"
+          "result": "manual"
+        },
+        {
+          "input": "倍长中线",
+          "result": "manual"
+        },
+        {
+          "input": "作高线",
+          "result": "manual"
+        },
+        {
+          "input": "截长补短",
+          "result": "manual"
+        },
+        {
+          "input": "作角平分线",
+          "result": "manual"
         }
       ],
       "verify": null
@@ -6837,9 +7005,43 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "图象把自变量次序与函数值分别表现为横纵位置，通常方便观察高低与升降，C符合课堂场景。正向仿射纵轴h(y)=ay+b满足h(u)−h(v)=a(u−v)，a>0保留值差符号。其他表示也可包含同样性质：例如解析式−x²+2x+3=4−(x−1)²在全实数上直接给出最大值4、取于x=1；文字可明确陈述这些性质，完整有限定义域的列表也能逐项读出最大值。数学完整图象与有限采样/有限像素的绘图还应区分。",
-      "question_sha256": "c7af510b1e3938c0adbf42d968829293c1a0dd730b6eefae3d948b54ecbc1df0",
-      "verify": null
+      "reason": "图象C将自变量次序与函数值编码为横纵位置，通常便于观察升降和高低；正向仿射纵轴h(y)=ay+b满足h(u)−h(v)=a(u−v)，a>0保留已知值差的符号。A列表在完整有限定义域上可逐项比较升降和极值；B解析式−x²+2x+3=4−(x−1)²在全实数域由平方非负及x=1取等直接得最大值4；D文字也可准确陈述这个完整结论。因而其他表示并非不能承载所需性质。数学完整图象与有限采样、有限像素的绘图不同，后两者可能漏掉未解析的小尺度变化。",
+      "question_sha256": "60813c5ea656d433767e8afb078e3c0abe6c071714f323306f045b116f08d7a6",
+      "verify": null,
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "列表法",
+          "result": "manual"
+        },
+        {
+          "input": "解析式法",
+          "result": "manual"
+        },
+        {
+          "input": "图象法",
+          "result": "manual"
+        },
+        {
+          "input": "文字描述",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_199_q1",
@@ -8238,27 +8440,121 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "目标是本班当前个人读物偏好，问卷可向这些同学直接收集自报，B符合通常课堂场景。实验本身不等于取得偏好回答；查阅资料没有说明已有反映本班当前情况的可靠记录。",
-      "question_sha256": "6895043d970be77584089f9b784c4cbf695b32622d8b09767b2338523433cc03",
-      "verify": null
+      "reason": "目标是本班当前的个人读物偏好。问卷能向这些同学直接收集自报，故B是通常需要新收集偏好信息时的课堂建议；实验并不自动取得偏好回答，查阅资料则需要已有适用记录。若恰有覆盖本班当前偏好的可靠记录，C也可能满足目标，因此不能仅由三个方法名称证明B在所有情形唯一最优。",
+      "question_sha256": "3bed8a1c12ed3b9a30960752900adf3ed0511befb6769f2f09b3774371755cae",
+      "verify": null,
+      "grading": [
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "实验",
+          "result": "manual"
+        },
+        {
+          "input": "问卷调查",
+          "result": "manual"
+        },
+        {
+          "input": "查阅资料",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_292_q3",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "全国近十年人口变化需要全国覆盖、逐年且口径可比的历史总量；可得且适用的年鉴等记录能直接提供，通常选A。逐户新问卷不保证重建过去口径，实验不能重做历史人口，随机10人访谈也不能直接给全国逐年总数。",
-      "question_sha256": "fc7d1050dc564be031ed0ab772f9053c2879e03bcc1532508564fdc6b86f82da",
-      "verify": null
+      "reason": "全国近十年人口变化需要逐年、全国覆盖且口径可比的历史总量。若可取得适用年鉴等记录，A能直接利用这些资料；逐户新问卷不自动重建过去十年的同口径总量，实验不能重做历史人口，随机访谈10人也不能直接提供全国各年总数。A的通常适用性有这些前提，并非官方称谓本身证明质量。",
+      "question_sha256": "797427b71e97122047f21a43a6c1f9bf3cc936add91e4423b8f08e7fc50acdcd",
+      "verify": null,
+      "grading": [
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "查阅统计年鉴等官方资料",
+          "result": "manual"
+        },
+        {
+          "input": "向每个家庭发放问卷",
+          "result": "manual"
+        },
+        {
+          "input": "做实验",
+          "result": "manual"
+        },
+        {
+          "input": "随机访谈 10 人",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_292_q4",
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D在反问中加入玩游戏浪费时间的评价，暗示希望得到的答案，可能引导少报。匿名可减少顾虑，清楚互斥区间可减少理解错误，合理跨年级发放可扩大覆盖，故D明显具有诱导措辞。",
-      "question_sha256": "d68017da7b09114999b8d8aaabf94bc7610bce4e8c2b923d4ee7a6bbe5dfcc0d",
-      "verify": null
+      "reason": "D在反问中先加入玩游戏浪费时间的评价，带有预设倾向，因而是课堂上应避免的诱导措辞。A匿名可能减少顾虑，B跨年级发放可能扩大覆盖，C清楚互斥区间可能减少理解或归类困难；这些只是设计上的可能作用，不保证实际应答真实或无偏。没有受访者机制或对照结果，不能仅凭D的措辞证明其实际偏差最大、必定发生或必向某个方向。",
+      "question_sha256": "8cb1cea24cf0328770df7fa0d0263fadf78082ba900a461e5dfc60753f187aac",
+      "verify": null,
+      "grading": [
+        {
+          "input": "D",
+          "result": "manual"
+        },
+        {
+          "input": "A",
+          "result": "manual"
+        },
+        {
+          "input": "B",
+          "result": "manual"
+        },
+        {
+          "input": "C",
+          "result": "manual"
+        },
+        {
+          "input": "问卷采用匿名方式填写",
+          "result": "manual"
+        },
+        {
+          "input": "把问卷随机发给不同年级的学生",
+          "result": "manual"
+        },
+        {
+          "input": "问卷的选项区间清楚、互不重叠",
+          "result": "manual"
+        },
+        {
+          "input": "问卷中写“难道你不认为玩游戏很浪费时间吗？”",
+          "result": "manual"
+        }
+      ]
     },
     {
       "id": "cnm_293_q3",
@@ -8405,10 +8701,10 @@
     {
       "id": "cnm_303_q1",
       "independent_answer": "平均数20，中位数9；中位数更能代表一般员工水平",
-      "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
+      "expected_answer": "平均数20千元，中位数9千元。5人中4人的月薪在8~10千元；若“一般水平”指多数员工集中的工资区域，中位数9千元更贴近。65千元使均值高于该区域；研究全体平均工资或总薪酬时，均值仍有作用。",
       "basis": "open",
-      "reason": "工资和100千元、均值20千元；排序后第三项9千元为中位数。4/5员工月薪在8至10千元，65将均值推高；把最高工资65改为10的明确反事实使均值下降11而中位数仍9。若一般水平指多数员工集中的区域，中位数9较贴近，符合当前参考的条件性解释。",
-      "question_sha256": "113cfc85145ce73561517b67be813df4917dec391873549b4ce4c75993486ecb",
+      "reason": "5人工资合计100千元，均值为100÷5=20千元；排序后的第三项为9千元，即中位数。4/5的工资位于8至10千元，均值20高于这个集中区域，而中位数9在其中。仅将最高工资65改为10的反事实使均值从20降为9，中位数仍为9。若一般水平指多数员工集中的工资区域，中位数更贴近；若研究人均薪酬或总薪酬，均值仍有作用。",
+      "question_sha256": "ccbe5b719733b50b3efe03341699fc1afca9ca7fbd68df71f54073563d2051f0",
       "grading": [
         {
           "input": "平均20，中位数9；中位数更合适",
@@ -8422,7 +8718,7 @@
       "verify": null,
       "catalogue_preview": {
         "question": "某公司 5 人月薪（千元）为 8、8、9、10、65，平均数与中位数各是多少？哪个更能代表一般员工的水平？",
-        "answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高"
+        "answer": "平均数20千元，中位数9千元。5人中4人的月薪在8~10千元；若“一般水平”指多数员工集中的工资区域，中位数9千元更贴近。65千元使均值高于该区域；研究全体平均工资或总薪酬时，均值仍有作用。"
       }
     },
     {
@@ -8899,8 +9195,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "questions_corrected_or_clarified": 70,
-      "supporting_checks_not_counted_as_full_proofs": 21,
+      "questions_corrected_or_clarified": 71,
+      "supporting_checks_not_counted_as_full_proofs": 26,
       "catalogue_previews_synchronized": [
         "cnm_028",
         "cnm_050",
@@ -8920,7 +9216,8 @@
         "cnm_247",
         "cnm_273",
         "cnm_292",
-        "cnm_300"
+        "cnm_300",
+        "cnm_303"
       ]
     }
   },
@@ -9063,8 +9360,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 66,
-      "component_checks": 21
+      "repaired_questions": 67,
+      "component_checks": 26
     }
   },
   "followup_105": {
@@ -9163,8 +9460,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 54,
-      "component_checks": 21
+      "repaired_questions": 55,
+      "component_checks": 26
     }
   },
   "followup_63": {
@@ -9225,8 +9522,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 40,
-      "component_checks": 21
+      "repaired_questions": 41,
+      "component_checks": 26
     }
   },
   "followup_43": {
@@ -9271,8 +9568,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 34,
-      "component_checks": 21,
+      "repaired_questions": 35,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9321,8 +9618,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 30,
-      "component_checks": 21,
+      "repaired_questions": 33,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9367,8 +9664,8 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 29,
-      "component_checks": 21,
+      "repaired_questions": 33,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9410,8 +9707,8 @@
         "app25_executable_first_action": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 29,
-      "component_checks": 21,
+      "repaired_questions": 33,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9449,8 +9746,8 @@
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1
       },
-      "repaired_questions": 25,
-      "component_checks": 21,
+      "repaired_questions": 29,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9484,8 +9781,8 @@
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1
       },
-      "repaired_questions": 20,
-      "component_checks": 21,
+      "repaired_questions": 24,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9514,8 +9811,8 @@
         "g20_maximum_raise_invariance": 1,
         "app16_minimum_binary_srs_variance": 1
       },
-      "repaired_questions": 10,
-      "component_checks": 21,
+      "repaired_questions": 19,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
@@ -9542,14 +9839,38 @@
         "app16_mean_design_claims": 1,
         "app16_minimum_binary_srs_variance": 1
       },
-      "repaired_questions": 5,
-      "component_checks": 21,
+      "repaired_questions": 15,
+      "component_checks": 26,
       "manual_gap_categories": {
         "comparative_criterion": 10,
         "curriculum_convention": 1,
         "design_or_evidence": 1,
         "open_response": 1
       },
+      "self_reference_models": 0
+    }
+  },
+  "followup_13": {
+    "source": "data/answer_review_remaining_13.json",
+    "summary": {
+      "reviewed": 13,
+      "outcomes": {
+        "manual": 13
+      },
+      "remaining_by_type": {
+        "choice": 12,
+        "self": 1
+      },
+      "models_by_kind": {},
+      "repaired_questions": 12,
+      "component_checks": 26,
+      "manual_gap_categories": {
+        "comparative_criterion": 10,
+        "curriculum_convention": 1,
+        "design_or_evidence": 1,
+        "open_response": 1
+      },
+      "self_assessed_choices": 11,
       "self_reference_models": 0
     }
   }

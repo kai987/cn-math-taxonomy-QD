@@ -535,6 +535,21 @@ def main():
                 'note': '明确的资源、信息与统计设计目标独立核验；偏好、未给证据和开放解释保留人工边界。',
             }
             errs.extend(issues)
+        from check_remaining_13 import PATH as REVIEW13_PATH, review_errors as review13_errors
+        if REVIEW13_PATH.exists():
+            review13 = json.loads(REVIEW13_PATH.read_text(encoding='utf-8'))
+            issues = review13_errors(questions, review13, catalogue(), list(topics.values()))
+            report['followup_13'] = {
+                'source': str(REVIEW13_PATH.relative_to(ROOT)),
+                'reviewed': len(review13['entries']),
+                'outcomes': review13['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review13['entries']),
+                'self_reference_models': review13['summary']['self_reference_models'],
+                'self_assessed_choices': review13['summary']['self_assessed_choices'],
+                'review_errors': issues,
+                'note': '13题保留人工参考依据；11道条件性选择题需学生明确自评，参考核验与作答评分分别记录。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

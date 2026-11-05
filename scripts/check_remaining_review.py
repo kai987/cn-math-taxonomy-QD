@@ -45,6 +45,12 @@ def review_errors(questions, review, records, *, scope_count=455, scope_sha256=S
                 errors.append(qid + ': manual outcome cannot be counted as fully automatic')
         else:
             errors.append(qid + ': unsupported review outcome')
+        if question['type'] == 'choice' and question.get('self_assess') is True:
+            grading = entry.get('grading')
+            if (not isinstance(grading, list) or not grading
+                    or any(not isinstance(case, dict) or not isinstance(case.get('input'), str)
+                           or case.get('result') != 'manual' for case in grading)):
+                errors.append(qid + ': every self-assessed choice grading example must remain manual')
         if question['type'] == 'self':
             from model_types import SelfReferenceProof
             from math_models import evaluate
