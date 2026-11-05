@@ -60,6 +60,12 @@ const inclusiveSchoolFrame = seedFor('cnm_104', question => question.id === 'cnm
 const medianStability = seedFor('cnm_214', question => question.id === 'cnm_214_q1');
 const stratifiedInclusion = seedFor('cnm_218', question => question.id === 'cnm_218_q4');
 const fullSchoolInclusion = seedFor('cnm_302', question => question.id === 'cnm_302_q4');
+const earlierSurveyQuestions = questions.filter(question => question.topicId === 'cnm_102' && question.id !== 'cnm_102_q4').map(question => question.id);
+const surveyClaims = seedFor('cnm_102', question => question.id === 'cnm_102_q4', earlierSurveyQuestions);
+const earlierRepresentativeQuestions = questions.filter(question => question.topicId === 'cnm_104' && question.id !== 'cnm_104_q4').map(question => question.id);
+const representativeClaims = seedFor('cnm_104', question => question.id === 'cnm_104_q4', earlierRepresentativeQuestions);
+const earlierPrecisionQuestions = questions.filter(question => question.topicId === 'cnm_299' && question.id !== 'cnm_299_q4').map(question => question.id);
+const precisionClaims = seedFor('cnm_299', question => question.id === 'cnm_299_q4', earlierPrecisionQuestions);
 const earlierSpinnerQuestions = questions.filter(question => question.topicId === 'cnm_315' && question.id !== 'cnm_315_q4').map(question => question.id);
 const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
@@ -832,6 +838,19 @@ async function reviewedChoiceAfterRefresh(page, { topic, item, wrong, conditions
   await expect(page.locator('.refans')).toContainText(reference);
   await expect(page.locator('#explain')).toContainText(item.question.explanation);
   await noHorizontalOverflow(page);
+}
+
+for (const example of [
+  { topic: 'cnm_102', item: surveyClaims, wrong: 'D', conditions: [], avoid: earlierSurveyQuestions },
+  { topic: 'cnm_104', item: representativeClaims, wrong: 'C', conditions: [], avoid: earlierRepresentativeQuestions },
+  { topic: 'cnm_299', item: precisionClaims, wrong: 'B', conditions: [], avoid: earlierPrecisionQuestions }
+]) {
+  test('16-item advanced task ' + example.item.question.id + ' keeps its exact premise, grading and explanation after refresh', async ({ page }) => {
+    await page.addInitScript(ids => {
+      if (!localStorage.getItem('cnmDiagnose.seen.v1')) localStorage.setItem('cnmDiagnose.seen.v1', JSON.stringify(ids));
+    }, example.avoid);
+    await reviewedChoiceAfterRefresh(page, example);
+  });
 }
 
 for (const example of [

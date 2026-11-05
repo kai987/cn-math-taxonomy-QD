@@ -521,6 +521,20 @@ def main():
                 'note': '明确的统计稳定性和覆盖目标独立核验；比较偏好、实际调查证据及开放判断保留人工边界。',
             }
             errs.extend(issues)
+        from check_remaining_16 import PATH as REVIEW16_PATH, review_errors as review16_errors
+        if REVIEW16_PATH.exists():
+            review16 = json.loads(REVIEW16_PATH.read_text(encoding='utf-8'))
+            issues = review16_errors(questions, review16, catalogue(), list(topics.values()))
+            report['followup_16'] = {
+                'source': str(REVIEW16_PATH.relative_to(ROOT)),
+                'reviewed': len(review16['entries']),
+                'outcomes': review16['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review16['entries']),
+                'self_reference_models': review16['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '明确的资源、信息与统计设计目标独立核验；偏好、未给证据和开放解释保留人工边界。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

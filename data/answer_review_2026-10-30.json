@@ -1639,8 +1639,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "B选择易辨识地标并标单位，通常便于交流校园位置；A缺单位，C需要转换各自坐标，D的左右依赖观察方向，不直接给统一数值定位。数学上，已知方向与单位相同时，(x-a)+a=x、(y-b)+b=y能还原位置；对任意两个点，共同平移原点也不改变平方距离。因此醒目原点是使用情境中的建议，不能被说成几何正确性的唯一选择。",
-      "question_sha256": "691602b668885f1d3afb934b22305110fbf2d85b41fa143cc3c3469ff2a74a6d",
+      "reason": "B给出醒目地标与单位，通常方便校园交流；完整坐标还须约定轴的方向。A虽缺单位而不满足统一定量描述，但偏远原点本身并不使坐标错误；C若各坐标框的原点、方向和尺度关系已知，仍能换算；D单说左右通常没有唯一数值位置，已知参照与距离时却也可作局部描述。平移逆变换可还原各点，共同平移不改变平方距离；旋转编码的平方距离等于(c²+s²)倍原距离，c²+s²=1时同样不变。因此参考B是使用情境中的通常建议，不是原点唯一性的数学定理。",
+      "question_sha256": "ea4ab976ff434e597b66ce276b61f539380d6747a5ae39191bdf985f409d2116",
       "verify": null,
       "catalogue_preview": {
         "question": "为描述校园景点位置，如何选择原点更方便？",
@@ -1877,7 +1877,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "为估计全国中学生视力状况，代表性抽样通常能减少逐人调查的工作量，所以教材推荐A而不认为A/B同样合适。若目标转为每人都有一份检查记录，普查的覆盖目的就不同。四人假设总体的近视指示值0、0、1、1中，等机会不放回抽二人，六个子样本的比例均值为1/2，与总体相同；单次比例仍可为0或1，说明设计性质与实际误差不同。",
+      "reason": "A是为估计全国中学生总体视力状况时的常见资源选择：合理抽样通常减少逐人检查的工作。B若目标是建立每人的健康记录或既有条件允许普查，也有不同用途；C的同样合适不能脱离调查目标和约束确定。假设总体近视指示0、0、1、1，全部六个等机会不放回二人样本的比例均值为1/2，却有单次比例0和1，故设计无偏不等于每次精确，也不是全国人群的实际证据。",
       "question_sha256": "26f17be9dcb072d1ec9bcfe20978d599a33e85c539ee56cc83d05fdf7414ef73",
       "verify": null,
       "catalogue_preview": {
@@ -1890,8 +1890,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "B的45名学生体重通常可无损、逐个测量，符合小规模且易访问的全面了解目的。A灯泡寿命试验可能消耗样品，C全国观众对象广，D长江水质跨地点与时段，常采用抽样。但45不是全面调查的普遍门限：若样品允许全部耗尽，破坏性试验也可全测；水质的总体还需先定义时间、地点和测量单元。",
-      "question_sha256": "287c1aa29cb83d5bc887cedda461b9fbcae7da53cdbfc745f6fb6a0e64dc445e",
+      "reason": "B的45名同学通常易逐人接触，体重测量一般不毁损对象，符合教材全面了解班级的情境。A的灯泡寿命试验会消耗被测品，但若允许整批耗尽也可全测；C的全国观众范围大却仍须明确目标人群和时间；D的水质先需划定地点、时段和测量单元，不能仅凭河流名称说数学上无法全面调查。作为覆盖组件，若另假设在45人中均匀不放回抽44人，某指定学生入样概率C(44,43)/C(45,44)=44/45，漏测概率1/45；这说明这种真子样本不保证逐个人都有直接记录。",
+      "question_sha256": "d52515c898b0397d0c560c12efcad35579f2613fef7f2f142a6c0157aecf1527",
       "verify": null
     },
     {
@@ -1899,7 +1899,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "对N件样品逐件破坏性测试k件后，未测品为N-k；若确有保留R>0件未测品的目标，则N-k≥R推出k≤N-R<N，所以全测不符该目标，D在这种常见产品检验情境下宜抽样。若R=0且允许试验批全部耗尽，k=N仍可行，破坏性本身不是只能抽样的充分条件。A/B/C在发射确认、个体健康记录和有资格成员参与等覆盖目的下通常重视全体，但具体项目要求仍需明示。",
+      "reason": "D的产品破坏性检测在还要保留未检品时常采用抽样：N件逐个检测k件后余N−k件，要求余量≥R便有k≤N−R。R≥1才排除k=N；若R=N，则仅k=0可行，不能进一步保证存在非空抽样；R=0时全测并未被保留约束禁止。A发射确认、B个体健康记录、C合资格成员参与的通常目的可能重视逐人/逐项覆盖，但场景名本身没有给出完整安全、健康或选举规则。组件在假设N=10时执行全部k=0…10的容量约束，R=0、3、10的最大可行k分别为10、7、0。",
       "question_sha256": "ca428bb012852c063348d88a3af2be0132b9713fb47ebb99b5bd56c54d67aa5f",
       "verify": null
     },
@@ -1908,9 +1908,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "A对精度与任何情况都普查的绝对推荐过强：真值0、2、4而普查测量各偏高1，均值误差为1；准确抽到中间成员的均值反而等于总体2。B的必然完全一致被总体0、2仅抽0反驳；另取总体0、1、1、2及真子样本0、2，样本均值也可偶然恰等总体1，所以不能反向断言抽样总不一致。C是大总体或破坏性调查下的常见建议；D仅3人通常容易逐个了解，故教材选C。",
-      "question_sha256": "18a02e420c0b3a5e317a7254dfa61703680397cb4c08dbf909114eaca30ad262",
-      "verify": null
+      "reason": "A实际执行真值总体0、2、4及完整普查读数1、3、5、真子集成员1的读数2；三者均值为2、3、2，普查绝对误差1而抽样为0，故比抽样一定更准确为假，整句复合断言随之被反驳。B在无测量误差时由总体0、2及真实成员0的样本得到均值1与0，反驳每次完全一致。C令R=1+U、N=1+U+Q，U、Q为任意非负整数，覆盖全部1≤R≤N；全测k=N后未检数N−k=0，残差0−R=−1−U在全域严格负，所以必违反正保留量。D从实际非空真子集观测构造另一世界：只改变一个未观察个体的指标一个非零量，全部已观测读数保持一致，而全体个人真值向量不同，因此不能保证完全识别。各项均从记录、索引、计数及关系程序计算，不按选项字母或方法名预置真值。",
+      "question_sha256": "0596c8b4e2c5f75dbf6288c0f93a4dfc93d562b7057488b3879b2f7ce266165f",
+      "verify": "model('cnm_102_q4')"
     },
     {
       "id": "cnm_103_q1",
@@ -2039,8 +2039,8 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A只给出合理随机、适当容量和通常的课堂建议；要变成概率保证还需说明指标和设计。B的与抽取方式无关的大人数保证被合法总体推翻：1000人中500值0、500值2，只在500个0中抽10或400人，两样本均值都0而总体均值1。C的熟人便利性未建立代表性，熟人框也可能有偏或偶然符合总体。",
-      "question_sha256": "d762c7cf597293819541845b8bcb1bb38993ba501deb52d976e7ec44e17557c6",
+      "reason": "从全名单均匀不放回抽n个，固定成员入样概率为C(N−1,n−1)/C(N,n)=n/N。因此对固定总体值y_i，样本均值的设计期望=(1/n)Σ(n/N)y_i=总体均值，适用于所有N>=1、1<=n<=N。N=1单独处理为唯一样本，未用N−1分母。三个值0、1、2中SRS抽1个，期望1而某些正概率样本均值为0或2，反驳所有总体/容量下每份样本均完全一致的普遍保证。B的合法确定性抽法先抽值1再加值0，样本容量1到2时绝对误差0增至1/2；这不是SRS方差变大。C的合法熟人框{0,1}内均匀抽1个，期望1/2而总体均值1，反驳仅有熟人限制就保证无偏；不声称每个熟人框都偏。",
+      "question_sha256": "f65618a632eab1e771f2b1d8c8ff4548ac3c4e4f6a0a2a56e0577cb748fb9b84",
       "grading": [
         {
           "input": "A",
@@ -2059,14 +2059,14 @@
         "choices",
         "explanation"
       ],
-      "verify": null
+      "verify": "model('cnm_104_q4')"
     },
     {
       "id": "cnm_105_q1",
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "折线按时间次序连接已观测气温，通常便于观察相邻时点升降，A符合题面明确的表达重点。条形图C也可准确编码每个时点数值；扇形图B通常编码非负的部分整体份额，时间序列气温一般不是这种组成量。",
+      "reason": "折线图把按时间排列的气温观测点相连，通常便于观察相邻点的升降，A符合题干已明确的常见趋势表达目的。条形图C同样可准确标出每个时点气温；扇形图B通常编码非负部分占整体的份额，跨时点温度一般不是这类组成量。有限端点观测不决定间隔内真实变化：在归一化时间t∈[0,1]上，连续曲线20和20+4t(1−t)端点都为20，中点却分别为20与21。",
       "question_sha256": "e30601f4c9351346563da801c8ba182784c5a4cfe6add6b1cbe86fe56c7d7495",
       "grading": [
         {
@@ -2093,7 +2093,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "人数N>0且每人只归一类时，份额nᵢ/N编码为角度360°nᵢ/N，扇形图C强调各类占全班的组成比例。百分比条形图也能保真表示份额；折线可能暗示类别具有次序。四类未穷尽时须补其他类，类别若重叠则不能直接画成不交扇区，也不能把四类小计重新当全班。",
+      "reason": "全班人数N>0且每人只归一类时，份额pᵢ=nᵢ/N可编码为扇区角度360pᵢ，C突出部分整体。原总角恒等式把四类及其他类余量合为360°；各类不穷尽时必须保留其他，重叠分类不能直接分成不交扇区。A的百分比条形高度100pᵢ也能准确表示相同份额：从角度除以360、从百分数高度除以100都精确还原pᵢ。B折线通常会额外暗示类别有顺序。",
       "question_sha256": "c21069b85da043e524e8f6ebb0a25f7a0c1a2db1f90669214094ab007eeae4e0",
       "grading": [
         {
@@ -2663,7 +2663,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "C的已知交代前提，求证交代目标，证明给出推理，符合题干已限定的本课规范。A的求作/作法是作图格式，B偏探究，D有限画图测量不足以代替一般证明。非退化欧氏三角形若内角a+b+c=180°，每顶点取一个相邻外角，则外角和=(180-a)+(180-b)+(180-c)=540-(a+b+c)=360°；这个数学结论并不规定必须采用三个固定中文标题。",
+      "reason": "C用已知交代前提、求证列目标、证明列推理，符合题干已明确的本课通常格式。A的求作/作法属于常见作图书写；B的猜想、验证、结论是探究式组织，若验证包含严格演绎也可能写出有效证明；D只有有限画图测量不能推出全部三角形的结论。数学上非退化欧氏三角形内角a+b+c=180°，各顶点选一个相邻补角，则三外角和540°−(a+b+c)=360°；此结论与必须出现哪三个中文标题是不同问题。",
       "question_sha256": "29a9bee96bc975817ad578f2fb4e05580e0f9c4552478edc503e4c8e0a6f5893",
       "grading": [
         {
@@ -3812,7 +3812,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "C的截长是在AB=a的射线上取AC=b；只有先由题设知0≤b≤a，C才落在AB上，余段CB=a-b，目标转为CB=c。补短则把长度b沿同一射线延长c，所得总长b+c与a比较，不需先假定a≥b。A倍长中线、B作高、D作角平分线也可能在具体图形中间接证明和差，缺少图形时不能逐个排除；C只是直接拆分/拼接这一目标的常用策略。",
+      "reason": "截长时AB=a，在射线AB上取AT=b，须先由已知保证0≤b≤a，才能T在AB内且TB=a−b；补短则将b与c同向首尾接出b+c，不需先假定a≥b。两目标残差(a−b)−c=a−(b+c)，故C直接对应和差转等长的常用策略。其它候选各有合法线段和实例：A把三角形中线AM倍长至E，有AE=AM+ME；B在锐角三角形作内高AD，有BC=BD+DC；D作内角平分线AD交BC，也有BC=BD+DC。这些例子中a,b,c分别绑定不同线段，并不是说A/B/D都能证明同一道未给图形的目标。",
       "question_sha256": "6025b8cdf8f8ccc590522a56900bdef4d9f72468d3d160a5ccd70398f11d7bf2",
       "grading": [
         {
@@ -6837,7 +6837,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "图象将自变量次序与函数值表现为横纵位置，通常有助观察上升、下降与高低，C符合本课目的。正向仿射纵轴满足h(u)−h(v)=a(u−v)，a>0使值差符号保持。列表、解析式和文字也能包含这些趋势信息，不能由保序性质推断其它方法数学上不可用。",
+      "reason": "图象把自变量次序与函数值分别表现为横纵位置，通常方便观察高低与升降，C符合课堂场景。正向仿射纵轴h(y)=ay+b满足h(u)−h(v)=a(u−v)，a>0保留值差符号。其他表示也可包含同样性质：例如解析式−x²+2x+3=4−(x−1)²在全实数上直接给出最大值4、取于x=1；文字可明确陈述这些性质，完整有限定义域的列表也能逐项读出最大值。数学完整图象与有限采样/有限像素的绘图还应区分。",
       "question_sha256": "c7af510b1e3938c0adbf42d968829293c1a0dd730b6eefae3d948b54ecbc1df0",
       "verify": null
     },
@@ -8238,7 +8238,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "本班当前的读物偏好是个人自报信息，问卷可直接向这些学生收集，B符合通常课堂场景。实验本身不是取得偏好回答；查阅资料未说明已有覆盖本班当下偏好的可靠记录。",
+      "reason": "目标是本班当前个人读物偏好，问卷可向这些同学直接收集自报，B符合通常课堂场景。实验本身不等于取得偏好回答；查阅资料没有说明已有反映本班当前情况的可靠记录。",
       "question_sha256": "6895043d970be77584089f9b784c4cbf695b32622d8b09767b2338523433cc03",
       "verify": null
     },
@@ -8247,7 +8247,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "全国近十年人口变化需要逐年、全国覆盖、口径可比的历史总量序列；适用年鉴等资料可直接利用已有记录，A是通常选择。向各家庭重新发问卷不保证重建历史口径，实验不能重做过去人口，随机10人访谈也不能直接给出全国逐年总数。",
+      "reason": "全国近十年人口变化需要全国覆盖、逐年且口径可比的历史总量；可得且适用的年鉴等记录能直接提供，通常选A。逐户新问卷不保证重建过去口径，实验不能重做历史人口，随机10人访谈也不能直接给全国逐年总数。",
       "question_sha256": "fc7d1050dc564be031ed0ab772f9053c2879e03bcc1532508564fdc6b86f82da",
       "verify": null
     },
@@ -8256,7 +8256,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D用带“浪费时间”评价的反问暗示希望得到的回答，可能诱导学生压低报告。匿名可减少顾虑，互斥清楚区间可减少理解错误，合理跨年级发放可改善覆盖，所以D是明显带倾向性的措辞。",
+      "reason": "D在反问中加入玩游戏浪费时间的评价，暗示希望得到的答案，可能引导少报。匿名可减少顾虑，清楚互斥区间可减少理解错误，合理跨年级发放可扩大覆盖，故D明显具有诱导措辞。",
       "question_sha256": "d68017da7b09114999b8d8aaabf94bc7610bce4e8c2b923d4ee7a6bbe5dfcc0d",
       "verify": null
     },
@@ -8340,9 +8340,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "同总体SRS不放回、充分应答且以样本比例估计时，Var=p(1−p)(N−n)/(n(N−1))；n<m的方差差规模因子m(N−n)−n(N−m)=N(m−n)非负。200人的典型波动因而不大于20人；受限眼镜店/视力不合格者框有选择偏差风险，课堂通常选C。合法反例中400人半数近视，20人样本10近视恰等真值，而200人样本110近视误差1/20，说明单次大样本未必更准。",
-      "question_sha256": "2ac1d1258f996bb3eb743ba926440f6a185774435b7992ad9547e848fa276f62",
-      "verify": null
+      "reason": "先以一/二阶组合计数推导π_i=n/N、π_ij=n(n−1)/(N(N−1))，n=1的两成员同时入样率为0。二元固定状态y_i²=y_i、Σy_i=M，使E(p̂_n²)=[π_i M+π_ij M(M−1)]/n²，减去(M/N)²得Var(p̂_n)=p(1−p)(N−n)/(n(N−1))。20与200的方差差为p(1−p)N(200−20)/(20·200·(N−1))，源已给0<M<N、N>=200，因此严格为正，只有合格的200人设计C最小；N=200时C为普查方差0。A/D由已给非全框事实不符合全校SRS资格，不比较其未知方差/偏差大小，也不把不足200人的局部计划执行成合法反例。",
+      "question_sha256": "6ba45697cee5317e8a0b7dec734bd57fed38d44b61c04255c49a41260fb36c45",
+      "verify": "model('cnm_299_q4')"
     },
     {
       "id": "cnm_300_q1",
@@ -8407,7 +8407,7 @@
       "independent_answer": "平均数20，中位数9；中位数更能代表一般员工水平",
       "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
       "basis": "open",
-      "reason": "总工资100千元、均值20千元；排序后第三项9千元是中位数。4/5位于8至10千元，65使均值高出该集中区间；明确把最高工资65改为10会使均值下降11而中位数仍9。若一般水平指多数员工的典型工资区间，中位数9更贴近，符合当前参考解释。",
+      "reason": "工资和100千元、均值20千元；排序后第三项9千元为中位数。4/5员工月薪在8至10千元，65将均值推高；把最高工资65改为10的明确反事实使均值下降11而中位数仍9。若一般水平指多数员工集中的区域，中位数9较贴近，符合当前参考的条件性解释。",
       "question_sha256": "113cfc85145ce73561517b67be813df4917dec391873549b4ce4c75993486ecb",
       "grading": [
         {
@@ -8663,12 +8663,12 @@
     "summary": {
       "reviewed": 455,
       "outcomes": {
-        "model": 437,
-        "manual": 16,
+        "model": 440,
+        "manual": 13,
         "expression": 2
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -8758,10 +8758,12 @@
         "g160_inequality_objects": 1,
         "positive_factor_inequality": 1,
         "window_empty_parameter": 1,
+        "f16_survey_guarantees": 1,
         "g105_observation_objects": 3,
         "g105_sampling_guarantee": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
         "g33_histogram_axis_encoding": 1,
@@ -8882,6 +8884,7 @@
         "app_symbolic_ratio": 1,
         "app_sampling": 1,
         "app105_lottery_inclusion": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -8896,7 +8899,7 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "questions_corrected_or_clarified": 67,
+      "questions_corrected_or_clarified": 70,
       "supporting_checks_not_counted_as_full_proofs": 21,
       "catalogue_previews_synchronized": [
         "cnm_028",
@@ -8926,11 +8929,11 @@
     "summary": {
       "reviewed": 160,
       "outcomes": {
-        "model": 144,
-        "manual": 16
+        "model": 147,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -8978,10 +8981,12 @@
         "f105_real_axis_claims": 1,
         "f29_integral_substitution": 1,
         "g160_inequality_objects": 1,
+        "f16_survey_guarantees": 1,
         "g105_observation_objects": 3,
         "g105_sampling_guarantee": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
         "g33_histogram_axis_encoding": 1,
@@ -9045,6 +9050,7 @@
         "app63_partition_table_audit": 1,
         "app33_proportional_axis": 1,
         "app105_lottery_inclusion": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -9057,7 +9063,7 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 63,
+      "repaired_questions": 66,
       "component_checks": 21
     }
   },
@@ -9066,11 +9072,11 @@
     "summary": {
       "reviewed": 105,
       "outcomes": {
-        "model": 89,
-        "manual": 16
+        "model": 92,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -9099,10 +9105,12 @@
         "f105_decimal_claims": 1,
         "f105_real_axis_claims": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "g105_observation_objects": 3,
         "g105_sampling_guarantee": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
         "g33_histogram_axis_encoding": 1,
@@ -9142,6 +9150,7 @@
         "app63_partition_table_audit": 1,
         "app33_proportional_axis": 1,
         "app105_lottery_inclusion": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -9154,7 +9163,7 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 51,
+      "repaired_questions": 54,
       "component_checks": 21
     }
   },
@@ -9163,11 +9172,11 @@
     "summary": {
       "reviewed": 63,
       "outcomes": {
-        "model": 47,
-        "manual": 16
+        "model": 50,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -9181,8 +9190,10 @@
         "f63_implication_rewrite": 1,
         "f63_translation_identifiability": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g63_histogram_height": 1,
         "g33_histogram_axis_encoding": 1,
         "g63_theorem_antecedent": 1,
@@ -9206,6 +9217,7 @@
         "app41_empirical_collection": 1,
         "app63_partition_table_audit": 1,
         "app33_proportional_axis": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -9213,7 +9225,7 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 37,
+      "repaired_questions": 40,
       "component_checks": 21
     }
   },
@@ -9222,11 +9234,11 @@
     "summary": {
       "reviewed": 43,
       "outcomes": {
-        "model": 27,
-        "manual": 16
+        "model": 30,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -9234,8 +9246,10 @@
         "f36_tank_outflow_reference": 1,
         "f29_track_explanation_guarantee": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g33_histogram_axis_encoding": 1,
         "g43_angle_criterion_signature": 1,
         "g29_partial_function_information": 1,
@@ -9249,6 +9263,7 @@
         "app33_three_component_tree": 1,
         "app41_empirical_collection": 1,
         "app33_proportional_axis": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -9256,12 +9271,12 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 31,
+      "repaired_questions": 34,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
-        "design_or_evidence": 3,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
+        "design_or_evidence": 1,
         "open_response": 1
       }
     }
@@ -9271,11 +9286,11 @@
     "summary": {
       "reviewed": 41,
       "outcomes": {
-        "model": 25,
-        "manual": 16
+        "model": 28,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
@@ -9283,8 +9298,10 @@
         "f36_tank_outflow_reference": 1,
         "f29_track_explanation_guarantee": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g33_histogram_axis_encoding": 1,
         "g29_partial_function_information": 1,
         "g41_affine_monotonic_quadrants_reference": 1,
@@ -9296,6 +9313,7 @@
         "app33_three_component_tree": 1,
         "app41_empirical_collection": 1,
         "app33_proportional_axis": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app41_categorical_organization": 1,
@@ -9303,12 +9321,12 @@
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 27,
+      "repaired_questions": 30,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
-        "design_or_evidence": 3,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 5
@@ -9319,19 +9337,21 @@
     "summary": {
       "reviewed": 36,
       "outcomes": {
-        "model": 20,
-        "manual": 16
+        "model": 23,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
         "f36_tank_outflow_reference": 1,
         "f29_track_explanation_guarantee": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g33_histogram_axis_encoding": 1,
         "g29_partial_function_information": 1,
         "g20_maximum_raise_invariance": 1,
@@ -9340,18 +9360,19 @@
         "app29_rotation_parameters": 1,
         "app33_three_component_tree": 1,
         "app33_proportional_axis": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app36_statistical_action_signatures": 1,
         "app36_spinner_reference": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 26,
+      "repaired_questions": 29,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
-        "design_or_evidence": 3,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 2
@@ -9362,18 +9383,20 @@
     "summary": {
       "reviewed": 33,
       "outcomes": {
-        "model": 17,
-        "manual": 16
+        "model": 20,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
         "f29_track_explanation_guarantee": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g33_histogram_axis_encoding": 1,
         "g29_partial_function_information": 1,
         "g20_maximum_raise_invariance": 1,
@@ -9382,16 +9405,17 @@
         "app29_rotation_parameters": 1,
         "app33_three_component_tree": 1,
         "app33_proportional_axis": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1,
         "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 26,
+      "repaired_questions": 29,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
-        "design_or_evidence": 3,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 0
@@ -9402,32 +9426,35 @@
     "summary": {
       "reviewed": 29,
       "outcomes": {
-        "model": 13,
-        "manual": 16
+        "model": 16,
+        "manual": 13
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
         "f29_track_explanation_guarantee": 1,
         "f29_integral_substitution": 1,
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g29_partial_function_information": 1,
         "g20_maximum_raise_invariance": 1,
         "g25_historical_sales_modes": 1,
         "f25_quadratic_variable_factor_first_step": 1,
         "app29_rotation_parameters": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1
       },
-      "repaired_questions": 22,
+      "repaired_questions": 25,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
-        "design_or_evidence": 3,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 0
@@ -9438,28 +9465,31 @@
     "summary": {
       "reviewed": 25,
       "outcomes": {
-        "manual": 16,
-        "model": 9
+        "manual": 13,
+        "model": 12
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
+        "f16_survey_guarantees": 1,
         "f25_quadratic_variable_factor_first_step": 1,
         "app20_positive_inclusion_support": 3,
         "g25_frame_coverage_risk": 1,
+        "app16_mean_design_claims": 1,
         "g20_maximum_raise_invariance": 1,
         "g25_historical_sales_modes": 1,
+        "app16_minimum_binary_srs_variance": 1,
         "app25_executable_survey_report": 1,
         "app25_executable_first_action": 1
       },
-      "repaired_questions": 16,
+      "repaired_questions": 20,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
-        "design_or_evidence": 3,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 0
@@ -9470,23 +9500,54 @@
     "summary": {
       "reviewed": 20,
       "outcomes": {
-        "manual": 16,
-        "model": 4
+        "manual": 13,
+        "model": 7
       },
       "remaining_by_type": {
-        "choice": 15,
+        "choice": 12,
         "self": 1
       },
       "models_by_kind": {
+        "f16_survey_guarantees": 1,
         "app20_positive_inclusion_support": 3,
-        "g20_maximum_raise_invariance": 1
+        "app16_mean_design_claims": 1,
+        "g20_maximum_raise_invariance": 1,
+        "app16_minimum_binary_srs_variance": 1
+      },
+      "repaired_questions": 10,
+      "component_checks": 21,
+      "manual_gap_categories": {
+        "comparative_criterion": 10,
+        "curriculum_convention": 1,
+        "design_or_evidence": 1,
+        "open_response": 1
+      },
+      "self_reference_models": 0
+    }
+  },
+  "followup_16": {
+    "source": "data/answer_review_remaining_16.json",
+    "summary": {
+      "reviewed": 16,
+      "outcomes": {
+        "manual": 13,
+        "model": 3
+      },
+      "remaining_by_type": {
+        "choice": 12,
+        "self": 1
+      },
+      "models_by_kind": {
+        "f16_survey_guarantees": 1,
+        "app16_mean_design_claims": 1,
+        "app16_minimum_binary_srs_variance": 1
       },
       "repaired_questions": 5,
       "component_checks": 21,
       "manual_gap_categories": {
-        "comparative_criterion": 11,
+        "comparative_criterion": 10,
         "curriculum_convention": 1,
-        "design_or_evidence": 3,
+        "design_or_evidence": 1,
         "open_response": 1
       },
       "self_reference_models": 0

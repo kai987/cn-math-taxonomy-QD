@@ -46,6 +46,7 @@ jobs:
           python3 scripts/check_remaining_29.py
           python3 scripts/check_remaining_25.py
           python3 scripts/check_remaining_20.py
+          python3 scripts/check_remaining_16.py
           python3 -m unittest discover -s tests -p 'test_*.py'
           npm test
       - name: Install Chromium and WebKit
