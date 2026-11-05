@@ -220,7 +220,7 @@ python3 scripts/verify_questions.py   # 自动核验，写 data/verification_rep
 python3 scripts/validate.py           # 含题库格式检查与题量统计
 ```
 
-全库当前（`verify_questions.py`）：auto_verified **1739**，mismatch **0**，unverifiable **532**（仍是初中那些没有 `verify` 的题；864 道小学题都有 `verify` 且通过）。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
+全库当前（2026-11-05，`verify_questions.py`）：参考答案 auto_verified **2246 / 2271**，mismatch **0**，unverifiable **25**（choice 24、self 1）。最新一轮已逐题复核此前剩余的 29 题，补充 4 个完整模型；保留人工项均记录推导、判题边界与缺失依据。全部 6 道 self 的学生作答仍自评。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
 
 ## 已知局限
 

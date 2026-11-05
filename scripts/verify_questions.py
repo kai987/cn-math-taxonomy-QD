@@ -479,6 +479,20 @@ def main():
                 'note': '坐标构造、样本空间与明确任务目标独立核验；未定义偏好和情境依据继续人工，开放作答仍自评。',
             }
             errs.extend(issues)
+        from check_remaining_29 import PATH as REVIEW29_PATH, review_errors as review29_errors
+        if REVIEW29_PATH.exists():
+            review29 = json.loads(REVIEW29_PATH.read_text(encoding='utf-8'))
+            issues = review29_errors(questions, review29, catalogue(), list(topics.values()))
+            report['followup_29'] = {
+                'source': str(REVIEW29_PATH.relative_to(ROOT)),
+                'reviewed': len(review29['entries']),
+                'outcomes': review29['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review29['entries']),
+                'self_reference_models': review29['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '明确的几何/代数/信息保证与描述规范逐项核验，未给定的偏好或调查目标保留人工依据。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

@@ -46,6 +46,10 @@ const histogramAxisConvention = seedFor('cnm_107', question => question.id === '
 const spinnerDesign = seedFor('cnm_315', question => question.id === 'cnm_315_q1');
 const barProportions = seedFor('cnm_296', question => question.id === 'cnm_296_q2');
 const threeStageTree = seedFor('cnm_287', question => question.id === 'cnm_287_q4');
+const trackCompensation = seedFor('cnm_061', question => question.id === 'cnm_061_q4');
+const integralSubstitution = seedFor('cnm_089', question => question.id === 'cnm_089_q5');
+const finiteTableRepresentation = seedFor('cnm_198', question => question.id === 'cnm_198_q1');
+const rotationDescription = seedFor('cnm_244', question => question.id === 'cnm_244_q2');
 const earlierSpinnerQuestions = questions.filter(question => question.topicId === 'cnm_315' && question.id !== 'cnm_315_q4').map(question => question.id);
 const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
@@ -789,3 +793,77 @@ test('33-item fairness task uses the unseen advanced item and preserves its full
   await expect(page.locator('#explain')).toContainText(trialEvidence.question.explanation);
   await noHorizontalOverflow(page);
 });
+
+async function reviewedChoiceAfterRefresh(page, { topic, item, wrong, conditions }) {
+  await page.goto(targetURL(topic, item.seed));
+  await expect(page).toHaveTitle(/数学知识点诊断小工具/);
+  await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+  for (const condition of conditions) await expect(page.locator('#q-text')).toContainText(condition);
+  await noHorizontalOverflow(page);
+  await activate(page, page.locator('#choice-' + wrong));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+  const correct = page.locator('#choice-' + item.question.answer);
+  await activate(page, correct);
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+  await expect(correct).toHaveAttribute('aria-pressed', 'true');
+  expect((await savedSession(page)).draft.answer).toBe(item.question.answer);
+  await noHorizontalOverflow(page);
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  const reference = item.question.choices.find(option => option.key === item.question.answer).text;
+  await expect(page.locator('.refans')).toContainText(reference);
+  await expect(page.locator('#explain')).toContainText(item.question.explanation);
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await expect(page.locator('.refans')).toContainText(reference);
+  await expect(page.locator('#explain')).toContainText(item.question.explanation);
+  await noHorizontalOverflow(page);
+}
+
+for (const example of [
+  { topic: 'cnm_061', item: trackCompensation, wrong: 'A', conditions: [/同一终点线/, /400\s*m/] },
+  { topic: 'cnm_089', item: integralSubstitution, wrong: 'B', conditions: [/避免引入分数/, /整系数一次式/] }
+]) {
+  test('29-item grading contract ' + example.topic + ' rejects an irrelevant rule and restores full feedback', { tag: '@grading-contract' }, async ({ page }) => {
+    await reviewedChoiceAfterRefresh(page, example);
+  });
+}
+
+for (const example of [
+  { topic: 'cnm_198', item: finiteTableRepresentation, wrong: 'D', conditions: [/非退化实区间/, /有限个/, /未给解析式/] },
+  { topic: 'cnm_244', item: rotationDescription, wrong: 'D', conditions: [/无向转角大小/, /方向分开记录/] }
+]) {
+  test('29-item responsive reference ' + example.topic + ' retains preview, selection and explanation across refresh', async ({ page }, info) => {
+    if (example.topic === 'cnm_198') {
+      const topic = topics.find(topic => topic.id === example.topic);
+      expect(topic.diagnostic_question.question).toBe(example.item.question.prompt);
+      await page.goto(siteURL('/#' + example.topic));
+      await expect(page).toHaveTitle(/中小学数学知识图谱/);
+      await expect(page.locator('#main .title')).toHaveText(topic.name);
+      await expect(page.locator('#main .q > div')).toHaveText(example.item.question.prompt);
+      await activate(page, page.locator('#main details.ans > summary'));
+      await expect(page.locator('#main details.ans > div')).toHaveText(topic.diagnostic_question.answer);
+      await expect(page.locator('#main details.ans > div')).toBeVisible();
+      await noHorizontalOverflow(page);
+      await page.reload();
+      await expect(page.locator('#main .q > div')).toHaveText(example.item.question.prompt);
+      await activate(page, page.locator('#main details.ans > summary'));
+      await expect(page.locator('#main details.ans > div')).toHaveText(topic.diagnostic_question.answer);
+      await expect(page.locator('#main details.ans > div')).toBeVisible();
+      await noHorizontalOverflow(page);
+    }
+    await reviewedChoiceAfterRefresh(page, example);
+    if (example.topic === 'cnm_244') {
+      await expect(page.locator('#explain')).toContainText('0°、180°及整周');
+      await expect(page.locator('#explain')).toContainText('另一种充分信息');
+    }
+    if (info.project.name === 'phone' || info.project.name === 'webkit-tablet') {
+      await page.locator('.verdict').scrollIntoViewIfNeeded();
+      await page.screenshot({ path: '/tmp/cnm-review-29/' + example.topic + '-' + info.project.name + '-feedback.png' });
+    }
+  });
+}
