@@ -51,6 +51,8 @@ def handlers():
     from models_foundations_25 import HANDLERS as foundations_25
     from models_geometry_25 import HANDLERS as geometry_25
     from models_applications_25 import HANDLERS as applications_25
+    from models_geometry_20 import HANDLERS as geometry_20
+    from models_applications_20 import HANDLERS as applications_20
     result = {'cube_net': cube_net}
     for group in (algebra, geometry, applications, symbolic,
                   foundations_160, geometry_160, applications_160, rotation_160,
@@ -59,7 +61,8 @@ def handlers():
                   foundations_41, geometry_41, applications_41,
                   foundations_36, applications_36, geometry_33, applications_33,
                   foundations_29, geometry_29, applications_29,
-                  foundations_25, geometry_25, applications_25):
+                  foundations_25, geometry_25, applications_25,
+                  geometry_20, applications_20):
         if set(result).intersection(group):
             raise ValueError('duplicate model kind')
         result.update(group)

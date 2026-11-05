@@ -56,6 +56,10 @@ const restrictedFrameTask = seedFor('cnm_104', question => question.id === 'cnm_
 const statisticsWorkflow = seedFor('cnm_300', question => question.id === 'cnm_300_q1');
 const statisticsFirstStep = seedFor('cnm_300', question => question.id === 'cnm_300_q2');
 const salaryJudgment = seedFor('cnm_303', question => question.id === 'cnm_303_q1');
+const inclusiveSchoolFrame = seedFor('cnm_104', question => question.id === 'cnm_104_q2');
+const medianStability = seedFor('cnm_214', question => question.id === 'cnm_214_q1');
+const stratifiedInclusion = seedFor('cnm_218', question => question.id === 'cnm_218_q4');
+const fullSchoolInclusion = seedFor('cnm_302', question => question.id === 'cnm_302_q4');
 const earlierSpinnerQuestions = questions.filter(question => question.topicId === 'cnm_315' && question.id !== 'cnm_315_q4').map(question => question.id);
 const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
@@ -828,6 +832,30 @@ async function reviewedChoiceAfterRefresh(page, { topic, item, wrong, conditions
   await expect(page.locator('.refans')).toContainText(reference);
   await expect(page.locator('#explain')).toContainText(item.question.explanation);
   await noHorizontalOverflow(page);
+}
+
+for (const example of [
+  { topic: 'cnm_104', item: inclusiveSchoolFrame, wrong: 'A', conditions: [] },
+  { topic: 'cnm_214', item: medianStability, wrong: 'C', conditions: [] },
+  { topic: 'cnm_218', item: stratifiedInclusion, wrong: 'D', conditions: [] },
+  { topic: 'cnm_302', item: fullSchoolInclusion, wrong: 'C', conditions: [] }
+]) {
+  test('20-item explicit mathematical goal ' + example.item.question.id + ' preserves grading and current feedback after refresh', async ({ page }) => {
+    await reviewedChoiceAfterRefresh(page, example);
+    if (example.item.question.id.endsWith('_q1')) {
+      const topic = topics.find(topic => topic.id === example.topic);
+      await page.goto(siteURL('/#' + example.topic));
+      await expect(page).toHaveTitle(/中小学数学知识图谱/);
+      await expect(page.locator('#main .title')).toHaveText(topic.name);
+      await expect(page.locator('#main .q > div')).toHaveText(example.item.question.prompt);
+      await activate(page, page.locator('#main details.ans > summary'));
+      await expect(page.locator('#main details.ans > div')).toHaveText(topic.diagnostic_question.answer);
+      await expect(page.locator('#main details.ans > div')).toBeVisible();
+      await noHorizontalOverflow(page);
+      await page.reload();
+      await expect(page.locator('#main .q > div')).toHaveText(example.item.question.prompt);
+    }
+  });
 }
 
 for (const example of [

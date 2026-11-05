@@ -23449,6 +23449,427 @@
           }
         ]
       }
+    },
+    "cnm_104_q2": {
+      "question_sha256": "b14c4b8d222581d1ec5a5077d2075bb3f7c3f26af9ae59024dedba99e2b0ffce",
+      "spec": {
+        "kind": "app20_positive_inclusion_support",
+        "population": {
+          "op": "index_range",
+          "size": 200
+        },
+        "frames": {
+          "captains": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                10
+              ]
+            ]
+          },
+          "basketball": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                10,
+                30
+              ]
+            ]
+          },
+          "grade7": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                80
+              ]
+            ]
+          }
+        },
+        "frame_constraints": [
+          {
+            "frame": "captains",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "basketball",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "grade7",
+            "relation": "nonempty_proper_subset"
+          }
+        ],
+        "target": "every_population_member_has_positive_inclusion_probability",
+        "options": [
+          {
+            "key": "A",
+            "text": "只测各班班长",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "captains"
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "只测校篮球队队员",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "basketball"
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "只测七年级学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "grade7"
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "从全校完整名单中等概率、不放回抽取100名不同学生",
+            "sampling": {
+              "op": "uniform_without_replacement",
+              "frame": {
+                "op": "population"
+              },
+              "size": 100
+            }
+          }
+        ]
+      }
+    },
+    "cnm_214_q1": {
+      "question_sha256": "43e6bbe121822a9cccc6178b6acee3fcc6cacb2699f6a028e3dcbb8ff1f8b286",
+      "spec": {
+        "kind": "g20_maximum_raise_invariance",
+        "premises": {
+          "minimum_size": 3,
+          "order": "nondecreasing",
+          "change": "raise_only_last_by_positive_amount",
+          "criterion": "unchanged_for_all_admissible_tables",
+          "mode_ties": "all_maximum_frequency_values"
+        },
+        "example": {
+          "values": [
+            8,
+            8,
+            9,
+            10,
+            65
+          ],
+          "increase": 100
+        },
+        "counterexample": {
+          "values": [
+            1,
+            1,
+            2,
+            9,
+            9
+          ],
+          "increase": 1
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "平均数",
+            "program": {
+              "op": "divide",
+              "numerator": {
+                "op": "sum",
+                "input": {
+                  "op": "values"
+                }
+              },
+              "denominator": {
+                "op": "length",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "中位数",
+            "program": {
+              "op": "middle",
+              "input": {
+                "op": "sort",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "众数",
+            "program": {
+              "op": "argmax_keys",
+              "input": {
+                "op": "frequencies",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_218_q4": {
+      "question_sha256": "30c3579ef6fff5a4cd70c993374edc1898404b43adfad522f30af743f7849d81",
+      "spec": {
+        "kind": "app20_positive_inclusion_support",
+        "population": {
+          "op": "index_range",
+          "size": 1200
+        },
+        "frames": {
+          "g7": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                400
+              ]
+            ]
+          },
+          "g8": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                400,
+                800
+              ]
+            ]
+          },
+          "g9": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                800,
+                1200
+              ]
+            ]
+          },
+          "team": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                120
+              ]
+            ]
+          },
+          "volunteers": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                300,
+                600
+              ]
+            ]
+          }
+        },
+        "frame_constraints": [
+          {
+            "frame": "team",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "g7",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "volunteers",
+            "relation": "nonempty_proper_subset"
+          }
+        ],
+        "target": "every_population_member_has_positive_inclusion_probability",
+        "options": [
+          {
+            "key": "A",
+            "text": "按年级分层，在每个非空年级内均匀不放回抽取至少1人，且不超过该年级人数",
+            "sampling": {
+              "op": "stratified_uniform_without_replacement",
+              "strata": [
+                {
+                  "frame": {
+                    "op": "frame",
+                    "name": "g7"
+                  },
+                  "size": 40
+                },
+                {
+                  "frame": {
+                    "op": "frame",
+                    "name": "g8"
+                  },
+                  "size": 40
+                },
+                {
+                  "frame": {
+                    "op": "frame",
+                    "name": "g9"
+                  },
+                  "size": 40
+                }
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "只抽取校田径队的学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "team"
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "只抽取七年级学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "g7"
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "只抽取自愿报名的学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "volunteers"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_302_q4": {
+      "question_sha256": "33a3764a5a4fc6fc35f09b4fa699371d61113921e2b90e3f9c0cc9934ee07d52",
+      "spec": {
+        "kind": "app20_positive_inclusion_support",
+        "population": {
+          "op": "index_range",
+          "size": 200
+        },
+        "frames": {
+          "basketball": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                30
+              ]
+            ]
+          },
+          "grade7": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          "highest": {
+            "op": "interval_union",
+            "intervals": [
+              [
+                0,
+                10
+              ],
+              [
+                80,
+                90
+              ]
+            ]
+          }
+        },
+        "frame_constraints": [
+          {
+            "frame": "basketball",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "grade7",
+            "relation": "nonempty_proper_subset"
+          },
+          {
+            "frame": "highest",
+            "relation": "nonempty_proper_subset"
+          }
+        ],
+        "target": "every_population_member_has_positive_inclusion_probability",
+        "options": [
+          {
+            "key": "A",
+            "text": "只抽篮球队的学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "basketball"
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "只抽七年级学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "grade7"
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "只抽每班最高的学生",
+            "sampling": {
+              "op": "restricted_to_frame",
+              "frame": {
+                "op": "frame",
+                "name": "highest"
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "从全校完整名单中均匀不放回抽取至少1人，且不超过全校人数",
+            "sampling": {
+              "op": "uniform_without_replacement",
+              "frame": {
+                "op": "population"
+              },
+              "size": 20
+            }
+          }
+        ]
+      }
     }
   }
 }
