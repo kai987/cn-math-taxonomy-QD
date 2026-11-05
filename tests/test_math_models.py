@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from math_models import MODEL_PATH, binding_errors, evaluate
 from check_remaining_review import PATH, review_errors
 from check_manual_review import check_supporting_proof
-from verify_questions import compare_choice, compare_numeric, compare_short
+from verify_questions import compare_choice, compare_numeric, compare_short, compare_self_reference
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,7 +29,8 @@ class MathematicalModelsTests(unittest.TestCase):
             question = self.by_id[qid]
             result = evaluate(record['spec'])
             with self.subTest(id=qid):
-                comparator = {'choice': compare_choice, 'numeric': compare_numeric, 'short': compare_short}[question['type']]
+                comparator = {'choice': compare_choice, 'numeric': compare_numeric,
+                              'short': compare_short, 'self': compare_self_reference}[question['type']]
                 self.assertTrue(comparator(question, result)[0])
                 if question['type'] == 'choice':
                     for option in question['choices']:
@@ -38,6 +39,9 @@ class MathematicalModelsTests(unittest.TestCase):
                 elif question['type'] == 'short':
                     self.assertFalse(compare_short({**question, 'answer': '错误的参考值'}, result)[0])
                     self.assertFalse(compare_short({**question, 'accept': question.get('accept', []) + ['错误的参考值']}, result)[0])
+                elif question['type'] == 'self':
+                    self.assertFalse(compare_self_reference({**question, 'answer': '错误的参考值'}, result)[0])
+                    self.assertFalse(compare_self_reference({**question, 'answer': question['answer'] + '；附加未经证明的断言'}, result)[0])
                 else:
                     parts = question['answer'].replace('，', ',').split(',')
                     parts[0] = str(Fraction(parts[0]) + 1)

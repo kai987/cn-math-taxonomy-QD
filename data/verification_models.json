@@ -21694,6 +21694,315 @@
           }
         ]
       }
+    },
+    "cnm_003_q1": {
+      "question_sha256": "83977449d3d2e3c126fe029eaeafe4a075785294256c577b33c97542b1ef4c45",
+      "spec": {
+        "kind": "f41_rational_sign_partition",
+        "numbers": [
+          "-2",
+          "0",
+          "3.5",
+          "-1/3",
+          "7"
+        ],
+        "classes": [
+          {
+            "label": "正数",
+            "relation": ">",
+            "cutoff": "0"
+          },
+          {
+            "label": "0",
+            "relation": "=",
+            "cutoff": "0"
+          },
+          {
+            "label": "负数",
+            "relation": "<",
+            "cutoff": "0"
+          }
+        ]
+      }
+    },
+    "cnm_203_q1": {
+      "question_sha256": "3a82735e9a35d519caf3e9fe8dcd182c690cfc2106323bbe2ce26db85100965e",
+      "spec": {
+        "kind": "g41_affine_monotonic_quadrants_reference",
+        "reference_only": true,
+        "function": {
+          "independent": "x",
+          "dependent": "y",
+          "slope": -3,
+          "intercept": 1,
+          "domain": "all_real"
+        }
+      }
+    },
+    "cnm_206_q1": {
+      "question_sha256": "0dda8824dda221bd4c1f6dffbcad1f3da815812687fd87c26526b185bc393f5e",
+      "spec": {
+        "kind": "g41_axis_equation_reference",
+        "reference_only": true,
+        "function": {
+          "independent": "x",
+          "dependent": "y",
+          "slope": 2,
+          "intercept": -6,
+          "domain": "all_real"
+        },
+        "axis": {
+          "zero_coordinate": "y",
+          "reported_coordinate": "x"
+        },
+        "equation": {
+          "variable": "x",
+          "slope": 2,
+          "intercept": -6,
+          "rhs": 0,
+          "domain": "all_real"
+        }
+      }
+    },
+    "cnm_292_q1": {
+      "question_sha256": "202a4731572db6b11a6164baf6e01ecfc0f55f05fec552cf0a70e98bd64d8890",
+      "spec": {
+        "kind": "app41_empirical_collection",
+        "target": {
+          "population": "new_seed",
+          "field": "germinated",
+          "domain": [
+            "no",
+            "yes"
+          ],
+          "condition": "prescribed",
+          "period": "current",
+          "basis": "observed"
+        },
+        "resources": {
+          "archive": {
+            "kind": "archive",
+            "entries": []
+          },
+          "seeds": {
+            "kind": "cohort",
+            "population": "new_seed",
+            "field": "germinated",
+            "domain": [
+              "no",
+              "yes"
+            ],
+            "values": [
+              "yes",
+              "no",
+              "yes"
+            ],
+            "condition": "prescribed",
+            "period": "current"
+          },
+          "people": {
+            "kind": "respondents",
+            "population": "new_seed",
+            "field": "germinated",
+            "domain": [
+              "no",
+              "yes"
+            ],
+            "values": [
+              "yes",
+              "yes",
+              "yes"
+            ],
+            "condition": "prescribed",
+            "period": "current"
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "查阅资料",
+            "plan": {
+              "op": "read",
+              "resource": "archive"
+            }
+          },
+          {
+            "key": "B",
+            "text": "问卷调查",
+            "plan": {
+              "op": "administer",
+              "instrument": {
+                "op": "design_questionnaire",
+                "population": "new_seed",
+                "field": "germinated",
+                "domain": [
+                  "no",
+                  "yes"
+                ]
+              },
+              "respondents": {
+                "op": "read",
+                "resource": "people"
+              },
+              "condition": "prescribed",
+              "period": "current"
+            }
+          },
+          {
+            "key": "C",
+            "text": "实验",
+            "plan": {
+              "op": "observe",
+              "field": "germinated",
+              "input": {
+                "op": "expose",
+                "cohort": {
+                  "op": "read",
+                  "resource": "seeds"
+                },
+                "condition": "prescribed",
+                "period": "current"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_300_q3": {
+      "question_sha256": "7b398ca46da032fda7ae6c83cb12858e3037a92ea26cb52d36547b9e0d3e1fe5",
+      "spec": {
+        "kind": "app41_categorical_organization",
+        "source": "raw",
+        "field": "sleep",
+        "resources": {
+          "raw": {
+            "kind": "rows",
+            "population": "class",
+            "field": "sleep",
+            "domain": [
+              "short",
+              "medium",
+              "long"
+            ],
+            "basis": "reported",
+            "condition": "school_days",
+            "period": "week",
+            "values": [
+              "short",
+              "long",
+              "short"
+            ]
+          },
+          "chart": {
+            "kind": "chart",
+            "population": "class",
+            "field": "sleep",
+            "domain": [
+              "short",
+              "medium",
+              "long"
+            ],
+            "basis": "reported",
+            "condition": "school_days",
+            "period": "week",
+            "values": {
+              "short": 1,
+              "medium": 2,
+              "long": 3
+            }
+          },
+          "pupils": {
+            "kind": "respondents",
+            "population": "class",
+            "field": "sleep",
+            "domain": [
+              "short",
+              "medium",
+              "long"
+            ],
+            "values": [
+              "short"
+            ],
+            "condition": "school_days",
+            "period": "week"
+          }
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "设计问卷",
+            "plan": {
+              "op": "design_questionnaire",
+              "population": "class",
+              "field": "sleep",
+              "domain": [
+                "short",
+                "medium",
+                "long"
+              ]
+            }
+          },
+          {
+            "key": "B",
+            "text": "向全班发放问卷",
+            "plan": {
+              "op": "administer",
+              "instrument": {
+                "op": "design_questionnaire",
+                "population": "class",
+                "field": "sleep",
+                "domain": [
+                  "short",
+                  "medium",
+                  "long"
+                ]
+              },
+              "respondents": {
+                "op": "read",
+                "resource": "pupils"
+              },
+              "condition": "school_days",
+              "period": "week"
+            }
+          },
+          {
+            "key": "C",
+            "text": "根据图表判断睡眠最少的时间段",
+            "plan": {
+              "op": "argmin",
+              "input": {
+                "op": "read",
+                "resource": "chart"
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "用划记法统计各类人数并制成统计表",
+            "plan": {
+              "op": "tabulate",
+              "input": {
+                "op": "group_count",
+                "input": {
+                  "op": "read",
+                  "resource": "raw"
+                },
+                "groups": [
+                  [
+                    "short"
+                  ],
+                  [
+                    "medium"
+                  ],
+                  [
+                    "long"
+                  ]
+                ]
+              }
+            }
+          }
+        ]
+      }
     }
   }
 }

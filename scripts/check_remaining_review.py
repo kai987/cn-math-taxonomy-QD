@@ -45,8 +45,27 @@ def review_errors(questions, review, records, *, scope_count=455, scope_sha256=S
                 errors.append(qid + ': manual outcome cannot be counted as fully automatic')
         else:
             errors.append(qid + ': unsupported review outcome')
-        if question['type'] == 'self' and status != 'manual':
-            errors.append(qid + ': open response must retain human judgement')
+        if question['type'] == 'self':
+            from model_types import SelfReferenceProof
+            from math_models import evaluate
+            grading = entry.get('grading')
+            if (not isinstance(grading, list) or not grading
+                    or any(not isinstance(case, dict) or case.get('result') != 'manual' for case in grading)):
+                errors.append(qid + ': every free-response grading example must remain manual')
+            if status == 'manual':
+                if entry.get('reference_only') is not None:
+                    errors.append(qid + ': manual reference cannot declare a complete model')
+            elif status != 'model' or entry.get('reference_only') is not True:
+                errors.append(qid + ': reference proof must retain free-response self assessment')
+            elif qid in records:
+                try:
+                    proof = evaluate(records[qid]['spec'])
+                    if not isinstance(proof, SelfReferenceProof) or proof.matches(question['answer']) is not True:
+                        errors.append(qid + ': complete typed reference proof required')
+                except (ValueError, TypeError, ArithmeticError):
+                    errors.append(qid + ': complete reference model could not be verified')
+        elif entry.get('reference_only') is not None:
+            errors.append(qid + ': reference-only marker is reserved for self reference models')
     errors.extend(binding_errors(questions, records))
     return errors
 

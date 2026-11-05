@@ -23,6 +23,8 @@
            str(结果) 与选项文字完全相同。另外检查没有第二个选项与它数值相同（避免双解）。
   choice / short：poly(...) 返回的精确多项式与选项或参考式比较系数；choice 要求唯一等价选项，
            short 的 answer 和每个 accept 都须等价。它不验证“是否已因式分解彻底”等形式要求。
+  self：仅绑定本题的 model(...) 返回专用 SelfReferenceProof 时，严格核验完整参考答案。
+           这不自动判定学生自由作答；浏览器仍按 self 类型自评。
 没有 verify 的题计入 unverifiable（由第二遍独立复核覆盖）。
 """
 import argparse
@@ -41,8 +43,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import validate as V  # noqa: E402
 from exact_polynomial import Polynomial, poly  # noqa: E402
-from math_models import model  # noqa: E402
-from model_types import TextProof  # noqa: E402
+from math_models import model, model_id  # noqa: E402
+from model_types import TextProof, SelfReferenceProof  # noqa: E402
 
 QUESTIONS_PATH = os.path.join(ROOT, "data", "questions.json")
 REPORT_PATH = os.path.join(ROOT, "data", "verification_report.json")
@@ -245,6 +247,19 @@ def compare_short(q, res):
     return True, ""
 
 
+def compare_self_reference(q, res):
+    """Verify a full, structured reference without changing self assessment."""
+    if not isinstance(res, SelfReferenceProof):
+        return False, "self 参考核验必须由完整数学模型返回专用 SelfReferenceProof"
+    for text in [q["answer"]] + q.get("accept", []):
+        try:
+            if res.matches(text) is not True:
+                return False, "开放题参考含义不完整、不支持或与独立数学模型不一致"
+        except (ValueError, TypeError, ArithmeticError):
+            return False, "开放题参考格式不能可靠解析"
+    return True, ""
+
+
 # ------------------------------------------------------------ 主流程
 
 def verify_all(questions):
@@ -252,17 +267,20 @@ def verify_all(questions):
     for q in questions:
         typ = q.get("type")
         expr = q.get("verify")
-        if typ not in ("numeric", "choice", "short") or not expr:
+        if typ not in ("numeric", "choice", "short", "self") or not expr:
             r["unverifiable"].append(q["id"])
             continue
         try:
+            if typ == 'self' and model_id(expr) != q['id']:
+                raise ValueError('self 参考只能调用绑定本题的完整数学模型')
             res = safe_eval(expr)
         except Exception as ex:  # noqa: BLE001
             r["expression_errors"].append({"id": q["id"], "verify": expr, "error": "%s: %s" % (type(ex).__name__, ex)})
             r["mismatch"].append({"id": q["id"], "type": typ, "answer": q["answer"], "verify": expr,
                                   "detail": "verify 表达式无法求值：%s: %s" % (type(ex).__name__, ex)})
             continue
-        compare = {"numeric": compare_numeric, "choice": compare_choice, "short": compare_short}[typ]
+        compare = {"numeric": compare_numeric, "choice": compare_choice,
+                   "short": compare_short, "self": compare_self_reference}[typ]
         ok, detail = compare(q, res)
         if ok:
             r["auto_verified"].append(q["id"])
@@ -417,6 +435,20 @@ def main():
                 'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review43['entries']),
                 'review_errors': issues,
                 'note': '形式定义、数学关系与方法偏好/情境解释分开；没有可靠整题模型时只计组件。',
+            }
+            errs.extend(issues)
+        from check_remaining_41 import PATH as REVIEW41_PATH, review_errors as review41_errors
+        if REVIEW41_PATH.exists():
+            review41 = json.loads(REVIEW41_PATH.read_text(encoding='utf-8'))
+            issues = review41_errors(questions, review41, catalogue(), list(topics.values()))
+            report['followup_41'] = {
+                'source': str(REVIEW41_PATH.relative_to(ROOT)),
+                'reviewed': len(review41['entries']),
+                'outcomes': review41['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review41['entries']),
+                'self_reference_models': review41['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '专用模型可核验完整开放题参考，但学生自由作答仍自评；组件与完整题意严格区分。',
             }
             errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))

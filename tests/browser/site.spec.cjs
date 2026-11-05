@@ -39,6 +39,9 @@ const explicitAnglePositions = seedFor('cnm_070', question => question.id === 'c
 const restrictedReadingSample = seedFor('cnm_104', question => question.id === 'cnm_104_q3');
 const angleCriterionDomain = seedFor('cnm_129', question => question.id === 'cnm_129_q3');
 const measuredGermination = seedFor('cnm_292', question => question.id === 'cnm_292_q1');
+const linearMonotonicity = seedFor('cnm_203', question => question.id === 'cnm_203_q1');
+const linearIntercept = seedFor('cnm_206', question => question.id === 'cnm_206_q1');
+const dataOrganization = seedFor('cnm_300', question => question.id === 'cnm_300_q3');
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -654,3 +657,46 @@ for (const [topic, item, condition] of [
     await noHorizontalOverflow(page);
   });
 }
+
+for (const [topic, item] of [['cnm_203', linearMonotonicity], ['cnm_206', linearIntercept]]) {
+  test('41-item reference model ' + topic + ' preserves free-response self assessment after refresh', async ({ page }) => {
+    expect(item.question.type).toBe('self');
+    expect(item.question.verify).toBe("model('" + item.question.id + "')");
+    await page.goto(targetURL(topic, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await page.locator('textarea#ans').fill(item.question.answer);
+    await activate(page, page.locator('#btn-peek'));
+    await expect(page.locator('.refans')).toContainText(item.question.answer);
+    await expect(page.locator('.verdict')).toHaveCount(0);
+    await expect(page.locator('#btn-right')).toBeVisible();
+    await expect(page.locator('#btn-wrong')).toBeVisible();
+    await page.reload();
+    await expect(page.getByText('你的答案：' + item.question.answer, { exact: true })).toBeVisible();
+    expect((await savedSession(page)).draft.answer).toBe(item.question.answer);
+    await expect(page.locator('.refans')).toContainText(item.question.answer);
+    await expect(page.locator('#explain')).toContainText(item.question.explanation);
+    await expect(page.locator('.verdict')).toHaveCount(0);
+    await activate(page, page.locator('#btn-right'));
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    await page.reload();
+    await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('41-item data organization distinguishes counting from inference after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+  await page.goto(targetURL('cnm_300', dataOrganization.seed));
+  await expect(page.locator('#q-text')).toHaveText(dataOrganization.question.prompt);
+  await activate(page, page.locator('#choice-C'));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+  await activate(page, page.locator('#choice-' + dataOrganization.question.answer));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(dataOrganization.question.prompt);
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await expect(page.locator('#explain')).toContainText(dataOrganization.question.explanation);
+  await noHorizontalOverflow(page);
+});

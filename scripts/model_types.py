@@ -3,6 +3,7 @@
 These parsers compare reference-answer meaning after a model has computed it.
 They are not the browser's permissive answer grader, and never solve prompts.
 """
+from abc import ABC, abstractmethod
 from fractions import Fraction
 import re
 import unicodedata
@@ -130,6 +131,19 @@ NORMALIZERS = {'exact': plain, 'word': word, 'relation': relation,
                'identity_equation': identity_equation, 'equation_classification': equation_classification,
                'like_terms': lambda value: contextual_yes_no(value, 'like_terms'),
                'equation_solution': lambda value: contextual_yes_no(value, 'equation_solution')}
+
+
+class SelfReferenceProof(ABC):
+    """A computed, complete reference proof with a strict semantic parser.
+
+    This offline contract does not grade a student's free response. Subclasses
+    must derive their mathematical state from the prompt's inputs, then parse
+    the whole reference; unsupported or additional claims must fail closed.
+    """
+
+    @abstractmethod
+    def matches(self, reference):
+        """Return bool only when every claim in the reference is verified."""
 
 
 class TextProof:
