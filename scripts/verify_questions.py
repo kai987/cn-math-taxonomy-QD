@@ -493,6 +493,20 @@ def main():
                 'note': '明确的几何/代数/信息保证与描述规范逐项核验，未给定的偏好或调查目标保留人工依据。',
             }
             errs.extend(issues)
+        from check_remaining_25 import PATH as REVIEW25_PATH, review_errors as review25_errors
+        if REVIEW25_PATH.exists():
+            review25 = json.loads(REVIEW25_PATH.read_text(encoding='utf-8'))
+            issues = review25_errors(questions, review25, catalogue(), list(topics.values()))
+            report['followup_25'] = {
+                'source': str(REVIEW25_PATH.relative_to(ROOT)),
+                'reviewed': len(review25['entries']),
+                'outcomes': review25['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review25['entries']),
+                'self_reference_models': review25['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '明确的数学目标独立执行核验；未给比较准则、情境证据和开放判断保留人工边界。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:

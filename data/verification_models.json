@@ -22980,6 +22980,475 @@
           }
         ]
       }
+    },
+    "cnm_225_q1": {
+      "question_sha256": "17c2cc07aaaf77baa066c50140e4a5a2d2dc619b4b9e7a9377e5716be16236e1",
+      "spec": {
+        "kind": "f25_quadratic_variable_factor_first_step",
+        "domain": "all_real",
+        "equation": {
+          "variable": "x",
+          "quadratic_coefficient": 3,
+          "linear_rhs_coefficient": 6
+        },
+        "target": "first_variable_factor_zero_product",
+        "options": [
+          {
+            "key": "A",
+            "text": "因式分解法",
+            "program": {
+              "op": "extract_variable_factor"
+            }
+          },
+          {
+            "key": "B",
+            "text": "直接开平方法",
+            "program": {
+              "op": "prepare_then_open_square_root"
+            }
+          },
+          {
+            "key": "C",
+            "text": "配方法",
+            "program": {
+              "op": "complete_square"
+            }
+          },
+          {
+            "key": "D",
+            "text": "公式法",
+            "program": {
+              "op": "quadratic_formula"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_104_q3": {
+      "question_sha256": "93afb05f96097c5aa092ec33035af8b9bc42a3414e0d26400cf85293fe97d35b",
+      "spec": {
+        "kind": "g25_frame_coverage_risk",
+        "premises": {
+          "target": "all_city_residents",
+          "frame": "resident_library_visitors",
+          "frame_relation": "proper_subset",
+          "time_unit": "hours_per_day",
+          "reading_bounds": {
+            "lower": 0,
+            "upper": 24
+          },
+          "sampling": {
+            "op": "select_distinct",
+            "from": "frame",
+            "size": 100
+          }
+        },
+        "example": {
+          "frame_size": 1000,
+          "omitted_size": 99000,
+          "inside_hours": 1,
+          "outside_hours": 0
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "100人必然超出了可调查来访读者的人数",
+            "claim": {
+              "op": "sample_size_exceeds_available_frame"
+            }
+          },
+          {
+            "key": "B",
+            "text": "抽样框未覆盖全体市民，可能产生选择偏差；实际偏差及其方向不能仅由地点断定",
+            "claim": {
+              "op": "all",
+              "claims": [
+                {
+                  "op": "frame_omits_population_members"
+                },
+                {
+                  "op": "positive_bias_possible"
+                },
+                {
+                  "op": "negative_bias_possible"
+                },
+                {
+                  "op": "zero_bias_possible"
+                }
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "只要在来访者中随机，就能保证全体市民都有入样机会且没有选择偏差风险",
+            "claim": {
+              "op": "all",
+              "claims": [
+                {
+                  "op": "everyone_has_sampling_chance"
+                },
+                {
+                  "op": "frame_randomness_guarantees_zero_bias"
+                }
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "改为只调查老年人，就能保证抽样框覆盖全体市民",
+            "claim": {
+              "op": "elderly_only_guarantees_population_coverage"
+            }
+          }
+        ]
+      }
+    },
+    "cnm_214_q2": {
+      "question_sha256": "de02601cf825b7b7670b99d1b62883f8011dd31b09fbce49663512a9e3cb934b",
+      "spec": {
+        "kind": "g25_historical_sales_modes",
+        "goal": "all_historical_maximum_frequency_sizes",
+        "example": [
+          36,
+          36,
+          38,
+          38
+        ],
+        "counterexample": [
+          36,
+          36,
+          36,
+          38,
+          40,
+          42,
+          44
+        ],
+        "options": [
+          {
+            "key": "A",
+            "text": "平均数",
+            "program": {
+              "op": "divide",
+              "numerator": {
+                "op": "sum",
+                "input": {
+                  "op": "values"
+                }
+              },
+              "denominator": {
+                "op": "length",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "中位数",
+            "program": {
+              "op": "middle",
+              "input": {
+                "op": "sort",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "众数",
+            "program": {
+              "op": "argmax_keys",
+              "input": {
+                "op": "frequencies",
+                "input": {
+                  "op": "values"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_300_q1": {
+      "question_sha256": "bf5dc7f66d29013e4843dbc5b88c1adc86b0481e9121d6ef548c902921860f27",
+      "spec": {
+        "kind": "app25_executable_survey_report",
+        "study": {
+          "population": "class",
+          "variable": "sleep_hours",
+          "unit": "hour",
+          "window": "weekday",
+          "value_domain": [
+            0,
+            24
+          ]
+        },
+        "world": {
+          "schema": {
+            "population": "class",
+            "variable": "sleep_hours",
+            "unit": "hour",
+            "window": "weekday",
+            "value_domain": [
+              0,
+              24
+            ]
+          },
+          "potential_records": [
+            {
+              "id": "r1",
+              "value": 7
+            },
+            {
+              "id": "r2",
+              "value": 6
+            },
+            {
+              "id": "r3",
+              "value": 8
+            },
+            {
+              "id": "r4",
+              "value": 6
+            }
+          ]
+        },
+        "initial": {
+          "question": null,
+          "records": null
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "确定问题→收集数据→整理数据→用图表描述→分析数据→得出结论与建议",
+            "program": [
+              {
+                "op": "formulate",
+                "question": {
+                  "population": "class",
+                  "variable": "sleep_hours",
+                  "unit": "hour",
+                  "window": "weekday",
+                  "value_domain": [
+                    0,
+                    24
+                  ]
+                }
+              },
+              {
+                "op": "collect"
+              },
+              {
+                "op": "organize"
+              },
+              {
+                "op": "encode_plot",
+                "input": "organized",
+                "scale": 2,
+                "offset": 1
+              },
+              {
+                "op": "analyze",
+                "input": "plot"
+              },
+              {
+                "op": "report",
+                "action": "review_routine"
+              }
+            ]
+          },
+          {
+            "key": "B",
+            "text": "收集数据→确定问题→整理数据→分析数据→得出结论",
+            "program": [
+              {
+                "op": "collect"
+              },
+              {
+                "op": "formulate",
+                "question": {
+                  "population": "class",
+                  "variable": "sleep_hours",
+                  "unit": "hour",
+                  "window": "weekday",
+                  "value_domain": [
+                    0,
+                    24
+                  ]
+                }
+              },
+              {
+                "op": "organize"
+              },
+              {
+                "op": "analyze",
+                "input": "raw"
+              },
+              {
+                "op": "report",
+                "action": "review_routine"
+              }
+            ]
+          },
+          {
+            "key": "C",
+            "text": "整理数据→收集数据→确定问题→分析数据→得出结论",
+            "program": [
+              {
+                "op": "organize"
+              },
+              {
+                "op": "collect"
+              },
+              {
+                "op": "formulate",
+                "question": {
+                  "population": "class",
+                  "variable": "sleep_hours",
+                  "unit": "hour",
+                  "window": "weekday",
+                  "value_domain": [
+                    0,
+                    24
+                  ]
+                }
+              },
+              {
+                "op": "analyze",
+                "input": "raw"
+              },
+              {
+                "op": "report",
+                "action": "review_routine"
+              }
+            ]
+          },
+          {
+            "key": "D",
+            "text": "确定问题→整理数据→收集数据→分析数据→画图表",
+            "program": [
+              {
+                "op": "formulate",
+                "question": {
+                  "population": "class",
+                  "variable": "sleep_hours",
+                  "unit": "hour",
+                  "window": "weekday",
+                  "value_domain": [
+                    0,
+                    24
+                  ]
+                }
+              },
+              {
+                "op": "organize"
+              },
+              {
+                "op": "collect"
+              },
+              {
+                "op": "analyze",
+                "input": "raw"
+              },
+              {
+                "op": "encode_plot",
+                "input": "raw",
+                "scale": 1,
+                "offset": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "cnm_300_q2": {
+      "question_sha256": "f4b5854912eaeb28ebf72c85f9760cdd446512b8d92aab8e829b63a15d8de566",
+      "spec": {
+        "kind": "app25_executable_first_action",
+        "study": {
+          "population": "class",
+          "variable": "sleep_hours",
+          "unit": "hour",
+          "window": "weekday",
+          "value_domain": [
+            0,
+            24
+          ]
+        },
+        "world": {
+          "schema": {
+            "population": "class",
+            "variable": "sleep_hours",
+            "unit": "hour",
+            "window": "weekday",
+            "value_domain": [
+              0,
+              24
+            ]
+          },
+          "potential_records": [
+            {
+              "id": "r1",
+              "value": 7
+            },
+            {
+              "id": "r2",
+              "value": 6
+            },
+            {
+              "id": "r3",
+              "value": 8
+            },
+            {
+              "id": "r4",
+              "value": 6
+            }
+          ]
+        },
+        "initial": {
+          "question": null,
+          "records": null
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "确定要研究的问题",
+            "action": {
+              "op": "formulate",
+              "question": {
+                "population": "class",
+                "variable": "sleep_hours",
+                "unit": "hour",
+                "window": "weekday",
+                "value_domain": [
+                  0,
+                  24
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "画统计图",
+            "action": {
+              "op": "encode_plot",
+              "input": "raw",
+              "scale": 1,
+              "offset": 0
+            }
+          },
+          {
+            "key": "C",
+            "text": "收集数据",
+            "action": {
+              "op": "collect"
+            }
+          }
+        ]
+      }
     }
   }
 }

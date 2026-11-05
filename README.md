@@ -203,7 +203,7 @@ node scripts/screenshot.js                         # 冒烟测试 + 截图（需
 
 ## 题库（第五轮当时；小学题见上一节）
 
-`data/questions.json` 现在共 **2271** 题（小学 864 + 初中 1407）。第五轮给当时的 315 个初中正式知识点各建 4–5 道题，**1407 题**，这些题没有改写；`topics.json` 里原有的 `diagnostic_question` 迁移为每个知识点的第 1 题（id 后缀 `_q1`），原字段保留不动。
+`data/questions.json` 现在共 **2271** 题（小学 864 + 初中 1407）。第五轮给当时的 315 个初中正式知识点各建 4–5 道题，共 **1407 题**；后续复核对部分题目作了修订。`topics.json` 里原有的 `diagnostic_question` 迁移为每个知识点的第 1 题（id 后缀 `_q1`），原字段继续用于浏览页预览，并随相关题目修订同步。
 
 第五轮当时的分布（只计那 1407 题）：
 
@@ -220,7 +220,7 @@ python3 scripts/verify_questions.py   # 自动核验，写 data/verification_rep
 python3 scripts/validate.py           # 含题库格式检查与题量统计
 ```
 
-全库当前（2026-11-05，`verify_questions.py`）：参考答案 auto_verified **2246 / 2271**，mismatch **0**，unverifiable **25**（choice 24、self 1）。最新一轮已逐题复核此前剩余的 29 题，补充 4 个完整模型；保留人工项均记录推导、判题边界与缺失依据。全部 6 道 self 的学生作答仍自评。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
+全库当前（2026-11-05，`verify_questions.py`）：参考答案 auto_verified **2251 / 2271**，mismatch **0**，unverifiable **20**（choice 19、self 1）。最新一轮已逐题复核此前剩余的 25 题，补充 5 个完整模型；保留人工项均记录推导、判题边界与缺失依据。全部 6 道 self 的学生作答仍自评。题目与答案全部由 AI 生成、未经教师审核；格式、核验方法、统计与局限见 [docs/questions.md](docs/questions.md)。
 
 ## 已知局限
 

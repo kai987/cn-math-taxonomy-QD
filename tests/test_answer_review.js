@@ -58,11 +58,12 @@ for (const item of [...read('answer_review_remaining_455.json').entries,
   ...read('answer_review_remaining_41.json').entries,
   ...read('answer_review_remaining_36.json').entries,
   ...read('answer_review_remaining_33.json').entries,
-  ...read('answer_review_remaining_29.json').entries]) {
+  ...read('answer_review_remaining_29.json').entries,
+  ...read('answer_review_remaining_25.json').entries]) {
   for (const grading of item.grading || []) {
     if (!seen.has(JSON.stringify([item.id, grading.input, grading.result]))) {
       check(questions.get(item.id), grading.input, grading.result);
     }
   }
 }
-console.log('PASS: 532 reviewed questions, 455, 160, 105, 63, 43, 41, 36, 33 and 29 follow-up records; ' + assertions + ' answer grading assertions');
+console.log('PASS: 532 reviewed questions, 455, 160, 105, 63, 43, 41, 36, 33, 29 and 25 follow-up records; ' + assertions + ' answer grading assertions');

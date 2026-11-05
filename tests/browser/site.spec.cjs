@@ -50,6 +50,12 @@ const trackCompensation = seedFor('cnm_061', question => question.id === 'cnm_06
 const integralSubstitution = seedFor('cnm_089', question => question.id === 'cnm_089_q5');
 const finiteTableRepresentation = seedFor('cnm_198', question => question.id === 'cnm_198_q1');
 const rotationDescription = seedFor('cnm_244', question => question.id === 'cnm_244_q2');
+const factorizationTask = seedFor('cnm_225', question => question.id === 'cnm_225_q1');
+const historicalSizeTask = seedFor('cnm_214', question => question.id === 'cnm_214_q2');
+const restrictedFrameTask = seedFor('cnm_104', question => question.id === 'cnm_104_q3');
+const statisticsWorkflow = seedFor('cnm_300', question => question.id === 'cnm_300_q1');
+const statisticsFirstStep = seedFor('cnm_300', question => question.id === 'cnm_300_q2');
+const salaryJudgment = seedFor('cnm_303', question => question.id === 'cnm_303_q1');
 const earlierSpinnerQuestions = questions.filter(question => question.topicId === 'cnm_315' && question.id !== 'cnm_315_q4').map(question => question.id);
 const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
@@ -823,6 +829,62 @@ async function reviewedChoiceAfterRefresh(page, { topic, item, wrong, conditions
   await expect(page.locator('#explain')).toContainText(item.question.explanation);
   await noHorizontalOverflow(page);
 }
+
+for (const example of [
+  { topic: 'cnm_225', item: factorizationTask, wrong: 'B', conditions: [] },
+  { topic: 'cnm_214', item: historicalSizeTask, wrong: 'A', conditions: [] },
+  { topic: 'cnm_300', item: statisticsWorkflow, wrong: 'B', conditions: [] }
+]) {
+  test('25-item explicit task ' + example.item.question.id + ' keeps grading, reference and explanation after refresh', async ({ page }) => {
+    await reviewedChoiceAfterRefresh(page, example);
+    if (example.item.question.id.endsWith('_q1')) {
+      const topic = topics.find(topic => topic.id === example.topic);
+      await page.goto(siteURL('/#' + example.topic));
+      await expect(page.locator('#main .title')).toHaveText(topic.name);
+      await expect(page.locator('#main .q > div')).toHaveText(topic.diagnostic_question.question);
+      await activate(page, page.locator('#main details.ans > summary'));
+      await expect(page.locator('#main details.ans > div')).toHaveText(topic.diagnostic_question.answer);
+      await expect(page.locator('#main details.ans > div')).toBeVisible();
+      await noHorizontalOverflow(page);
+    }
+  });
+}
+
+for (const example of [
+  { topic: 'cnm_104', item: restrictedFrameTask, wrong: 'C', conditions: [] },
+  { topic: 'cnm_300', item: statisticsFirstStep, wrong: 'C', conditions: [] }
+]) {
+  test('25-item grading contract ' + example.item.question.id + ' retains current constraints after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+    await reviewedChoiceAfterRefresh(page, example);
+  });
+}
+
+test('25-item salary interpretation remains self assessed with its draft and reference after refresh', async ({ page }) => {
+  const draft = '平均数20，中位数9；代表性还需要说明比较目标。';
+  expect(salaryJudgment.question.type).toBe('self');
+  expect(salaryJudgment.question.verify).toBeUndefined();
+  await page.goto(targetURL('cnm_303', salaryJudgment.seed));
+  await expect(page).toHaveTitle(/数学知识点诊断/);
+  await expect(page.locator('#q-text')).toHaveText(salaryJudgment.question.prompt);
+  await page.locator('textarea#ans').fill(draft);
+  await page.reload();
+  await expect(page.locator('textarea#ans')).toHaveValue(draft);
+  await activate(page, page.locator('#btn-peek'));
+  await expect(page.locator('.refans')).toContainText(salaryJudgment.question.answer);
+  await expect(page.locator('#explain')).toContainText(salaryJudgment.question.explanation);
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await page.reload();
+  await expect(page.getByText('你的答案：' + draft, { exact: true })).toBeVisible();
+  expect((await savedSession(page)).draft.answer).toBe(draft);
+  await expect(page.locator('.refans')).toContainText(salaryJudgment.question.answer);
+  await expect(page.locator('#explain')).toContainText(salaryJudgment.question.explanation);
+  await expect(page.locator('.verdict')).toHaveCount(0);
+  await expect(page.locator('#btn-right')).toBeVisible();
+  await expect(page.locator('#btn-wrong')).toBeVisible();
+  await noHorizontalOverflow(page);
+});
 
 for (const example of [
   { topic: 'cnm_061', item: trackCompensation, wrong: 'A', conditions: [/同一终点线/, /400\s*m/] },
