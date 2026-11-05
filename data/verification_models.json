@@ -22223,6 +22223,382 @@
           }
         }
       }
+    },
+    "cnm_107_q3": {
+      "question_sha256": "d0a687fe1fc1f3e7e2dafc3d492c6ce0c5b3dd1198533a8b62c66568a2771a6e",
+      "spec": {
+        "kind": "g33_histogram_axis_encoding",
+        "construction": {
+          "shape": "axis_aligned_rectangles",
+          "bin_axis": "x",
+          "frequency_origin": 0,
+          "frequency_scale": 1,
+          "bin_spacing": "equal_width"
+        },
+        "example": {
+          "endpoints": [
+            -3,
+            -1,
+            1,
+            3
+          ],
+          "frequencies": [
+            1,
+            0,
+            3
+          ]
+        },
+        "counterexample": {
+          "endpoints": [
+            -4,
+            1,
+            6,
+            11
+          ],
+          "frequencies": [
+            2,
+            4,
+            1
+          ]
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "频数；数据分组",
+            "axes": {
+              "x": {
+                "op": "cardinality",
+                "of": {
+                  "op": "bin_members"
+                }
+              },
+              "y": {
+                "op": "bin_intervals"
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "数据分组；频数",
+            "axes": {
+              "x": {
+                "op": "bin_intervals"
+              },
+              "y": {
+                "op": "cardinality",
+                "of": {
+                  "op": "bin_members"
+                }
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "数据总数；组距",
+            "axes": {
+              "x": {
+                "op": "cardinality",
+                "of": {
+                  "op": "all_members"
+                }
+              },
+              "y": {
+                "op": "length",
+                "of": {
+                  "op": "bin_intervals"
+                }
+              }
+            }
+          },
+          {
+            "key": "D",
+            "text": "频率；组数",
+            "axes": {
+              "x": {
+                "op": "divide",
+                "numerator": {
+                  "op": "cardinality",
+                  "of": {
+                    "op": "bin_members"
+                  }
+                },
+                "denominator": {
+                  "op": "cardinality",
+                  "of": {
+                    "op": "all_members"
+                  }
+                }
+              },
+              "y": {
+                "op": "cardinality",
+                "of": {
+                  "op": "bins"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_287_q4": {
+      "question_sha256": "2193fecc4f9fbf4c99305a9b9b23733b2fdd8781c7fb1065fc32aface376e635",
+      "spec": {
+        "kind": "app33_three_component_tree",
+        "components": 3,
+        "combination_semantics": "all_factor_combinations",
+        "options": [
+          {
+            "key": "A",
+            "text": "连续抛三枚均匀的硬币",
+            "experiment": {
+              "op": "repeat",
+              "count": 3,
+              "trial": {
+                "op": "finite_outcomes",
+                "values": [
+                  "H",
+                  "T"
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "同时掷两枚骰子",
+            "experiment": {
+              "op": "simultaneous_product",
+              "factors": [
+                {
+                  "op": "finite_outcomes",
+                  "values": [
+                    "d1",
+                    "d2",
+                    "d3",
+                    "d4",
+                    "d5",
+                    "d6"
+                  ]
+                },
+                {
+                  "op": "finite_outcomes",
+                  "values": [
+                    "d1",
+                    "d2",
+                    "d3",
+                    "d4",
+                    "d5",
+                    "d6"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "key": "C",
+            "text": "先抛一枚硬币，再掷一枚骰子",
+            "experiment": {
+              "op": "sequential_product",
+              "factors": [
+                {
+                  "op": "finite_outcomes",
+                  "values": [
+                    "H",
+                    "T"
+                  ]
+                },
+                {
+                  "op": "finite_outcomes",
+                  "values": [
+                    "d1",
+                    "d2",
+                    "d3",
+                    "d4",
+                    "d5",
+                    "d6"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "摸出一个球后放回，再摸一个球",
+            "experiment": {
+              "op": "repeat",
+              "count": 2,
+              "trial": {
+                "op": "draw_with_replacement",
+                "population": [
+                  "r",
+                  "b"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "cnm_296_q2": {
+      "question_sha256": "6335b7e26e7dac29cda2a704df315762acb86b67449392cfe4798674eb546713",
+      "spec": {
+        "kind": "app33_proportional_axis",
+        "domain": "all_nonnegative_values",
+        "encoding": "upright_bar_height",
+        "requirement": "preserve_all_value_ratios",
+        "options": [
+          {
+            "key": "A",
+            "text": "随意选择起点，只要好看",
+            "rule": {
+              "family": "arbitrary_origin_positive_scale",
+              "witness": {
+                "scale": 2,
+                "baseline": 1,
+                "values": [
+                  2,
+                  3
+                ]
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "相同数值差可用不同的物理距离表示，以突出重点",
+            "rule": {
+              "family": "unequal_physical_spacing_per_equal_value_difference",
+              "witness": {
+                "knots": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    3
+                  ]
+                ],
+                "values": [
+                  1,
+                  2
+                ]
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "从 0 开始，刻度均匀",
+            "rule": {
+              "family": "uniform_positive_scale",
+              "baseline": 0
+            }
+          }
+        ]
+      }
+    },
+    "cnm_315_q4": {
+      "question_sha256": "30bf1ca1440cb218621df279ad176ef9a8df10f3cce59b6227886734653ad288",
+      "spec": {
+        "kind": "app33_fair_game_evidence",
+        "ideal": {
+          "outcomes": [
+            {
+              "player": "甲",
+              "weight": 1
+            },
+            {
+              "player": "乙",
+              "weight": 1
+            }
+          ],
+          "probabilities_knowledge": "ideal_single_trial_only"
+        },
+        "observed": {
+          "total": 100,
+          "counts": [
+            {
+              "player": "甲",
+              "count": 46
+            },
+            {
+              "player": "乙",
+              "count": 54
+            }
+          ],
+          "actual_joint_law": "not_specified"
+        },
+        "goal": {
+          "op": "equal",
+          "players": [
+            "甲",
+            "乙"
+          ],
+          "quantity": "single_trial_win_probability"
+        },
+        "options": [
+          {
+            "key": "A",
+            "text": "游戏一定不公平，因为两个频率不相等",
+            "claim": {
+              "op": "forced_by_counts",
+              "conclusion": {
+                "op": "unequal_probabilities"
+              }
+            }
+          },
+          {
+            "key": "B",
+            "text": "试验结果无效，必须重新设计游戏",
+            "claim": {
+              "op": "forced_by_counts",
+              "conclusion": {
+                "op": "invalid_recording_and_redesign"
+              }
+            }
+          },
+          {
+            "key": "C",
+            "text": "本次胜次与理想公平随机模型相容，不能仅因频率不相等就断定不公平；若按理想公平模型做大量同条件独立试验，频率的典型波动会减小，但不保证每次增加都更接近1/2",
+            "claim": {
+              "op": "all",
+              "claims": [
+                {
+                  "op": "compatible_with_ideal"
+                },
+                {
+                  "op": "not_forced_by_counts",
+                  "conclusion": {
+                    "op": "unequal_probabilities"
+                  }
+                },
+                {
+                  "op": "iid_frequency_concentrates",
+                  "law": "future_same_condition_iid",
+                  "center": "1/2"
+                },
+                {
+                  "op": "no_stepwise_closeness_guarantee",
+                  "law": "future_same_condition_iid",
+                  "center": "1/2"
+                }
+              ]
+            }
+          },
+          {
+            "key": "D",
+            "text": "这些结果说明应修改规则，使甲的理论胜率高于乙",
+            "claim": {
+              "op": "recommend_strict_advantage_from_counts",
+              "greater": "甲",
+              "less": "乙",
+              "target": "equal_single_trial_chances"
+            }
+          }
+        ]
+      }
     }
   }
 }

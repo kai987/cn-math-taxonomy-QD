@@ -12,10 +12,10 @@ const topicCount = topics.filter(topic => !topic.external).length;
 const basePath = process.env.PLAYWRIGHT_BASE_URL ? new URL(process.env.PLAYWRIGHT_BASE_URL).pathname.replace(/\/$/, '') : '';
 const siteURL = relative => basePath + relative;
 
-function seedFor(topicId, predicate) {
+function seedFor(topicId, predicate, avoid = []) {
   for (let index = 0; index < 200; index++) {
     const seed = 'browser-' + index;
-    const item = E.nextItem(graph, E.createSession(graph, [topicId], { seed, avoid: [] }));
+    const item = E.nextItem(graph, E.createSession(graph, [topicId], { seed, avoid }));
     if (item && predicate(item.question)) return { seed, question: item.question };
   }
   throw new Error('No deterministic question matched ' + topicId);
@@ -44,6 +44,10 @@ const linearIntercept = seedFor('cnm_206', question => question.id === 'cnm_206_
 const dataOrganization = seedFor('cnm_300', question => question.id === 'cnm_300_q3');
 const histogramAxisConvention = seedFor('cnm_107', question => question.id === 'cnm_107_q3');
 const spinnerDesign = seedFor('cnm_315', question => question.id === 'cnm_315_q1');
+const barProportions = seedFor('cnm_296', question => question.id === 'cnm_296_q2');
+const threeStageTree = seedFor('cnm_287', question => question.id === 'cnm_287_q4');
+const earlierSpinnerQuestions = questions.filter(question => question.topicId === 'cnm_315' && question.id !== 'cnm_315_q4').map(question => question.id);
+const trialEvidence = seedFor('cnm_315', question => question.id === 'cnm_315_q4', earlierSpinnerQuestions);
 const targetURL = (topic, seed) => siteURL('/diagnose/?target=' + topic + '&seed=' + seed);
 const sessionKey = 'cnmDiagnose.session.v2';
 
@@ -740,4 +744,48 @@ test('36-item spinner reference retains trial limits and student self assessment
   await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
   await page.reload();
   await expect(page.locator('#summary')).toContainText('目标知识点已掌握');
+});
+
+for (const [topic, item] of [['cnm_296', barProportions], ['cnm_287', threeStageTree]]) {
+  test('33-item precise task ' + topic + ' keeps current grading and explanation after refresh', { tag: '@grading-contract' }, async ({ page }) => {
+    await page.goto(targetURL(topic, item.seed));
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    const wrong = item.question.choices.find(option => option.key !== item.question.answer).key;
+    await activate(page, page.locator('#choice-' + wrong));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+    await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+    await activate(page, page.locator('#choice-' + item.question.answer));
+    await activate(page, page.locator('#btn-submit'));
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await page.reload();
+    await expect(page.locator('#q-text')).toHaveText(item.question.prompt);
+    await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+    await expect(page.locator('#explain')).toContainText(item.question.explanation);
+    await noHorizontalOverflow(page);
+  });
+}
+
+test('33-item fairness task uses the unseen advanced item and preserves its full feedback', async ({ page }) => {
+  await page.addInitScript(ids => {
+    if (!localStorage.getItem('cnmDiagnose.seen.v1')) localStorage.setItem('cnmDiagnose.seen.v1', JSON.stringify(ids));
+  }, earlierSpinnerQuestions);
+  await page.goto(targetURL('cnm_315', trialEvidence.seed));
+  await expect(page.locator('#q-text')).toHaveText(trialEvidence.question.prompt);
+  await activate(page, page.locator('#choice-D'));
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：不正确');
+  await activate(page, page.getByRole('button', { name: '重新作答', exact: true }));
+  const correct = page.locator('#choice-' + trialEvidence.question.answer);
+  await activate(page, correct);
+  await page.reload();
+  await expect(correct).toHaveAttribute('aria-pressed', 'true');
+  await activate(page, page.locator('#btn-submit'));
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await page.reload();
+  await expect(page.locator('#q-text')).toHaveText(trialEvidence.question.prompt);
+  await expect(page.locator('.verdict')).toHaveText('自动判定：正确');
+  await expect(page.locator('.refans')).toContainText(trialEvidence.question.choices.find(option => option.key === trialEvidence.question.answer).text);
+  await expect(page.locator('#explain')).toContainText(trialEvidence.question.explanation);
+  await noHorizontalOverflow(page);
 });

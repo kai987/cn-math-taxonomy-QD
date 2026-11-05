@@ -1117,7 +1117,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "同形平行跑道的直道长度相同，两段半圆的总弧长为2πr。外道半径多d>0，整圈多2πd；若前移弧长δ，剩余路程之差为2πd−δ，所以等路程充要条件为δ=2πd，且前移量唯一。D陈述了这一几何平衡，B说外道直道更短与构造不符。A体能与C美观没有给出和路径长度的关系，不能由弧长推导为外道前移的物理原因。",
+      "reason": "标准同形平行跑道有两段相同直道和两段半圆，L(r)=2s+2πr。外道半径增加d>0、沿跑程前移δ后，其剩余路程比内道多2πd−δ。各道均跑400m要求此差为0，充要且唯一地给出δ=2πd；这验证D的等程机制，B的直道更短不符构造。若只前移πd，仍多跑πd，尽管已是正的前移量；体能优势或美观动机没有给出能排除该非等程情形的长度约束。",
       "question_sha256": "049335799112a06fe9096d750e6595a548314f7926b4b1edb5a5a6c8d79994dd",
       "verify": null
     },
@@ -2178,8 +2178,8 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "本课的等组距、频数高度画法把每组[aᵢ,aᵢ₊₁)放在横坐标区间，矩形高度就是该组数据个数fᵢ；因此横轴为数据分组、纵轴为频数，B符合该约定。A把坐标角色颠倒；C的数据总数/组距与D的频率/组数均不是这两个坐标所承载的量。",
-      "question_sha256": "dd2cc5217e866a8b99a02ca29857faa706b2bc5297ad7f7fd0148b93fc070d78",
+      "reason": "一般等宽组的左端记l、组距w>0、该组频数f为非负整数。实际构造矩形四顶点(l,0)、(l+w,0)、(l+w,f)、(l,f)，在横轴的投影恰为[l,l+w]，纵轴投影为[0,f]；因此端点完整保留数据分组，零基线到顶边的跨度精确还原f，零频组也不丢失。程序还逐根构造示例矩形并解码整张表。所有选项的轴描述均独立执行：分组取区间、频数取各组观测集合基数、总数取不交并基数、组距取区间长度、频率取各组基数除总基数、组数取区间集合基数。只有B与两轴的一般投影恒等；A交换角色，C/D各自至少一个量不满足普遍编码关系，并由合法等宽频数表提供实际反例，未把一次数值不等当作全域结论。",
+      "question_sha256": "d0a687fe1fc1f3e7e2dafc3d492c6ce0c5b3dd1198533a8b62c66568a2771a6e",
       "grading": [
         {
           "input": "A",
@@ -2198,7 +2198,7 @@
           "result": "wrong"
         }
       ],
-      "verify": null
+      "verify": "model('cnm_107_q3')"
     },
     {
       "id": "cnm_108_q1",
@@ -8165,9 +8165,9 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A逐枚抛三枚硬币是三个二分阶段，按顺序共有2³=8条结果路径，符合题目三个阶段的限制。B把两枚骰子作为两个结果坐标，有6²=36对；C硬币后骰子有2×6=12对；D放回后再摸是两个抽取阶段。树状图逐层分支通常更便于展现A的三步结构，所以教材选A。",
-      "question_sha256": "5a92a8345b9cf83bb4aaf40ef2890333840fc528523ec13ff15cdf9052a55a3f",
-      "verify": null
+      "reason": "候选由有限单次结果、重复或有序乘积的实验AST给出。A有三个二元结果分量，模型实际枚举8个有序元组并构造前缀树，逐条验证叶路径与全部元组双射且各路径含三个分支步骤。B有两个骰子坐标、36对，C有两个坐标、12对；D重复抽取两次，分量数恒为2，不取决于袋子大小。因此仅A满足三个结果分量并可完整逐步分支的目标。",
+      "question_sha256": "2193fecc4f9fbf4c99305a9b9b23733b2fdd8781c7fb1065fc32aface376e635",
+      "verify": "model('cnm_287_q4')"
     },
     {
       "id": "cnm_288_q2",
@@ -8238,7 +8238,7 @@
       "independent_answer": "B",
       "expected_answer": "B",
       "basis": "definition",
-      "reason": "当前问题是全班个人偏好，向这些学生直接询问能得到所需自报，B符合通常调查情境。实验不直接给出喜好回答，资料未必覆盖本班当前偏好。",
+      "reason": "本班学生当前最喜欢的读物属于个人偏好，问卷直接收集本班自报信息，B符合通常课堂场景。实验不直接给出喜好，查阅资料也未说明已有覆盖本班当前偏好的适用记录。",
       "question_sha256": "d27a576e67d53c5d532bf9f8f2307d131f2b94579ca2608301f53f3e61c8785c",
       "verify": null
     },
@@ -8247,7 +8247,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "全国近十年人口总量需要逐年、全国覆盖且口径可比的历史序列；官方统计年鉴通常提供这种记录，A最直接。重新逐户问卷不保证重建历史总量，实验不能重做过去人口，10人访谈也不能提供全国逐年总人数。",
+      "reason": "研究全国近十年人口总量需全国覆盖、逐年且口径可比的历史序列，年鉴等官方记录通常直接提供，A合适。重新逐户问卷不保证重建历史总量，实验不能重做过去人口，10人访谈也不能给全国逐年总人数。",
       "question_sha256": "8f417599ad393aad734688c7d155451ba6b547878c123abcb040a7249cf76474",
       "verify": null
     },
@@ -8256,7 +8256,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "D通过带评价的反问暗示游戏浪费时间，可能诱导少报。匿名可减轻顾虑，清楚互斥的区间可减少理解错误，跨年级随机发放有助覆盖，故D是明显的诱导措辞。",
+      "reason": "D的反问与“浪费时间”的评价暗示预期答案，可能诱导少报；匿名有助减轻顾虑，清楚互斥区间有助减少理解错误，跨年级随机发放有助覆盖，因此D是明显的诱导措辞。",
       "question_sha256": "d68017da7b09114999b8d8aaabf94bc7610bce4e8c2b923d4ee7a6bbe5dfcc0d",
       "verify": null
     },
@@ -8304,9 +8304,9 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "普通条形图以柱高编码数值。h(x)=ax（a>0）保持比例；若h(x)=a(x-b)，则h(x)y-h(y)x=ab(x-y)，要对全部数值保比例须b=0。C的零基线和均匀刻度符合该原则，随意起点或不均匀尺度不能保证它。",
-      "question_sha256": "c274f6bab1f52967a44430322a22c4b8bed061fdd23bdeaef38945aaac51fbcd",
-      "verify": null
+      "reason": "一般全域比例关系f(x)y=f(y)x取y=1即得f(x)=f(1)x，非负直立柱高要求正比例尺度且零高度对应0。模型对C的全部正尺度a证明h(x)=ax的交叉乘差恒为0；对A验证合法正柱高反例a=2,b=1,x=2,y=3，比例不符；对B实际构造严格递增的分段线性物理校准(0,0),(1,1),(2,3)，两数值1与2的柱高比1:3而非1:2。有限反例只驳倒规则保证，C的正结论用全变量恒等式。",
+      "question_sha256": "6335b7e26e7dac29cda2a704df315762acb86b67449392cfe4798674eb546713",
+      "verify": "model('cnm_296_q2')"
     },
     {
       "id": "cnm_297_q2",
@@ -8340,7 +8340,7 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "在同总体SRS不放回、充分应答并用样本比例估计时，方差为p(1-p)(N-n)/(n(N-1))。n<m时方差差的规模因子m(N-n)-n(N-m)=N(m-n)非负，因此200人的典型波动不大于20人。眼镜店与视力不合格框可能选择偏，C通常更可靠。",
+      "reason": "同总体SRS不放回、充分应答并用样本比例时，Var=p(1-p)(N-n)/(n(N-1))。n<m的方差差含非负规模因子m(N-n)-n(N-m)=N(m-n)，因此200人典型波动不大于20人；眼镜店和视力不合格者框可能选择偏，通常选C。",
       "question_sha256": "43bf474e7c8d414432463ffe8662f36ce3080013f9c4c11fdd81f9d06fbc934b",
       "verify": null
     },
@@ -8349,7 +8349,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "A先明确问题，再收集、分类整理、图示、分析并形成结论建议，符合本课主要流程。B在确定问题前收集，C在收集前整理，D也先整理且未形成完整结论建议链，都不符合这一标准顺序。",
+      "reason": "A从问题开始，再取得数据、整理、图示、分析并形成结论建议，符合本课主要流程。B先收集后确定问题，C先整理后收集，D也先整理且缺完整结论建议，均不符合这一标准顺序。",
       "question_sha256": "5fb0d2e191720603055b5c5334067646906edcd2d1a7cb8ec0704200522e4a94",
       "verify": null,
       "catalogue_preview": {
@@ -8362,7 +8362,7 @@
       "independent_answer": "A",
       "expected_answer": "A",
       "basis": "definition",
-      "reason": "本课从问题出发的活动通常先确定研究目标，才据此选择对象、变量和收集方式，所以A为第一步。画图需要资料，收集也应服务于目标，B与C不是该标准流程的起点。",
+      "reason": "通常先明确研究什么，再决定对象、变量和收集方式，故A是本课从问题出发流程的起点；绘图需要资料，收集也须服务于目标，B、C不是该流程的第一步。",
       "question_sha256": "7806c16f04106f130a2c367566f6c209dc3e52d59476dd6642cc57aa5ee92368",
       "verify": null
     },
@@ -8398,7 +8398,7 @@
       "independent_answer": "D",
       "expected_answer": "D",
       "basis": "definition",
-      "reason": "篮球队、七年级和各班最高者限制样本框，可能系统偏离全校身高；D覆盖完整全校名单并随机抽取，较少受这些限制。在SRS且充分应答下，每人入样概率n/N使样本均值设计无偏；已有有限例子分别展示无偏机制和受限高个框的可能偏差。",
+      "reason": "篮球队、七年级和每班最高者都是受限子群，可能系统偏离全校身高。全名单随机方案D较少受这些框限制；在SRS且充分应答下，每人入样概率n/N使样本均值设计无偏。已有有限总体例子分别展示这一机制和高个受限框的可能偏差。",
       "question_sha256": "875b8c7fc3dc997eaa7bd9ed0807ae10484bf488f15a132394325b82c1a9178f",
       "verify": null
     },
@@ -8407,7 +8407,7 @@
       "independent_answer": "平均数20，中位数9；中位数更能代表一般员工水平",
       "expected_answer": "平均数 20，中位数 9；中位数更能代表一般水平，平均数被 65 拉高",
       "basis": "open",
-      "reason": "总工资为100千元，均值100/5=20千元；排序后第三项为9千元，即中位数。四人在8至10千元，65将均值拉高，因此若一般水平指多数员工的典型月薪，中位数更贴近。",
+      "reason": "工资总额100千元，均值20千元；排序后第三项9千元是中位数。四人在8至10千元，65使均值高于这一集中区域；若一般员工水平指多数人的典型月薪，中位数更贴切。将最高工资65仅改为10，均值下降11而中位数仍为9，具体展示极端值影响。",
       "question_sha256": "d2dc815fc54f457b8cb2d01dd2439a7c401ae09b9fe2c37e130c4391d2324d31",
       "grading": [
         {
@@ -8649,13 +8649,13 @@
       "independent_answer": "C",
       "expected_answer": "C",
       "basis": "definition",
-      "reason": "独立公平模型下46:54有二项概率，频率不等不逻辑排除公平；双侧偏离至少4次的尾概率可精确计算。频率方差1/(4n)体现典型波动减小，而46/100后甲再负使偏差增23/5050，说明不保证单调。C保留这些限制，A的必然不公平、B的必须无效和D的改规则均无充分依据。",
-      "question_sha256": "8dde2c4e7f09e7b087b8ad5ab30631d867c000f49f6c2b3407e7878df1bbd80c",
+      "reason": "从相等正权重归一化得到理想单次概率各1/2，按给定胜次构造无遗漏、无记录错误的可能试验序列；其公平iid路径概率2^(-100)>0，胜次概率C(100,46)2^(-100)>0。这是与题设兼容的见证，反驳A的必然不公平及B的必然记录无效，不假定实际100次已经独立。C逐项核验相容与非必然性，并对显式未来iid条件证明全n方差1/(4n)、任意epsilon>0的Chebyshev上界趋于0；一胜一负后再胜的合法正概率路径使偏差0增至1/6，否定逐步逼近保证。D要求理论概率差gap>0，而保持等机会要求gap=0，对全部严格优势改变均不相容，所以不构成该目标下的建议。",
+      "question_sha256": "30bf1ca1440cb218621df279ad176ef9a8df10f3cce59b6227886734653ad288",
       "corrected_fields": [
         "choices",
         "explanation"
       ],
-      "verify": null
+      "verify": "model('cnm_315_q4')"
     }
   ],
   "followup_455": {
@@ -8663,12 +8663,12 @@
     "summary": {
       "reviewed": 455,
       "outcomes": {
-        "model": 420,
-        "manual": 33,
+        "model": 424,
+        "manual": 29,
         "expression": 2
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
@@ -8760,6 +8760,7 @@
         "g105_sampling_guarantee": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
+        "g33_histogram_axis_encoding": 1,
         "g105_graph_order": 1,
         "g105_graph_extremum": 1,
         "geometry_triangle": 5,
@@ -8863,10 +8864,12 @@
         "g43_most_specific_projection": 1,
         "app_orthographic": 5,
         "app_probability": 7,
+        "app33_three_component_tree": 1,
         "app_bernoulli_claims": 3,
         "app105_symmetric_game_conditions": 1,
         "app41_empirical_collection": 1,
         "app63_partition_table_audit": 1,
+        "app33_proportional_axis": 1,
         "app_symbolic_ratio": 1,
         "app_sampling": 1,
         "app105_lottery_inclusion": 1,
@@ -8879,10 +8882,11 @@
         "app105_classical_sample_spaces": 1,
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "questions_corrected_or_clarified": 48,
-      "supporting_checks_not_counted_as_full_proofs": 34,
+      "questions_corrected_or_clarified": 50,
+      "supporting_checks_not_counted_as_full_proofs": 32,
       "catalogue_previews_synchronized": [
         "cnm_028",
         "cnm_050",
@@ -8906,11 +8910,11 @@
     "summary": {
       "reviewed": 160,
       "outcomes": {
-        "model": 127,
-        "manual": 33
+        "model": 131,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
@@ -8960,6 +8964,7 @@
         "g105_sampling_guarantee": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
+        "g33_histogram_axis_encoding": 1,
         "g105_graph_order": 1,
         "g105_graph_extremum": 1,
         "g105_direct_angle_rule": 2,
@@ -9009,9 +9014,11 @@
         "app105_parallel_light_fields": 1,
         "g43_most_specific_projection": 1,
         "linear_interval": 1,
+        "app33_three_component_tree": 1,
         "app105_symmetric_game_conditions": 1,
         "app41_empirical_collection": 1,
         "app63_partition_table_audit": 1,
+        "app33_proportional_axis": 1,
         "app105_lottery_inclusion": 1,
         "app41_categorical_organization": 1,
         "app36_statistical_action_signatures": 1,
@@ -9020,10 +9027,11 @@
         "app105_classical_sample_spaces": 1,
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 44,
-      "component_checks": 34
+      "repaired_questions": 46,
+      "component_checks": 32
     }
   },
   "followup_105": {
@@ -9031,11 +9039,11 @@
     "summary": {
       "reviewed": 105,
       "outcomes": {
-        "model": 72,
-        "manual": 33
+        "model": 76,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
@@ -9066,6 +9074,7 @@
         "g105_sampling_guarantee": 1,
         "g105_frequency_algorithm": 1,
         "g63_histogram_height": 1,
+        "g33_histogram_axis_encoding": 1,
         "g105_graph_order": 1,
         "g105_graph_extremum": 1,
         "g105_direct_angle_rule": 2,
@@ -9091,9 +9100,11 @@
         "app105_ray_family_properties": 1,
         "app105_parallel_light_fields": 1,
         "g43_most_specific_projection": 1,
+        "app33_three_component_tree": 1,
         "app105_symmetric_game_conditions": 1,
         "app41_empirical_collection": 1,
         "app63_partition_table_audit": 1,
+        "app33_proportional_axis": 1,
         "app105_lottery_inclusion": 1,
         "app41_categorical_organization": 1,
         "app36_statistical_action_signatures": 1,
@@ -9102,10 +9113,11 @@
         "app105_classical_sample_spaces": 1,
         "app105_replacement_protocols": 1,
         "app105_precipitation_interpretations": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 28,
-      "component_checks": 34
+      "repaired_questions": 31,
+      "component_checks": 32
     }
   },
   "followup_63": {
@@ -9113,11 +9125,11 @@
     "summary": {
       "reviewed": 63,
       "outcomes": {
-        "model": 30,
-        "manual": 33
+        "model": 34,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
@@ -9130,6 +9142,7 @@
         "f63_implication_rewrite": 1,
         "f63_translation_identifiability": 1,
         "g63_histogram_height": 1,
+        "g33_histogram_axis_encoding": 1,
         "g63_theorem_antecedent": 1,
         "g63_proof_evidence": 1,
         "g43_angle_criterion_signature": 1,
@@ -9142,14 +9155,17 @@
         "app63_square_rotation_certificates": 1,
         "app63_central_symmetry_types": 1,
         "g43_most_specific_projection": 1,
+        "app33_three_component_tree": 1,
         "app41_empirical_collection": 1,
         "app63_partition_table_audit": 1,
+        "app33_proportional_axis": 1,
         "app41_categorical_organization": 1,
         "app36_statistical_action_signatures": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 14,
-      "component_checks": 34
+      "repaired_questions": 17,
+      "component_checks": 32
     }
   },
   "followup_43": {
@@ -9157,31 +9173,35 @@
     "summary": {
       "reviewed": 43,
       "outcomes": {
-        "model": 10,
-        "manual": 33
+        "model": 14,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
         "f41_rational_sign_partition": 1,
         "f36_tank_outflow_reference": 1,
+        "g33_histogram_axis_encoding": 1,
         "g43_angle_criterion_signature": 1,
         "g41_affine_monotonic_quadrants_reference": 1,
         "g41_axis_equation_reference": 1,
         "g43_most_specific_projection": 1,
+        "app33_three_component_tree": 1,
         "app41_empirical_collection": 1,
+        "app33_proportional_axis": 1,
         "app41_categorical_organization": 1,
         "app36_statistical_action_signatures": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 6,
-      "component_checks": 34,
+      "repaired_questions": 9,
+      "component_checks": 32,
       "manual_gap_categories": {
-        "comparative_criterion": 19,
-        "design_or_evidence": 8,
-        "curriculum_convention": 5,
+        "comparative_criterion": 17,
+        "design_or_evidence": 7,
+        "curriculum_convention": 4,
         "open_response": 1
       }
     }
@@ -9191,29 +9211,33 @@
     "summary": {
       "reviewed": 41,
       "outcomes": {
-        "model": 8,
-        "manual": 33
+        "model": 12,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
         "f41_rational_sign_partition": 1,
         "f36_tank_outflow_reference": 1,
+        "g33_histogram_axis_encoding": 1,
         "g41_affine_monotonic_quadrants_reference": 1,
         "g41_axis_equation_reference": 1,
+        "app33_three_component_tree": 1,
         "app41_empirical_collection": 1,
+        "app33_proportional_axis": 1,
         "app41_categorical_organization": 1,
         "app36_statistical_action_signatures": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 2,
-      "component_checks": 34,
+      "repaired_questions": 5,
+      "component_checks": 32,
       "manual_gap_categories": {
-        "comparative_criterion": 19,
-        "design_or_evidence": 8,
-        "curriculum_convention": 5,
+        "comparative_criterion": 17,
+        "design_or_evidence": 7,
+        "curriculum_convention": 4,
         "open_response": 1
       },
       "self_reference_models": 5
@@ -9224,27 +9248,60 @@
     "summary": {
       "reviewed": 36,
       "outcomes": {
-        "model": 3,
-        "manual": 33
+        "model": 7,
+        "manual": 29
       },
       "remaining_by_type": {
-        "choice": 32,
+        "choice": 28,
         "self": 1
       },
       "models_by_kind": {
         "f36_tank_outflow_reference": 1,
+        "g33_histogram_axis_encoding": 1,
+        "app33_three_component_tree": 1,
+        "app33_proportional_axis": 1,
         "app36_statistical_action_signatures": 1,
-        "app36_spinner_reference": 1
+        "app36_spinner_reference": 1,
+        "app33_fair_game_evidence": 1
       },
-      "repaired_questions": 1,
-      "component_checks": 34,
+      "repaired_questions": 4,
+      "component_checks": 32,
       "manual_gap_categories": {
-        "comparative_criterion": 19,
-        "design_or_evidence": 8,
-        "curriculum_convention": 5,
+        "comparative_criterion": 17,
+        "design_or_evidence": 7,
+        "curriculum_convention": 4,
         "open_response": 1
       },
       "self_reference_models": 2
+    }
+  },
+  "followup_33": {
+    "source": "data/answer_review_remaining_33.json",
+    "summary": {
+      "reviewed": 33,
+      "outcomes": {
+        "manual": 29,
+        "model": 4
+      },
+      "remaining_by_type": {
+        "choice": 28,
+        "self": 1
+      },
+      "models_by_kind": {
+        "g33_histogram_axis_encoding": 1,
+        "app33_three_component_tree": 1,
+        "app33_proportional_axis": 1,
+        "app33_fair_game_evidence": 1
+      },
+      "repaired_questions": 4,
+      "component_checks": 32,
+      "manual_gap_categories": {
+        "comparative_criterion": 17,
+        "design_or_evidence": 7,
+        "curriculum_convention": 4,
+        "open_response": 1
+      },
+      "self_reference_models": 0
     }
   }
 }

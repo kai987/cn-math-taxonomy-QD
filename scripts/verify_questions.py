@@ -465,6 +465,20 @@ def main():
                 'note': '完整参考模型、数学组件和情境/教材判断分别记录；所有开放题学生作答仍自评。',
             }
             errs.extend(issues)
+        from check_remaining_33 import PATH as REVIEW33_PATH, review_errors as review33_errors
+        if REVIEW33_PATH.exists():
+            review33 = json.loads(REVIEW33_PATH.read_text(encoding='utf-8'))
+            issues = review33_errors(questions, review33, catalogue(), list(topics.values()))
+            report['followup_33'] = {
+                'source': str(REVIEW33_PATH.relative_to(ROOT)),
+                'reviewed': len(review33['entries']),
+                'outcomes': review33['summary']['outcomes'],
+                'scope_auto_verified': sum(entry['id'] in auto_ids for entry in review33['entries']),
+                'self_reference_models': review33['summary']['self_reference_models'],
+                'review_errors': issues,
+                'note': '坐标构造、样本空间与明确任务目标独立核验；未定义偏好和情境依据继续人工，开放作答仍自评。',
+            }
+            errs.extend(issues)
     out = None if args.check else (args.report or (None if args.file else REPORT_PATH))
     if out:
         with open(out, "w", encoding="utf-8") as f:
