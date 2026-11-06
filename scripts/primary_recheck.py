@@ -220,24 +220,66 @@ def _expr_has_dot(prompt):
 
 # 选择题：返回应当选中的选项文字。规则按数学事实写，不读取答案字段。
 def expected_choice_text(prompt, texts):
+    if not isinstance(texts, (list, tuple)) or any(not isinstance(text, str) for text in texts):
+        raise ParseError("选项须为文字列表")
+    texts = [text.strip() for text in texts]
+    if prompt in _EXACT_FACTS:
+        return _unique_text(_EXACT_FACTS[prompt], texts)
+    m = re.fullmatch(r"用凑十法算\s+([0-9]+)[＋+]([0-9]+)\s+时，把\s+([0-9]+)\s+拆成几和几更方便[？?]", prompt)
+    if m:
+        # 凑十的两个加数均是一位正整数。将第二个加数拆为
+        # 10-a 与 b-(10-a)；恰好凑十时允许后一部分为0。
+        if any(len(token) != 1 for token in m.groups()):
+            raise ParseError("凑十法要求一位数的十进制写法")
+        a, b, split = map(int, m.groups())
+        if not (1 <= a <= 9 and 1 <= b <= 9 and split == b and a+b >= 10):
+            raise ParseError("不在一位数凑十并拆第二加数的合法域")
+        wanted = sorted((10-a, b-(10-a)))
+        hits = []
+        for text in texts:
+            parts = re.fullmatch(r"([0-9])\s*和\s*([0-9])", text)
+            if not parts:
+                raise ParseError("拆数选项须明确给出两个一位非负整数")
+            numbers = list(map(int, parts.groups()))
+            if sum(numbers) == b and sorted(numbers) == wanted:
+                hits.append(text)
+        if len(hits) != 1:
+            raise ParseError("凑十拆数须恰有一个有效选项")
+        return hits[0]
     m = re.search(r"计算：(.+?)＝？", prompt)
     if m:
         val = fmt_value(eval_zh(m.group(1)))
         hits = [t for t in texts if _same_num(t, val)]
         if len(hits) == 1:
             return hits[0]
+        raise ParseError("计算结果须恰好命中一个选项")
     m = re.match(r"^(.+?) 的得数是哪一个？$", prompt)
     if m:
         val = fmt_value(eval_zh(m.group(1)))
         hits = [t for t in texts if _same_num(t, val)]
         if len(hits) == 1:
             return hits[0]
+        raise ParseError("计算结果须恰好命中一个选项")
     for pred, text in _FACTS:
         if pred(prompt):
-            if text not in texts:
-                raise ParseError("事实规则给出的文字不在选项里：%s / %s" % (text, texts))
-            return text
+            return _unique_text(text, texts)
     return None
+
+
+def _unique_text(text, texts):
+    if sum(candidate == text for candidate in texts) != 1:
+        raise ParseError("定义/课堂规则的文字须恰好命中一次：%s / %s" % (text, texts))
+    return text
+
+
+# 这四条是完整题干的定义或课堂规则，不以片段命中推广到否定、
+# 其它参照方向或其它验算任务，也不声称它们是新增的形式数学模型。
+_EXACT_FACTS = {
+    "从左数，排在最前面的是第几个？": "第1个",
+    "面向黑板站好，你正对着的那一边叫什么？": "前面",
+    "笔算加法算完后，常用什么方法验算？": "用减法：和减去一个加数，看是否等于另一个加数",
+    "线段和直线相比，下面哪一句说的是线段？": "有两个端点，可以量出长度",
+}
 
 
 def _same_num(text, val):
@@ -361,8 +403,8 @@ def solve_question(q):
         text = expected_choice_text(q["prompt"], texts)
         if text is None:
             raise ParseError("选择题无法独立求解：" + q["prompt"][:80])
-        for c in q["choices"]:
-            if c["text"].strip() == text:
-                return c["key"]
-        raise ParseError("选项缺失")
+        hits = [c for c in q["choices"] if c["text"].strip() == text]
+        if len(hits) != 1:
+            raise ParseError("正确选项缺失或重复")
+        return hits[0]["key"]
     raise ParseError("不支持的题型 " + q.get("type", ""))
